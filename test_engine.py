@@ -168,20 +168,28 @@ if _im is not None:
 else:
     print("  SKIP  source scan not available")
 
-print("\n=== Beachwood parent caption traverse (27 courses) ===")
-from build_beachwood_boundary import RAW_COURSES, balanced_poly, parent_area
+print("\n=== Beachwood parent caption traverse & 121-lot tabular schedule ===")
+from build_beachwood_boundary import RAW_COURSES, balanced_poly, parent_area, all_parcels as bw_parcels, lot_rows as bw_lot_rows, curve_rows as bw_curve_rows
 check("Beachwood 27 courses transcribed", len(RAW_COURSES) == 27, len(RAW_COURSES))
 check("Beachwood parent balanced closure EXACT",
       abs(balanced_poly[0].dist_to(balanced_poly[-1])) < 1e-6)
 check("Beachwood parent area > 60 Acres", parent_area > 60 * 43560, f"{parent_area/43560:.2f} ac")
+check("Beachwood 121 lots computed", len(bw_parcels) == 121, len(bw_parcels))
+check("Beachwood 121 lot schedule rows", len(bw_lot_rows) == 121, len(bw_lot_rows))
+check("Beachwood 100 standard lots at 7500 sf", sum(1 for r in bw_lot_rows if abs(r.area_sqft - 7500.0) < 0.5) == 100)
+check("Beachwood 13 curved lots identified with curve IDs", len([r for r in bw_lot_rows if r.curves]) == 13)
+check("Beachwood 19 circular curves tabulated (C1-C19)", len(bw_curve_rows) == 19, len(bw_curve_rows))
 
-print("\n=== Ocean Grove parent boundary traverse (4 courses) ===")
-from build_ocean_grove import boundary_pts, boundary_area, fec_dist
+print("\n=== Ocean Grove parent boundary & 20-lot tabular schedule ===")
+from build_ocean_grove import boundary_pts, boundary_area, fec_dist, all_parcels as og_parcels, lot_rows as og_lot_rows
 check("Ocean Grove 4-point closed polygon", len(boundary_pts) == 5)
 check("Ocean Grove parent closure EXACT",
       abs(boundary_pts[0].dist_to(boundary_pts[-1])) < 1e-6)
 check("Ocean Grove FEC corridor distance reasonable", abs(fec_dist - 1108.13) < 0.1, f"{fec_dist:.2f}")
 check("Ocean Grove parent area ~9.6 Acres", abs(boundary_area / 43560 - 9.64) < 0.1, f"{boundary_area/43560:.2f} ac")
+check("Ocean Grove 20 lots computed", len(og_parcels) == 20, len(og_parcels))
+check("Ocean Grove 20 lot schedule rows", len(og_lot_rows) == 20, len(og_lot_rows))
+check("Ocean Grove all lots at 6000 sf", all(abs(r.area_sqft - 6000.0) < 0.5 for r in og_lot_rows))
 
 print("\n=== Ground-Truthed GPS database (Zero Fudging) ===")
 from engine.georeference import get_intersection_gps
@@ -250,6 +258,105 @@ dxf_hp = build_holly_point()
 audit_hp = audit_dxf_layers(dxf_hp)
 check("Holly Point DXF audit PASS", audit_hp["status"] == "PASS")
 check("Holly Point 0 noise circles (eliminated 9,342 circles)", audit_hp["entity_counts"]["circles"] == 0)
+
+print("\n=== 6-Way Complete Circular Curve Solver ===")
+from engine.curves import solve_missing
+# R=500.0, Delta=45.0 -> L=392.699, C=382.683
+c_rd = solve_missing(radius=500.0, delta_deg=45.0)
+check("curve pair (R, Delta)", abs(c_rd["length"] - 392.699) < 0.01 and abs(c_rd["chord"] - 382.683) < 0.01)
+c_rl = solve_missing(radius=500.0, length=392.69908)
+check("curve pair (R, L)", abs(c_rl["delta_deg"] - 45.0) < 0.01 and abs(c_rl["chord"] - 382.683) < 0.01)
+c_ld = solve_missing(length=392.69908, delta_deg=45.0)
+check("curve pair (L, Delta)", abs(c_ld["radius"] - 500.0) < 0.01 and abs(c_ld["chord"] - 382.683) < 0.01)
+c_rc = solve_missing(radius=500.0, chord=382.68343)
+check("curve pair (R, C)", abs(c_rc["delta_deg"] - 45.0) < 0.01 and abs(c_rc["length"] - 392.699) < 0.01)
+c_dc = solve_missing(delta_deg=45.0, chord=382.68343)
+check("curve pair (Delta, C)", abs(c_dc["radius"] - 500.0) < 0.01 and abs(c_dc["length"] - 392.699) < 0.01)
+c_lc = solve_missing(length=392.69908, chord=382.68343)
+check("curve pair (L, C)", abs(c_lc["radius"] - 500.0) < 0.01 and abs(c_lc["delta_deg"] - 45.0) < 0.01)
+
+print("\n=== Clay County GIS Master Database Georeferencing ===")
+g_clay_kr = get_intersection_gps("Kingsley Ave", "River Rd")
+check("Clay GIS exact Kingsley Ave & River Rd", g_clay_kr is not None and abs(g_clay_kr[0] - 30.166155) < 0.001)
+g_clay_tt = get_intersection_gps("Trail Ridge Rd", "Tynes Blvd")
+check("Clay GIS exact Trail Ridge Rd & Tynes Blvd", g_clay_tt is not None and abs(g_clay_tt[0] - 30.132193) < 0.001)
+
+print("\n=== Parcel Inner Rings (Conservation Holes & Net Acreage) ===")
+from engine.topology import Parcel
+vg_hole = VertexGraph()
+# Outer 200x200 square = 40,000 sq ft
+vg_hole.add("O1", Point(0.0, 0.0))
+vg_hole.add("O2", Point(200.0, 0.0))
+vg_hole.add("O3", Point(200.0, 200.0))
+vg_hole.add("O4", Point(0.0, 200.0))
+# Inner 50x50 hole = 2,500 sq ft
+vg_hole.add("H1", Point(50.0, 50.0))
+vg_hole.add("H2", Point(100.0, 50.0))
+vg_hole.add("H3", Point(100.0, 100.0))
+vg_hole.add("H4", Point(50.0, 100.0))
+p_hole = Parcel("TRACT-A", ["O1", "O2", "O3", "O4"], vg_hole, inner_rings=[["H1", "H2", "H3", "H4"]])
+check("gross area 40,000 sf", p_hole.gross_area_sqft() == 40000.0)
+check("net area 37,500 sf", p_hole.net_area_sqft() == 37500.0)
+check("net acreage exact", abs(p_hole.net_acreage() - (37500.0 / 43560.0)) < 1e-6)
+
+print("\n=== DXF Linetypes & Text Alignment Verification ===")
+from engine.dxf_writer import DXFWriter
+dxf_test = DXFWriter()
+dxf_test.add_layer("TEST_CENTER", "cyan", "CENTER")
+dxf_test.add_layer("TEST_HIDDEN", "magenta", "HIDDEN")
+dxf_test.text((100.0, 200.0), "CENTERED LOT", height=5.0, halign=1, valign=2)
+tables_str = dxf_test._tables()
+header_str = dxf_test._header()
+check("DXF LTYPE CENTER registered", "CENTER" in tables_str)
+check("DXF LTYPE HIDDEN registered", "HIDDEN" in tables_str)
+check("DXF LTYPE PHANTOM registered", "PHANTOM" in tables_str)
+check("DXF LTYPE DASHED2 registered", "DASHED2" in tables_str)
+check("DXF text alignment group codes 72/73", any("72\n1\n" in e and "73\n2\n" in e for e in dxf_test.entities))
+check("DXF STYLE table registered", "TABLE\n2\nSTYLE\n" in tables_str)
+check("DXF universal font Arial registered", "3\nArial\n" in tables_str)
+check("DXF universal font arial.ttf registered", "3\narial.ttf\n" in tables_str)
+check("DXF text has style code 7 STANDARD", any("7\nSTANDARD\n" in e for e in dxf_test.entities))
+check("DXF header has ACADVER AC1009", "$ACADVER\n1\nAC1009" in header_str)
+check("DXF header has DWGCODEPAGE ANSI_1252", "$DWGCODEPAGE\n3\nANSI_1252" in header_str)
+
+print("\n=== QGIS DXF Font & Companion QML Verification ===")
+import tempfile, os
+qgis_dxf = DXFWriter()
+qgis_dxf.add_layer("BOUNDARY", "green")
+qgis_dxf.line((0, 0), (100, 0), layer="BOUNDARY")
+qgis_dxf.text((50, 10), "N89°35'00\"E 100.0'")
+tf = tempfile.NamedTemporaryFile(suffix=".dxf", delete=False)
+tf_path = tf.name
+tf.close()
+qgis_dxf.save(tf_path)
+
+with open(tf_path, "rb") as f:
+    raw_dxf = f.read()
+check("DXF pure 7-bit ASCII (zero mojibake)", all(b < 128 for b in raw_dxf))
+check("DXF degree escaped as %%d", b"%%d" in raw_dxf and b"\xc2\xb0" not in raw_dxf)
+
+qml_file = tf_path[:-4] + ".qml"
+check("companion QML file auto-generated", os.path.exists(qml_file))
+
+try:
+    import qgis.core
+    from qgis.core import QgsApplication, QgsVectorLayer
+    qgs_app = QgsApplication([], False)
+    qgs_app.initQgis()
+    vl_test = QgsVectorLayer(tf_path, "qgis_test", "ogr")
+    check("QGIS layer valid", vl_test.isValid())
+    check("QGIS companion QML auto-enables labels", vl_test.labelsEnabled())
+    vl_feats = list(vl_test.getFeatures())
+    vl_texts = [f["Text"] for f in vl_feats if f["Text"]]
+    check("QGIS text decodes degree without Â mojibake", any("°" in t and "Â" not in t for t in vl_texts))
+    qgs_app.exitQgis()
+except Exception as ex:
+    check(f"QGIS verification: {ex}", False)
+
+if os.path.exists(tf_path):
+    os.remove(tf_path)
+if os.path.exists(qml_file):
+    os.remove(qml_file)
 
 print(f"\n{'='*52}")
 print(f"{len(FAILURES)} failure(s)" if FAILURES else "ALL TESTS PASS")

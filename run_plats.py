@@ -40,6 +40,16 @@ PLATS = [
         'primary_intersection': ('Starfish Avenue', 'Mangrove Avenue')
     },
     {
+        'id': 'PB04_P017',
+        'file': 'PB0004_P0017_1515845.png',
+        'name': 'Holly Point (7 Sheets Assembled)',
+        'date': '1954',
+        'book_page': 'PB 4, Page 17',
+        'build_script': 'build_clay_holly_point.py',
+        'dxf': 'dxf/PB0004_P0017_HollyPoint_SurveyGrade.dxf',
+        'primary_intersection': ('Kingsley Ave', 'River Rd')
+    },
+    {
         'id': 'PB15_P082',
         'file': 'Plat_Book_15_Page_82.pdf',
         'name': 'Ocean Grove Unit No. 1',
@@ -58,6 +68,36 @@ PLATS = [
         'build_script': 'build_hicks.py',
         'dxf': 'dxf/PB0004_P0085_HicksSubdivision.dxf',
         'primary_intersection': ('County Road', 'Sibbald Grant')
+    },
+    {
+        'id': 'PB01_P004',
+        'file': 'PB0001_P0004_1515697.png',
+        'name': 'Orange Grove (Vale Blvd Aliquot)',
+        'date': '1912',
+        'book_page': 'PB 1, Page 4',
+        'build_script': 'build_clay_orange_grove.py',
+        'dxf': 'dxf/PB0001_P0004_OrangeGrove_SurveyGrade.dxf',
+        'primary_intersection': ('Belmore Road', 'Vale Boulevard')
+    },
+    {
+        'id': 'PB01_P001',
+        'file': 'PB0001_P0001_1515694.png',
+        'name': 'Map of Granada (Broadway/St. Johns)',
+        'date': '1891',
+        'book_page': 'PB 1, Page 1',
+        'build_script': 'build_clay_granada.py',
+        'dxf': 'dxf/PB0001_P0001_Granada_SurveyGrade.dxf',
+        'primary_intersection': ('Industrial Park Road', 'Kavie Court')
+    },
+    {
+        'id': 'PB01_P005',
+        'file': 'PB0001_P0005_1515698.png',
+        'name': 'Kingsley Lake Church & Cemetery',
+        'date': '1888',
+        'book_page': 'PB 1, Page 5',
+        'build_script': 'build_clay_kingsley_church.py',
+        'dxf': 'dxf/PB0001_P0005_KingsleyChurch_SurveyGrade.dxf',
+        'primary_intersection': ('Church Street', 'Kingsley Lake Road')
     }
 ]
 

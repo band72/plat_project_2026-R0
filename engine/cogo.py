@@ -173,3 +173,99 @@ def closure_report(pts: list[Point]) -> dict:
         "perimeter": perimeter,
         "precision_1_in": precision,
     }
+
+
+def bowditch_balance(start: Point, courses: list[Course], curves: dict | None = None) -> list[Point]:
+    """Execute a closed traverse and balance it using the Compass / Bowditch Rule
+    to guarantee exact 0.000 ft mathematical closure.
+    
+    Correction per course:
+        corr_n = dn - (dist / perimeter) * unadj_misclose_n
+        corr_e = de - (dist / perimeter) * unadj_misclose_e
+    """
+    curves = curves or {}
+    deltas = []
+    total_dist = 0.0
+    unadj_n = 0.0
+    unadj_e = 0.0
+    
+    for c in courses:
+        if c.curve_id:
+            crv = curves[c.curve_id]
+            az = parse_bearing(crv["chord_bearing"])
+            dist = float(crv["chord"])
+        else:
+            az = c.azimuth()
+            dist = float(c.distance)
+            
+        rad = math.radians(az)
+        dn = dist * math.cos(rad)
+        de = dist * math.sin(rad)
+        deltas.append((dn, de, dist))
+        total_dist += dist
+        unadj_n += dn
+        unadj_e += de
+
+    balanced = [start]
+    cur_n = start.n
+    cur_e = start.e
+    for dn, de, dist in deltas:
+        corr_n = dn - (dist / total_dist) * unadj_n
+        corr_e = de - (dist / total_dist) * unadj_e
+        cur_n += corr_n
+        cur_e += corr_e
+        balanced.append(Point(cur_n, cur_e))
+        
+    return balanced
+
+
+def course_label_geometry(p1: Point, p2: Point, offset_dist: float = 12.0,
+                          side: str | bool = "right") -> tuple[tuple[float, float], float]:
+    """Compute the offset midpoint and readable alignment angle (degrees CCW from East)
+    for dimensioning a line segment (e.g. boundary course or street corridor).
+
+    Returns: ((label_northing, label_easting), rotation_deg)
+    - The label point is offset perpendicularly by offset_dist.
+    - side: "right" (default, right-hand side of line direction), "left", or "center".
+      (For CCW boundary polygon, "right" is outward; for CW boundary polygon, "left" is outward).
+    - rotation_deg is oriented in (-90, 90] degrees CCW from East so text reads
+      left-to-right (from bottom or right edge of the sheet).
+    """
+    dn = p2.n - p1.n
+    de = p2.e - p1.e
+    dist = math.hypot(dn, de)
+    if dist < 1e-6:
+        return ((p1.n, p1.e), 0.0)
+
+    # Midpoint
+    mid_n = (p1.n + p2.n) / 2.0
+    mid_e = (p1.e + p2.e) / 2.0
+
+    # Unit normal vector pointing right of travel (90 deg CW in Northing/Easting):
+    # Vector (dn, de) rotated 90 deg CW in (N, E) is (-de, dn)
+    if isinstance(side, bool):
+        sign = 1.0 if side else -1.0
+    elif str(side).lower() == "left":
+        sign = -1.0
+    elif str(side).lower() == "center":
+        sign = 0.0
+    else:
+        sign = 1.0
+
+    norm_n = -sign * (de / dist)
+    norm_e = sign * (dn / dist)
+
+    label_n = mid_n + offset_dist * norm_n
+    label_e = mid_e + offset_dist * norm_e
+
+    # Cartesian angle in degrees CCW from positive East (AutoCAD DXF convention)
+    theta = math.degrees(math.atan2(dn, de))
+    while theta > 90.0:
+        theta -= 180.0
+    while theta <= -90.0:
+        theta += 180.0
+
+    return ((round(label_n, 4), round(label_e, 4)), round(theta, 2))
+
+
+

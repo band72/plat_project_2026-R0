@@ -20,6 +20,10 @@ class Lot:
 
 
 def shoelace_area(pts):
+    if not pts:
+        return 0.0
+    if pts[0] != pts[-1]:
+        pts = list(pts) + [pts[0]]
     a = 0.0
     for i in range(len(pts) - 1):
         a += pts[i].e * pts[i + 1].n - pts[i + 1].e * pts[i].n

@@ -13,7 +13,7 @@ Bearing Basis & Coordinates:
 """
 import sys, math
 sys.path.insert(0, '.')
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
+from engine.cogo import Point, parse_bearing, azimuth_to_bearing, course_label_geometry
 from engine.lots import shoelace_area, Lot
 from engine.topology import VertexGraph, Parcel
 from engine.verify import verify_ring, verify_network
@@ -166,11 +166,16 @@ for i in range(len(boundary_pts) - 1):
     p2 = boundary_pts[i + 1]
     dxf.line((p1.n, p1.e), (p2.n, p2.e), "BOUNDARY")
 
-# Boundary Dimension Labels
-dxf.text((pob.n - 15, pob.e - 140), f"16TH STREET  {W_BEARING}  280.0'", 6.0, "DIM-LABELS")
-dxf.text((sw_corner.n + 500, sw_corner.e - 40), f"OLD F.E.C. RAILWAY R/W  {fec_bearing}  {fec_dist:.1f}'", 6.0, "DIM-LABELS")
-dxf.text((ne_corner.n + 15, ne_corner.e - 250), f"17TH STREET  {E_BEARING}  492.3'", 6.0, "DIM-LABELS")
-dxf.text((pob.n + 540, pob.e + 15), f"OCEAN BOULEVARD  {S_BEARING}  1087.6'", 6.0, "DIM-LABELS")
+# Boundary Dimension Labels (Aligned to lines and offset outside)
+outer_courses = [
+    (pob, sw_corner, f"16TH STREET  {W_BEARING}  280.00'"),
+    (sw_corner, nw_corner, f"OLD F.E.C. RAILWAY R/W  {fec_bearing}  {fec_dist:.2f}'"),
+    (nw_corner, ne_corner, f"17TH STREET  {E_BEARING}  492.30'"),
+    (ne_corner, pob, f"OCEAN BOULEVARD  {S_BEARING}  1087.60'"),
+]
+for p1, p2, label in outer_courses:
+    pos, rot = course_label_geometry(p1, p2, offset_dist=24.0, side="left")
+    dxf.text(pos, label, height=6.0, layer="DIM-LABELS", rotation=rot, halign=1, valign=2)
 
 # Draw Lots
 for p in all_parcels:
@@ -178,48 +183,129 @@ for p in all_parcels:
     dxf.polyline([(pt.n, pt.e) for pt in pts], "LOT_LINE", closed=True)
     c_e = sum(pt.e for pt in pts) / len(pts)
     c_n = sum(pt.n for pt in pts) / len(pts)
-    dxf.text((c_n + 15, c_e), p.number.split("-")[1], 3.5, "TEXT-LABELS")
-    dxf.text((c_n - 15, c_e), "6,000 SF", 2.5, "DIM-LABELS")
+    lot_num = p.number.split("-")[1].replace("Lot", "")
+    dxf.text((c_n, c_e), lot_num, height=4.0, layer="TEXT-LABELS", halign=1, valign=2)
 
-# Draw 17th Street R/W
+# Block Annotations
+dxf.text((b1_origin.n - 60, b1_origin.e + 250), "BLOCK 1 -- LOTS 1 TO 10 (50' x 120' TYP., 6,000 SF)", height=4.5, layer="DIM-LABELS", halign=1, valign=2)
+dxf.text((b2_origin.n - 60, b2_origin.e + 250), "BLOCK 2 -- LOTS 1 TO 10 (50' x 120' TYP., 6,000 SF)", height=4.5, layer="DIM-LABELS", halign=1, valign=2)
+
+# Draw 17th Street R/W (Aligned with lots)
 st17_n = b1_origin.offset(S_AZ, LOT_DEPTH)
 st17_s = b2_origin
-dxf.line((st17_n.n, st17_n.e), (st17_n.offset(E_AZ, 10 * LOT_WIDTH).n, st17_n.offset(E_AZ, 10 * LOT_WIDTH).e), "ROW_STREET")
-dxf.line((st17_s.n, st17_s.e), (st17_s.offset(E_AZ, 10 * LOT_WIDTH).n, st17_s.offset(E_AZ, 10 * LOT_WIDTH).e), "ROW_STREET")
-dxf.text((b1_origin.n - LOT_DEPTH - 25, b1_origin.e + 200), "17TH STREET (50' R/W)", 4.0, "TEXT-LABELS")
+st17_ne = st17_n.offset(E_AZ, 10 * LOT_WIDTH)
+st17_se = st17_s.offset(E_AZ, 10 * LOT_WIDTH)
+dxf.line((st17_n.n, st17_n.e), (st17_ne.n, st17_ne.e), "ROW_STREET")
+dxf.line((st17_s.n, st17_s.e), (st17_se.n, st17_se.e), "ROW_STREET")
+
+m_st17 = b1_origin.offset(S_AZ, LOT_DEPTH + 25.0).offset(E_AZ, 5 * LOT_WIDTH)
+_, rot_st17 = course_label_geometry(st17_n, st17_ne, offset_dist=0.0)
+dxf.text((m_st17.n, m_st17.e), "17TH STREET (50' R/W)", height=4.5, layer="ROW_STREET", rotation=rot_st17, halign=1, valign=2)
 
 # POB & Control Point
 dxf.point((pob.n, pob.e), "CONTROL")
 dxf.text((pob.n + 15, pob.e), "P.O.B. (16th St & Ocean Blvd)", 8.0, "CONTROL")
-if gps:
-    dxf.point((ne_corner.n - 100, ne_corner.e - 200), "CONTROL")
-    dxf.text((ne_corner.n - 80, ne_corner.e - 200),
-             f"DEWEES & COQUINA GPS: {gps[0]:.6f}° N, {gps[1]:.6f}° W (NO FUDGING)",
-             5.0, "CONTROL")
-
-from engine.lotsheets import plot_all
 
 # Title Block
-top = ne_corner.n + 120
-lft = nw_corner.e
+top = ne_corner.n + 260
+lft = nw_corner.e + 60
 body = [
     "OCEAN GROVE, UNIT NO. 1 -- PLAT BOOK 15, PAGE 82, DUVAL COUNTY, FL (1939)",
     "Subdivision of part of Lot 7, Fractional Section 8, T2S, R29E, North Atlantic Beach",
     "COMPLETE PARENT BOUNDARY TRAVERSE (CAPTION) & LOT FABRIC",
-    "",
     "PARENT TRACT: 4 courses (16th St, FEC Railway, 17th St, Ocean Blvd).",
     f"  Perimeter: {280.0 + fec_dist + 492.3 + 1087.6:.1f} ft | Area: {boundary_area:,.0f} SF ({boundary_acres:.2f} Acres).",
     f"  FEC Corridor Bearing: {fec_bearing} ({fec_dist:.2f} ft) | Orthogonality: EXACT 90°.",
-    "",
     f"LOT BLOCKS: {len(all_parcels)} lots in Blocks 1 & 2 closure-verified (all at 6,000.0 SF).",
     f"GROUND-TRUTHED GPS TIE: Dewees Ave & Coquina Pl ({gps[0]:.6f}° N, {gps[1]:.6f}° W).",
 ]
+curr_n = top
 for i, t in enumerate(body):
-    dxf.text((top - i * 22, lft), t, 7.0 if i == 0 else 4.0, "TITLEBLOCK")
+    if not t:
+        curr_n -= 16
+        continue
+    dxf.text((curr_n, lft), t, height=8.0 if i == 0 else 5.0, layer="TITLEBLOCK")
+    curr_n -= 28
+
+from engine.tables import build_lot_schedules, draw_cad_table
+from engine.lotsheets import plot_all
+
+# -------------------------------------------------------------------------
+# Tabular Schedules (Lot Schedule, Line Table, Curve Table)
+# -------------------------------------------------------------------------
+lot_rows, line_rows, curve_rows = build_lot_schedules(all_parcels)
+
+# Draw Lot Schedule Table (East of Ocean Blvd at E=70, N=1080)
+lot_table_rows = [
+    [r.lot, r.block, r.dimensions, f"{r.area_sqft:,.1f}", f"{r.acreage:.4f}", f"{r.perimeter:.1f}'"]
+    for r in lot_rows
+]
+draw_cad_table(
+    dxf,
+    top_n=1080.0,
+    left_e=70.0,
+    title="OCEAN GROVE UNIT NO. 1 -- LOT SCHEDULE TABLE",
+    headers=["LOT", "BLOCK", "DIMENSIONS", "AREA (SF)", "ACRES", "PERIMETER"],
+    rows=lot_table_rows,
+    col_widths=[45.0, 45.0, 95.0, 90.0, 60.0, 75.0],
+    row_height=24.0,
+    header_height=32.0,
+    title_height=38.0,
+    text_height=7.0,
+    title_text_height=9.5,
+    alignments=[1, 1, 1, 2, 2, 2],
+)
+
+# Line Table (including Lot boundary vectors and parent boundary corridors)
+full_line_rows = [
+    ["L1", E_BEARING, "50.00'", "Lot Frontage / 17th St R/W"],
+    ["L2", S_BEARING, "120.00'", "Lot Interior Side Line"],
+    ["L3", W_BEARING, "50.00'", "Lot Rear Boundary Line"],
+    ["L4", N_BEARING, "120.00'", "Lot Interior Side Line"],
+    ["L5", W_BEARING, "280.00'", "16th Street North R/W"],
+    ["L6", fec_bearing, f"{fec_dist:.2f}'", "Old F.E.C. Railway R/W"],
+    ["L7", E_BEARING, "492.30'", "17th Street South R/W"],
+    ["L8", S_BEARING, "1087.60'", "Ocean Boulevard West R/W"],
+]
+draw_cad_table(
+    dxf,
+    top_n=480.0,
+    left_e=70.0,
+    title="LINE TABLE",
+    headers=["LINE", "BEARING", "DISTANCE", "DESCRIPTION"],
+    rows=full_line_rows,
+    col_widths=[45.0, 105.0, 70.0, 190.0],
+    row_height=24.0,
+    header_height=32.0,
+    title_height=38.0,
+    text_height=7.0,
+    title_text_height=9.5,
+    alignments=[1, 1, 2, 0],
+)
+
+# Curve Table (No curves on plat -- rectilinear orthogonal geometry)
+curve_table_rows = [
+    ["-", "NONE", "NONE", "RECTILINEAR 90°00'00\"", "NONE", "0°00'00\""],
+]
+draw_cad_table(
+    dxf,
+    top_n=200.0,
+    left_e=70.0,
+    title="CURVE TABLE",
+    headers=["CURVE", "RADIUS", "ARC", "CHORD BEARING", "CHORD", "DELTA"],
+    rows=curve_table_rows,
+    col_widths=[45.0, 65.0, 65.0, 125.0, 55.0, 55.0],
+    row_height=24.0,
+    header_height=32.0,
+    title_height=38.0,
+    text_height=7.0,
+    title_text_height=9.5,
+    alignments=[1, 1, 1, 1, 1, 1],
+)
 
 out_dxf = "dxf/PB0015_P0082_OceanGrove.dxf"
 dxf.save(out_dxf)
-print(f"\nSaved Ocean Grove DXF: {out_dxf}")
+print(f"\nSaved Ocean Grove DXF with Lot & Line Tables: {out_dxf}")
 
 # -------------------------------------------------------------------------
 # 5. MapCheck & Per-Lot Check Sheets Export (One closed polyline per lot)

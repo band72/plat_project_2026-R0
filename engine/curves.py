@@ -55,21 +55,78 @@ class Curve:
 
 
 def solve_missing(radius=None, length=None, delta_deg=None, chord=None):
-    """Solve for missing curve parameter given any two of radius/length/delta/chord."""
+    """Solve for missing curve parameter given any two of radius/length/delta/chord.
+    Supports all 6 pairs: (R, Delta), (R, L), (L, Delta), (R, C), (Delta, C), (L, C).
+    """
     have = {k: v for k, v in dict(radius=radius, length=length,
                                    delta_deg=delta_deg, chord=chord).items() if v is not None}
+    if len(have) < 2:
+        raise ValueError("Need at least 2 parameters to solve circular curve")
+
     if "radius" in have and "delta_deg" in have:
-        radius = have["radius"]; delta_deg = have["delta_deg"]
+        radius = float(have["radius"])
+        delta_deg = float(have["delta_deg"])
         length = radius * math.radians(delta_deg)
-        chord = 2 * radius * math.sin(math.radians(delta_deg) / 2)
+        chord = 2.0 * radius * math.sin(math.radians(delta_deg) / 2.0)
     elif "radius" in have and "length" in have:
-        radius = have["radius"]; length = have["length"]
+        radius = float(have["radius"])
+        length = float(have["length"])
         delta_deg = math.degrees(length / radius)
-        chord = 2 * radius * math.sin(math.radians(delta_deg) / 2)
+        chord = 2.0 * radius * math.sin(math.radians(delta_deg) / 2.0)
     elif "length" in have and "delta_deg" in have:
-        length = have["length"]; delta_deg = have["delta_deg"]
+        length = float(have["length"])
+        delta_deg = float(have["delta_deg"])
         radius = length / math.radians(delta_deg)
-        chord = 2 * radius * math.sin(math.radians(delta_deg) / 2)
+        chord = 2.0 * radius * math.sin(math.radians(delta_deg) / 2.0)
+    elif "radius" in have and "chord" in have:
+        radius = float(have["radius"])
+        chord = float(have["chord"])
+        if chord > 2.0 * radius + 1e-7:
+            raise ValueError(f"Chord {chord} cannot exceed diameter 2*R ({2.0*radius})")
+        ratio = min(1.0, max(-1.0, chord / (2.0 * radius)))
+        delta_rad = 2.0 * math.asin(ratio)
+        delta_deg = math.degrees(delta_rad)
+        length = radius * delta_rad
+    elif "delta_deg" in have and "chord" in have:
+        delta_deg = float(have["delta_deg"])
+        chord = float(have["chord"])
+        delta_rad = math.radians(delta_deg)
+        denom = 2.0 * math.sin(delta_rad / 2.0)
+        if abs(denom) < 1e-9:
+            raise ValueError(f"Delta {delta_deg} too small to solve curve from chord")
+        radius = chord / denom
+        length = radius * delta_rad
+    elif "length" in have and "chord" in have:
+        length = float(have["length"])
+        chord = float(have["chord"])
+        if length < chord - 1e-7:
+            raise ValueError(f"Arc length {length} cannot be smaller than chord {chord}")
+        if abs(length - chord) < 1e-7:
+            # Degenerate straight line
+            radius = float("inf")
+            delta_deg = 0.0
+        else:
+            # Solve sin(theta)/theta = chord / length for theta = delta_rad / 2
+            ratio = chord / length
+            # Taylor approximation as initial guess: sin(theta)/theta ~ 1 - theta^2/6
+            theta = math.sqrt(max(0.0, 6.0 * (1.0 - ratio)))
+            if theta == 0.0:
+                theta = 0.1
+            # Newton-Raphson on f(theta) = sin(theta) - ratio * theta = 0
+            for _ in range(25):
+                f_val = math.sin(theta) - ratio * theta
+                f_prime = math.cos(theta) - ratio
+                if abs(f_prime) < 1e-12:
+                    break
+                d_theta = f_val / f_prime
+                theta -= d_theta
+                if abs(d_theta) < 1e-12:
+                    break
+            delta_rad = 2.0 * theta
+            delta_deg = math.degrees(delta_rad)
+            radius = length / delta_rad
     else:
-        raise ValueError("Need at least radius+delta, radius+length, or length+delta")
+        raise ValueError("Could not solve curve with provided parameters")
+
     return dict(radius=radius, length=length, delta_deg=delta_deg, chord=chord)
+

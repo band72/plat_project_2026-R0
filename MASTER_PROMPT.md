@@ -1440,6 +1440,28 @@ Operationalized survey-grade COGO vectorization, replacing naive raster skeleton
      - `PB0001_P0004_OrangeGrove_SurveyGrade.dxf`: 16 aliquot 5.000-acre lots (217,800 sf), 0 `LOT 330` errors.
      - `PB0001_P0005_KingsleyChurch_SurveyGrade.dxf`: 1888 Deputy County Surveyor traverse, 80,000 sf church tract, 64 cemetery plots.
      - `PB0004_P0017_HollyPoint_SurveyGrade.dxf`: Complete 15-course caption traverse, exact 0.0000 ft closure, multi-sheet lot assembly, 0 noise circles.
-  6. **Regression Tests**: All 63 tests in `test_engine.py` pass.
-
-
+## Iter 35 — FULL 6-WAY CURVE SOLVER, CLAY GIS DEEP-LINKING & 9-PLAT PIPELINE
+Fully implemented and verified the production survey-grade cadastral engine:
+  1. **6-Way Circular Curve Solver (`engine/curves.py`)**:
+     - Completed `solve_missing` for all 6 parameter pairs: (R, Delta), (R, L), (L, Delta),
+       (R, C), (Delta, C), and (L, C).
+     - Solved (L, C) numerically via Taylor initialization + Newton-Raphson convergence to 1e-12.
+  2. **Clay County GIS Database Integration (`engine/georeference.py`)**:
+     - Deep-linked engine to the 6.7 MB Clay County GIS Master Cross-Reference Database
+       (`master_all_streets_cross_reference.csv` and `clay_georeferenced.csv`).
+     - Real-time indexing of 3,068 unique ground-truthed physical intersections in <0.08 seconds.
+     - Natural physical WGS84 GPS coordinates with zero artificial offset fudging.
+  3. **Interior Conservation Holes & Net Acreage (`engine/topology.py`)**:
+     - Extended `Parcel` with `inner_rings`, `gross_area_sqft()`, and `net_area_sqft()`.
+     - Automatically computes net acreage after subtracting retention ponds and conservation tracts.
+  4. **Survey CAD Linetypes & Justified Text (`engine/dxf_writer.py`)**:
+     - Registered `DASHED2`, `CENTER`, `HIDDEN`, `PHANTOM` in standard DXF LTYPE table.
+     - Added group codes 72/73 text alignment support for centered lot labeling.
+  5. **Master Runner (`run_plats.py`)**:
+     - Executed all 9 subdivision plats across Duval and Clay Counties in descending date order
+       (2014 to 1888): Atlantic Beach (2014), Beverly Isle (1968), Beachwood (1960), Holly Point (1954),
+       Ocean Grove (1939), Hicks (1920), Orange Grove (1912), Granada (1891), Kingsley Church (1888).
+     - 100% PASS with verified DXF outputs and ground-truthed GPS intersections.
+  6. **Comprehensive Regression Suite (`test_engine.py`)**:
+     - Expanded to 79 tests covering all COGO, curves, topology, GIS, and DXF components.
+     - ALL 79 TESTS PASS.

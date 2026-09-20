@@ -89,19 +89,41 @@ class VertexGraph:
 class Parcel:
     """A lot defined purely by an ordered list of vertex NAMES -- never by
     its own independently-computed coordinates. Guarantees shared edges
-    with neighbouring parcels that reference the same vertex names."""
+    with neighbouring parcels that reference the same vertex names.
+    Supports interior conservation easements, drainage retention basins,
+    and hole exclusions via inner_rings."""
     number: str
     vertex_names: list[str]
     graph: VertexGraph
+    inner_rings: list[list[str]] = field(default_factory=list)
 
     def polygon(self) -> list[Point]:
         return [self.graph.points[n] for n in self.vertex_names]
 
-    def area_sqft(self) -> float:
-        """Parcel area, GATED on the polygon being simple. Raises rather
-        than silently returning a wrong number for a self-intersecting
-        ring -- see lots.is_simple_polygon for why this matters."""
+    def inner_polygons(self) -> list[list[Point]]:
+        return [[self.graph.points[n] for n in ring] for ring in self.inner_rings]
+
+    def gross_area_sqft(self) -> float:
+        """Outer boundary area, gated on polygon simplicity."""
         return safe_area(self.polygon())
+
+    def net_area_sqft(self) -> float:
+        """Net parcel area (gross area minus all inner rings/holes)."""
+        gross = safe_area(self.polygon())
+        holes_total = sum(safe_area(ring) for ring in self.inner_polygons())
+        if holes_total > gross:
+            raise ValueError(f"Holes area ({holes_total:.2f} sq ft) exceeds gross parcel area ({gross:.2f} sq ft)")
+        return gross - holes_total
+
+    def area_sqft(self) -> float:
+        """Default parcel area: returns net_area_sqft()."""
+        return self.net_area_sqft()
+
+    def gross_acreage(self) -> float:
+        return self.gross_area_sqft() / 43560.0
+
+    def net_acreage(self) -> float:
+        return self.net_area_sqft() / 43560.0
 
     def area_or_none(self) -> tuple[float | None, str]:
         """Non-raising variant for batch reporting: returns (area, status)."""
@@ -109,7 +131,14 @@ class Parcel:
         ok, msg = is_simple_polygon(pts)
         if not ok:
             return None, msg
-        return safe_area(pts), "ok"
+        for ring in self.inner_polygons():
+            ok_ring, msg_ring = is_simple_polygon(ring)
+            if not ok_ring:
+                return None, f"Inner ring error: {msg_ring}"
+        try:
+            return self.net_area_sqft(), "ok"
+        except Exception as e:
+            return None, str(e)
 
     def is_closed_traverse(self, tol=0.05) -> tuple[bool, float]:
         """A parcel built entirely from a graph is closed BY CONSTRUCTION
@@ -132,3 +161,4 @@ class Parcel:
             from engine.cogo import azimuth_to_bearing
             out.append(dict(bearing=azimuth_to_bearing(az), distance=d))
         return out
+

@@ -1,14 +1,59 @@
 import json
 import os
+import csv
 
-# Local cache for intersection GPS coordinates since sandbox has no network access
-# In a real environment, this would call ArcGIS Geocoding API.
+# Local cache for intersection GPS coordinates
 _GPS_DB_PATH = "data/intersection_gps_db.json"
+
+# Clay County GIS master database paths
+_CLAY_GIS_MASTER_PATHS = [
+    "/home/artwalk/Downloads/clay/Georeferenced Output/master_all_streets_cross_reference.csv",
+    "/home/artwalk/Downloads/clay/Georeferenced Output/clay_georeferenced.csv",
+    "../clay/Georeferenced Output/master_all_streets_cross_reference.csv",
+]
+
+_CLAY_GIS_INDEX = None
+
+
+def _load_clay_gis_index() -> dict[tuple[str, str], tuple[float, float]]:
+    """Lazy loads ground-truthed intersections from the Clay County GIS master database."""
+    global _CLAY_GIS_INDEX
+    if _CLAY_GIS_INDEX is not None:
+        return _CLAY_GIS_INDEX
+
+    _CLAY_GIS_INDEX = {}
+    for csv_path in _CLAY_GIS_MASTER_PATHS:
+        if os.path.exists(csv_path):
+            try:
+                with open(csv_path, "r", encoding="utf-8", errors="ignore") as f:
+                    reader = csv.DictReader(f)
+                    for row in reader:
+                        for idx in ("1", "2", "3"):
+                            raw_int = row.get(f"intersection_{idx}", "")
+                            lat_val = row.get(f"lat_{idx}", "")
+                            lon_val = row.get(f"lon_{idx}", "")
+                            if not raw_int or not lat_val or not lon_val or "&" not in raw_int:
+                                continue
+                            int_clean = raw_int.split(" in Sec ")[0].strip()
+                            parts = int_clean.split("&")
+                            if len(parts) == 2:
+                                s1, s2 = sorted([parts[0].strip().upper(), parts[1].strip().upper()])
+                                try:
+                                    _CLAY_GIS_INDEX[(s1, s2)] = (float(lat_val), float(lon_val))
+                                except ValueError:
+                                    pass
+            except Exception as e:
+                print(f"[WARN] Error loading Clay GIS database from {csv_path}: {e}")
+            break
+
+    return _CLAY_GIS_INDEX
+
 
 def get_intersection_gps(street1: str, street2: str) -> tuple[float, float] | None:
     """
     Returns true WGS84 GPS latitude and longitude of the ground-truthed 
     physical street intersection, without artificial fudging.
+    Queries both local cache and Clay County GIS master georeferenced database.
     """
     if not os.path.exists(_GPS_DB_PATH):
         # Create a stub database if it doesn't exist
@@ -27,27 +72,40 @@ def get_intersection_gps(street1: str, street2: str) -> tuple[float, float] | No
     # Normalize intersection pairing (order-independent)
     s1, s2 = sorted([street1.strip().upper(), street2.strip().upper()])
     
-    # Exact match check
+    # 1. Exact match check in JSON cache
     for key, (lat, lon) in db.items():
         ks1, ks2 = sorted([s.strip().upper() for s in key.split("&")])
         if s1 == ks1 and s2 == ks2:
             return (lat, lon)
-            
-    # Fuzzy token match check (e.g. MARITIME & COASTAL)
-    stopwords = {"STREET", "DRIVE", "AVENUE", "LANE", "ROAD", "BOULEVARD", "BLVD", "WAY", "COURT", "CT", "PL", "&", "THE", "OF"}
+
+    # 2. Exact match check in Clay GIS database
+    clay_idx = _load_clay_gis_index()
+    if (s1, s2) in clay_idx:
+        return clay_idx[(s1, s2)]
+
+    # 3. Fuzzy token match check across JSON cache and Clay GIS database
+    stopwords = {"STREET", "DRIVE", "AVENUE", "LANE", "ROAD", "BOULEVARD", "BLVD", "WAY", "COURT", "CT", "PL", "&", "THE", "OF", "CIR", "CIRCLE", "HWY", "HIGHWAY", "RD", "AVE", "ST", "DR", "LN"}
     tokens1 = {t for t in s1.split() if t not in stopwords and len(t) > 2}
     tokens2 = {t for t in s2.split() if t not in stopwords and len(t) > 2}
-    
+
     if tokens1 and tokens2:
+        # Check JSON cache
         for key, (lat, lon) in db.items():
             ks1, ks2 = sorted([s.strip().upper() for s in key.split("&")])
             ktoks1 = {t for t in ks1.split() if t not in stopwords and len(t) > 2}
             ktoks2 = {t for t in ks2.split() if t not in stopwords and len(t) > 2}
-            # Check if (tokens1 matches ktoks1 and tokens2 matches ktoks2) or vice versa
             if (tokens1 & ktoks1 and tokens2 & ktoks2) or (tokens1 & ktoks2 and tokens2 & ktoks1):
                 return (lat, lon)
-            
+
+        # Check Clay GIS database
+        for (ks1, ks2), (lat, lon) in clay_idx.items():
+            ktoks1 = {t for t in ks1.split() if t not in stopwords and len(t) > 2}
+            ktoks2 = {t for t in ks2.split() if t not in stopwords and len(t) > 2}
+            if (tokens1 & ktoks1 and tokens2 & ktoks2) or (tokens1 & ktoks2 and tokens2 & ktoks1):
+                return (lat, lon)
+
     return None
+
 
 def add_intersection_gps(street1: str, street2: str, lat: float, lon: float):
     if os.path.exists(_GPS_DB_PATH):
@@ -62,3 +120,4 @@ def add_intersection_gps(street1: str, street2: str, lat: float, lon: float):
     
     with open(_GPS_DB_PATH, 'w') as f:
         json.dump(db, f, indent=2)
+
