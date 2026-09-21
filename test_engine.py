@@ -490,12 +490,107 @@ check("Batch plat vectorization consensus status PASS", v_consensus_res["status"
 check("Batch plat vectorization achieves unanimous quorum", v_consensus_res["consensus"]["unanimous_quorum"] is True)
 check("Batch plat vectorization delta < 1e-6", v_consensus_res["consensus"]["final_delta"] < 1e-6)
 
+# 9. Omni-Parameter Circular Curve Solver (All 8 Parameters & 28 Pairs)
+from engine.curves import solve_curve_all_parameters, Curve
+base_c = solve_curve_all_parameters(radius=200.0, delta_deg=45.0)
+check("solve_curve_all_parameters returns all 8 core parameters",
+      all(k in base_c for k in ["radius", "delta_deg", "delta_rad", "delta_dms", "length", "chord",
+                                "tangent", "mid_ordinate", "external", "degree_curve", "segment_area"]))
+check("solve_curve_all_parameters (R, Delta) matches geometry",
+      abs(base_c["length"] - 157.0796) < 0.05 and abs(base_c["chord"] - 153.0734) < 0.05)
+
+# Test closed-form circle tangent-secant pair (T, E)
+c_te = solve_curve_all_parameters(tangent=base_c["tangent"], external=base_c["external"])
+check("solve_curve_all_parameters (T, E) recovers radius and delta",
+      abs(c_te["radius"] - 200.0) < 0.05 and abs(c_te["delta_deg"] - 45.0) < 0.05)
+
+# Test sagitta theorem pair (C, M)
+c_cm = solve_curve_all_parameters(chord=base_c["chord"], mid_ordinate=base_c["mid_ordinate"])
+check("solve_curve_all_parameters (C, M) recovers radius exactly",
+      abs(c_cm["radius"] - 200.0) < 0.05 and abs(c_cm["delta_deg"] - 45.0) < 0.05)
+
+# Test mid-ordinate external pair (M, E)
+c_me = solve_curve_all_parameters(mid_ordinate=base_c["mid_ordinate"], external=base_c["external"])
+check("solve_curve_all_parameters (M, E) recovers radius exactly",
+      abs(c_me["radius"] - 200.0) < 0.05 and abs(c_me["delta_deg"] - 45.0) < 0.05)
+
+# Test chord-tangent pair (C, T)
+c_ct = solve_curve_all_parameters(chord=base_c["chord"], tangent=base_c["tangent"])
+check("solve_curve_all_parameters (C, T) recovers radius and delta",
+      abs(c_ct["radius"] - 200.0) < 0.05 and abs(c_ct["delta_deg"] - 45.0) < 0.05)
+
+# Test length-tangent transcendental pair (L, T)
+c_lt = solve_curve_all_parameters(length=base_c["length"], tangent=base_c["tangent"])
+check("solve_curve_all_parameters (L, T) converges via Newton-Raphson",
+      abs(c_lt["radius"] - 200.0) < 0.05 and abs(c_lt["delta_deg"] - 45.0) < 0.05)
+
+# Test length-mid-ordinate pair (L, M)
+c_lm = solve_curve_all_parameters(length=base_c["length"], mid_ordinate=base_c["mid_ordinate"])
+check("solve_curve_all_parameters (L, M) converges via Newton-Raphson",
+      abs(c_lm["radius"] - 200.0) < 0.05 and abs(c_lm["delta_deg"] - 45.0) < 0.05)
+
+# Test length-external secant pair (L, E)
+c_le = solve_curve_all_parameters(length=base_c["length"], external=base_c["external"])
+check("solve_curve_all_parameters (L, E) converges via Newton-Raphson",
+      abs(c_le["radius"] - 200.0) < 0.05 and abs(c_le["delta_deg"] - 45.0) < 0.05)
+
+# Test chord-external secant pair (C, E)
+c_ce = solve_curve_all_parameters(chord=base_c["chord"], external=base_c["external"])
+check("solve_curve_all_parameters (C, E) converges via Newton-Raphson",
+      abs(c_ce["radius"] - 200.0) < 0.05 and abs(c_ce["delta_deg"] - 45.0) < 0.05)
+
+# Test tangent-mid-ordinate pair (T, M)
+c_tm = solve_curve_all_parameters(tangent=base_c["tangent"], mid_ordinate=base_c["mid_ordinate"])
+check("solve_curve_all_parameters (T, M) converges via Newton-Raphson",
+      abs(c_tm["radius"] - 200.0) < 0.05 and abs(c_tm["delta_deg"] - 45.0) < 0.05)
+
+# Test degree-of-curve pair (D, L)
+c_dl = solve_curve_all_parameters(degree_curve=base_c["degree_curve"], length=base_c["length"])
+check("solve_curve_all_parameters (D, L) solves radius and delta",
+      abs(c_dl["radius"] - 200.0) < 0.05 and abs(c_dl["delta_deg"] - 45.0) < 0.05)
+
+# 10. Autonomous Cadastral Lot Agent & MapCheck Verification
+from engine.lot_agent import BeachwoodLotAgent
+p_nw = Point(100.0, 0.0)
+p_ne = Point(100.0, 75.0)
+p_se = Point(0.0, 75.0)
+p_sw = Point(0.0, 0.0)
+test_agent = BeachwoodLotAgent(
+    agent_id=1,
+    lot_id="Blk18-Lot1",
+    block_id="18",
+    lot_number="1",
+    corners=[p_nw, p_ne, p_se, p_sw],
+    stated_area_sqft=7500.0,
+    stated_dimensions="75.0' x 100.0'",
+)
+mc_report = test_agent.compute_mapcheck()
+check("BeachwoodLotAgent mapcheck passed", mc_report.passed is True)
+check("BeachwoodLotAgent closure precision EXACT", "EXACT" in mc_report.precision_str or mc_report.misclose_dist_ft < 1e-4)
+check("BeachwoodLotAgent area matches 7500 SF exactly", abs(mc_report.computed_area_sqft - 7500.0) < 0.01)
+
+# Test curved lot agent
+test_curved_agent = BeachwoodLotAgent(
+    agent_id=31,
+    lot_id="Blk16-Lot31",
+    block_id="16S",
+    lot_number="31",
+    corners=[p_nw, p_ne, p_se, p_sw],
+    curve_specs={"side_3": {"radius": 389.27, "delta_deg": 12.5708, "length": 85.39, "rot": "CCW"}},
+    stated_area_sqft=7500.0 + 133.05,
+)
+mc_curved = test_curved_agent.compute_mapcheck()
+check("BeachwoodLotAgent curved side solved with omni-parameter solver", any(c.is_curve for c in mc_curved.courses))
+check("BeachwoodLotAgent curved side has tangent, mid-ordinate, and segment area",
+      any("tangent" in c.curve_data and "segment_area" in c.curve_data for c in mc_curved.courses if c.is_curve))
+
 print(f"\n{'='*52}")
 print(f"{len(FAILURES)} failure(s)" if FAILURES else "ALL TESTS PASS")
 if FAILURES:
     for f in FAILURES:
         print("  -", f)
     sys.exit(1)
+
 
 
 

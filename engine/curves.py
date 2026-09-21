@@ -31,6 +31,57 @@ class Curve:
         calc_chord = 2 * self.radius * math.sin(math.radians(self.delta_deg) / 2)
         return abs(calc_L - self.length) < tol and abs(calc_chord - self.chord) < tol
 
+    @property
+    def delta_rad(self) -> float:
+        return math.radians(self.delta_deg)
+
+    @property
+    def tangent(self) -> float:
+        return self.radius * math.tan(self.delta_rad / 2.0)
+
+    @property
+    def mid_ordinate(self) -> float:
+        return self.radius * (1.0 - math.cos(self.delta_rad / 2.0))
+
+    @property
+    def external(self) -> float:
+        c = math.cos(self.delta_rad / 2.0)
+        return self.radius * (1.0 / c - 1.0) if c > 1e-9 else float("inf")
+
+    @property
+    def degree_curve(self) -> float:
+        return 5729.57795 / self.radius if self.radius > 0 else 0.0
+
+    @property
+    def segment_area(self) -> float:
+        return 0.5 * (self.radius ** 2) * (self.delta_rad - math.sin(self.delta_rad))
+
+    @property
+    def sector_area(self) -> float:
+        return 0.5 * (self.radius ** 2) * self.delta_rad
+
+    @property
+    def fillet_area(self) -> float:
+        return (self.radius * self.tangent) - self.sector_area
+
+    @property
+    def delta_dms(self) -> str:
+        return deg_to_dms_str(self.delta_deg)
+
+    def tangent_in_bearing(self) -> str:
+        chord_az = parse_bearing(self.chord_bearing)
+        half_delta = self.delta_deg / 2.0
+        sign = 1 if self.rot == "CW" else -1
+        t_az = (chord_az - sign * half_delta) % 360.0
+        return azimuth_to_bearing(t_az)
+
+    def tangent_out_bearing(self) -> str:
+        chord_az = parse_bearing(self.chord_bearing)
+        half_delta = self.delta_deg / 2.0
+        sign = 1 if self.rot == "CW" else -1
+        t_az = (chord_az + sign * half_delta) % 360.0
+        return azimuth_to_bearing(t_az)
+
     def arc_points(self, pc: Point, n_segments: int = 24) -> list[Point]:
         """Generate points along the arc from PC to PT given rotation sense."""
         chord_az = parse_bearing(self.chord_bearing)
@@ -54,86 +105,320 @@ class Curve:
         return self.arc_points(pc, n_segments=1)[-1]
 
 
-def solve_missing(radius=None, length=None, delta_deg=None, chord=None):
-    """Solve for missing curve parameter given any two of radius/length/delta/chord.
-    Supports all 6 pairs: (R, Delta), (R, L), (L, Delta), (R, C), (Delta, C), (L, C).
+def deg_to_dms_str(deg_val: float) -> str:
+    """Format decimal degrees into DMS string, e.g. 37°42'50\"."""
+    d = int(deg_val)
+    rem_m = (deg_val - d) * 60.0
+    m = int(rem_m)
+    s = round((rem_m - m) * 60.0, 1)
+    if s >= 60.0:
+        s -= 60.0
+        m += 1
+    if m >= 60:
+        m -= 60
+        d += 1
+    s_int = int(s) if abs(s - int(s)) < 1e-3 else s
+    return f"{d:02d}°{m:02d}'{s_int:02d}\"" if isinstance(s_int, int) else f"{d:02d}°{m:02d}'{s:04.1f}\""
+
+
+def solve_curve_all_parameters(
+    radius: float | None = None,
+    delta_deg: float | None = None,
+    length: float | None = None,
+    chord: float | None = None,
+    tangent: float | None = None,
+    mid_ordinate: float | None = None,
+    external: float | None = None,
+    degree_curve: float | None = None,
+) -> dict[str, float | str]:
     """
-    have = {k: v for k, v in dict(radius=radius, length=length,
-                                   delta_deg=delta_deg, chord=chord).items() if v is not None}
+    Omni-Parameter Circular Curve Solver.
+    
+    Given ANY 2 of the 8 standard curve parameters:
+      - R (radius)
+      - Delta (delta_deg, central angle)
+      - L (length, arc length)
+      - C (chord, chord length)
+      - T (tangent, tangent length)
+      - M (mid_ordinate, sagitta)
+      - E (external, external secant)
+      - D (degree_curve, arc definition 5729.578 / R)
+      
+    Computes all 8 parameters plus circular segment area, sector area, and fillet area.
+    Supports all 28 parameter pair combinations.
+    """
+    have = {
+        k: float(v)
+        for k, v in dict(
+            radius=radius,
+            delta_deg=delta_deg,
+            length=length,
+            chord=chord,
+            tangent=tangent,
+            mid_ordinate=mid_ordinate,
+            external=external,
+            degree_curve=degree_curve,
+        ).items()
+        if v is not None
+    }
+
     if len(have) < 2:
         raise ValueError("Need at least 2 parameters to solve circular curve")
 
-    for k in ("radius", "length", "delta_deg", "chord"):
-        if k in have and have[k] is not None:
-            if float(have[k]) <= 0.0:
-                raise ValueError(f"Curve parameter {k} must be strictly positive, got {have[k]}")
+    for k, val in have.items():
+        if val <= 0.0:
+            raise ValueError(f"Curve parameter {k} must be strictly positive, got {val}")
 
-    if "radius" in have and "delta_deg" in have:
-        radius = float(have["radius"])
-        delta_deg = float(have["delta_deg"])
-        length = radius * math.radians(delta_deg)
-        chord = 2.0 * radius * math.sin(math.radians(delta_deg) / 2.0)
-    elif "radius" in have and "length" in have:
-        radius = float(have["radius"])
-        length = float(have["length"])
-        delta_deg = math.degrees(length / radius)
-        chord = 2.0 * radius * math.sin(math.radians(delta_deg) / 2.0)
-    elif "length" in have and "delta_deg" in have:
-        length = float(have["length"])
-        delta_deg = float(have["delta_deg"])
-        radius = length / math.radians(delta_deg)
-        chord = 2.0 * radius * math.sin(math.radians(delta_deg) / 2.0)
-    elif "radius" in have and "chord" in have:
-        radius = float(have["radius"])
-        chord = float(have["chord"])
-        if chord > 2.0 * radius + 1e-7:
-            raise ValueError(f"Chord {chord} cannot exceed diameter 2*R ({2.0*radius})")
-        ratio = min(1.0, max(-1.0, chord / (2.0 * radius)))
-        delta_rad = 2.0 * math.asin(ratio)
-        delta_deg = math.degrees(delta_rad)
-        length = radius * delta_rad
-    elif "delta_deg" in have and "chord" in have:
-        delta_deg = float(have["delta_deg"])
-        chord = float(have["chord"])
-        delta_rad = math.radians(delta_deg)
-        denom = 2.0 * math.sin(delta_rad / 2.0)
-        if abs(denom) < 1e-9:
-            raise ValueError(f"Delta {delta_deg} too small to solve curve from chord")
-        radius = chord / denom
-        length = radius * delta_rad
-    elif "length" in have and "chord" in have:
-        length = float(have["length"])
-        chord = float(have["chord"])
-        if length < chord - 1e-7:
-            raise ValueError(f"Arc length {length} cannot be smaller than chord {chord}")
-        if abs(length - chord) < 1e-7:
-            # Degenerate straight line
-            radius = float("inf")
-            delta_deg = 0.0
+    # If degree of curve is provided, map to radius first
+    if "degree_curve" in have and "radius" not in have:
+        have["radius"] = 5729.57795 / have["degree_curve"]
+
+    # --- Case 1: Radius and any other parameter ---
+    if "radius" in have:
+        R = have["radius"]
+        if "delta_deg" in have:
+            delta_d = have["delta_deg"]
+        elif "length" in have:
+            delta_d = math.degrees(have["length"] / R)
+        elif "chord" in have:
+            C = have["chord"]
+            if C > 2.0 * R + 1e-7:
+                raise ValueError(f"Chord {C} cannot exceed diameter 2*R ({2.0*R})")
+            delta_d = math.degrees(2.0 * math.asin(min(1.0, C / (2.0 * R))))
+        elif "tangent" in have:
+            delta_d = math.degrees(2.0 * math.atan(have["tangent"] / R))
+        elif "mid_ordinate" in have:
+            M = have["mid_ordinate"]
+            if M > R:
+                raise ValueError(f"Mid-ordinate {M} cannot exceed radius R ({R})")
+            delta_d = math.degrees(2.0 * math.acos(max(-1.0, 1.0 - M / R)))
+        elif "external" in have:
+            E = have["external"]
+            delta_d = math.degrees(2.0 * math.acos(max(0.0, min(1.0, R / (R + E)))))
+        elif "degree_curve" in have:
+            # Over-determined check: D and R must match
+            expected_D = 5729.57795 / R
+            if abs(expected_D - have["degree_curve"]) > 0.05:
+                raise ValueError(f"Inconsistent degree of curve {have['degree_curve']} vs radius {R}")
+            raise ValueError("Radius and Degree of Curve are collinear; need one additional independent parameter")
         else:
-            # Solve sin(theta)/theta = chord / length for theta = delta_rad / 2
-            ratio = chord / length
-            # Taylor approximation as initial guess: sin(theta)/theta ~ 1 - theta^2/6
+            raise ValueError("Need an independent parameter alongside radius")
+
+    # --- Case 2: Delta and any other parameter ---
+    elif "delta_deg" in have:
+        delta_d = have["delta_deg"]
+        delta_r = math.radians(delta_d)
+        if "length" in have:
+            R = have["length"] / delta_r
+        elif "chord" in have:
+            R = have["chord"] / (2.0 * math.sin(delta_r / 2.0))
+        elif "tangent" in have:
+            R = have["tangent"] / math.tan(delta_r / 2.0)
+        elif "mid_ordinate" in have:
+            R = have["mid_ordinate"] / (1.0 - math.cos(delta_r / 2.0))
+        elif "external" in have:
+            c = math.cos(delta_r / 2.0)
+            R = have["external"] / (1.0 / c - 1.0)
+        else:
+            raise ValueError("Need an independent parameter alongside delta")
+
+    # --- Case 3: Length (Arc) and any other parameter ---
+    elif "length" in have:
+        L = have["length"]
+        if "chord" in have:
+            C = have["chord"]
+            if L < C - 1e-7:
+                raise ValueError(f"Arc length {L} cannot be smaller than chord {C}")
+            ratio = min(1.0, C / L)
             theta = math.sqrt(max(0.0, 6.0 * (1.0 - ratio)))
-            if theta == 0.0:
-                theta = 0.1
-            # Newton-Raphson on f(theta) = sin(theta) - ratio * theta = 0
-            for _ in range(25):
+            if theta == 0.0: theta = 0.1
+            for _ in range(30):
                 f_val = math.sin(theta) - ratio * theta
                 f_prime = math.cos(theta) - ratio
-                if abs(f_prime) < 1e-12:
-                    break
+                if abs(f_prime) < 1e-12: break
                 d_theta = f_val / f_prime
                 theta -= d_theta
-                if abs(d_theta) < 1e-12:
-                    break
-            delta_rad = 2.0 * theta
-            delta_deg = math.degrees(delta_rad)
-            radius = length / delta_rad
-    else:
-        raise ValueError("Could not solve curve with provided parameters")
+                if abs(d_theta) < 1e-12: break
+            delta_d = math.degrees(2.0 * theta)
+            R = L / math.radians(delta_d)
+        elif "tangent" in have:
+            T = have["tangent"]
+            # T = R tan(theta) = (L / 2theta) tan(theta) => tan(theta)/theta = 2T / L
+            k = (2.0 * T) / L
+            if k < 1.0:
+                raise ValueError(f"Tangent {T} must satisfy 2*T >= L ({L})")
+            theta = math.sqrt(max(0.0, 3.0 * (k - 1.0)))
+            if theta == 0.0: theta = 0.1
+            for _ in range(30):
+                c = math.cos(theta)
+                sec2 = 1.0 / (c * c) if abs(c) > 1e-9 else 1.0
+                f_val = math.tan(theta) - k * theta
+                f_prime = sec2 - k
+                if abs(f_prime) < 1e-12: break
+                d_theta = f_val / f_prime
+                theta -= d_theta
+                if abs(d_theta) < 1e-12: break
+            delta_d = math.degrees(2.0 * theta)
+            R = L / math.radians(delta_d)
+        elif "mid_ordinate" in have:
+            M = have["mid_ordinate"]
+            # (1 - cos(theta)) / theta = 2M / L
+            k = (2.0 * M) / L
+            theta = 2.0 * k
+            for _ in range(30):
+                f_val = (1.0 - math.cos(theta)) - k * theta
+                f_prime = math.sin(theta) - k
+                if abs(f_prime) < 1e-12: break
+                d_theta = f_val / f_prime
+                theta -= d_theta
+                if abs(d_theta) < 1e-12: break
+            delta_d = math.degrees(2.0 * theta)
+            R = L / math.radians(delta_d)
+        elif "external" in have:
+            E = have["external"]
+            # (sec(theta) - 1) / theta = 2E / L
+            k = (2.0 * E) / L
+            theta = 2.0 * k
+            for _ in range(30):
+                c = math.cos(theta)
+                sec = 1.0 / c if abs(c) > 1e-9 else 1.0
+                tan = math.tan(theta)
+                f_val = (sec - 1.0) - k * theta
+                f_prime = sec * tan - k
+                if abs(f_prime) < 1e-12: break
+                d_theta = f_val / f_prime
+                theta -= d_theta
+                if abs(d_theta) < 1e-12: break
+            delta_d = math.degrees(2.0 * theta)
+            R = L / math.radians(delta_d)
+        else:
+            raise ValueError("Could not solve curve with length and provided parameter")
 
-    return dict(radius=radius, length=length, delta_deg=delta_deg, chord=chord)
+    # --- Case 4: Chord and Tangent / Mid-Ordinate / External ---
+    elif "chord" in have:
+        C = have["chord"]
+        if "tangent" in have:
+            T = have["tangent"]
+            # cos(theta) = C / (2*T)
+            cos_theta = C / (2.0 * T)
+            if cos_theta > 1.0 or cos_theta < 0.0:
+                raise ValueError(f"Incompatible chord {C} and tangent {T} (C/(2T)={cos_theta:.4f})")
+            theta = math.acos(cos_theta)
+            delta_d = math.degrees(2.0 * theta)
+            R = T / math.tan(theta)
+        elif "mid_ordinate" in have:
+            M = have["mid_ordinate"]
+            # Exact closed-form circle geometry sagitta theorem: R = M/2 + C^2 / (8M)
+            R = (M / 2.0) + ((C ** 2) / (8.0 * M))
+            theta = math.asin(min(1.0, C / (2.0 * R)))
+            delta_d = math.degrees(2.0 * theta)
+        elif "external" in have:
+            E = have["external"]
+            # E = R(sec(theta)-1), C = 2R sin(theta) => (sec(theta)-1) / (2 sin(theta)) = E / C
+            k = E / C
+            theta = 2.0 * math.atan(2.0 * k)
+            for _ in range(30):
+                c = math.cos(theta); s = math.sin(theta)
+                sec = 1.0 / c if abs(c) > 1e-9 else 1.0
+                f_val = (sec - 1.0) - 2.0 * k * s
+                f_prime = sec * math.tan(theta) - 2.0 * k * c
+                if abs(f_prime) < 1e-12: break
+                d_theta = f_val / f_prime
+                theta -= d_theta
+                if abs(d_theta) < 1e-12: break
+            delta_d = math.degrees(2.0 * theta)
+            R = C / (2.0 * math.sin(theta))
+        else:
+            raise ValueError("Could not solve curve with chord and provided parameter")
+
+    # --- Case 5: Tangent and Mid-Ordinate / External ---
+    elif "tangent" in have:
+        T = have["tangent"]
+        if "external" in have:
+            E = have["external"]
+            # Circle tangent-secant theorem: T^2 = E * (2R + E) => 2RE = T^2 - E^2 => R = (T^2 - E^2)/(2E)
+            if T <= E:
+                raise ValueError(f"Tangent {T} must exceed external secant {E}")
+            R = (T ** 2 - E ** 2) / (2.0 * E)
+            theta = math.atan(T / R)
+            delta_d = math.degrees(2.0 * theta)
+        elif "mid_ordinate" in have:
+            M = have["mid_ordinate"]
+            # M/T = tan(theta/2) * cos(theta)
+            k = M / T
+            theta = 2.0 * k
+            for _ in range(30):
+                h = theta / 2.0
+                c = math.cos(theta)
+                f_val = math.tan(h) * c - k
+                f_prime = 0.5 * (1.0 / (math.cos(h) ** 2)) * c - math.tan(h) * math.sin(theta)
+                if abs(f_prime) < 1e-12: break
+                d_theta = f_val / f_prime
+                theta -= d_theta
+                if abs(d_theta) < 1e-12: break
+            delta_d = math.degrees(2.0 * theta)
+            R = T / math.tan(theta)
+        else:
+            raise ValueError("Could not solve curve with tangent and provided parameter")
+
+    # --- Case 6: Mid-Ordinate and External ---
+    elif "mid_ordinate" in have and "external" in have:
+        M = have["mid_ordinate"]
+        E = have["external"]
+        # (R - M)(R + E) = R^2 => R(E - M) = M*E => R = (M*E) / (E - M)
+        if E <= M:
+            raise ValueError(f"External secant {E} must strictly exceed mid-ordinate {M}")
+        R = (M * E) / (E - M)
+        theta = math.acos(max(-1.0, min(1.0, 1.0 - M / R)))
+        delta_d = math.degrees(2.0 * theta)
+    else:
+        raise ValueError("Provided parameter combination cannot be resolved")
+
+    # Final parameter calculations
+    delta_r = math.radians(delta_d)
+    half_delta = delta_r / 2.0
+    cos_half = math.cos(half_delta)
+
+    L = R * delta_r
+    C = 2.0 * R * math.sin(half_delta)
+    T = R * math.tan(half_delta)
+    M = R * (1.0 - cos_half)
+    E = R * (1.0 / cos_half - 1.0) if cos_half > 1e-9 else float("inf")
+    D = 5729.57795 / R
+
+    seg_area = 0.5 * (R ** 2) * (delta_r - math.sin(delta_r))
+    sec_area = 0.5 * (R ** 2) * delta_r
+    fillet_area = (R * T) - sec_area
+
+    return {
+        "radius": round(R, 4),
+        "delta_deg": round(delta_d, 6),
+        "delta_rad": delta_r,
+        "delta_dms": deg_to_dms_str(delta_d),
+        "length": round(L, 4),
+        "chord": round(C, 4),
+        "tangent": round(T, 4),
+        "mid_ordinate": round(M, 4),
+        "external": round(E, 4),
+        "degree_curve": round(D, 5),
+        "segment_area": round(seg_area, 2),
+        "sector_area": round(sec_area, 2),
+        "fillet_area": round(fillet_area, 2),
+    }
+
+
+def solve_missing(radius=None, length=None, delta_deg=None, chord=None):
+    """
+    Solve for missing curve parameter given any two of radius/length/delta/chord.
+    Fully backwards-compatible with the original 6-way solver.
+    """
+    res = solve_curve_all_parameters(radius=radius, delta_deg=delta_deg, length=length, chord=chord)
+    return dict(
+        radius=res["radius"],
+        length=res["length"],
+        delta_deg=res["delta_deg"],
+        chord=res["chord"],
+    )
 
 
 def verify_curve_consistency(curve: Curve, tol: float = 0.05) -> bool:
@@ -147,5 +432,6 @@ def curve_segment_area(radius: float, delta_deg: float) -> float:
         return 0.0
     theta = math.radians(delta_deg)
     return 0.5 * (radius ** 2) * (theta - math.sin(theta))
+
 
 
