@@ -463,8 +463,15 @@ def run_pipeline():
         (1770, 840),
         (4600, 615),
     ]
+    # The landmarks are expressed in a frame shifted by this offset from the raw
+    # raster-feet frame that vect_res["polylines_ft"] lives in. The Helmert transform
+    # below is solved in the SHIFTED frame, so the polylines must be shifted by the
+    # same amount before it is applied to them. They were not, which displaced the
+    # whole RASTER_VECTOR_LINEWORK layer by (+1450, +675) ft from the COGO linework.
+    RASTER_FRAME_OFFSET = (1450.0, 675.0)
     raster_ctrl_ft = [
-        ((h_img - y) * ft_px - 1450.0, x * ft_px - 675.0) for x, y in raster_ctrl_px
+        ((h_img - y) * ft_px - RASTER_FRAME_OFFSET[0], x * ft_px - RASTER_FRAME_OFFSET[1])
+        for x, y in raster_ctrl_px
     ]
 
     align_res = iterative_align_raster_to_cogo(raster_ctrl_ft, cogo_ctrl, max_iters=50, tol=1e-6)
@@ -486,7 +493,8 @@ def run_pipeline():
 
     aligned_polylines = []
     for poly in vect_res["polylines_ft"]:
-        aligned_poly = [transform_pt(n, e) for n, e in poly]
+        aligned_poly = [transform_pt(n - RASTER_FRAME_OFFSET[0], e - RASTER_FRAME_OFFSET[1])
+                        for n, e in poly]
         aligned_polylines.append(aligned_poly)
 
     # 6. DXF CAD Export with Strict Epistemic Layer Separation

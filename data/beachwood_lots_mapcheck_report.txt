@@ -511,10 +511,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +42.5 SF
-  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Curve Area Adj:      -42.5 SF
+  Net Computed Area:   7,457.5 SF (0.1712 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         +0.0 SF (0.00%)
+  Discrepancy:         -85.0 SF (1.13%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -972,10 +972,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +42.5 SF
-  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Curve Area Adj:      -42.5 SF
+  Net Computed Area:   7,457.5 SF (0.1712 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         +0.0 SF (0.00%)
+  Discrepancy:         -85.0 SF (1.13%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -1433,10 +1433,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +42.5 SF
-  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Curve Area Adj:      -42.5 SF
+  Net Computed Area:   7,457.5 SF (0.1712 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         +0.0 SF (0.00%)
+  Discrepancy:         -85.0 SF (1.13%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -1985,7 +1985,7 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
   SURVEY MAPCHECK REPORT: Blk16-Lot31 (Block 16S, Lot 31)
 ================================================================================
-Stated Dimensions: Area Target = 10,382.7 SF (0.2384 Acres)
+Stated Dimensions: Area Target = 10,116.5 SF (0.2322 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
@@ -2004,9 +2004,9 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    10,249.6 SF
-  Curve Area Adj:      +133.1 SF
-  Net Computed Area:   10,382.7 SF (0.2384 Acres)
-  Target Stated Area:  10,382.7 SF
+  Curve Area Adj:      -133.1 SF
+  Net Computed Area:   10,116.5 SF (0.2322 Acres)
+  Target Stated Area:  10,116.5 SF
   Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
@@ -2014,7 +2014,7 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
   SURVEY MAPCHECK REPORT: Blk16-Lot30 (Block 16S, Lot 30)
 ================================================================================
-Stated Dimensions: Area Target = 12,419.3 SF (0.2851 Acres)
+Stated Dimensions: Area Target = 12,153.2 SF (0.2790 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
@@ -2033,9 +2033,9 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    12,286.2 SF
-  Curve Area Adj:      +133.1 SF
-  Net Computed Area:   12,419.3 SF (0.2851 Acres)
-  Target Stated Area:  12,419.3 SF
+  Curve Area Adj:      -133.1 SF
+  Net Computed Area:   12,153.2 SF (0.2790 Acres)
+  Target Stated Area:  12,153.2 SF
   Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
@@ -2043,7 +2043,7 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
   SURVEY MAPCHECK REPORT: Blk16-Lot29 (Block 16S, Lot 29)
 ================================================================================
-Stated Dimensions: Area Target = 16,297.7 SF (0.3741 Acres)
+Stated Dimensions: Area Target = 16,031.6 SF (0.3680 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
@@ -2064,8 +2064,8 @@ AREA VERIFICATION:
   Raw Polygon Area:    16,164.6 SF
   Curve Area Adj:      +133.1 SF
   Net Computed Area:   16,297.7 SF (0.3741 Acres)
-  Target Stated Area:  16,297.7 SF
-  Discrepancy:         +0.0 SF (0.00%)
+  Target Stated Area:  16,031.6 SF
+  Discrepancy:         +266.1 SF (1.66%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -2361,10 +2361,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +42.5 SF
-  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Curve Area Adj:      -42.5 SF
+  Net Computed Area:   7,457.5 SF (0.1712 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         +0.0 SF (0.00%)
+  Discrepancy:         -85.0 SF (1.13%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -2822,10 +2822,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +42.5 SF
-  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Curve Area Adj:      -42.5 SF
+  Net Computed Area:   7,457.5 SF (0.1712 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         +0.0 SF (0.00%)
+  Discrepancy:         -85.0 SF (1.13%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -3283,10 +3283,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +42.5 SF
-  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Curve Area Adj:      -42.5 SF
+  Net Computed Area:   7,457.5 SF (0.1712 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         +0.0 SF (0.00%)
+  Discrepancy:         -85.0 SF (1.13%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -3609,10 +3609,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +42.5 SF
-  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Curve Area Adj:      -42.5 SF
+  Net Computed Area:   7,457.5 SF (0.1712 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         +0.0 SF (0.00%)
+  Discrepancy:         -85.0 SF (1.13%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -4697,10 +4697,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +42.5 SF
-  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Curve Area Adj:      -42.5 SF
+  Net Computed Area:   7,457.5 SF (0.1712 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         +0.0 SF (0.00%)
+  Discrepancy:         -85.0 SF (1.13%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 

@@ -116,6 +116,7 @@ class BeachwoodLotAgent:
         curve_specs: dict[str, Any] | None = None,
         stated_area_sqft: float = 7500.0,
         stated_dimensions: str = "75.0' x 100.0'",
+        skeleton_pts: list[Any] | None = None,
     ):
         self.agent_id = agent_id
         self.lot_id = lot_id
@@ -126,7 +127,9 @@ class BeachwoodLotAgent:
         self.curve_specs = curve_specs or {}
         self.stated_area_sqft = stated_area_sqft
         self.stated_dimensions = stated_dimensions
+        self.skeleton_pts = skeleton_pts
         self.mapcheck_report: MapCheckReport | None = None
+
 
     def compute_mapcheck(self) -> MapCheckReport:
         """
@@ -167,7 +170,24 @@ class BeachwoodLotAgent:
                     mid_ordinate=curve_info.get("mid_ordinate"),
                     external=curve_info.get("external"),
                 )
-                rot = curve_info.get("rot", "CCW")
+                default_rot = curve_info.get("rot", "CCW")
+                if self.skeleton_pts:
+                    from engine.curves import determine_curve_direction_from_skeleton
+                    skel_dir_info = determine_curve_direction_from_skeleton(
+                        pc=p1,
+                        pt=p2,
+                        skeleton_pts=self.skeleton_pts,
+                        radius=float(solved_curve["radius"]),
+                        delta_deg=float(solved_curve["delta_deg"]),
+                        fallback_rot=default_rot,
+                    )
+                    if skel_dir_info["sample_count"] >= 3 or skel_dir_info["confidence"] >= 0.20:
+                        rot = skel_dir_info["rot"]
+                    else:
+                        rot = default_rot
+                else:
+                    rot = default_rot
+
                 c_obj = Curve(
                     id=curve_info.get("id", f"C_{self.lot_id}"),
                     length=float(solved_curve["length"]),
@@ -177,6 +197,7 @@ class BeachwoodLotAgent:
                     chord=float(solved_curve["chord"]),
                     rot=rot,
                 )
+
                 arc_pts = c_obj.arc_points(p1, n_segments=16)
                 
                 course = MapCheckCourse(

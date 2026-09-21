@@ -616,6 +616,104 @@ if shutil.which("pdftoppm") and os.path.exists(_pdf):
 else:
     print("  SKIP  batch vectorizer end-to-end (pdftoppm or sample PDF not available)")
 
+print("\n=== Curve following: which side a curve bulges, decided from the scan skeleton ===")
+import numpy as np
+import cv2
+from dataclasses import replace as _replace
+from engine.vectorize import skeletonize, map_mask_excluding, extract_polylines, px_to_feet_polylines
+from engine.curve_follow import InkField, choose_curve_side, follow_curve, verify_curve_sides, _as_array
+
+# 1. Skeleton back-end (BUG: with cv2.ximgproc missing, skeletonize() silently used a morphological
+#    fallback that shredded strokes -- 2,744 pieces on a sheet whose real linework is 20 connected
+#    ones, 112 ink points on a drawn arc where thinning gives ~2,000)
+_thick = np.zeros((600, 600), np.uint8)
+cv2.ellipse(_thick, (150, 450), (300, 300), 0, 270, 340, 255, 5)   # a 5 px thick arc, ~360 px long
+_sk = skeletonize(_thick)
+_pieces = cv2.connectedComponents((_sk > 0).astype(np.uint8), connectivity=8)[0] - 1
+check("skeleton of a thick arc is ONE connected stroke", _pieces == 1, f"{_pieces} pieces")
+check("skeleton of a thick arc keeps its full length", int((_sk > 0).sum()) >= 300, int((_sk > 0).sum()))
+
+_FT, _H = 0.5, 2000   # 1000 ft square scan at 1"=100', 200 dpi
+
+
+def _scan_with_arc(curve, pc, drawn_rot, shift=(0.0, 0.0), clutter=True):
+    """Draw `curve` (bulging `drawn_rot`), displaced by `shift` ft, plus realistic clutter, on a blank
+    sheet, then run the REAL vectorizer on it and return the resulting InkField."""
+    arc = _as_array(_replace(curve, rot=drawn_rot).arc_points(pc, 64)) + np.array(shift)
+    img = np.full((_H, _H), 255, np.uint8)
+
+    def px(P):
+        return np.round(np.stack([P[:, 1] / _FT, _H - P[:, 0] / _FT], 1)).astype(np.int32).reshape(-1, 1, 2)
+
+    def draw(P, th=3):
+        cv2.polylines(img, [px(P)], False, 0, th)
+    t0 = arc[1] - arc[0]; t0 /= np.linalg.norm(t0)
+    t1 = arc[-1] - arc[-2]; t1 /= np.linalg.norm(t1)
+    draw(arc)
+    draw(np.array([arc[0] - t0 * 150, arc[0]])); draw(np.array([arc[-1], arc[-1] + t1 * 150]))
+    if clutter:
+        ch = arc[-1] - arc[0]; ch /= np.linalg.norm(ch)
+        nn = np.array([-ch[1], ch[0]]); mid = (arc[0] + arc[-1]) / 2
+        for off in (-45.0, 40.0):                       # long straight lines parallel to the chord
+            draw(np.array([mid + nn * off - ch * 160, mid + nn * off + ch * 160]), 2)
+        for k in range(1, 5):                           # lot lines crossing the arc
+            p = arc[int(len(arc) * k / 5)]
+            draw(np.array([p - nn * 60, p + nn * 60]), 2)
+    polys = px_to_feet_polylines(extract_polylines(map_mask_excluding(img, skeleton=True), 1.5, True), _FT, (0, 0), _H)
+    return InkField.from_polylines(polys), arc
+
+
+_R, _D = 250.0, 50.0                                    # mid-ordinate 23 ft: the two sides are far apart
+_cv = Curve("T", _R * math.radians(_D), _R, _D, azimuth_to_bearing(80.0), 2 * _R * math.sin(math.radians(_D / 2)), "CW")
+_pc = Point(450.0, 300.0)
+
+# 2. The side is recovered whichever way the drawing bulges, despite a 20 ft registration error
+for _drawn in ("CW", "CCW"):
+    _ink, _ = _scan_with_arc(_cv, _pc, _drawn, shift=(14.0, -14.0))
+    _r = choose_curve_side(_cv, _pc, _ink)
+    check(f"scan-drawn {_drawn} curve is recovered from the skeleton (20 ft registration error, clutter)",
+          _r.verdict == "DECIDED" and _r.side == _drawn, f"{_r.verdict} {_r.side}: {_r.reason}")
+
+# 3. verify_curve_sides catches a hand-coded side that contradicts the drawing
+_ink_cw, _true_arc = _scan_with_arc(_cv, _pc, "CW", shift=(10.0, 8.0))
+_rows = verify_curve_sides([("coded right", _replace(_cv, rot="CW"), _pc),
+                            ("coded wrong", _replace(_cv, rot="CCW"), _pc)], _ink_cw)
+check("verify_curve_sides CONFIRMS a correctly coded side", _rows[0]["status"] == "CONFIRMED", _rows[0])
+check("verify_curve_sides flags a wrongly coded side as CONTRADICTED", _rows[1]["status"] == "CONTRADICTED", _rows[1])
+
+# 4. It refuses to guess when it cannot know
+_flat = Curve("F", 1500.0 * math.radians(6.0), 1500.0, 6.0, azimuth_to_bearing(80.0),
+              2 * 1500.0 * math.sin(math.radians(3.0)), "CW")
+_ink_flat, _ = _scan_with_arc(_flat, _pc, "CW")
+_rf = choose_curve_side(_flat, _pc, _ink_flat)
+check("a curve whose two sides differ by ~2 ft is INDETERMINATE, not a coin flip",
+      _rf.verdict == "INDETERMINATE" and _rf.side is None, _rf.verdict)
+_blank, _ = _scan_with_arc(_cv, Point(450.0, 300.0), "CW", shift=(0.0, 0.0), clutter=False)
+_far = choose_curve_side(_cv, Point(850.0, 850.0), _blank)      # curve placed where the sheet has no ink
+check("no ink near the curve -> NO_INK / abstain, never a made-up side",
+      _far.side is None and _far.verdict in ("NO_INK", "AMBIGUOUS"), _far.verdict)
+
+# 5. A registration error beyond the search window abstains; a coarse landmark reading (center_ft) fixes it
+_big = (95.0, -70.0)
+_ink_big, _ = _scan_with_arc(_cv, _pc, "CCW", shift=_big)
+check("registration error beyond the window abstains rather than guessing",
+      choose_curve_side(_cv, _pc, _ink_big).side is None)
+_rc = choose_curve_side(_cv, _pc, _ink_big, center_ft=(80.0, -60.0))    # landmark read off ~25 ft wrong
+check("center_ft (coarse landmark offset) lets the search find the side",
+      _rc.verdict == "DECIDED" and _rc.side == "CCW", f"{_rc.verdict} {_rc.side}")
+
+# 6. follow_curve lands on the drawn line, on the right side, with the registration error removed
+_shift = np.array([12.0, -9.0])
+_ink_f, _drawn_arc = _scan_with_arc(_cv, _pc, "CCW", shift=tuple(_shift))
+_tr = follow_curve(_cv, _pc, _ink_f)          # curve coded CW; the scan says CCW
+_true_mid = _drawn_arc[len(_drawn_arc) // 2]
+_reg_mid = _tr.registered_arc[len(_tr.registered_arc) // 2]
+check("follow_curve overrides a wrong hand-coded side using the scan", _tr.rot == "CCW" and _tr.verdict == "DECIDED", (_tr.rot, _tr.verdict))
+check("follow_curve recovers the registration shift to within 2 ft", float(np.hypot(*(_tr.shift - _shift))) < 2.0, _tr.shift)
+check("follow_curve's registered arc sits on the drawn line (mid-arc within 2 ft)",
+      float(np.hypot(*(_reg_mid - _true_mid))) < 2.0, float(np.hypot(*(_reg_mid - _true_mid))))
+check("follow_curve reports measured ink along most of the arc", float(_tr.measured.mean()) > 0.7, float(_tr.measured.mean()))
+
 # 9. Omni-Parameter Circular Curve Solver (All 8 Parameters & 28 Pairs)
 from engine.curves import solve_curve_all_parameters, Curve
 base_c = solve_curve_all_parameters(radius=200.0, delta_deg=45.0)
@@ -709,6 +807,87 @@ mc_curved = test_curved_agent.compute_mapcheck()
 check("BeachwoodLotAgent curved side solved with omni-parameter solver", any(c.is_curve for c in mc_curved.courses))
 check("BeachwoodLotAgent curved side has tangent, mid-ordinate, and segment area",
       any("tangent" in c.curve_data and "segment_area" in c.curve_data for c in mc_curved.courses if c.is_curve))
+
+# 11. Skeleton Scan Vector Alignment & Curve Direction Determination
+print("\n=== skeleton scan vector alignment & curve direction determination ===")
+import numpy as np
+from engine.vectorize import extract_skeleton_points, align_skeleton_to_vector, sample_skeleton_corridor
+from engine.curves import determine_curve_direction_from_skeleton, trace_curve_from_skeleton
+
+# Test 11.1: extract_skeleton_points from binary mask
+syn_mask = np.zeros((100, 100), dtype=np.uint8)
+syn_mask[50, 10:90] = 255 # horizontal line
+syn_pts = extract_skeleton_points(syn_mask, ft_per_px=0.5, origin_px=(0, 0), img_h=100, downsample=1)
+check("extract_skeleton_points extracts 80 centerline pixels", len(syn_pts) == 80)
+check("extract_skeleton_points assigns correct northing/easting",
+      abs(syn_pts[0].n - (100 - 50) * 0.5) < 1e-4 and abs(syn_pts[0].e - 10 * 0.5) < 1e-4)
+
+# Test 11.2: align_skeleton_to_vector with Helmert transformation
+helmert_tx = {"scale": 1.0, "rotation_deg": 90.0, "translation_n": 500.0, "translation_e": 200.0}
+aligned_pts = align_skeleton_to_vector(syn_pts[:10], helmert_tx)
+check("align_skeleton_to_vector applies 2D similarity transform",
+      len(aligned_pts) == 10 and abs(aligned_pts[0].n - (500.0 - 5.0)) < 1e-3)
+
+# Test 11.3: determine_curve_direction_from_skeleton on synthetic CW arc
+pc_cw = Point(0.0, 0.0)
+pt_cw = Point(100.0, 0.0) # Heading DUE N
+r_cw = 200.0
+# For a CW curve from (0, 0) to (100, 0), points bow to the right (East/positive offset)
+delta_cw = 2.0 * math.asin(50.0 / r_cw) * 180.0 / math.pi
+theo_m_cw = r_cw * (1.0 - math.cos(math.radians(delta_cw) / 2.0)) # ~6.35 ft
+c_cw = Curve(id="C_CW", length=r_cw * math.radians(delta_cw), radius=r_cw, delta_deg=delta_cw,
+             chord_bearing="DUE N", chord=100.0, rot="CW")
+arc_cw_pts = c_cw.arc_points(pc_cw, n_segments=30)
+# Add small random noise
+random.seed(42)
+noisy_cw_pts = [Point(p.n + random.uniform(-0.15, 0.15), p.e + random.uniform(-0.15, 0.15)) for p in arc_cw_pts]
+
+dir_res_cw = determine_curve_direction_from_skeleton(pc_cw, pt_cw, noisy_cw_pts, radius=r_cw, delta_deg=delta_cw)
+check("determine_curve_direction_from_skeleton detects CW rotation", dir_res_cw["rot"] == "CW")
+check("determine_curve_direction_from_skeleton verifies mid-ordinate within 0.5 ft",
+      abs(dir_res_cw["observed_mid_ordinate"] - theo_m_cw) < 0.5,
+      f"obs={dir_res_cw['observed_mid_ordinate']:.2f}, theo={theo_m_cw:.2f}")
+
+# Test 11.4: determine_curve_direction_from_skeleton on synthetic CCW arc
+c_ccw = Curve(id="C_CCW", length=r_cw * math.radians(delta_cw), radius=r_cw, delta_deg=delta_cw,
+              chord_bearing="DUE N", chord=100.0, rot="CCW")
+arc_ccw_pts = c_ccw.arc_points(pc_cw, n_segments=30)
+noisy_ccw_pts = [Point(p.n + random.uniform(-0.15, 0.15), p.e + random.uniform(-0.15, 0.15)) for p in arc_ccw_pts]
+
+dir_res_ccw = determine_curve_direction_from_skeleton(pc_cw, pt_cw, noisy_ccw_pts, radius=r_cw, delta_deg=delta_cw)
+check("determine_curve_direction_from_skeleton detects CCW rotation", dir_res_ccw["rot"] == "CCW")
+check("determine_curve_direction_from_skeleton CCW mid-ordinate matches within 0.5 ft",
+      abs(dir_res_ccw["observed_mid_ordinate"] - theo_m_cw) < 0.5)
+
+# Test 11.5: trace_curve_from_skeleton and fit_to_skeleton
+traced_c = trace_curve_from_skeleton(id="C_TRACE", pc=pc_cw, pt=pt_cw, radius=r_cw, skeleton_pts=noisy_cw_pts, n_segments=16)
+check("trace_curve_from_skeleton assigns correct rot", traced_c.rot == "CW")
+fit_res = traced_c.fit_to_skeleton(pc_cw, pt_cw, noisy_cw_pts)
+check("fit_to_skeleton fits arc points with RMS < 0.5 ft",
+      fit_res["rms_residual_ft"] < 0.50, f"rms={fit_res['rms_residual_ft']}")
+
+# Test 11.6: BeachwoodLotAgent auto-determines curve direction from skeleton_pts
+# Side 3 is from (0, 75) to (0, 0): chord 75, heading DUE W
+delta_s3 = 2.0 * math.asin(37.5 / r_cw) * 180.0 / math.pi
+c_s3 = Curve(id="C_S3", length=r_cw * math.radians(delta_s3), radius=r_cw, delta_deg=delta_s3,
+             chord_bearing="DUE W", chord=75.0, rot="CW")
+arc_s3_pts = c_s3.arc_points(Point(0.0, 75.0), n_segments=20)
+
+skel_agent = BeachwoodLotAgent(
+    agent_id=999,
+    lot_id="Test-Skel-Lot",
+    block_id="16S",
+    lot_number="31",
+    corners=[Point(100.0, 0.0), Point(100.0, 75.0), Point(0.0, 75.0), Point(0.0, 0.0)],
+    curve_specs={"side_3": {"radius": r_cw, "delta_deg": delta_s3, "length": c_s3.length, "rot": "CCW"}}, # spec says CCW
+    stated_area_sqft=7500.0 - float(c_s3.segment_area),
+    skeleton_pts=arc_s3_pts, # but skeleton points bow CW!
+)
+skel_report = skel_agent.compute_mapcheck()
+curv_c = [c for c in skel_report.courses if c.is_curve][0]
+check("BeachwoodLotAgent automatically overrides curve direction from skeleton scan to CW",
+      curv_c.curve_rot == "CW")
+check("BeachwoodLotAgent with skeleton guidance passes survey mapcheck", skel_report.passed is True)
 
 print(f"\n{'='*52}")
 print(f"{len(FAILURES)} failure(s)" if FAILURES else "ALL TESTS PASS")

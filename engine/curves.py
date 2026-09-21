@@ -104,6 +104,93 @@ class Curve:
     def pt_from_pc(self, pc: Point) -> Point:
         return self.arc_points(pc, n_segments=1)[-1]
 
+    def align_and_determine_direction(
+        self,
+        pc: Point,
+        pt: Point,
+        skeleton_pts: list[Any],
+        max_search_dist: float = 60.0,
+    ) -> str:
+        """Determines curve rotation direction ('CW' or 'CCW') by matching against
+        the aligned skeleton scan linework, updates self.rot, and returns it."""
+        res = determine_curve_direction_from_skeleton(
+            pc=pc,
+            pt=pt,
+            skeleton_pts=skeleton_pts,
+            radius=self.radius,
+            delta_deg=self.delta_deg,
+            max_search_dist=max_search_dist,
+        )
+        self.rot = res["rot"]
+        return self.rot
+
+    def fit_to_skeleton(
+        self,
+        pc: Point,
+        pt: Point,
+        skeleton_pts: list[Any],
+        n_segments: int = 24,
+    ) -> dict[str, Any]:
+        """Aligns direction to skeleton, traces arc points, and calculates RMS fit error."""
+        direction_info = determine_curve_direction_from_skeleton(
+            pc=pc,
+            pt=pt,
+            skeleton_pts=skeleton_pts,
+            radius=self.radius,
+            delta_deg=self.delta_deg,
+        )
+        self.rot = direction_info["rot"]
+        arc_pts = self.arc_points(pc, n_segments=n_segments)
+
+        # Compute radius point for continuous radial residuals
+        chord_az = parse_bearing(self.chord_bearing)
+        half_delta = self.delta_deg / 2.0
+        sign = 1 if self.rot == "CW" else -1
+        tangent_in_az = (chord_az - sign * half_delta) % 360.0
+        rp_az = (tangent_in_az + sign * 90.0) % 360.0
+        rp = pc.offset(rp_az, self.radius)
+
+        pcn = pc.n if hasattr(pc, "n") else pc[0]
+        pce = pc.e if hasattr(pc, "e") else pc[1]
+        ptn = pt.n if hasattr(pt, "n") else pt[0]
+        pte = pt.e if hasattr(pt, "e") else pt[1]
+        dn = ptn - pcn
+        de = pte - pce
+        c = math.hypot(dn, de)
+
+        residuals = []
+        for sp in skeleton_pts:
+            pn = sp.n if hasattr(sp, "n") else sp[0]
+            pe = sp.e if hasattr(sp, "e") else sp[1]
+            if c > 1e-9:
+                t = ((pn - pcn) * dn + (pe - pce) * de) / c
+                t_frac = t / c
+                if 0.0 <= t_frac <= 1.0:
+                    rad_dist = math.hypot(pn - rp.n, pe - rp.e)
+                    err = abs(rad_dist - self.radius)
+                    if err <= 20.0:
+                        residuals.append(err)
+
+        if not residuals:
+            for ap in arc_pts:
+                dists = [ap.dist_to(sp if hasattr(sp, "dist_to") else Point(sp[0], sp[1]))
+                         for sp in skeleton_pts
+                         if abs(ap.n - (sp.n if hasattr(sp, "n") else sp[0])) < 50.0 and
+                            abs(ap.e - (sp.e if hasattr(sp, "e") else sp[1])) < 50.0]
+                if dists:
+                    residuals.append(min(dists))
+
+        rms = math.sqrt(sum(r ** 2 for r in residuals) / len(residuals)) if residuals else 0.0
+
+        return {
+            "rot": self.rot,
+            "direction_info": direction_info,
+            "arc_points": arc_pts,
+            "rms_residual_ft": round(rms, 3),
+            "max_residual_ft": round(max(residuals), 3) if residuals else 0.0,
+        }
+
+
 
 def deg_to_dms_str(deg_val: float) -> str:
     """Format decimal degrees into DMS string, e.g. 37°42'50\"."""
@@ -432,6 +519,185 @@ def curve_segment_area(radius: float, delta_deg: float) -> float:
         return 0.0
     theta = math.radians(delta_deg)
     return 0.5 * (radius ** 2) * (theta - math.sin(theta))
+
+
+def determine_curve_direction_from_skeleton(
+    pc: Point,
+    pt: Point,
+    skeleton_pts: list[Any],
+    radius: float | None = None,
+    delta_deg: float | None = None,
+    max_search_dist: float = 60.0,
+    fallback_rot: str = "CCW",
+) -> dict[str, Any]:
+    """Determine the direction of a circular curve ('CW' vs 'CCW') by analyzing
+    the signed offsets of the aligned skeleton scan points relative to the chord vector PC -> PT.
+
+    In the survey coordinate system (Northing Y, Easting X):
+    - When moving from PC to PT:
+      * Skeleton points with positive signed offset (offset > 0) correspond to a curve
+        whose radius point is to the right, bending the curve towards rotation 'CW'.
+      * Skeleton points with negative signed offset (offset < 0) correspond to a curve
+        whose radius point is to the left, bending the curve towards rotation 'CCW'.
+    - The peak signed offset magnitude measures the observed mid-ordinate (M).
+
+    Returns a dict with:
+      'direction': 'CW' or 'CCW',
+      'rot': 'CW' or 'CCW',
+      'observed_mid_ordinate': float,
+      'theoretical_mid_ordinate': float or None,
+      'mid_ordinate_error': float or None,
+      'mean_offset': float,
+      'median_offset': float,
+      'peak_offset': float,
+      'sample_count': int,
+      'confidence': float,
+    """
+    pcn = pc.n if hasattr(pc, "n") else pc[0]
+    pce = pc.e if hasattr(pc, "e") else pc[1]
+    ptn = pt.n if hasattr(pt, "n") else pt[0]
+    pte = pt.e if hasattr(pt, "e") else pt[1]
+
+    dn = ptn - pcn
+    de = pte - pce
+    c = math.hypot(dn, de)
+    if c < 1e-9:
+        return {
+            "direction": fallback_rot,
+            "rot": fallback_rot,
+            "observed_mid_ordinate": 0.0,
+            "theoretical_mid_ordinate": 0.0,
+            "mid_ordinate_error": 0.0,
+            "mean_offset": 0.0,
+            "median_offset": 0.0,
+            "peak_offset": 0.0,
+            "sample_count": 0,
+            "confidence": 0.0,
+        }
+
+    theo_m = None
+    if radius is not None and delta_deg is not None:
+        theo_m = radius * (1.0 - math.cos(math.radians(delta_deg) / 2.0))
+
+    effective_search_dist = max_search_dist
+    if theo_m is not None and theo_m > 0:
+        effective_search_dist = min(max_search_dist, max(8.0, 3.5 * theo_m))
+
+    # Extract corridor points
+    offsets: list[float] = []
+    min_n = min(pcn, ptn) - effective_search_dist
+    max_n = max(pcn, ptn) + effective_search_dist
+    min_e = min(pce, pte) - effective_search_dist
+    max_e = max(pce, pte) + effective_search_dist
+
+    for p in skeleton_pts:
+        pn = p.n if hasattr(p, "n") else p[0]
+        pe = p.e if hasattr(p, "e") else p[1]
+        if pn < min_n or pn > max_n or pe < min_e or pe > max_e:
+            continue
+        t = ((pn - pcn) * dn + (pe - pce) * de) / c
+        t_frac = t / c
+        if 0.08 <= t_frac <= 0.92:
+            off = (de * (pn - pcn) - dn * (pe - pce)) / c
+            if abs(off) <= effective_search_dist:
+                offsets.append(off)
+
+    if not offsets:
+        # Fallback if no skeleton points found within corridor
+        return {
+            "direction": fallback_rot,
+            "rot": fallback_rot,
+            "observed_mid_ordinate": 0.0,
+            "theoretical_mid_ordinate": round(theo_m, 4) if theo_m is not None else None,
+            "mid_ordinate_error": None,
+            "mean_offset": 0.0,
+            "median_offset": 0.0,
+            "peak_offset": 0.0,
+            "sample_count": 0,
+            "confidence": 0.0,
+        }
+
+    mean_off = float(sum(offsets) / len(offsets))
+    sorted_offs = sorted(offsets)
+    median_off = float(sorted_offs[len(sorted_offs) // 2])
+    peak_off = max(offsets, key=abs)
+
+    # In our Curve class convention:
+    # arc_points(pc) with rot='CW' generates points with signed_offset > 0.
+    # arc_points(pc) with rot='CCW' generates points with signed_offset < 0.
+    rot = "CW" if median_off > 0 else "CCW"
+    obs_m = abs(peak_off)
+
+    m_err = None
+    if theo_m is not None:
+        m_err = abs(obs_m - theo_m)
+
+    confidence = min(1.0, len(offsets) / 10.0)
+    if theo_m and theo_m > 0:
+        confidence *= max(0.0, 1.0 - min(1.0, (m_err or 0.0) / theo_m))
+
+    return {
+        "direction": rot,
+        "rot": rot,
+        "observed_mid_ordinate": round(obs_m, 4),
+        "theoretical_mid_ordinate": round(theo_m, 4) if theo_m is not None else None,
+        "mid_ordinate_error": round(m_err, 4) if m_err is not None else None,
+        "mean_offset": round(mean_off, 4),
+        "median_offset": round(median_off, 4),
+        "peak_offset": round(peak_off, 4),
+        "sample_count": len(offsets),
+        "confidence": round(confidence, 4),
+    }
+
+
+def trace_curve_from_skeleton(
+    id: str,
+    pc: Point,
+    pt: Point,
+    radius: float,
+    skeleton_pts: list[Any],
+    chord_bearing: str | None = None,
+    n_segments: int = 24,
+) -> Curve:
+    """Trace and construct a verified circular Curve between PC and PT,
+    using the aligned skeleton scan to determine curve direction and confirm the arc."""
+    pcn = pc.n if hasattr(pc, "n") else pc[0]
+    pce = pc.e if hasattr(pc, "e") else pc[1]
+    ptn = pt.n if hasattr(pt, "n") else pt[0]
+    pte = pt.e if hasattr(pt, "e") else pt[1]
+
+    dn = ptn - pcn
+    de = pte - pce
+    chord_dist = math.hypot(dn, de)
+    if chord_dist > 2.0 * radius:
+        radius = chord_dist / 2.0  # limit radius to semicircle
+
+    # Central angle Delta
+    sin_half_delta = max(-1.0, min(1.0, chord_dist / (2.0 * radius)))
+    half_delta_rad = math.asin(sin_half_delta)
+    delta_deg = math.degrees(2.0 * half_delta_rad)
+    arc_length = radius * math.radians(delta_deg)
+
+    if chord_bearing is None:
+        az = (math.degrees(math.atan2(de, dn)) + 360.0) % 360.0
+        chord_bearing = azimuth_to_bearing(az)
+
+    # Determine direction from aligned skeleton scan
+    dir_info = determine_curve_direction_from_skeleton(
+        pc=pc, pt=pt, skeleton_pts=skeleton_pts, radius=radius, delta_deg=delta_deg
+    )
+    rot = dir_info["rot"]
+
+    return Curve(
+        id=id,
+        length=round(arc_length, 4),
+        radius=round(radius, 4),
+        delta_deg=round(delta_deg, 6),
+        chord_bearing=chord_bearing,
+        chord=round(chord_dist, 4),
+        rot=rot,
+    )
+
 
 
 

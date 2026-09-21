@@ -21,6 +21,7 @@ merge collinear -> convert px to feet -> DXF.
 """
 from __future__ import annotations
 import math
+import warnings
 import cv2
 import numpy as np
 from typing import Any
@@ -61,7 +62,22 @@ def skeletonize(mask: np.ndarray) -> np.ndarray:
         import cv2.ximgproc as xi
         return xi.thinning(mask, thinningType=xi.THINNING_ZHANGSUEN)
     except Exception:
-        # fallback: morphological thinning if ximgproc is unavailable
+        pass  # opencv-contrib not installed
+    try:
+        # scikit-image thinning is the same family as Zhang-Suen and keeps strokes
+        # connected. On the Beachwood sheet it gives 20 connected pieces where the
+        # morphological fallback below gives 2,744, and on a clean drawn arc 1,991
+        # ink points where the fallback keeps 112 -- so silently falling through to
+        # it (as this function used to whenever cv2.ximgproc was missing) wrecked
+        # every curve-following and linework result downstream.
+        from skimage.morphology import skeletonize as _sk_skeletonize
+        return (_sk_skeletonize(mask > 0) * 255).astype(np.uint8)
+    except Exception:
+        warnings.warn(
+            "skeletonize(): neither cv2.ximgproc nor scikit-image is available; using the "
+            "crude morphological fallback, which fragments strokes. Install opencv-contrib-python "
+            "or scikit-image for reliable centerlines.", RuntimeWarning, stacklevel=2)
+        # last resort: morphological thinning
         skel = np.zeros_like(mask)
         working = mask.copy()
         kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (3, 3))
@@ -457,5 +473,120 @@ def iterative_align_raster_to_cogo(
         "residual_ft": residual,
         "history": history,
     }
+
+
+def extract_skeleton_points(
+    mask: np.ndarray,
+    ft_per_px: float,
+    origin_px: tuple[int, int] = (0, 0),
+    img_h: int = 0,
+    downsample: int = 1,
+) -> list[Any]:
+    """Extract 1-pixel-wide skeleton centerline points from a binary mask
+    and convert them to plat coordinates (Northing, Easting) in feet.
+    
+    downsample: optional integer stride to reduce point density if desired.
+    """
+    from engine.cogo import Point
+    ys, xs = np.where(mask > 0)
+    ox, oy = origin_px
+    points = []
+    for i in range(0, len(xs), max(1, downsample)):
+        x, y = int(xs[i]), int(ys[i])
+        e = (x - ox) * ft_per_px
+        n = (img_h - (y - oy)) * ft_per_px
+        points.append(Point(n, e))
+    return points
+
+
+def align_skeleton_to_vector(
+    skeleton_pts: list[Any],
+    helmert_params: dict[str, Any] | None = None,
+    control_pairs: tuple[list[tuple[float, float]], list[tuple[float, float]]] | None = None,
+) -> list[Any]:
+    """Align skeleton scan points to vector survey coordinates (Northing, Easting)
+    using a 2D Helmert similarity transformation (scale, rotation, translation).
+    
+    Either helmert_params (from iterative_align_raster_to_cogo) or control_pairs
+    (raster_pts, cogo_pts) can be provided.
+    """
+    from engine.cogo import Point
+    if helmert_params is None:
+        if control_pairs is None:
+            return skeleton_pts
+        r_ctrl, c_ctrl = control_pairs
+        helmert_params = iterative_align_raster_to_cogo(r_ctrl, c_ctrl)
+
+    scale = float(helmert_params.get("scale", 1.0))
+    rot_deg = float(helmert_params.get("rotation_deg", 0.0))
+    t_n = float(helmert_params.get("translation_n", 0.0))
+    t_e = float(helmert_params.get("translation_e", 0.0))
+
+    rad = math.radians(rot_deg)
+    cos_t, sin_t = math.cos(rad), math.sin(rad)
+
+    aligned = []
+    for pt in skeleton_pts:
+        pn = pt.n if hasattr(pt, "n") else pt[0]
+        pe = pt.e if hasattr(pt, "e") else pt[1]
+        an = scale * (pn * cos_t - pe * sin_t) + t_n
+        ae = scale * (pn * sin_t + pe * cos_t) + t_e
+        aligned.append(Point(an, ae))
+    return aligned
+
+
+def sample_skeleton_corridor(
+    p1: Any,
+    p2: Any,
+    skeleton_pts: list[Any],
+    max_dist: float = 60.0,
+    margin_frac: float = 0.05,
+) -> list[tuple[Any, float, float]]:
+    """Sample skeleton points in the lateral corridor along the chord from p1 to p2.
+    
+    Returns list of tuples: (point, t_along_chord, signed_offset)
+    where:
+      t_along_chord: normalized position along chord [0, 1]
+      signed_offset: perpendicular signed distance from chord line in feet:
+                     > 0 implies point is to the LEFT of chord vector p1 -> p2
+                     < 0 implies point is to the RIGHT of chord vector p1 -> p2
+    """
+    p1n = p1.n if hasattr(p1, "n") else p1[0]
+    p1e = p1.e if hasattr(p1, "e") else p1[1]
+    p2n = p2.n if hasattr(p2, "n") else p2[0]
+    p2e = p2.e if hasattr(p2, "e") else p2[1]
+
+    dn = p2n - p1n
+    de = p2e - p1e
+    c = math.hypot(dn, de)
+    if c < 1e-9:
+        return []
+
+    corridor = []
+    for pt in skeleton_pts:
+        pn = pt.n if hasattr(pt, "n") else pt[0]
+        pe = pt.e if hasattr(pt, "e") else pt[1]
+
+        # Fast bounding box cull
+        min_n = min(p1n, p2n) - max_dist
+        max_n = max(p1n, p2n) + max_dist
+        min_e = min(p1e, p2e) - max_dist
+        max_e = max(p1e, p2e) + max_dist
+        if pn < min_n or pn > max_n or pe < min_e or pe > max_e:
+            continue
+
+        # Projection along chord
+        t = ((pn - p1n) * dn + (pe - p1e) * de) / c
+        t_frac = t / c
+        if t_frac < margin_frac or t_frac > (1.0 - margin_frac):
+            continue
+
+        # Perpendicular signed offset
+        offset = (de * (pn - p1n) - dn * (pe - p1e)) / c
+        if abs(offset) <= max_dist:
+            corridor.append((pt, t_frac, offset))
+
+    return corridor
+
 
 
