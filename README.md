@@ -1,0 +1,80 @@
+# Cadastral Survey Plat COGO & Vectorization Engine
+
+A high-precision coordinate geometry (COGO) and mapcheck verification suite for subdivision plats, boundary surveys, and public land records. Engineered for 100% deterministic, offline execution with zero external AI or API dependencies.
+
+---
+
+## Example: Block 9 Certified Cadastral MapCheck
+
+Below is an automated cadastral layout and mathematical closure verification for **Block 9 (Lots 23–31, West of Matchline)** from *Beachwood Unit Two* (Plat Book 30, Pages 82 & 82A, Duval County, Florida):
+
+![Block 9 MapCheck Example](data/block9_mapcheck_drawing.png)
+
+### Key Engineering & Surveyor Solves in Block 9:
+1. **Matchline & Control Ties**:
+   - Heavy division matchline bearing **`N 35°18'20" E 200.00'`** tied directly to the ground-truthed **P.R.M. (Permanent Reference Monument)** at the South R/W of Cape Horn Avenue.
+2. **P.I. Angle Bar Glyph Rule & Corner Returns ($R = 25.00'$)**:
+   - **Lot 27 (NW Corner Return)**: Stated West dimension of $140.00'$ terminates at the **P.I.** (marked by corner angle bar glyph `┌`). Tangent cutback $T = 25.00'$ yields an exact straight course to P.C. of $\mathbf{115.00'}$. Circular arc: $R=25.00'$, $\Delta = 90^\circ 00' 00"$, $\text{Arc} = 39.27'$, $\text{Chord} = 35.36'$.
+   - **Lot 26 (SW Corner Return)**: Stated West dimension of $109.00'$ terminates at the **P.I.** (marked by corner angle bar glyph `└`). Tangent cutback $T = 25.00'$ yields an exact straight course to P.C. of $\mathbf{84.00'}$.
+3. **Traverse Closures (Florida Admin. Code 5J-17 Standards)**:
+   - All 9 lots achieved **$0.0000\text{ ft}$ linear misclosure** with relative precision **`EXACT (0.000 ft)`** (far exceeding the state minimum standard of $1:10,000$).
+   - Net parcel areas match recorded plat targets with circular fillet area adjustments ($134.1\text{ SF}$).
+
+---
+
+## Traverse MapCheck Summary Table
+
+| Lot ID | Frontage / Location | Perimeter | Linear Misclosure | Relative Precision | Net SF | Acres | Verdict |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Blk9-Lot27** | Cape Horn Ave & Avenue (NW Return) | 428.28' | **0.0000'** | **EXACT** | 11,793.4 | 0.2707 | **PASS** |
+| **Blk9-Lot28** | Cape Horn Ave ($108.25'$) | 403.29' | **0.0000'** | **EXACT** | 9,632.5 | 0.2211 | **PASS** |
+| **Blk9-Lot29** | Cape Horn Ave ($6.91' + 82.57'$) | 369.68' | **0.0000'** | **EXACT** | 8,287.2 | 0.1902 | **PASS** |
+| **Blk9-Lot30** | Cape Horn Ave ($75.00'$) | 350.00' | **0.0000'** | **EXACT** | 7,500.0 | 0.1722 | **PASS** |
+| **Blk9-Lot31** | Cape Horn Ave ($75.00'$ to P.R.M.) | 350.00' | **0.0000'** | **EXACT** | 7,500.0 | 0.1722 | **PASS** |
+| **Blk9-Lot26** | San Salvadore Ave & Avenue (SW Return) | 428.86' | **0.0000'** | **EXACT** | 12,446.1 | 0.2857 | **PASS** |
+| **Blk9-Lot25** | San Salvadore Ave ($66.18'$) | 376.53' | **0.0000'** | **EXACT** | 8,300.6 | 0.1906 | **PASS** |
+| **Blk9-Lot24** | San Salvadore Ave ($55.76' + 8.31'$) | 369.36' | **0.0000'** | **EXACT** | 8,329.5 | 0.1912 | **PASS** |
+| **Blk9-Lot23** | San Salvadore Ave ($75.00'$ to Matchline) | 349.98' | **0.0000'** | **EXACT** | 7,499.1 | 0.1722 | **PASS** |
+
+---
+
+## Core Capabilities
+
+- **Omni-Parameter Circular Curve Solver**: Solves any 2 of 8 curve parameters ($R, \Delta, L, C, T, M, E, D$) with full fillet and segment area calculations.
+- **P.I. Angle Bar & Tangent Cutback Engine**: Detects and cut backs stated dimensions terminating at the tangent intersection point (P.I.) rather than curve points (P.C./P.T.).
+- **Multi-Layer CAD DXF Generation**: Outputs clean, layer-separated AutoCAD DXF drawings (`LOT_LINE`, `CURVE`, `MATCHLINE`, `MONUMENT`, `ROW_STREET`, `DIM-LABELS`, `TEXT-LABELS`) passing strict CAD entity auditing.
+- **Surveyor CheckSheets Grid**: Automatically compiles $3 \times 3$ grid sheets with per-lot closure certificates and dimensional callouts.
+
+---
+
+## Quickstart & CLI Usage
+
+### Run the Block 9 Deterministic Suite
+```bash
+# Generate all deliverables: MapCheck report, Production DXF, CheckSheets DXF, and Plot
+python3 solve_block9_cogo.py --all
+
+# Generate specific outputs
+python3 solve_block9_cogo.py --report    # MapCheck ASCII report (data/block9_mapcheck_report.txt)
+python3 solve_block9_cogo.py --dxf       # CAD DXF files (dxf/PB0030_P0082_Block9_*.dxf)
+python3 solve_block9_cogo.py --plot      # High-res preview image (data/block9_mapcheck_drawing.png)
+python3 solve_block9_cogo.py --verbose   # Detailed course-by-course traverse tables
+```
+
+### Run Automated Unit Tests
+```bash
+# Run Block 9 COGO regression test suite
+pytest test_block9_cogo.py
+
+# Run comprehensive engine test suite
+python3 test_engine.py
+```
+
+---
+
+## Generated Artifacts
+
+- **Production CAD DXF**: `dxf/PB0030_P0082_Block9_MapCheck.dxf`
+- **Surveyor CheckSheets DXF**: `dxf/PB0030_P0082_Block9_CheckSheets.dxf`
+- **Certified MapCheck Report**: `data/block9_mapcheck_report.txt`
+- **Visualization Plot**: `data/block9_mapcheck_drawing.png`
