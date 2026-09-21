@@ -144,7 +144,8 @@ def build_orange_grove_vale_blvd():
              "PLSS SECTION LINE TIE: Sec 24 & 25, T7S, R24E (Ground-Truthed WGS84)",
              height=10.0, layer="CONTROL")
 
-    out_dxf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dxf", "PB0001_P0004_OrangeGrove_SurveyGrade.dxf")
+    out_dxf = os.path.join("dxf", "PB0001_P0004_OrangeGrove_SurveyGrade.dxf")
+    os.makedirs(os.path.dirname(out_dxf), exist_ok=True)
     dxf.save(out_dxf)
     print(f"Saved -> {out_dxf}")
 

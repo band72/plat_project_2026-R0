@@ -23,6 +23,7 @@ import argparse
 import math
 import os
 import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from dataclasses import dataclass, field
 
 import matplotlib
@@ -274,7 +275,7 @@ def write_checksheets_dxf(solver: BeachwoodBlock9Solver, output_path: str = "dxf
 # HIGH-RESOLUTION SURVEY INSPECTION PLOT
 # ==============================================================================
 
-def render_plot(solver: BeachwoodBlock9Solver, output_path: str = "data/block9_mapcheck_drawing.png") -> str:
+def render_plot(solver: BeachwoodBlock9Solver, output_path: str = "images/block9_mapcheck_drawing.png") -> str:
     """Render high-resolution dark-mode survey inspection plot."""
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     pts = solver.points
@@ -419,7 +420,7 @@ def main():
         print(f"[OK] DXF deliverables generated:\n  - {dxf_prod}\n  - {dxf_sheets}")
 
     if args.all or args.plot:
-        plot_path = render_plot(solver, "data/block9_mapcheck_drawing.png")
+        plot_path = render_plot(solver, "images/block9_mapcheck_drawing.png")
         print(f"[OK] Visual plot generated: {plot_path}")
 
     print("\nAll deliverables generated with 100% deterministic mathematical precision.\n")

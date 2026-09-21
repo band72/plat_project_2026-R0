@@ -184,7 +184,8 @@ def build_granada():
     dxf.text((start_n - 80.0, start_e), "MAP OF GRANADA -- PLAT BOOK 1, PAGE 1", height=12.0, layer="BOUNDARY")
     dxf.text((start_n - 100.0, start_e), "CLAY COUNTY PUBLIC RECORDS -- SURVEY GRADE COGO (EPSG:2236)", height=8.0, layer="BOUNDARY")
 
-    out_dxf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dxf", "PB0001_P0001_Granada_SurveyGrade.dxf")
+    out_dxf = os.path.join("dxf", "PB0001_P0001_Granada_SurveyGrade.dxf")
+    os.makedirs(os.path.dirname(out_dxf), exist_ok=True)
     dxf.save(out_dxf)
     print(f"Saved -> {out_dxf}")
     

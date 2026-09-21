@@ -152,7 +152,8 @@ def build_kingsley_church():
              "PUBLIC BURYING GROUND AND CHURCH LOT -- PLAT BOOK 1, PAGE 5 (1888)",
              height=9.0, layer="BOUNDARY")
 
-    out_dxf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dxf", "PB0001_P0005_KingsleyChurch_SurveyGrade.dxf")
+    out_dxf = os.path.join("dxf", "PB0001_P0005_KingsleyChurch_SurveyGrade.dxf")
+    os.makedirs(os.path.dirname(out_dxf), exist_ok=True)
     dxf.save(out_dxf)
     print(f"Saved -> {out_dxf}")
 

@@ -6,6 +6,7 @@ not a hypothetical. Run before shipping any change to engine/.
 """
 import sys, math, random
 sys.path.insert(0, '.')
+sys.path.insert(0, './scripts')
 from engine.cogo import Point, parse_bearing, azimuth_to_bearing
 from engine.lots import shoelace_area, is_simple_polygon, safe_area
 from engine.curves import Curve

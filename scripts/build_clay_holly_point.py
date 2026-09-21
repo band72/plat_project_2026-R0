@@ -197,7 +197,8 @@ def build_holly_point():
              "HOLLY POINT -- PLAT BOOK 4, PAGE 17 (7 SHEETS ASSEMBLED)",
              height=18.0, layer="BOUNDARY")
 
-    out_dxf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dxf", "PB0004_P0017_HollyPoint_SurveyGrade.dxf")
+    out_dxf = os.path.join("dxf", "PB0004_P0017_HollyPoint_SurveyGrade.dxf")
+    os.makedirs(os.path.dirname(out_dxf), exist_ok=True)
     dxf.save(out_dxf)
     print(f"Saved -> {out_dxf}")
 

@@ -6,9 +6,16 @@ A high-precision coordinate geometry (COGO) and mapcheck verification suite for 
 
 ## Example: Block 9 Certified Cadastral MapCheck
 
-Below is an automated cadastral layout and mathematical closure verification for **Block 9 (Lots 23–31, West of Matchline)** from *Beachwood Unit Two* (Plat Book 30, Pages 82 & 82A, Duval County, Florida):
+<p align="center">
+  <img src="images/block9_mapcheck_drawing.png" alt="Block 9 MapCheck Example" width="720" />
+</p>
 
-![Block 9 MapCheck Example](data/block9_mapcheck_drawing.png)
+### MapCheck Individual Parcels
+
+<p align="center">
+  <img src="images/mapcheck_individual_parcels_grid.png" alt="MapCheck Individual Parcels Grid" width="48%" />
+  <img src="images/mapcheck_individual_parcels_detail.png" alt="MapCheck Individual Parcel Detail" width="48%" />
+</p>
 
 ### Key Engineering & Surveyor Solves in Block 9:
 1. **Matchline & Control Ties**:
@@ -52,13 +59,13 @@ Below is an automated cadastral layout and mathematical closure verification for
 ### Run the Block 9 Deterministic Suite
 ```bash
 # Generate all deliverables: MapCheck report, Production DXF, CheckSheets DXF, and Plot
-python3 solve_block9_cogo.py --all
+python3 scripts/solve_block9_cogo.py --all
 
 # Generate specific outputs
-python3 solve_block9_cogo.py --report    # MapCheck ASCII report (data/block9_mapcheck_report.txt)
-python3 solve_block9_cogo.py --dxf       # CAD DXF files (dxf/PB0030_P0082_Block9_*.dxf)
-python3 solve_block9_cogo.py --plot      # High-res preview image (data/block9_mapcheck_drawing.png)
-python3 solve_block9_cogo.py --verbose   # Detailed course-by-course traverse tables
+python3 scripts/solve_block9_cogo.py --report    # MapCheck ASCII report (data/block9_mapcheck_report.txt)
+python3 scripts/solve_block9_cogo.py --dxf       # CAD DXF files (dxf/PB0030_P0082_Block9_*.dxf)
+python3 scripts/solve_block9_cogo.py --plot      # High-res preview image (images/block9_mapcheck_drawing.png)
+python3 scripts/solve_block9_cogo.py --verbose   # Detailed course-by-course traverse tables
 ```
 
 ### Run Automated Unit Tests
@@ -72,9 +79,20 @@ python3 test_engine.py
 
 ---
 
+## Repository Structure
+
+- **`engine/`**: Core surveying COGO calculations, omni-parameter curve solver, and CAD DXF writer.
+- **`scripts/`**: Production CLI tools, boundary traverse builders, and mapcheck generators.
+- **`images/`**: High-resolution survey inspection drawings, plots, and visual artifacts.
+- **`Plat/`**: Historical subdivision plat PDFs, with training screenshots organized in `Plat/training/`.
+- **`data/`**: Certified MapCheck ASCII audit sheets and ground-truth GPS database.
+- **`dxf/`**: Multi-layer AutoCAD DXF production linework and checksheets grids.
+
+---
+
 ## Generated Artifacts
 
 - **Production CAD DXF**: `dxf/PB0030_P0082_Block9_MapCheck.dxf`
 - **Surveyor CheckSheets DXF**: `dxf/PB0030_P0082_Block9_CheckSheets.dxf`
 - **Certified MapCheck Report**: `data/block9_mapcheck_report.txt`
-- **Visualization Plot**: `data/block9_mapcheck_drawing.png`
+- **Visualization Plot**: `images/block9_mapcheck_drawing.png`
