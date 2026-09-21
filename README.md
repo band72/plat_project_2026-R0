@@ -1,5 +1,8 @@
 # Cadastral Survey Plat COGO & Vectorization Engine
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Standard: F.A.C. 5J-17](https://img.shields.io/badge/Standard-F.A.C.%205J--17-00f0ff.svg)](https://www.flrules.org/gateway/ChapterHome.asp?Chapter=5J-17)
+
 A high-precision coordinate geometry (COGO) and mapcheck verification suite for subdivision plats, boundary surveys, and public land records. Engineered for 100% deterministic, offline execution with zero external AI or API dependencies.
 
 ---
@@ -123,3 +126,24 @@ python3 test_engine.py
 - **Surveyor CheckSheets DXF**: `dxf/PB0030_P0082_Block9_CheckSheets.dxf`
 - **Certified MapCheck Report**: `data/block9_mapcheck_report.txt`
 - **Visualization Plot**: `images/block9_mapcheck_drawing.png`
+
+---
+
+## License
+
+This project is licensed under the terms of the [MIT License](LICENSE).
+
+```text
+MIT License
+Copyright (c) 2026 band72
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+```
