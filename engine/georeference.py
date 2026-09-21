@@ -136,13 +136,14 @@ def haversine_distance_ft(coord_a: tuple[float, float], coord_b: tuple[float, fl
     return r_earth_ft * c
 
 
-def assert_zero_fudging(coord_a: tuple[float, float], coord_b: tuple[float, float], max_dist_ft: float = 0.05) -> bool:
+def assert_zero_fudging(coord_a: tuple[float, float], coord_b: tuple[float, float], max_dist_ft: float = 0.05, name: str = "") -> bool:
     """Enforce Permanent Agent Rule:
     Shared ground intersections MUST share the exact same true physical GPS coordinates with zero artificial offset fudging."""
     dist_ft = haversine_distance_ft(coord_a, coord_b)
     if dist_ft > max_dist_ft:
+        target_str = f" for '{name}'" if name else ""
         raise AssertionError(
-            f"Zero-Fudging Violation: Coordinates {coord_a} and {coord_b} differ by {dist_ft:.4f} ft "
+            f"Zero-Fudging Violation{target_str}: Coordinates {coord_a} and {coord_b} differ by {dist_ft:.4f} ft "
             f"(exceeds zero-fudging tolerance of {max_dist_ft:.4f} ft)."
         )
     return True

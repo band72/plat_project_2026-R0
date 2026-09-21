@@ -454,11 +454,48 @@ check("CodebaseAuditPanel audit status PASS", cb_report["status"] == "PASS")
 check("CodebaseAuditPanel 0 syntax errors across codebase", cb_report["syntax_errors"] == 0)
 check("CodebaseAuditPanel unanimous 100/100 quorum", cb_report["consensus"]["unanimous_quorum"] is True)
 
+# 7. 100-Agent Street Extraction Consensus Panel
+from engine.street_extraction import StreetExtractionConsensusPanel, pair_intersections_with_consensus
+street_panel = StreetExtractionConsensusPanel()
+check("StreetExtractionConsensusPanel instantiates 100 agents", len(street_panel.solver.agents) == 100)
+check("StreetExtractionConsensusPanel instantiates 5 guilds", len(street_panel.solver.guilds) == 5)
+
+sample_extracted = {
+    "0": ["STARFISH AVENUE", "SAIL AVENUE", "MANGROVE AVENUE", "PLAT BOOK 30 PAGE 82", "NORTH 100 FEET"],
+    "90": ["MANGROVE AVENUE", "MARINA AVENUE", "TRACT A SECTION 32", "RIGHT OF WAY 60 FT"],
+    "270": ["SANDS AVENUE", "CAPE HORN AVENUE"]
+}
+street_consensus_res = pair_intersections_with_consensus(sample_extracted)
+check("Street consensus evaluation status PASS", street_consensus_res["status"] == "PASS")
+check("Street consensus achieves unanimous quorum", street_consensus_res["consensus"]["unanimous_quorum"] is True)
+check("Street consensus rejects survey noise pairs", any("Contains non-street survey noise" in r[2] for r in street_consensus_res["rejected_pairs"]))
+check("Street consensus verifies Starfish & Mangrove ground-truth GPS",
+      any(item["horizontal_street"] == "STARFISH AVENUE" and item["vertical_street"] == "MANGROVE AVENUE" and item["ground_truthed"]
+          for item in street_consensus_res["verified_intersections"]))
+
+# 8. 100-Agent Batch Plat Vectorization Consensus Panel
+from build_plats_vector import BatchPlatConsensusPanel
+vector_panel = BatchPlatConsensusPanel()
+check("BatchPlatConsensusPanel instantiates 100 agents", len(vector_panel.solver.agents) == 100)
+check("BatchPlatConsensusPanel instantiates 5 guilds", len(vector_panel.solver.guilds) == 5)
+v_consensus_res = vector_panel.reach_vectorization_consensus(
+    plat_name="TestPlat",
+    scale_ft=100.0,
+    dpi=200,
+    total_polylines=1500,
+    total_linework_ft=18500.0,
+    gps_tie=(30.292130, -81.530280),
+)
+check("Batch plat vectorization consensus status PASS", v_consensus_res["status"] == "PASS")
+check("Batch plat vectorization achieves unanimous quorum", v_consensus_res["consensus"]["unanimous_quorum"] is True)
+check("Batch plat vectorization delta < 1e-6", v_consensus_res["consensus"]["final_delta"] < 1e-6)
+
 print(f"\n{'='*52}")
 print(f"{len(FAILURES)} failure(s)" if FAILURES else "ALL TESTS PASS")
 if FAILURES:
     for f in FAILURES:
         print("  -", f)
     sys.exit(1)
+
 
 

@@ -141,3 +141,7 @@ def audit_dxf_layers(dxf_path: str) -> dict:
         },
         "issues": issues
     }
+
+
+dxf_audit = audit_dxf_layers
+
