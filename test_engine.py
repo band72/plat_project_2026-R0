@@ -881,13 +881,157 @@ skel_agent = BeachwoodLotAgent(
     corners=[Point(100.0, 0.0), Point(100.0, 75.0), Point(0.0, 75.0), Point(0.0, 0.0)],
     curve_specs={"side_3": {"radius": r_cw, "delta_deg": delta_s3, "length": c_s3.length, "rot": "CCW"}}, # spec says CCW
     stated_area_sqft=7500.0 + float(c_s3.segment_area),
-    skeleton_pts=arc_s3_pts, # but skeleton points bow CW!
+    # ... but the skeleton bows CW. A real skeleton has a point every ~0.5 ft, so use a DENSE exact arc, and
+    # the resolution of exact data: at a real scan's 2 ft resolution a 3.5 ft sagitta cannot be resolved
+    # and the coded side is (correctly) kept -- see the companion check below.
+    skeleton_pts=c_s3.arc_points(Point(0.0, 75.0), n_segments=150),
+    skeleton_resolution_ft=0.5,
 )
 skel_report = skel_agent.compute_mapcheck()
 curv_c = [c for c in skel_report.courses if c.is_curve][0]
 check("BeachwoodLotAgent automatically overrides curve direction from skeleton scan to CW",
       curv_c.curve_rot == "CW")
 check("BeachwoodLotAgent with skeleton guidance passes survey mapcheck", skel_report.passed is True)
+
+# a real scan (default 2 ft resolution) cannot resolve a 3.5 ft sagitta: the coded side must be KEPT
+skel_agent_real = BeachwoodLotAgent(
+    agent_id=998, lot_id="Test-Skel-Lot-Real", block_id="16S", lot_number="31",
+    corners=[Point(100.0, 0.0), Point(100.0, 75.0), Point(0.0, 75.0), Point(0.0, 0.0)],
+    curve_specs={"side_3": {"radius": r_cw, "delta_deg": delta_s3, "length": c_s3.length, "rot": "CCW"}},
+    stated_area_sqft=7500.0 - float(c_s3.segment_area),
+    skeleton_pts=c_s3.arc_points(Point(0.0, 75.0), n_segments=150))
+curv_real = [c for c in skel_agent_real.compute_mapcheck().courses if c.is_curve][0]
+check("a scan that cannot resolve the sagitta does NOT override the coded curve side", curv_real.curve_rot == "CCW")
+
+
+print("\n=== skeleton alignment debug pass (anchor + baseline, area geometry, gating) ===")
+from engine.vectorize import align_skeleton_to_vector, iterative_align_raster_to_cogo
+from engine import scan_align as SA
+from engine.curve_follow import InkField as _IF
+from engine.lot_agent import BeachwoodLotAgent as _BLA
+
+# 1. align_skeleton_to_vector applies  vector = scale * R(rot) @ scan + t  exactly (round trip vs a known transform)
+_rng2 = random.Random(5)
+_raw = [Point(_rng2.uniform(0, 900), _rng2.uniform(0, 900)) for _ in range(300)]
+_tx = {"scale": 0.99784, "rotation_deg": -2.5761, "translation_n": -1653.73, "translation_e": -942.74}
+_al = align_skeleton_to_vector(_raw, _tx)
+_c, _s = math.cos(math.radians(_tx["rotation_deg"])), math.sin(math.radians(_tx["rotation_deg"]))
+_worst = max(abs(a.n - (_tx["scale"] * (r.n * _c - r.e * _s) + _tx["translation_n"])) +
+             abs(a.e - (_tx["scale"] * (r.n * _s + r.e * _c) + _tx["translation_e"])) for a, r in zip(_al, _raw))
+check("align_skeleton_to_vector matches the similarity transform exactly", _worst < 1e-9, _worst)
+_arr = np.array([(p.n, p.e) for p in _raw])
+check("align_skeleton_to_vector round-trips through scan_align.invert_alignment",
+      float(np.max(np.abs(SA.invert_alignment(_tx, SA.apply_alignment(_tx, _arr)) - _arr))) < 1e-9)
+
+# 2. Landmarks that are not on the features they name are refused (BUG: the lots build fitted a 0.9553 scale
+#    with a 56.8 ft residual and carried on, because nothing checked)
+_ctrl = [((3600 - y) * 0.5 - 1450.0, x * 0.5 - 675.0) for x, y in [(1350, 480), (1450, 580), (1770, 840), (4600, 615)]]
+_bad = [(0.0, 50.0), (-60.0, 210.0), (-260.0, 210.0), (-77.5, 1626.37)]
+_fit = iterative_align_raster_to_cogo(_ctrl, _bad)
+check("the inconsistent lots-build landmark set really fits badly (scale 0.955, residual 56.8 ft)",
+      abs(_fit["scale"] - 0.9553) < 0.001 and abs(_fit["residual_ft"] - 56.84) < 0.1, (_fit["scale"], _fit["residual_ft"]))
+try:
+    align_skeleton_to_vector(_raw, control_pairs=(_ctrl, _bad))
+    check("align_skeleton_to_vector refuses a landmark fit with a 4.5% scale error and 57 ft residual", False)
+except ValueError:
+    check("align_skeleton_to_vector refuses a landmark fit with a 4.5% scale error and 57 ft residual", True)
+
+# 3. Anchor + baseline alignment, end to end, on a synthetic sheet drawn at a KNOWN transform and pushed through
+#    the real vectorizer: the scan is rotated -2.5 deg from the vector plat, printed 0.2% large, and offset.
+_AZ = 87.5917                                       # bearing of the vector plat's north line (baseline)
+_U = np.array([math.cos(math.radians(_AZ)), math.sin(math.radians(_AZ))])              # along the baseline
+_W = np.array([math.cos(math.radians(_AZ + 90)), math.sin(math.radians(_AZ + 90))])    # down the cross line
+_CORNER_V = np.array([12.0, -30.0])                                                    # the anchor, vector frame
+def _vp(a, b):                                                                          # vector point a ft along, b ft across
+    return _CORNER_V + a * _U + b * _W
+_LINES = ([[_vp(0, 0), _vp(700, 0)], [_vp(0, 0), _vp(0, 500)], [_vp(0, 500), _vp(700, 500)], [_vp(700, 0), _vp(700, 500)]]
+          + [[_vp(100 * k, 0), _vp(100 * k, 500)] for k in range(1, 7)] + [[_vp(0, 100 * k), _vp(700, 100 * k)] for k in range(1, 5)])
+_TRUTH = {"scale": 1.0 / 1.002, "rotation_deg": -2.5}
+_CORNER_S = np.array([900.0, 200.0])                                                    # where the corner sits on the scan
+_TRUTH["translation_n"], _TRUTH["translation_e"] = (_CORNER_V - _TRUTH["scale"] * (SA._rot(_TRUTH["rotation_deg"]) @ _CORNER_S)).tolist()
+_img = np.full((2200, 2600), 255, np.uint8)
+for _a, _b in _LINES:
+    (_n1, _e1), (_n2, _e2) = SA.invert_alignment(_TRUTH, np.array([_a, _b]))
+    cv2.line(_img, (int(round(_e1 / 0.5)), int(round(2200 - _n1 / 0.5))), (int(round(_e2 / 0.5)), int(round(2200 - _n2 / 0.5))), 0, 3)
+_ink_s = _IF.from_polylines(px_to_feet_polylines(
+    extract_polylines(map_mask_excluding(_img, border_frac=0.005, skeleton=True), 1.5, True), 0.5, (0, 0), 2200))
+_grp = [("row2", [_LINES[8 + 1]]), ("row4", [_LINES[8 + 3]]), ("col2", [_LINES[4 + 1]]), ("col5", [_LINES[4 + 4]])]
+
+_res = SA.align_from_corner(_ink_s, _CORNER_S + [5.0, -4.0], anchor_vec=tuple(_CORNER_V), baseline_vec_az=_AZ,
+                            baseline_len_ft=700.0, cross_vec_az=_AZ + 90.0, cross_len_ft=500.0)
+_p = _res["params"]
+check("scan_align finds the corner to within 1.5 ft from a hint 6 ft off", float(np.hypot(*(_res["corner_scan"] - _CORNER_S))) < 1.5, _res["corner_scan"])
+check("baseline rotation recovered to 0.05 deg", abs(_p["rotation_deg"] - _TRUTH["rotation_deg"]) < 0.05, (_p["rotation_deg"], _TRUTH["rotation_deg"]))
+# (a 500 ft line drawn to whole pixels carries ~0.03-0.06 deg of direction noise; the real Beachwood sheet is 0.238 deg out of square)
+check("cross-check (second line vs baseline) is square to 0.15 deg on a square sheet", abs(_res["cross_check_deg"]) < 0.15, _res["cross_check_deg"])
+check("scale check sees the injected 0.2% print growth", abs(_res["scale_error_pct"] - 0.2) < 0.15, _res["scale_error_pct"])
+check("scale is set from the stated baseline length, not left nominal",
+      _res["scale_source"] == "baseline" and abs(_p["scale"] - _TRUTH["scale"]) < 0.0015, (_res["scale_source"], _p["scale"]))
+_agree0 = SA.alignment_agreement(_p, _grp, _ink_s)
+check("anchor + baseline alone put >= 90% of the vector lines on the scan's ink", _agree0["overall"] >= 0.90, _agree0)
+_p2, _hist = SA.refine_alignment(_p, _grp, _ink_s, anchor_vec=tuple(_CORNER_V))
+check("refinement makes at most three adjustments", sum(1 for h in _hist if "adjustment" in h) <= 3, _hist)
+_agree1 = SA.alignment_agreement(_p2, _grp, _ink_s)
+check("refined alignment is not worse and stays >= 95% on ink", _agree1["overall"] >= max(0.95, _agree0["overall"] - 0.02), (_agree0["overall"], _agree1["overall"]))
+_offby = SA.align_from_corner(_ink_s, _CORNER_S + [5.0, -4.0], anchor_vec=tuple(_CORNER_V), baseline_vec_az=_AZ,
+                              baseline_len_ft=730.0, cross_vec_az=_AZ + 90.0, cross_len_ft=500.0)
+check("a stated baseline length 4% off is NOT used to rescale the scan", _offby["scale_source"] == "nominal" and _offby["params"]["scale"] == 1.0, _offby["scale_source"])
+
+# 4. Curved-lot area follows the GEOMETRY (BUG: sign fixed by rot alone; every clockwise Beachwood lot was
+#    2 x segment area wrong and still passed because its stated area used the same rule)
+for _winding, _corners, _side in (("clockwise", [Point(100.0, 0.0), Point(100.0, 75.0), Point(0.0, 75.0), Point(0.0, 0.0)], 3),
+                                  ("counter-clockwise", [Point(100.0, 0.0), Point(0.0, 0.0), Point(0.0, 75.0), Point(100.0, 75.0)], 2)):
+    for _rot in ("CW", "CCW"):
+        _ag = _BLA(agent_id=1, lot_id="A", block_id="X", lot_number="1", corners=_corners,
+                   curve_specs={f"side_{_side}": {"radius": 200.0, "delta_deg": delta_s3, "length": c_s3.length, "rot": _rot}},
+                   stated_area_sqft=7500.0)
+        _rep = _ag.compute_mapcheck()
+        _ring = []
+        for _cs in _rep.courses:
+            _ring += _cs.arc_points[:-1] if _cs.is_curve else [_cs.start_pt]
+        _true = shoelace_area(_ring + [_ring[0]])
+        check(f"curved-lot area equals the true enclosed area ({_winding} lot, {_rot} arc)",
+              abs(_rep.computed_area_sqft - _true) < 1.0, (_rep.computed_area_sqft, _true))
+
+# 5. rot <-> circle centre, the convention behind the Marina fix: a chord chain lies on ONE circle only for the rot
+#    whose centre side matches (centre on the LEFT of travel = turning left = CCW)
+_ctr = np.array([-300.0, 500.0]); _Rm = 389.27
+_pts5 = [Point(*(_ctr + _Rm * np.array([math.cos(a), math.sin(a)]))) for a in np.radians([150.0, 165.0, 180.0, 195.0])]
+_left = None; _dev = {}
+for _rot in ("CW", "CCW"):
+    _w5 = 0.0
+    for _a5, _b5 in zip(_pts5[:-1], _pts5[1:]):
+        _ch = _a5.dist_to(_b5); _az5 = math.degrees(math.atan2(_b5.e - _a5.e, _b5.n - _a5.n)) % 360
+        _mid_left = np.array([_b5.e - _a5.e, -(_b5.n - _a5.n)]) / _ch                   # left normal of travel, (n, e) = (dE, -dN)/L
+        _left = float(np.dot(_ctr - np.array([_a5.n, _a5.e]), _mid_left)) > 0
+        _cv5 = Curve("S", 0, _Rm, math.degrees(2 * math.asin(_ch / (2 * _Rm))), azimuth_to_bearing(_az5), _ch, _rot)
+        for _q in _cv5.arc_points(_a5, 12):
+            _w5 = max(_w5, abs(math.hypot(_q.n - _ctr[0], _q.e - _ctr[1]) - _Rm))
+    _dev[_rot] = _w5
+_want = "CCW" if _left else "CW"
+_other = "CW" if _want == "CCW" else "CCW"
+check("a centre on the left of travel keeps a chord chain on one circle for CCW arcs (and only those)",
+      _dev[_want] < 0.01 and _dev[_other] > 1.0, (_want, _dev))
+
+# 6. A coded side is never flipped by unrelated ink (BUG: >= 3 nearby points OR confidence >= 0.20 was enough, and
+#    the median-offset fallback decided 7 of 18 curves: Marina lots 29-31 were flipped to the wrong side)
+_clutter = [Point(10.0 + 0.5 * i, 3.0) for i in range(60)] + [Point(2.0, 5.0 + 0.5 * i) for i in range(40)]
+_ag = _BLA(agent_id=2, lot_id="C", block_id="X", lot_number="1",
+           corners=[Point(100.0, 0.0), Point(100.0, 75.0), Point(0.0, 75.0), Point(0.0, 0.0)],
+           curve_specs={"side_3": {"radius": 1959.86, "length": 75.0, "rot": "CCW"}}, stated_area_sqft=7500.0,
+           skeleton_pts=_clutter)
+_cc = [c for c in _ag.compute_mapcheck().courses if c.is_curve][0]
+check("unrelated ink beside a 0.4 ft-sagitta curve does not flip its coded side", _cc.curve_rot == "CCW", _cc.curve_rot)
+_dd = determine_curve_direction_from_skeleton(Point(0.0, 75.0), Point(0.0, 0.0), _clutter, radius=1959.86, delta_deg=2.19)
+check("determine_curve_direction_from_skeleton reports decided=False when it cannot tell", _dd["decided"] is False and _dd["verdict"] != "DECIDED", _dd["verdict"])
+# lot lines all on the EAST (right-hand) side of the chord: five side lines and two rear lines, ~700 points against the arc's 201
+_lots_side = ([Point(float(n0), 6.0 + 0.25 * j) for n0 in (10, 30, 50, 70, 90) for j in range(60)]
+              + [Point(0.5 * i, e0) for e0 in (8.0, 16.0) for i in range(200)])
+_arc_cw = Curve(id="Q", length=r_cw * math.radians(delta_cw), radius=r_cw, delta_deg=delta_cw, chord_bearing="DUE N", chord=100.0,
+                rot="CW").arc_points(Point(0, 0), 200)
+_mix = determine_curve_direction_from_skeleton(Point(0.0, 0.0), Point(100.0, 0.0), _arc_cw + _lots_side, radius=r_cw, delta_deg=delta_cw)
+check("(premise) lot-line ink on one side pulls the descriptive median offset to the WRONG sign", _mix["median_offset"] < 0, _mix["median_offset"])
+check("a drawn CW arc among one-sided lot-line clutter is never called CCW", not (_mix["decided"] and _mix["rot"] == "CCW"), _mix["verdict"])
 
 print(f"\n{'='*52}")
 print(f"{len(FAILURES)} failure(s)" if FAILURES else "ALL TESTS PASS")

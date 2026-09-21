@@ -266,6 +266,23 @@ def _tiles(P, D, anchor, size_ft: float, min_samples: int = 20):
     return out
 
 
+def _observable_normals(D, dominant_frac: float = 0.8, tol_deg: float = 15.0):
+    """Unit vectors along which a tile's measured shift is actually determined.
+
+    A tile whose lines all run one way can slide ALONG them and still match perfectly, so
+    only its shift across the lines means anything: one normal. A tile with lines in two
+    directions (a grid crossing) is pinned in both: the two axes."""
+    deg = np.degrees(D) % 180.0
+    h, edges = np.histogram(deg, bins=np.arange(0.0, 190.0, 10.0))
+    centre = edges[int(np.argmax(h))] + 5.0
+    off = ((deg - centre + 90.0) % 180.0) - 90.0
+    near = np.abs(off) <= tol_deg
+    if near.mean() >= dominant_frac:
+        phi = math.radians(centre + float(np.median(off[near])))
+        return [np.array([-math.sin(phi), math.cos(phi)])]
+    return [np.array([1.0, 0.0]), np.array([0.0, 1.0])]
+
+
 class _Comparator:
     """Scores how well vector samples land on parallel ink, under any alignment."""
 
@@ -333,8 +350,9 @@ def refine_alignment(params: dict, groups, ink: InkField, anchor_vec, tol_ft: fl
     differently from the drawing (Beachwood's diagonal blocks agree 0-9%) cannot pull
     the alignment around. When a trusted group is off by min_shift_ft or more, ONE
     adjustment is made from ALL trusted groups so far, re-measured under the current
-    alignment (in tile_ft tiles, so each group's west and east ends report separately):
-    their shifts are combined by least squares into a translation, plus a
+    alignment (in tile_ft tiles, so each group's west and east ends report separately). Only the
+    part of each tile's shift that its lines determine counts (across them, not along them),
+    and those are combined by least squares into a translation, plus a
     rotation about the anchor once the measured tiles are min_spread_ft apart. Groups are
     never chased one at a time -- that lets each fight the last. Returns
     (params, history)."""
@@ -356,43 +374,49 @@ def refine_alignment(params: dict, groups, ink: InkField, anchor_vec, tol_ft: fl
         trusted.append(name)
         if adjustments >= max_adjustments:
             rec["action"] = "checked only (adjustment budget spent)"
-        elif float(np.hypot(*shift)) < min_shift_ft and len(trusted) == 1:
+            history.append(rec)
+            continue
+        # Re-measure every trusted group -- in tiles, so a long strip carries positional leverage --
+        # under the CURRENT alignment, and keep only what each tile can actually determine: its
+        # shift across its own lines (see _observable_normals). Then solve once.
+        rows, ys, pos = [], [], []
+        for tn in trusted:
+            for Pt, Dt in _tiles(*samples[tn], a, tile_ft):
+                s_t, best_t, _ = measure_group(cmp, params, Pt, Dt, window_ft if adjustments == 0 else 12.0)
+                if best_t < min_agreement:
+                    continue
+                x = Pt.mean(axis=0) - a
+                for nu in _observable_normals(Dt):
+                    rows.append((nu, x))
+                    ys.append(float(nu @ s_t))
+                    pos.append(x)
+        if not rows:
+            rec["action"] = "no tile agreed well enough to steer by"
+            history.append(rec)
+            continue
+        y = np.array(ys)
+        if float(np.max(np.abs(y))) < min_shift_ft:
             rec["action"] = "within tolerance"
-        else:
-            # re-measure every trusted group -- in tiles, so a long strip carries positional
-            # leverage -- under the CURRENT alignment, then solve once
-            pos, off = [], []
-            for tn in trusted:
-                for Pt, Dt in _tiles(*samples[tn], a, tile_ft):
-                    s_t, best_t, _ = measure_group(cmp, params, Pt, Dt, window_ft if adjustments == 0 else 12.0)
-                    if best_t >= min_agreement:
-                        pos.append(Pt.mean(axis=0) - a)
-                        off.append(s_t)
-            if not pos:
-                rec["action"] = "no tile agreed well enough to steer by"
-                history.append(rec)
-                continue
-            pos, off = np.array(pos), np.array(off)
-            if float(np.hypot(*off.max(axis=0) - off.min(axis=0))) < 0.5 and float(np.hypot(*off.mean(axis=0))) < min_shift_ft:
-                rec["action"] = "within tolerance"
-                history.append(rec)
-                continue
-            spread = max((float(np.hypot(*(pos[i] - pos[j]))) for i in range(len(pos)) for j in range(i)), default=0.0)
-            dtheta = 0.0
-            if len(pos) >= 2 and spread >= min_spread_ft:
-                A = np.zeros((2 * len(pos), 3)); y = np.zeros(2 * len(pos))
-                for i, (x, s) in enumerate(zip(pos, off)):
-                    A[2 * i] = [1, 0, -x[1]]; A[2 * i + 1] = [0, 1, x[0]]
-                    y[2 * i], y[2 * i + 1] = s
-                sol = np.linalg.lstsq(A, y, rcond=None)[0]
-                dt, dtheta = sol[:2], math.degrees(sol[2])
-                rec["action"] = f"translation + rotation ({dtheta:+.4f} deg) from {len(pos)} tiles"
-            else:
-                dt = off.mean(axis=0)
-                rec["action"] = f"translation from {len(pos)} tile(s)"
-            params = _correct(params, anchor_vec, dt, dtheta)
-            adjustments += 1
-            rec["adjustment"] = adjustments
+            history.append(rec)
+            continue
+        A2 = np.array([[nu[0], nu[1]] for nu, _ in rows])
+        pos_a = np.array(pos)
+        spread = max((float(np.hypot(*(pos_a[i] - pos_a[j]))) for i in range(len(pos_a)) for j in range(i)), default=0.0)
+        dt, dtheta = None, 0.0
+        if spread >= min_spread_ft:
+            # d = dt + delta * (-x_e, x_n); the rotation column is scaled to a 1,000 ft lever arm
+            # so it is conditioned like the translation columns
+            A3 = np.column_stack([A2, [float(nu @ np.array([-x[1], x[0]])) / 1000.0 for nu, x in rows]])
+            if np.linalg.matrix_rank(A3) >= 3:
+                sol = np.linalg.lstsq(A3, y, rcond=None)[0]
+                dt, dtheta = sol[:2], math.degrees(sol[2] / 1000.0)
+                rec["action"] = f"translation + rotation ({dtheta:+.4f} deg) from {len(rows)} constraints"
+        if dt is None:
+            dt = np.linalg.lstsq(A2, y, rcond=None)[0]
+            rec["action"] = f"translation from {len(rows)} constraint(s)"
+        params = _correct(params, anchor_vec, dt, dtheta)
+        adjustments += 1
+        rec["adjustment"] = adjustments
         history.append(rec)
     return params, history
 

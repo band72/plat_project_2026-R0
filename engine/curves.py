@@ -643,17 +643,17 @@ def determine_curve_direction_from_skeleton(
     probe = Curve(id="_scan_probe", length=radius * math.radians(delta_deg), radius=radius,
                   delta_deg=delta_deg, chord_bearing=azimuth_to_bearing(az), chord=c, rot="CW")
     res = choose_curve_side(probe, pc, _ink_for(skeleton_pts), tol_ft=resolution_ft)
+    stats.update(verdict=res.verdict, reason=res.reason)
     if res.side is not None:
         stats.update(direction=res.side, rot=res.side, decided=True,
                      confidence=round(float(res.fits[res.side].cover), 4))
-    elif stats.get("sample_count", 0) >= 5 and theo_m is not None and theo_m > 0:
-        med = stats.get("median_offset", 0.0)
-        if abs(med) >= 0.20 * theo_m:
-            detected_rot = "CW" if med > 0 else "CCW"
-            stats.update(direction=detected_rot, rot=detected_rot, decided=True,
-                         verdict="DECIDED_FROM_POINTS",
-                         reason=f"point offset median {med:+.2f} ft matches {detected_rot} bow",
-                         confidence=round(min(1.0, abs(med) / theo_m), 4))
+    # NOTE: there is deliberately NO fallback to the median offset of the points in the
+    # corridor when the scan cannot decide. That measures which side of the chord has more
+    # ink (lot lines, text, the block interior), not which way the arc bulges. As a fallback
+    # it "decided" 7 of Beachwood's 18 curved sides and flipped Marina lots 29-31 to CW --
+    # the side a common-circle test proves wrong -- leaving those lots 266 sq ft off. Exact
+    # synthetic arcs are decided properly by passing a tighter resolution_ft; an undecided
+    # answer stays undecided.
     return stats
 
 
