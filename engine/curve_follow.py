@@ -90,6 +90,37 @@ class InkField:
             return cls(np.empty((0, 2)), np.empty(0), cell_ft)
         return cls(np.vstack(pts), np.concatenate(ang), cell_ft)
 
+    @classmethod
+    def from_points(cls, points, radius_ft: float = 6.0, min_neighbors: int = 3,
+                    cell_ft: float = 10.0) -> "InkField":
+        """Build from bare skeleton points (no polylines to read a direction from).
+
+        Each point's stroke direction is the principal axis of the points within
+        radius_ft of it. A point with fewer than min_neighbors neighbours has no
+        reliable direction and is dropped."""
+        P = np.array([(q.n, q.e) if hasattr(q, "n") else (q[0], q[1]) for q in points],
+                     dtype=float).reshape(-1, 2)
+        if len(P) == 0:
+            return cls(np.empty((0, 2)), np.empty(0), cell_ft)
+        keys = np.floor(P / radius_ft).astype(np.int64)
+        grid = defaultdict(list)
+        for idx, (i, j) in enumerate(keys.tolist()):
+            grid[(i, j)].append(idx)
+        grid = {k: np.asarray(v) for k, v in grid.items()}
+        keep, ang = [], []
+        for idx in range(len(P)):
+            i, j = int(keys[idx, 0]), int(keys[idx, 1])
+            cand = np.concatenate([grid[(a, b)] for a in (i - 1, i, i + 1) for b in (j - 1, j, j + 1)
+                                   if (a, b) in grid])
+            Q = P[cand]
+            Q = Q[np.hypot(Q[:, 0] - P[idx, 0], Q[:, 1] - P[idx, 1]) <= radius_ft]
+            if len(Q) < min_neighbors:
+                continue
+            d = np.linalg.eigh(np.cov((Q - Q.mean(axis=0)).T, bias=True))[1][:, 1]
+            keep.append(idx)
+            ang.append(math.atan2(d[1], d[0]) % _PI)
+        return cls(P[keep], np.array(ang), cell_ft)
+
     def __len__(self) -> int:
         return len(self.points)
 

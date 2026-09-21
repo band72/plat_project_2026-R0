@@ -511,10 +511,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      -42.5 SF
-  Net Computed Area:   7,457.5 SF (0.1712 Acres)
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         -85.0 SF (1.13%)
+  Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -972,10 +972,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      -42.5 SF
-  Net Computed Area:   7,457.5 SF (0.1712 Acres)
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         -85.0 SF (1.13%)
+  Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -1433,10 +1433,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      -42.5 SF
-  Net Computed Area:   7,457.5 SF (0.1712 Acres)
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         -85.0 SF (1.13%)
+  Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -2001,14 +2001,14 @@ TRAVERSE CLOSURE & PRECISION:
   Misclose Vector:     dN = -0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
-  Traverse Status:     PASS (CLOSED)
+  Traverse Status:     FAIL (OPEN)
 AREA VERIFICATION:
   Raw Polygon Area:    10,249.6 SF
-  Curve Area Adj:      -133.1 SF
-  Net Computed Area:   10,116.5 SF (0.2322 Acres)
+  Curve Area Adj:      +133.1 SF
+  Net Computed Area:   10,382.7 SF (0.2384 Acres)
   Target Stated Area:  10,116.5 SF
-  Discrepancy:         +0.0 SF (0.00%)
-FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+  Discrepancy:         +266.2 SF (2.63%)
+FINAL VERDICT:         WARN - Minor Coordinate Discrepancy
 ================================================================================
 
 ================================================================================
@@ -2030,14 +2030,14 @@ TRAVERSE CLOSURE & PRECISION:
   Misclose Vector:     dN = -0.0000 ft, dE = +0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
-  Traverse Status:     PASS (CLOSED)
+  Traverse Status:     FAIL (OPEN)
 AREA VERIFICATION:
   Raw Polygon Area:    12,286.2 SF
-  Curve Area Adj:      -133.1 SF
-  Net Computed Area:   12,153.2 SF (0.2790 Acres)
+  Curve Area Adj:      +133.1 SF
+  Net Computed Area:   12,419.3 SF (0.2851 Acres)
   Target Stated Area:  12,153.2 SF
-  Discrepancy:         +0.0 SF (0.00%)
-FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+  Discrepancy:         +266.1 SF (2.19%)
+FINAL VERDICT:         WARN - Minor Coordinate Discrepancy
 ================================================================================
 
 ================================================================================
@@ -2361,10 +2361,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      -42.5 SF
-  Net Computed Area:   7,457.5 SF (0.1712 Acres)
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         -85.0 SF (1.13%)
+  Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -2822,10 +2822,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      -42.5 SF
-  Net Computed Area:   7,457.5 SF (0.1712 Acres)
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         -85.0 SF (1.13%)
+  Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -3283,10 +3283,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      -42.5 SF
-  Net Computed Area:   7,457.5 SF (0.1712 Acres)
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         -85.0 SF (1.13%)
+  Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -3609,10 +3609,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      -42.5 SF
-  Net Computed Area:   7,457.5 SF (0.1712 Acres)
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         -85.0 SF (1.13%)
+  Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
@@ -4697,10 +4697,10 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      -42.5 SF
-  Net Computed Area:   7,457.5 SF (0.1712 Acres)
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
   Target Stated Area:  7,542.5 SF
-  Discrepancy:         -85.0 SF (1.13%)
+  Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 

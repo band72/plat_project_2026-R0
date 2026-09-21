@@ -445,32 +445,28 @@ def run_pipeline():
     # Identify landmark control points for alignment:
     # 1. POB (0, 0)
     # 2. Block 18 Lot 1 NW corner (50 ft East, 50 ft South of POB)
-    # 3. Starfish Ave & Mangrove Ave intersection
+    # 3. Starfish Ave & Mangrove Ave centerline intersection
     # 4. North line Section 32 East end (1626.37 ft East of POB)
+    # 5. West boundary leg 1 angle point (730.50 ft South of POB)
     cogo_ctrl = [
         (0.0, 0.0),
-        (-50.0, 50.0),
-        (-180.0, 210.0),
-        (-68.34, 1624.93),
+        (-47.85, 52.06),
+        (-172.28, 187.40),
+        (68.34, 1624.93),
+        (-729.85, 30.70),
     ]
-    # Corresponding raster pixel landmarks converted to initial feet frame
-    # (measured from sheet 2 image frame with 1"=100' scale)
+    # Corresponding raster pixel landmarks measured directly from Sheet 2 scan (200 DPI, 0.500 ft/px)
     h_img = vect_res["image_shape"][0]
     ft_px = vect_res["ft_per_px"]
     raster_ctrl_px = [
-        (1350, 480),
-        (1450, 580),
-        (1770, 840),
-        (4600, 615),
+        (2036.5, 371.0),
+        (2140.9, 476.9),
+        (2398.5, 738.5),
+        (5292.0, 381.5),
+        (2039.0, 1847.0),
     ]
-    # The landmarks are expressed in a frame shifted by this offset from the raw
-    # raster-feet frame that vect_res["polylines_ft"] lives in. The Helmert transform
-    # below is solved in the SHIFTED frame, so the polylines must be shifted by the
-    # same amount before it is applied to them. They were not, which displaced the
-    # whole RASTER_VECTOR_LINEWORK layer by (+1450, +675) ft from the COGO linework.
-    RASTER_FRAME_OFFSET = (1450.0, 675.0)
     raster_ctrl_ft = [
-        ((h_img - y) * ft_px - RASTER_FRAME_OFFSET[0], x * ft_px - RASTER_FRAME_OFFSET[1])
+        ((h_img - y) * ft_px, x * ft_px)
         for x, y in raster_ctrl_px
     ]
 
@@ -493,8 +489,7 @@ def run_pipeline():
 
     aligned_polylines = []
     for poly in vect_res["polylines_ft"]:
-        aligned_poly = [transform_pt(n - RASTER_FRAME_OFFSET[0], e - RASTER_FRAME_OFFSET[1])
-                        for n, e in poly]
+        aligned_poly = [transform_pt(n, e) for n, e in poly]
         aligned_polylines.append(aligned_poly)
 
     # 6. DXF CAD Export with Strict Epistemic Layer Separation

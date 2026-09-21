@@ -149,7 +149,7 @@ def _axis_toward(axes, az_deg: float) -> float:
 
 def align_from_corner(ink: InkField, corner_hint, anchor_vec, baseline_vec_az: float,
                       baseline_len_ft: float, cross_vec_az: float, cross_len_ft: float = 600.0,
-                      corridor_ft: float = 12.0) -> dict:
+                      corridor_ft: float = 12.0, max_scale_correction_pct: float = 1.0) -> dict:
     """Anchor + baseline alignment from one corner of the plat.
 
     corner_hint: roughly where that corner is on the scan (scan feet, +-corridor_ft is
@@ -165,7 +165,13 @@ def align_from_corner(ink: InkField, corner_hint, anchor_vec, baseline_vec_az: f
                        drafted corner is square to a few hundredths of a degree; if this
                        is large the wrong lines were fitted.
       far_corner_ft    distance from the corner to where the baseline meets the line at
-                       its far end, vs the stated baseline_len_ft -- the scale check."""
+                       its far end, vs the stated baseline_len_ft -- the scale check.
+
+    Scale starts as the exact unit conversion the scan was made with. If the measured
+    corner-to-corner length is within max_scale_correction_pct of the stated one, the
+    stated length sets the scale (a print shrinks and a scanner is never exactly its
+    nominal dpi); a bigger disagreement means the wrong line was measured, and the
+    nominal scale is kept."""
     axes = dominant_axes(ink)
     hint = np.asarray(corner_hint, float)
     az_b = _axis_toward(axes, baseline_vec_az)
@@ -181,35 +187,40 @@ def align_from_corner(ink: InkField, corner_hint, anchor_vec, baseline_vec_az: f
     az_cross = math.degrees(math.atan2(uc_fit[1], uc_fit[0])) % 360.0
     theta = _wrap180(baseline_vec_az - az_base)
     theta_cross = _wrap180(cross_vec_az - az_cross)
-    params = anchor_baseline_alignment(corner, anchor_vec, az_base, baseline_vec_az)
-    out = dict(params=params, corner_scan=corner, baseline=base, cross=cross,
-               baseline_scan_az=az_base, cross_scan_az=az_cross,
-               cross_check_deg=theta_cross - theta, far_corner_ft=None, scale_error_pct=None)
-    # scale check: the line at the far end of the baseline, square to it
+    out = dict(corner_scan=corner, baseline=base, cross=cross, baseline_scan_az=az_base,
+               cross_scan_az=az_cross, cross_check_deg=theta_cross - theta, far_corner_ft=None,
+               scale_error_pct=None, scale_source="nominal")
+    # SCALE: measure the baseline corner to corner (the line at its far end, square to it)
+    # and compare with the length the plat states.
+    scale = 1.0
     far_hint = corner + ub_fit * baseline_len_ft
     try:
         far = fit_scan_line(ink, far_hint - uc * 8.0, far_hint + uc * cross_len_ft, corridor_ft=corridor_ft)
         far_pt = intersect(base, far)
         out["far_corner_ft"] = float(np.hypot(*(far_pt - corner)))
         out["scale_error_pct"] = 100.0 * (out["far_corner_ft"] / baseline_len_ft - 1.0)
+        if abs(out["scale_error_pct"]) <= max_scale_correction_pct:
+            scale = baseline_len_ft / out["far_corner_ft"]      # the plat's own stated length sets the scale
+            out["scale_source"] = "baseline"
     except ValueError:
         pass
+    out["params"] = anchor_baseline_alignment(corner, anchor_vec, az_base, baseline_vec_az, scale)
     return out
 
 
 # --------------------------------------------------------------------------- alignment
 
 def anchor_baseline_alignment(anchor_scan, anchor_vec, baseline_scan_az: float,
-                              baseline_vec_az: float) -> dict:
-    """Scale-1 alignment from ONE corner and ONE baseline.
+                              baseline_vec_az: float, scale: float = 1.0) -> dict:
+    """Alignment from ONE corner and ONE baseline (scale given, default 1).
 
     anchor_scan: the corner on the scan (scan feet); anchor_vec: the same corner in
     the vector plat. baseline_scan_az / baseline_vec_az: the azimuth of the same long
     line leaving that corner, measured on the scan and in the vector plat. Returns
     params in the iterative_align_raster_to_cogo / align_skeleton_to_vector form."""
     theta = _wrap180(baseline_vec_az - baseline_scan_az)
-    t = np.asarray(anchor_vec, float) - _rot(theta) @ np.asarray(anchor_scan, float)
-    return {"scale": 1.0, "rotation_deg": theta, "translation_n": float(t[0]), "translation_e": float(t[1])}
+    t = np.asarray(anchor_vec, float) - scale * (_rot(theta) @ np.asarray(anchor_scan, float))
+    return {"scale": float(scale), "rotation_deg": theta, "translation_n": float(t[0]), "translation_e": float(t[1])}
 
 
 def apply_alignment(params: dict, pts) -> np.ndarray:
@@ -240,6 +251,19 @@ def sample_polylines(polylines, step_ft: float = 2.0, min_len_ft: float = 10.0):
     if not P:
         return np.empty((0, 2)), np.empty(0)
     return np.vstack(P), np.concatenate(D)
+
+
+def _tiles(P, D, anchor, size_ft: float, min_samples: int = 20):
+    """Split samples into square tiles of size_ft so one long group gives several
+    measurements at different positions (a long strip's west and east ends can then
+    disagree, which is how a rotation shows up)."""
+    key = np.floor((P - anchor) / size_ft).astype(int)
+    out = []
+    for k in {tuple(r) for r in key}:
+        m = (key[:, 0] == k[0]) & (key[:, 1] == k[1])
+        if m.sum() >= min_samples:
+            out.append((P[m], D[m]))
+    return out
 
 
 class _Comparator:
@@ -297,63 +321,77 @@ def _correct(params: dict, anchor_vec, dt, dtheta_deg: float) -> dict:
 
 
 def refine_alignment(params: dict, groups, ink: InkField, anchor_vec, tol_ft: float = 2.0,
-                     window_ft: float = 25.0, min_agreement: float = 0.5, min_gain: float = 0.10,
-                     min_shift_ft: float = 1.0, min_spread_ft: float = 300.0,
-                     max_adjustments: int = 3) -> tuple[dict, list[dict]]:
+                     window_ft: float = 25.0, min_agreement: float = 0.6, min_shift_ft: float = 1.0,
+                     min_spread_ft: float = 300.0, max_adjustments: int = 3, tile_ft: float = 350.0) -> tuple[dict, list[dict]]:
     """Add vector polylines a group at a time and correct the alignment, at most
     `max_adjustments` times.
 
-    groups: list of (name, [polylines]) in the vector frame; they are taken nearest
-    the anchor first. For each group the ink's offset from the vector lines is
-    measured. A group is only trusted -- and only counts toward an adjustment -- if
-    the shift both lands at least min_agreement of it on ink and beats no shift by
-    min_gain; a block the vector plat models differently from the drawing cannot
-    pull the alignment around. Accepted offsets are combined: one group corrects
-    translation (re-anchoring); two or more at least min_spread_ft apart also
-    correct rotation about the anchor. Returns (params, history)."""
+    groups: list of (name, [polylines]) in the vector frame, taken nearest the anchor
+    first. Each group is measured against the ink: the shift of the vector lines that
+    lands the most of them on parallel ink. A group is TRUSTED only if at its best
+    shift at least min_agreement of it is on ink -- a block the vector plat models
+    differently from the drawing (Beachwood's diagonal blocks agree 0-9%) cannot pull
+    the alignment around. When a trusted group is off by min_shift_ft or more, ONE
+    adjustment is made from ALL trusted groups so far, re-measured under the current
+    alignment (in tile_ft tiles, so each group's west and east ends report separately):
+    their shifts are combined by least squares into a translation, plus a
+    rotation about the anchor once the measured tiles are min_spread_ft apart. Groups are
+    never chased one at a time -- that lets each fight the last. Returns
+    (params, history)."""
     cmp = _Comparator(ink, tol_ft=tol_ft)
     a = np.asarray(anchor_vec, float)
-
-    def dist_to_anchor(item):
-        P, _ = sample_polylines(item[1])
-        return float(np.hypot(*(P.mean(axis=0) - a))) if len(P) else 1e18
-    ordered = sorted(groups, key=dist_to_anchor)
-    history, accepted, adjustments = [], [], 0
-    for name, polylines in ordered:
-        P, D = sample_polylines(polylines)
-        if len(P) < 20:
-            continue
+    samples = {name: sample_polylines(polys) for name, polys in groups}
+    ordered = sorted((g for g in groups if len(samples[g[0]][0]) >= 20),
+                     key=lambda g: float(np.hypot(*(samples[g[0]][0].mean(axis=0) - a))))
+    trusted, history, adjustments = [], [], 0
+    for name, _ in ordered:
+        P, D = samples[name]
         shift, best, base = measure_group(cmp, params, P, D, window_ft)
-        rec = dict(group=name, samples=len(P), agreement_before=round(base, 3), shift=tuple(np.round(shift, 2)),
-                   agreement_at_shift=round(best, 3), action="none")
-        trusted = best >= min_agreement and best - base >= min_gain
-        if not trusted:
-            rec["action"] = "skipped (vector and drawing do not agree well enough to steer by)"
-        elif adjustments >= max_adjustments:
+        rec = dict(group=name, samples=len(P), agreement_before=round(base, 3),
+                   shift=tuple(float(x) for x in np.round(shift, 2)), agreement_at_shift=round(best, 3), action="none")
+        if best < min_agreement:
+            rec["action"] = "skipped (drawing does not agree well enough to steer by)"
+            history.append(rec)
+            continue
+        trusted.append(name)
+        if adjustments >= max_adjustments:
             rec["action"] = "checked only (adjustment budget spent)"
-        elif float(np.hypot(*shift)) < min_shift_ft:
+        elif float(np.hypot(*shift)) < min_shift_ft and len(trusted) == 1:
             rec["action"] = "within tolerance"
         else:
-            accepted.append((P.mean(axis=0) - a, shift))
-            pos = np.array([p for p, _ in accepted])
-            d = np.array([s for _, s in accepted])
+            # re-measure every trusted group -- in tiles, so a long strip carries positional
+            # leverage -- under the CURRENT alignment, then solve once
+            pos, off = [], []
+            for tn in trusted:
+                for Pt, Dt in _tiles(*samples[tn], a, tile_ft):
+                    s_t, best_t, _ = measure_group(cmp, params, Pt, Dt, window_ft if adjustments == 0 else 12.0)
+                    if best_t >= min_agreement:
+                        pos.append(Pt.mean(axis=0) - a)
+                        off.append(s_t)
+            if not pos:
+                rec["action"] = "no tile agreed well enough to steer by"
+                history.append(rec)
+                continue
+            pos, off = np.array(pos), np.array(off)
+            if float(np.hypot(*off.max(axis=0) - off.min(axis=0))) < 0.5 and float(np.hypot(*off.mean(axis=0))) < min_shift_ft:
+                rec["action"] = "within tolerance"
+                history.append(rec)
+                continue
+            spread = max((float(np.hypot(*(pos[i] - pos[j]))) for i in range(len(pos)) for j in range(i)), default=0.0)
             dtheta = 0.0
-            spread = float(np.ptp(np.hypot(pos[:, 0], pos[:, 1]))) if len(pos) > 1 else 0.0
-            if len(accepted) >= 2 and spread >= min_spread_ft:
-                # d_i = dt + delta * (-x_e, x_n), least squares for (dt_n, dt_e, delta_rad)
+            if len(pos) >= 2 and spread >= min_spread_ft:
                 A = np.zeros((2 * len(pos), 3)); y = np.zeros(2 * len(pos))
-                for i, (x, s) in enumerate(zip(pos, d)):
+                for i, (x, s) in enumerate(zip(pos, off)):
                     A[2 * i] = [1, 0, -x[1]]; A[2 * i + 1] = [0, 1, x[0]]
                     y[2 * i], y[2 * i + 1] = s
                 sol = np.linalg.lstsq(A, y, rcond=None)[0]
                 dt, dtheta = sol[:2], math.degrees(sol[2])
-                rec["action"] = f"translation + rotation ({dtheta:+.4f} deg)"
+                rec["action"] = f"translation + rotation ({dtheta:+.4f} deg) from {len(pos)} tiles"
             else:
-                dt = d.mean(axis=0)
-                rec["action"] = "translation"
+                dt = off.mean(axis=0)
+                rec["action"] = f"translation from {len(pos)} tile(s)"
             params = _correct(params, anchor_vec, dt, dtheta)
             adjustments += 1
-            accepted = []                       # the correction absorbed them; later groups re-measure
             rec["adjustment"] = adjustments
         history.append(rec)
     return params, history

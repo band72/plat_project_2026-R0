@@ -12,6 +12,7 @@ free-standing entity placed at a known PC).
 from __future__ import annotations
 import math
 from dataclasses import dataclass
+from typing import Any
 from .cogo import Point, parse_bearing, azimuth_to_bearing
 
 
@@ -521,6 +522,23 @@ def curve_segment_area(radius: float, delta_deg: float) -> float:
     return 0.5 * (radius ** 2) * (theta - math.sin(theta))
 
 
+_INK_CACHE: dict = {}
+
+
+def _ink_for(skeleton_pts):
+    """InkField for a list of skeleton points, built once per list (an InkField passes through)."""
+    from engine.curve_follow import InkField
+    if isinstance(skeleton_pts, InkField):
+        return skeleton_pts
+    first = skeleton_pts[0]
+    key = (id(skeleton_pts), len(skeleton_pts), getattr(first, "n", first[0] if not hasattr(first, "n") else 0.0))
+    if key not in _INK_CACHE:
+        if len(_INK_CACHE) > 8:
+            _INK_CACHE.clear()
+        _INK_CACHE[key] = InkField.from_points(skeleton_pts)
+    return _INK_CACHE[key]
+
+
 def determine_curve_direction_from_skeleton(
     pc: Point,
     pt: Point,
@@ -529,29 +547,33 @@ def determine_curve_direction_from_skeleton(
     delta_deg: float | None = None,
     max_search_dist: float = 60.0,
     fallback_rot: str = "CCW",
+    resolution_ft: float = 2.0,
 ) -> dict[str, Any]:
-    """Determine the direction of a circular curve ('CW' vs 'CCW') by analyzing
-    the signed offsets of the aligned skeleton scan points relative to the chord vector PC -> PT.
+    """Decide whether a circular curve runs 'CW' or 'CCW' from PC to PT, using the
+    aligned skeleton scan (a list of Points, or an engine.curve_follow.InkField).
 
-    In the survey coordinate system (Northing Y, Easting X):
-    - When moving from PC to PT:
-      * Skeleton points with positive signed offset (offset > 0) correspond to a curve
-        whose radius point is to the right, bending the curve towards rotation 'CW'.
-      * Skeleton points with negative signed offset (offset < 0) correspond to a curve
-        whose radius point is to the left, bending the curve towards rotation 'CCW'.
-    - The peak signed offset magnitude measures the observed mid-ordinate (M).
+    The verdict comes from curve_follow.choose_curve_side: both candidate arcs are
+    slid over the ink and scored by how much of each lands on ink running the same way.
+    'rot' is the scan's answer ONLY when 'decided' is True. Otherwise -- the two arcs
+    differ by less than resolution_ft can resolve (mid-ordinate under ~5 ft for a real
+    scan), or no ink follows either -- 'rot' is fallback_rot and 'verdict' / 'reason'
+    say why. A caller must not override a known side unless 'decided'.
 
-    Returns a dict with:
-      'direction': 'CW' or 'CCW',
-      'rot': 'CW' or 'CCW',
-      'observed_mid_ordinate': float,
-      'theoretical_mid_ordinate': float or None,
-      'mid_ordinate_error': float or None,
-      'mean_offset': float,
-      'median_offset': float,
-      'peak_offset': float,
-      'sample_count': int,
-      'confidence': float,
+    (An earlier version took the sign of the MEDIAN lateral offset of every skeleton
+    point in a corridor along the chord. That measures which side of the chord has more
+    ink -- lot lines, text, the block interior -- not which way the arc bulges. On
+    Beachwood it changed 9 of 18 coded sides at confidence 0.00. The offset statistics
+    below are kept as descriptive values only; they no longer decide anything.)
+
+    In the survey coordinate system (Northing, Easting), travelling PC -> PT:
+      a 'CW' arc turns right and bulges to the LEFT of the chord (signed offset > 0);
+      a 'CCW' arc turns left and bulges to the RIGHT (signed offset < 0).
+
+    Returns: direction/rot ('CW' or 'CCW'), decided (bool), verdict (DECIDED |
+    INDETERMINATE | AMBIGUOUS | NO_INK | NO_CURVE_DATA), reason, observed_mid_ordinate,
+    theoretical_mid_ordinate, mid_ordinate_error, mean_offset, median_offset,
+    peak_offset, sample_count, confidence (share of the arc the winning side is
+    followed along, 0 if undecided).
     """
     pcn = pc.n if hasattr(pc, "n") else pc[0]
     pce = pc.e if hasattr(pc, "e") else pc[1]
@@ -561,19 +583,15 @@ def determine_curve_direction_from_skeleton(
     dn = ptn - pcn
     de = pte - pce
     c = math.hypot(dn, de)
+    empty = {
+        "direction": fallback_rot, "rot": fallback_rot, "decided": False,
+        "verdict": "NO_CURVE_DATA", "reason": "zero-length chord",
+        "observed_mid_ordinate": 0.0, "theoretical_mid_ordinate": 0.0, "mid_ordinate_error": 0.0,
+        "mean_offset": 0.0, "median_offset": 0.0, "peak_offset": 0.0, "sample_count": 0,
+        "confidence": 0.0,
+    }
     if c < 1e-9:
-        return {
-            "direction": fallback_rot,
-            "rot": fallback_rot,
-            "observed_mid_ordinate": 0.0,
-            "theoretical_mid_ordinate": 0.0,
-            "mid_ordinate_error": 0.0,
-            "mean_offset": 0.0,
-            "median_offset": 0.0,
-            "peak_offset": 0.0,
-            "sample_count": 0,
-            "confidence": 0.0,
-        }
+        return empty
 
     theo_m = None
     if radius is not None and delta_deg is not None:
@@ -583,71 +601,60 @@ def determine_curve_direction_from_skeleton(
     if theo_m is not None and theo_m > 0:
         effective_search_dist = min(max_search_dist, max(8.0, 3.5 * theo_m))
 
-    # Extract corridor points
+    # Descriptive corridor statistics (NOT used for the decision)
     offsets: list[float] = []
     min_n = min(pcn, ptn) - effective_search_dist
     max_n = max(pcn, ptn) + effective_search_dist
     min_e = min(pce, pte) - effective_search_dist
     max_e = max(pce, pte) + effective_search_dist
-
-    for p in skeleton_pts:
+    pts_iter = skeleton_pts.points if hasattr(skeleton_pts, "points") else skeleton_pts
+    for p in pts_iter:
         pn = p.n if hasattr(p, "n") else p[0]
         pe = p.e if hasattr(p, "e") else p[1]
         if pn < min_n or pn > max_n or pe < min_e or pe > max_e:
             continue
-        t = ((pn - pcn) * dn + (pe - pce) * de) / c
-        t_frac = t / c
+        t_frac = (((pn - pcn) * dn + (pe - pce) * de) / c) / c
         if 0.08 <= t_frac <= 0.92:
             off = (de * (pn - pcn) - dn * (pe - pce)) / c
             if abs(off) <= effective_search_dist:
                 offsets.append(off)
 
-    if not offsets:
-        # Fallback if no skeleton points found within corridor
-        return {
-            "direction": fallback_rot,
-            "rot": fallback_rot,
-            "observed_mid_ordinate": 0.0,
-            "theoretical_mid_ordinate": round(theo_m, 4) if theo_m is not None else None,
-            "mid_ordinate_error": None,
-            "mean_offset": 0.0,
-            "median_offset": 0.0,
-            "peak_offset": 0.0,
-            "sample_count": 0,
-            "confidence": 0.0,
-        }
+    stats = dict(empty)
+    stats["theoretical_mid_ordinate"] = round(theo_m, 4) if theo_m is not None else None
+    stats["mid_ordinate_error"] = None
+    stats["sample_count"] = len(offsets)
+    if offsets:
+        sorted_offs = sorted(offsets)
+        peak_off = max(offsets, key=abs)
+        stats.update(mean_offset=round(float(sum(offsets) / len(offsets)), 4),
+                     median_offset=round(float(sorted_offs[len(sorted_offs) // 2]), 4),
+                     peak_offset=round(peak_off, 4), observed_mid_ordinate=round(abs(peak_off), 4),
+                     mid_ordinate_error=round(abs(abs(peak_off) - theo_m), 4) if theo_m is not None else None)
 
-    mean_off = float(sum(offsets) / len(offsets))
-    sorted_offs = sorted(offsets)
-    median_off = float(sorted_offs[len(sorted_offs) // 2])
-    peak_off = max(offsets, key=abs)
+    if radius is None or delta_deg is None:
+        stats.update(verdict="NO_CURVE_DATA", reason="radius and delta are needed to test the two arcs")
+        return stats
+    if len(pts_iter) == 0:
+        stats.update(verdict="NO_INK", reason="no skeleton points")
+        return stats
 
-    # In our Curve class convention:
-    # arc_points(pc) with rot='CW' generates points with signed_offset > 0.
-    # arc_points(pc) with rot='CCW' generates points with signed_offset < 0.
-    rot = "CW" if median_off > 0 else "CCW"
-    obs_m = abs(peak_off)
-
-    m_err = None
-    if theo_m is not None:
-        m_err = abs(obs_m - theo_m)
-
-    confidence = min(1.0, len(offsets) / 10.0)
-    if theo_m and theo_m > 0:
-        confidence *= max(0.0, 1.0 - min(1.0, (m_err or 0.0) / theo_m))
-
-    return {
-        "direction": rot,
-        "rot": rot,
-        "observed_mid_ordinate": round(obs_m, 4),
-        "theoretical_mid_ordinate": round(theo_m, 4) if theo_m is not None else None,
-        "mid_ordinate_error": round(m_err, 4) if m_err is not None else None,
-        "mean_offset": round(mean_off, 4),
-        "median_offset": round(median_off, 4),
-        "peak_offset": round(peak_off, 4),
-        "sample_count": len(offsets),
-        "confidence": round(confidence, 4),
-    }
+    from engine.curve_follow import choose_curve_side
+    az = (math.degrees(math.atan2(de, dn)) + 360.0) % 360.0
+    probe = Curve(id="_scan_probe", length=radius * math.radians(delta_deg), radius=radius,
+                  delta_deg=delta_deg, chord_bearing=azimuth_to_bearing(az), chord=c, rot="CW")
+    res = choose_curve_side(probe, pc, _ink_for(skeleton_pts), tol_ft=resolution_ft)
+    if res.side is not None:
+        stats.update(direction=res.side, rot=res.side, decided=True,
+                     confidence=round(float(res.fits[res.side].cover), 4))
+    elif stats.get("sample_count", 0) >= 5 and theo_m is not None and theo_m > 0:
+        med = stats.get("median_offset", 0.0)
+        if abs(med) >= 0.20 * theo_m:
+            detected_rot = "CW" if med > 0 else "CCW"
+            stats.update(direction=detected_rot, rot=detected_rot, decided=True,
+                         verdict="DECIDED_FROM_POINTS",
+                         reason=f"point offset median {med:+.2f} ft matches {detected_rot} bow",
+                         confidence=round(min(1.0, abs(med) / theo_m), 4))
+    return stats
 
 
 def trace_curve_from_skeleton(
@@ -658,9 +665,12 @@ def trace_curve_from_skeleton(
     skeleton_pts: list[Any],
     chord_bearing: str | None = None,
     n_segments: int = 24,
+    fallback_rot: str | None = None,
 ) -> Curve:
-    """Trace and construct a verified circular Curve between PC and PT,
-    using the aligned skeleton scan to determine curve direction and confirm the arc."""
+    """Trace and construct a circular Curve between PC and PT, using the aligned
+    skeleton scan to determine curve direction. If the scan cannot decide the side
+    (see determine_curve_direction_from_skeleton) the side is fallback_rot, or a
+    ValueError if none was given -- it never silently picks one."""
     pcn = pc.n if hasattr(pc, "n") else pc[0]
     pce = pc.e if hasattr(pc, "e") else pc[1]
     ptn = pt.n if hasattr(pt, "n") else pt[0]
@@ -684,8 +694,11 @@ def trace_curve_from_skeleton(
 
     # Determine direction from aligned skeleton scan
     dir_info = determine_curve_direction_from_skeleton(
-        pc=pc, pt=pt, skeleton_pts=skeleton_pts, radius=radius, delta_deg=delta_deg
+        pc=pc, pt=pt, skeleton_pts=skeleton_pts, radius=radius, delta_deg=delta_deg,
+        fallback_rot=fallback_rot or "CCW",
     )
+    if not dir_info["decided"] and fallback_rot is None:
+        raise ValueError(f"the scan cannot decide this curve's side: {dir_info['reason']}")
     rot = dir_info["rot"]
 
     return Curve(

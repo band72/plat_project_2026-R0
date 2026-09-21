@@ -117,6 +117,7 @@ class BeachwoodLotAgent:
         stated_area_sqft: float = 7500.0,
         stated_dimensions: str = "75.0' x 100.0'",
         skeleton_pts: list[Any] | None = None,
+        skeleton_resolution_ft: float = 2.0,
     ):
         self.agent_id = agent_id
         self.lot_id = lot_id
@@ -128,6 +129,7 @@ class BeachwoodLotAgent:
         self.stated_area_sqft = stated_area_sqft
         self.stated_dimensions = stated_dimensions
         self.skeleton_pts = skeleton_pts
+        self.skeleton_resolution_ft = skeleton_resolution_ft
         self.mapcheck_report: MapCheckReport | None = None
 
 
@@ -171,6 +173,7 @@ class BeachwoodLotAgent:
                     external=curve_info.get("external"),
                 )
                 default_rot = curve_info.get("rot", "CCW")
+                rot = default_rot
                 if self.skeleton_pts:
                     from engine.curves import determine_curve_direction_from_skeleton
                     skel_dir_info = determine_curve_direction_from_skeleton(
@@ -180,13 +183,14 @@ class BeachwoodLotAgent:
                         radius=float(solved_curve["radius"]),
                         delta_deg=float(solved_curve["delta_deg"]),
                         fallback_rot=default_rot,
+                        resolution_ft=self.skeleton_resolution_ft,
                     )
-                    if skel_dir_info["sample_count"] >= 3 or skel_dir_info["confidence"] >= 0.20:
+                    # The coded side is overridden ONLY when the scan decided. This used to accept
+                    # the scan's vote whenever it had >= 3 nearby points OR confidence >= 0.20;
+                    # nearly any curve has 3 points of unrelated ink beside it, so 9 of 18 coded
+                    # sides on Beachwood were flipped at confidence 0.00.
+                    if skel_dir_info["decided"]:
                         rot = skel_dir_info["rot"]
-                    else:
-                        rot = default_rot
-                else:
-                    rot = default_rot
 
                 c_obj = Curve(
                     id=curve_info.get("id", f"C_{self.lot_id}"),
@@ -244,12 +248,24 @@ class BeachwoodLotAgent:
 
         # Area calculation
         raw_sqft = shoelace_area(pts + [pts[0]])
+        # Each curve adds (bulges out of the polygon) or removes (bulges into it) its segment
+        # area. Which one is a property of the GEOMETRY -- whether the drawn arc lies outside
+        # or inside the polygon -- not of `rot` alone. It used to be fixed by rot (CCW +, CW -),
+        # but an arc's bulge relative to the polygon depends on the polygon's WINDING and the
+        # direction of travel. Every Beachwood lot is wound clockwise, where that rule is
+        # backwards: all 18 curved lots reported an area wrong by twice the segment area, and
+        # still passed because their stated areas used the same rule. So bend ONE arc at a time
+        # into the ring and see whether the area grows or shrinks; the magnitude stays analytic.
         curve_adj = 0.0
-        for c in courses:
-            if c.is_curve:
-                seg_a = float(c.curve_data.get("segment_area", 0.0))
-                # If curve bulges outward, add segment area; if inward, subtract
-                curve_adj += seg_a if c.curve_rot == "CCW" else -seg_a
+        for k, ck in enumerate(courses):
+            if not ck.is_curve:
+                continue
+            ring: list[Point] = []
+            for j, cj in enumerate(courses):
+                ring.extend(cj.arc_points[:-1] if j == k else [cj.start_pt])
+            grows = shoelace_area(ring + [ring[0]]) > raw_sqft
+            seg_a = float(ck.curve_data.get("segment_area", 0.0))
+            curve_adj += seg_a if grows else -seg_a
 
         net_sqft = round(raw_sqft + curve_adj, 1)
         net_acres = net_sqft / 43560.0

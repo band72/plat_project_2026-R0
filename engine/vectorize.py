@@ -503,12 +503,24 @@ def align_skeleton_to_vector(
     skeleton_pts: list[Any],
     helmert_params: dict[str, Any] | None = None,
     control_pairs: tuple[list[tuple[float, float]], list[tuple[float, float]]] | None = None,
+    max_scale_dev: float | None = 0.005,
+    max_residual_ft: float | None = 5.0,
 ) -> list[Any]:
     """Align skeleton scan points to vector survey coordinates (Northing, Easting)
-    using a 2D Helmert similarity transformation (scale, rotation, translation).
-    
-    Either helmert_params (from iterative_align_raster_to_cogo) or control_pairs
-    (raster_pts, cogo_pts) can be provided.
+    using a 2D similarity transformation (scale, rotation, translation):
+
+        vector = scale * R(rotation_deg) @ scan + (translation_n, translation_e)
+
+    Either helmert_params -- from engine.scan_align (anchor + baseline, the preferred
+    way) or iterative_align_raster_to_cogo -- or control_pairs (raster_pts, cogo_pts)
+    can be provided. The points must be in the same frame the parameters were solved
+    in: scan feet (px_to_feet), or the offset frame of the control points.
+
+    A control_pairs fit is REFUSED (ValueError) if its scale is more than
+    max_scale_dev from 1 or its residual exceeds max_residual_ft. A scan drawn at a
+    stated scale is exact to a fraction of a percent, so a fit that needs more is
+    fitting bad landmarks: Beachwood's lots build fitted a 0.9553 scale with a
+    56.8 ft residual and carried on, because nothing checked. Pass None to disable.
     """
     from engine.cogo import Point
     if helmert_params is None:
@@ -516,23 +528,27 @@ def align_skeleton_to_vector(
             return skeleton_pts
         r_ctrl, c_ctrl = control_pairs
         helmert_params = iterative_align_raster_to_cogo(r_ctrl, c_ctrl)
+        scale_dev = abs(float(helmert_params["scale"]) - 1.0)
+        resid = float(helmert_params["residual_ft"])
+        if (max_scale_dev is not None and scale_dev > max_scale_dev) or \
+                (max_residual_ft is not None and resid > max_residual_ft):
+            raise ValueError(
+                f"control points do not fit: scale {helmert_params['scale']:.5f} "
+                f"(limit 1 +- {max_scale_dev}), residual {resid:.2f} ft (limit {max_residual_ft}). "
+                "The landmarks are probably not on the features they name.")
 
+    if len(skeleton_pts) == 0:
+        return []
     scale = float(helmert_params.get("scale", 1.0))
-    rot_deg = float(helmert_params.get("rotation_deg", 0.0))
+    rad = math.radians(float(helmert_params.get("rotation_deg", 0.0)))
     t_n = float(helmert_params.get("translation_n", 0.0))
     t_e = float(helmert_params.get("translation_e", 0.0))
-
-    rad = math.radians(rot_deg)
     cos_t, sin_t = math.cos(rad), math.sin(rad)
 
-    aligned = []
-    for pt in skeleton_pts:
-        pn = pt.n if hasattr(pt, "n") else pt[0]
-        pe = pt.e if hasattr(pt, "e") else pt[1]
-        an = scale * (pn * cos_t - pe * sin_t) + t_n
-        ae = scale * (pn * sin_t + pe * cos_t) + t_e
-        aligned.append(Point(an, ae))
-    return aligned
+    arr = np.array([(p.n, p.e) if hasattr(p, "n") else (p[0], p[1]) for p in skeleton_pts], dtype=float)
+    an = scale * (arr[:, 0] * cos_t - arr[:, 1] * sin_t) + t_n
+    ae = scale * (arr[:, 0] * sin_t + arr[:, 1] * cos_t) + t_e
+    return [Point(float(n), float(e)) for n, e in zip(an, ae)]
 
 
 def sample_skeleton_corridor(

@@ -880,7 +880,7 @@ skel_agent = BeachwoodLotAgent(
     lot_number="31",
     corners=[Point(100.0, 0.0), Point(100.0, 75.0), Point(0.0, 75.0), Point(0.0, 0.0)],
     curve_specs={"side_3": {"radius": r_cw, "delta_deg": delta_s3, "length": c_s3.length, "rot": "CCW"}}, # spec says CCW
-    stated_area_sqft=7500.0 - float(c_s3.segment_area),
+    stated_area_sqft=7500.0 + float(c_s3.segment_area),
     skeleton_pts=arc_s3_pts, # but skeleton points bow CW!
 )
 skel_report = skel_agent.compute_mapcheck()

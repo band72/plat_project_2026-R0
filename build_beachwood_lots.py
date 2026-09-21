@@ -22,6 +22,73 @@ from engine.verify import verify_ring
 from engine.lotsheets import plot_all
 
 
+def _align_scan_to_vectors(agents, skeleton_pts, north_distance, street_bearing, side_bearing,
+                           scan_path="temp_images/bw_page-2.png", scale_feet=100.0, dpi=200.0,
+                           corner_px=(2047, 372)):
+    """Register the scanned sheet's skeleton to the vector lots and fill `skeleton_pts` in place.
+
+      1. SCALE FIRST: the scan is converted to feet by the exact unit conversion (1"=100' at 200 dpi).
+      2. ANCHOR: the vector plat starts on ONE corner -- the Point of Beginning, the top-left
+         corner of the drawn map (corner_px is read roughly off the sheet; the fitted lines
+         sharpen it, and the two lines that cross there are what is actually used).
+      3. BASELINE: the north line (stated 1626.37') sets the rotation and, measured corner to
+         corner, checks the scale. The west boundary is a second line that cross-checks it.
+      4. ADD POLYLINES, ADJUST: lots are added block by block and the alignment corrected, at
+         most three times (engine/scan_align.py).
+
+    This replaces four hand-picked pixel landmarks (POB, Block 18 Lot 1, Starfish/Mangrove,
+    the north line's end) that were not on the features they named -- they were hundreds of
+    feet off -- so both builds' fits were fits to made-up points.
+    """
+    if not os.path.exists(scan_path):
+        print(f"(scan {scan_path} not present: skeleton alignment skipped, coded curve sides kept)")
+        return
+    import collections
+    import cv2
+    from engine import scan_align as SA
+    from engine.curve_follow import InkField
+    from engine.vectorize import (map_mask_excluding, extract_polylines, px_to_feet_polylines,
+                                  extract_skeleton_points, align_skeleton_to_vector, derive_scale_factor)
+    img = cv2.imread(scan_path, 0)
+    if img is None:
+        print(f"(could not read {scan_path}: skeleton alignment skipped)")
+        return
+    h = img.shape[0]
+    ft_per_px = derive_scale_factor(scale_feet, dpi)
+    mask = map_mask_excluding(img, border_frac=0.015, min_diag=150, skeleton=True)
+    ink = InkField.from_polylines(px_to_feet_polylines(extract_polylines(mask), ft_per_px, (0, 0), h))
+
+    east_az = (parse_bearing(street_bearing) + 180.0) % 360.0        # POB -> east along the north line
+    south_az = (parse_bearing(side_bearing) + 180.0) % 360.0         # POB -> south along the west line
+    corner_hint = ((h - corner_px[1]) * ft_per_px, corner_px[0] * ft_per_px)
+    try:
+        al = SA.align_from_corner(ink, corner_hint, anchor_vec=(0.0, 0.0), baseline_vec_az=east_az,
+                                  baseline_len_ft=north_distance, cross_vec_az=south_az)
+    except ValueError as e:
+        print(f"(skeleton alignment skipped: {e})")
+        return
+    groups = collections.OrderedDict()
+    for ag in agents:
+        ring = [(p.n, p.e) for p in ag.corners]
+        groups.setdefault(ag.block_id, []).append(ring + [ring[0]])
+    params, history = SA.refine_alignment(al["params"], list(groups.items()), ink, anchor_vec=(0.0, 0.0))
+    skeleton_pts[:] = align_skeleton_to_vector(
+        extract_skeleton_points(mask, ft_per_px=ft_per_px, img_h=h, downsample=4), params)
+
+    agree = SA.alignment_agreement(params, list(groups.items()), ink)
+    made = sum(1 for r in history if "adjustment" in r)
+    print(f"Aligned {len(skeleton_pts)} skeleton scan points to the vector frame: corner-to-corner north line "
+          f"{al['far_corner_ft']:.2f} ft vs stated {north_distance} ft (scale {params['scale']:.5f}), "
+          f"rotation {params['rotation_deg']:+.4f} deg, corner/baseline cross-check {al['cross_check_deg']:+.3f} deg, "
+          f"{made} adjustment(s).")
+    steer = [f"{k} {v * 100:.0f}%" for k, v in agree["groups"].items() if v >= 0.6]
+    print(f"  vector lots on parallel ink (2 ft): {agree['overall'] * 100:.0f}% overall; blocks that match the drawing: "
+          f"{', '.join(steer) if steer else 'none'}")
+    weak = [k for k, v in agree["groups"].items() if v < 0.10]
+    if weak:
+        print(f"  NOTE: {len(weak)} block(s) do not overlay the scanned plat at all (<10%): {', '.join(weak)}")
+
+
 def build_beachwood_plat_lots():
     print("=" * 80)
     print("  BEACHWOOD UNIT TWO: 204-AGENT FULL PLAT LOT COMPUTATION & MAPCHECK PIPELINE")
@@ -106,36 +173,10 @@ def build_beachwood_plat_lots():
     # Given R=1959.86, Arc Length=100.00
     c2_all = solve_curve_all_parameters(radius=1959.86, length=100.0)
 
-    # Extract skeleton scan points from plat raster and align to vector COGO frame
+    # Skeleton scan points, in the vector frame. Every agent holds a reference to THIS list; it is
+    # filled in place by _align_scan_to_vectors() once the vector plat (the agents' lots) exists,
+    # because the alignment is built by comparing those polylines with the scan.
     skeleton_pts: list[Point] = []
-    p2_path = "temp_images/bw_page-2.png"
-    if os.path.exists(p2_path):
-        import cv2
-        from engine.vectorize import map_mask_excluding, extract_skeleton_points, iterative_align_raster_to_cogo
-        img_skel = cv2.imread(p2_path, 0)
-        if img_skel is not None:
-            mask = map_mask_excluding(img_skel, border_frac=0.015, min_diag=150, skeleton=True)
-            raw_skel = extract_skeleton_points(mask, ft_per_px=0.500, img_h=img_skel.shape[0], downsample=4)
-            cogo_ctrl = [(0.0, 50.0), (-60.0, 210.0), (-260.0, 210.0), (-77.5, 1626.37)]
-            raster_ctrl_px = [(1350, 480), (1450, 580), (1770, 840), (4600, 615)]
-            RASTER_FRAME_OFFSET = (1450.0, 675.0)
-            raster_ctrl_ft = [
-                ((img_skel.shape[0] - y) * 0.500 - RASTER_FRAME_OFFSET[0], x * 0.500 - RASTER_FRAME_OFFSET[1])
-                for x, y in raster_ctrl_px
-            ]
-            align_res = iterative_align_raster_to_cogo(raster_ctrl_ft, cogo_ctrl, max_iters=50, tol=1e-6)
-            cos_r = math.cos(math.radians(align_res["rotation_deg"]))
-            sin_r = math.sin(math.radians(align_res["rotation_deg"]))
-            sc = align_res["scale"]
-            tn, te = align_res["translation_n"], align_res["translation_e"]
-            skeleton_pts = [
-                Point(
-                    sc * ((p.n - RASTER_FRAME_OFFSET[0]) * cos_r - (p.e - RASTER_FRAME_OFFSET[1]) * sin_r) + tn,
-                    sc * ((p.n - RASTER_FRAME_OFFSET[0]) * sin_r + (p.e - RASTER_FRAME_OFFSET[1]) * cos_r) + te,
-                )
-                for p in raw_skel
-            ]
-            print(f"Aligned {len(skeleton_pts)} skeleton scan points to vector frame (residual: {align_res['residual_ft']:.4f} ft).")
 
     agents: list[BeachwoodLotAgent] = []
     agent_id_counter = 1
@@ -184,7 +225,7 @@ def build_beachwood_plat_lots():
             agent31 = BeachwoodLotAgent(
                 agent_id=agent_id_counter, lot_id="Blk16-Lot31", block_id="16S", lot_number="31",
                 corners=[nw31, ne31, pt31, pc_rw],
-                curve_specs={"side_3": {"radius": r_marina_rw, "delta_deg": delta_sub, "length": sub_curve_all["length"], "rot": "CW"}},
+                curve_specs={"side_3": {"radius": r_marina_rw, "delta_deg": delta_sub, "length": sub_curve_all["length"], "rot": "CCW"}},
                 stated_area_sqft=a31_calc,
                 stated_dimensions=f"{sub_curve_all['length']:.1f}' (arc) x 110.0' x 112.2'",
                 skeleton_pts=skeleton_pts,
@@ -197,7 +238,7 @@ def build_beachwood_plat_lots():
             agent30 = BeachwoodLotAgent(
                 agent_id=agent_id_counter, lot_id="Blk16-Lot30", block_id="16S", lot_number="30",
                 corners=[nw30, ne30, pt30, pt31],
-                curve_specs={"side_3": {"radius": r_marina_rw, "delta_deg": delta_sub, "length": sub_curve_all["length"], "rot": "CW"}},
+                curve_specs={"side_3": {"radius": r_marina_rw, "delta_deg": delta_sub, "length": sub_curve_all["length"], "rot": "CCW"}},
                 stated_area_sqft=a30_calc,
                 stated_dimensions=f"{sub_curve_all['length']:.1f}' (arc) x 110.0' x 147.4'",
                 skeleton_pts=skeleton_pts,
@@ -210,7 +251,7 @@ def build_beachwood_plat_lots():
             agent29 = BeachwoodLotAgent(
                 agent_id=agent_id_counter, lot_id="Blk16-Lot29", block_id="16S", lot_number="29",
                 corners=[nw29, ne29, pt29, pt30],
-                curve_specs={"side_3": {"radius": r_marina_rw, "delta_deg": delta_sub, "length": sub_curve_all["length"], "rot": "CW"}},
+                curve_specs={"side_3": {"radius": r_marina_rw, "delta_deg": delta_sub, "length": sub_curve_all["length"], "rot": "CCW"}},
                 stated_area_sqft=a29_calc,
                 stated_dimensions=f"{sub_curve_all['length']:.1f}' (arc) x 110.0' x 166.7'",
                 skeleton_pts=skeleton_pts,
@@ -243,7 +284,7 @@ def build_beachwood_plat_lots():
             agent18 = BeachwoodLotAgent(
                 agent_id=agent_id_counter, lot_id="Blk16-Lot18", block_id="16S", lot_number="18",
                 corners=[nw18, ne18, se18, sw18],
-                curve_specs={"side_2": {"radius": 1959.86, "length": 100.0, "rot": "CCW"}},
+                curve_specs={"side_2": {"radius": 1959.86, "length": 100.0, "rot": "CW"}},
                 stated_area_sqft=a18_calc, stated_dimensions="100.0' (arc) x 75.0'",
                 skeleton_pts=skeleton_pts,
             )
@@ -263,7 +304,7 @@ def build_beachwood_plat_lots():
                 # East end lots fronting Beachwood Blvd (all blocks except Block 10)
                 is_east_end = (num == b["lots"][-1] if b["row"] in ("north", "single") else num == b["lots"][-1])
                 if is_east_end and blk_id != "10":
-                    curve_dict = {"side_2": {"radius": 1959.86, "length": 100.0, "rot": "CCW"}}
+                    curve_dict = {"side_2": {"radius": 1959.86, "length": 100.0, "rot": "CW"}}
                     dims = f"100.0' (arc) x {wdt:.1f}'"
                     stated_a = round(stated_a + float(c2_all["segment_area"]), 1)
 
@@ -301,6 +342,9 @@ def build_beachwood_plat_lots():
     agents.append(agent_ta)
 
     print(f"Instantiated {len(agents)} Autonomous Cadastral Agents across all 9 Blocks (18-10) and Tract A.")
+
+    _align_scan_to_vectors(agents, skeleton_pts, north_distance=NORTH_DISTANCE,
+                           street_bearing=STREET_BEARING, side_bearing=SIDE_BEARING)
 
     # Fork off and execute MapCheck for every single lot
     reports: list[MapCheckReport] = []
