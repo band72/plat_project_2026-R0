@@ -23,6 +23,7 @@ from __future__ import annotations
 import math
 import cv2
 import numpy as np
+from typing import Any
 
 
 def map_mask(img: np.ndarray, rect: tuple, min_diag=150) -> np.ndarray:
@@ -305,4 +306,156 @@ def transform_to_state_plane(coords: list[tuple], anchor_sp: tuple, anchor_local
         re = dn * sin_r + de * cos_r
         transformed.append((sp_n0 + rn, sp_e0 + re))
     return transformed
+
+
+def vectorize_plat_sheet(
+    img_or_path,
+    scale_feet: float = 100.0,
+    dpi: float = 200.0,
+    border_frac: float = 0.015,
+    exclude: list[tuple] | None = None,
+    min_diag: int = 150,
+    epsilon: float = 1.5,
+    break_junctions: bool = True,
+) -> dict[str, Any]:
+    """Automated survey-grade raster-to-vector pipeline for subdivision plat sheets.
+    
+    Extracts continuous polylines, Hough segments, and converts all linework to feet.
+    """
+    if isinstance(img_or_path, str):
+        img = cv2.imread(img_or_path, 0)
+        if img is None:
+            raise FileNotFoundError(f"Cannot read image from {img_or_path}")
+    else:
+        img = img_or_path
+
+    h, w = img.shape[:2]
+    ft_per_px = derive_scale_factor(scale_feet, dpi)
+
+    # 1. Clean mask with text suppression & skeleton thinning
+    mask = map_mask_excluding(
+        img,
+        border_frac=border_frac,
+        exclude=exclude,
+        min_diag=min_diag,
+        skeleton=True,
+    )
+
+    # 2. Extract continuous polylines
+    polys_px = extract_polylines(mask, epsilon=epsilon, break_junctions=break_junctions)
+    polys_ft = px_to_feet_polylines(polys_px, ft_per_px=ft_per_px, origin_px=(0, 0), img_h=h)
+
+    # 3. Extract straight line segments
+    raw_segs = segments(mask, min_len_px=int(25.0 / ft_per_px), max_gap=int(6.0 / ft_per_px), thresh=40)
+    merged_segs = merge_collinear(raw_segs, ang_tol=1.5, perp_tol=3.0, gap_tol=20.0)
+    segs_ft = px_to_feet(merged_segs, ft_per_px=ft_per_px, origin_px=(0, 0), img_h=h)
+
+    # Compute total linear feet
+    tot_len_ft = 0.0
+    for poly in polys_ft:
+        for idx in range(len(poly) - 1):
+            tot_len_ft += math.hypot(poly[idx + 1][0] - poly[idx][0], poly[idx + 1][1] - poly[idx][1])
+
+    return {
+        "polylines_ft": polys_ft,
+        "segments_ft": segs_ft,
+        "ft_per_px": ft_per_px,
+        "total_linework_feet": tot_len_ft,
+        "num_polylines": len(polys_ft),
+        "num_segments": len(segs_ft),
+        "image_shape": (h, w),
+    }
+
+
+def iterative_align_raster_to_cogo(
+    raster_pts: list[tuple[float, float]],
+    cogo_pts: list[tuple[float, float]],
+    max_iters: int = 50,
+    tol: float = 1e-6,
+) -> dict[str, Any]:
+    """Iteratively computes optimal 2D Helmert transformation (scale, rotation, translation)
+    between vectorized raster points and surveyed COGO control points until convergence.
+    
+    Points are (Northing, Easting).
+    """
+    if len(raster_pts) != len(cogo_pts) or len(raster_pts) < 2:
+        raise ValueError("At least 2 corresponding point pairs are required for alignment.")
+
+    r_arr = np.array(raster_pts, dtype=np.float64)  # shape (N, 2): [N, E]
+    c_arr = np.array(cogo_pts, dtype=np.float64)
+
+    # Center of mass
+    r_mean = np.mean(r_arr, axis=0)
+    c_mean = np.mean(c_arr, axis=0)
+
+    r_centered = r_arr - r_mean
+    c_centered = c_arr - c_mean
+
+    # Initial estimates
+    scale = 1.0
+    theta_rad = 0.0
+    t_n = float(c_mean[0] - r_mean[0])
+    t_e = float(c_mean[1] - r_mean[1])
+
+    history = []
+    converged = False
+
+    for iteration in range(1, max_iters + 1):
+        prev_scale = scale
+        prev_theta = theta_rad
+        prev_t = (t_n, t_e)
+
+        # Procrustes rotation calculation
+        # H = r_centered.T @ c_centered
+        H = r_centered.T @ c_centered
+        U, S, Vt = np.linalg.svd(H)
+        R_mat = Vt.T @ U.T
+        if np.linalg.det(R_mat) < 0:
+            Vt[-1, :] *= -1
+            R_mat = Vt.T @ U.T
+
+        theta_rad = math.atan2(R_mat[1, 0], R_mat[0, 0])
+
+        # Optimal scale
+        var_r = np.sum(r_centered ** 2)
+        if var_r > 1e-12:
+            scale = float(np.sum(S) / var_r)
+        else:
+            scale = 1.0
+
+        # Translation
+        cos_t, sin_t = math.cos(theta_rad), math.sin(theta_rad)
+        R_rot = np.array([[cos_t, -sin_t], [sin_t, cos_t]])
+        t_vec = c_mean - scale * (R_rot @ r_mean)
+        t_n, t_e = float(t_vec[0]), float(t_vec[1])
+
+        delta_theta = abs(theta_rad - prev_theta)
+        delta_scale = abs(scale - prev_scale)
+        delta_t = math.hypot(t_n - prev_t[0], t_e - prev_t[1])
+        residual = float(np.mean(np.linalg.norm(c_arr - (scale * (r_arr @ R_rot.T) + t_vec), axis=1)))
+
+        history.append({
+            "iteration": iteration,
+            "scale": scale,
+            "rotation_deg": math.degrees(theta_rad),
+            "translation": (t_n, t_e),
+            "residual": residual,
+            "delta": max(delta_theta, delta_scale, delta_t),
+        })
+
+        if delta_theta < tol and delta_scale < tol and delta_t < tol:
+            converged = True
+            break
+
+    return {
+        "converged": converged,
+        "iterations": len(history),
+        "scale": scale,
+        "rotation_deg": math.degrees(theta_rad),
+        "translation_n": t_n,
+        "translation_e": t_e,
+        "residual_ft": residual,
+        "history": history,
+    }
+
 

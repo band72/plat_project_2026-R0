@@ -35,8 +35,8 @@ PLATS = [
         'name': 'Beachwood Unit Two',
         'date': '1960',
         'book_page': 'PB 30, Pages 82 & 82A',
-        'build_script': 'build_beachwood_boundary.py',
-        'dxf': 'dxf/PB0030_P0082_Beachwood_ParentBoundary.dxf',
+        'build_script': 'build_beachwood_vector_consensus.py',
+        'dxf': 'dxf/PB0030_P0082_Beachwood_Vector_Consensus.dxf',
         'primary_intersection': ('Starfish Avenue', 'Mangrove Avenue')
     },
     {

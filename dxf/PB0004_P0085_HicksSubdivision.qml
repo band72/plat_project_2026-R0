@@ -19,12 +19,17 @@
       <text-style fontFamily="Open Sans" fontSize="6.0" fontSizeUnit="Point" textColor="0,0,0,255" isExpression="0" fieldName="Text" blendMode="0">
         <text-buffer bufferDraw="1" bufferSize="0.6" bufferSizeUnits="Point" bufferColor="255,255,255,255" bufferOpacity="1"/>
       </text-style>
-      <placement placement="0" dist="0" priority="5" preserveRotation="1"/>
-      <rendering scaleMin="0" scaleMax="0" obstacle="0" displayAll="0"/>
+      <placement placement="1" dist="0" priority="5" preserveRotation="1"/>
+      <rendering scaleMin="0" scaleMax="0" obstacle="0" displayAll="1"/>
       <dd_properties>
         <Option type="Map">
           <Option value="" type="QString" name="name"/>
           <Option type="Map" name="properties">
+            <Option type="Map" name="Halign">
+              <Option value="true" type="bool" name="active"/>
+              <Option value="'Center'" type="QString" name="expression"/>
+              <Option value="3" type="int" name="type"/>
+            </Option>
             <Option type="Map" name="LabelRotation">
               <Option value="true" type="bool" name="active"/>
               <Option value="CASE WHEN &quot;Linetype&quot; LIKE 'ROT_%' THEN -to_real(substr(&quot;Linetype&quot;, 5)) ELSE 0.0 END" type="QString" name="expression"/>

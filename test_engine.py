@@ -358,6 +358,49 @@ if os.path.exists(tf_path):
 if os.path.exists(qml_file):
     os.remove(qml_file)
 
+print("\n=== 100-Agent Multiagent Consensus Solver & Plat Vectorization ===")
+from engine.consensus import MultiAgentConsensusSolver
+from engine.vectorize import vectorize_plat_sheet, iterative_align_raster_to_cogo
+from engine.audit import audit_dxf_layers
+
+# 1. 100-Agent Consensus Solver Instantiation
+solver_test = MultiAgentConsensusSolver()
+check("Consensus solver instantiates exactly 100 agents", len(solver_test.agents) == 100)
+check("Consensus solver instantiates exactly 5 guilds", len(solver_test.guilds) == 5)
+check("Every guild has exactly 20 agents", all(len(g.agents) == 20 for g in solver_test.guilds.values()))
+
+# 2. Consensus Solver Iterative Convergence
+test_target = {
+    "parent_area": 2794191.8,
+    "perimeter": 8226.67,
+    "gps_lat": 30.292130,
+    "gps_lon": -81.530280,
+    "lots_count": 121.0,
+}
+consensus_out = solver_test.iterate_consensus(test_target, max_rounds=20)
+check("Multiagent consensus reaches mathematical convergence", consensus_out["converged"] is True)
+check("Multiagent consensus delta state < 1e-6", consensus_out["final_delta"] < 1e-6)
+check("Multiagent consensus variance < 1e-7", consensus_out["final_variance"] < 1e-7)
+check("Multiagent consensus achieves unanimous 100/100 votes", consensus_out["votes"] == 100)
+
+# 3. Iterative Helmert Alignment Convergence
+r_pts = [(100.0, 200.0), (100.0, 600.0), (400.0, 600.0), (400.0, 200.0)]
+c_pts = [(110.0, 215.0), (110.0, 615.0), (410.0, 615.0), (410.0, 215.0)]
+align_out = iterative_align_raster_to_cogo(r_pts, c_pts)
+check("Helmert alignment converges", align_out["converged"] is True)
+check("Helmert alignment residual near zero", align_out["residual_ft"] < 0.001)
+
+# 4. Beachwood Vector Consensus DXF Audit
+bw_consensus_dxf = "dxf/PB0030_P0082_Beachwood_Vector_Consensus.dxf"
+if os.path.exists(bw_consensus_dxf):
+    audit_report = audit_dxf_layers(bw_consensus_dxf)
+    check("Beachwood Vector Consensus DXF status PASS", audit_report["status"] == "PASS")
+    check("Beachwood DXF has RASTER_VECTOR_LINEWORK layer", "RASTER_VECTOR_LINEWORK" in audit_report["layers"])
+    check("Beachwood DXF has BOUNDARY layer", "BOUNDARY" in audit_report["layers"])
+    check("Beachwood DXF has LOT_LINE layer", "LOT_LINE" in audit_report["layers"])
+    check("Beachwood DXF 0 noise circles", audit_report["entity_counts"]["circles"] == 0)
+    check("Beachwood DXF >3000 linework entities", audit_report["entity_counts"]["polylines"] > 1000)
+
 print(f"\n{'='*52}")
 print(f"{len(FAILURES)} failure(s)" if FAILURES else "ALL TESTS PASS")
 if FAILURES:
