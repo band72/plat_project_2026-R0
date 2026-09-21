@@ -52,7 +52,13 @@ def parse_bearing(text: str) -> float:
         mn = mn or "0"
     ns = ns.upper()
     ew = ew.upper()
+    # A quadrant angle is 0-90 deg with minutes/seconds < 60. Unchecked, OCR
+    # misreads such as N95°E or N45°75'E silently became wrong azimuths.
+    if float(deg) > 90.0 or float(mn) >= 60.0 or sec >= 60.0:
+        raise ValueError(f"Bearing out of range: {text!r}")
     ang = float(deg) + float(mn) / 60.0 + sec / 3600.0
+    if ang > 90.0:
+        raise ValueError(f"Bearing out of range: {text!r}")
     if ns == "N" and ew == "E":
         az = ang
     elif ns == "S" and ew == "E":

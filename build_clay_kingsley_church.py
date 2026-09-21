@@ -152,7 +152,7 @@ def build_kingsley_church():
              "PUBLIC BURYING GROUND AND CHURCH LOT -- PLAT BOOK 1, PAGE 5 (1888)",
              height=9.0, layer="BOUNDARY")
 
-    out_dxf = "/home/artwalk/Downloads/plat_project_2026-R0/dxf/PB0001_P0005_KingsleyChurch_SurveyGrade.dxf"
+    out_dxf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dxf", "PB0001_P0005_KingsleyChurch_SurveyGrade.dxf")
     dxf.save(out_dxf)
     print(f"Saved -> {out_dxf}")
 

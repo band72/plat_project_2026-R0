@@ -338,18 +338,31 @@ check("DXF degree escaped as %%d", b"%%d" in raw_dxf and b"\xc2\xb0" not in raw_
 qml_file = tf_path[:-4] + ".qml"
 check("companion QML file auto-generated", os.path.exists(qml_file))
 
-try:
-    import qgis.core
+def _run_qgis_checks(dxf_path):
+    """Load the DXF in headless QGIS and verify layer, labels and encoding.
+
+    Every QGIS object (layer, features) must be released BEFORE exitQgis().
+    Destroying them afterwards -- e.g. as module globals at interpreter
+    shutdown -- segfaults the process (exit 139) after every check has
+    already passed, which made the whole suite look like a crash."""
     from qgis.core import QgsApplication, QgsVectorLayer
-    qgs_app = QgsApplication([], False)
-    qgs_app.initQgis()
-    vl_test = QgsVectorLayer(tf_path, "qgis_test", "ogr")
-    check("QGIS layer valid", vl_test.isValid())
-    check("QGIS companion QML auto-enables labels", vl_test.labelsEnabled())
-    vl_feats = list(vl_test.getFeatures())
-    vl_texts = [f["Text"] for f in vl_feats if f["Text"]]
-    check("QGIS text decodes degree without Â mojibake", any("°" in t and "Â" not in t for t in vl_texts))
-    qgs_app.exitQgis()
+    app = QgsApplication([], False)
+    app.initQgis()
+    vl = feats = None
+    try:
+        vl = QgsVectorLayer(dxf_path, "qgis_test", "ogr")
+        check("QGIS layer valid", vl.isValid())
+        check("QGIS companion QML auto-enables labels", vl.labelsEnabled())
+        feats = list(vl.getFeatures())
+        texts = [f["Text"] for f in feats if f["Text"]]
+        check("QGIS text decodes degree without Â mojibake", any("°" in t and "Â" not in t for t in texts))
+    finally:
+        del vl, feats
+        app.exitQgis()
+
+
+try:
+    _run_qgis_checks(tf_path)
 except Exception as ex:
     check(f"QGIS verification: {ex}", False)
 
@@ -490,6 +503,119 @@ check("Batch plat vectorization consensus status PASS", v_consensus_res["status"
 check("Batch plat vectorization achieves unanimous quorum", v_consensus_res["consensus"]["unanimous_quorum"] is True)
 check("Batch plat vectorization delta < 1e-6", v_consensus_res["consensus"]["final_delta"] < 1e-6)
 
+print("\n=== Debug-pass regressions (bearings, DXF audit, GPS matching, consensus, batch pipeline) ===")
+import shutil
+
+# 1. Bearing range validation (BUG: N95°E parsed silently as 95.0 deg, N45°75'E as 46.25)
+for _bad in ('N95°00\'00"E', 'N45°75\'00"E', 'N45°30\'75"E', 'S170°00\'00"W', 'N90°30\'00"E'):
+    try:
+        parse_bearing(_bad)
+        check(f"parse_bearing rejects out-of-range {_bad}", False)
+    except ValueError:
+        check(f"parse_bearing rejects out-of-range {_bad}", True)
+check("parse_bearing still accepts N90°00'00\"E", abs(parse_bearing('N90°00\'00"E') - 90.0) < 1e-9)
+
+# 2. DXF audit counts entities by group code (BUG: substring counting made 291 LINEs read as 4804,
+#    and group-code numbers such as '20' and '70' were reported as layer names)
+_aw = DXFWriter()
+_aw.add_layer("LOT_LINE")            # layer name ends in LINE: must not be counted as a LINE
+for _i in range(5):
+    _aw.line((0, _i), (10, _i), layer="LOT_LINE")
+_aw.polyline([(0, 0), (5, 5), (9, 1)], layer="LOT_LINE")   # POLYLINE ends in LINE too
+_aw.text((1, 1), "LOT 1")
+_ap = os.path.join(tempfile.mkdtemp(), "audit_probe.dxf")
+_aw.save(_ap)
+_ar = audit_dxf_layers(_ap)
+check("DXF audit counts exactly 5 LINEs", _ar["entity_counts"]["lines"] == 5, _ar["entity_counts"])
+check("DXF audit counts exactly 1 POLYLINE", _ar["entity_counts"]["polylines"] == 1, _ar["entity_counts"])
+check("DXF audit counts exactly 1 TEXT", _ar["entity_counts"]["texts"] == 1, _ar["entity_counts"])
+_real_dxf = "dxf/PB0004_P0017_HollyPoint_SurveyGrade.dxf"   # the old regex reported '1','20','21','30','31','50' as layers here
+if os.path.exists(_real_dxf):
+    _real_layers = audit_dxf_layers(_real_dxf)["layers"]
+    check("DXF audit reports no group-code numbers as layers",
+          not any(_l.isdigit() and _l != "0" for _l in _real_layers), _real_layers)
+_rng = random.Random(1)
+_px = DXFWriter()
+for _ in range(400):
+    _px.polyline([(_rng.randint(0, 8000), _rng.randint(0, 8000)) for _ in range(3)])
+_pp = os.path.join(tempfile.mkdtemp(), "pixels.dxf"); _px.save(_pp)
+check("DXF audit flags raw integer pixel-space coordinates", audit_dxf_layers(_pp)["status"] == "WARN")
+_rng = random.Random(1)
+_ft = DXFWriter()
+for _ in range(400):
+    _ft.polyline([(_rng.randint(0, 8000) * 0.4167, _rng.randint(0, 8000) * 0.4167) for _ in range(3)])
+_fp = os.path.join(tempfile.mkdtemp(), "feet.dxf"); _ft.save(_fp)
+check("DXF audit does not flag scaled feet-space linework", audit_dxf_layers(_fp)["status"] == "PASS")
+_cw = DXFWriter()
+_cp = os.path.join(tempfile.mkdtemp(), "circles.dxf"); _cw.save(_cp)
+with open(_cp) as _f:
+    _txt = _f.read().replace("0\nENDSEC\n0\nEOF", "".join(
+        f"0\nCIRCLE\n8\n0\n10\n{_i}.5\n20\n1.5\n30\n0.0\n40\n3.0\n" for _i in range(600)) + "0\nENDSEC\n0\nEOF")
+with open(_cp, "w") as _f:
+    _f.write(_txt)
+check("DXF audit FAILs on circle-monument bloat", audit_dxf_layers(_cp)["status"] == "FAIL")
+
+# 3. GPS matching (BUG: any single shared word matched, so West 8th St resolved to East 8th St's
+#    coordinate; a missing DB was silently replaced by a stub of made-up coordinates)
+check("GPS: abbreviations still resolve (Starfish Ave & Mangrove Ave)",
+      get_intersection_gps("Starfish Ave", "Mangrove Ave") == g_bw)
+check("GPS: 'West 8th Street' does not resolve to East 8th Street's coordinate",
+      get_intersection_gps("West 8th Street", "Main Street") is None)
+check("GPS: 'South Starfish Avenue' is not 'Starfish Avenue'",
+      get_intersection_gps("South Starfish Avenue", "Mangrove Avenue") is None)
+check("GPS: 'Starfish Court' is not 'Starfish Avenue'",
+      get_intersection_gps("Starfish Court", "Mangrove Avenue") is None)
+import engine.georeference as _geo
+_saved_db = _geo._GPS_DB_PATH
+_ghost = os.path.join(tempfile.mkdtemp(), "no_such_dir", "db.json")
+_geo._GPS_DB_PATH = _ghost
+try:
+    _geo.get_intersection_gps("Nonexistent Way", "Imaginary Street")
+    check("GPS: a missing DB is not fabricated on read", not os.path.exists(os.path.dirname(_ghost)))
+except Exception as _ex:   # the old code tried to write a stub DB here and raised
+    check("GPS: a missing DB is not fabricated on read", False, repr(_ex))
+finally:
+    _geo._GPS_DB_PATH = _saved_db
+check("GPS: format_gps puts the sign in the hemisphere letter",
+      _geo.format_gps(30.29213, -81.53028) == "30.292130° N, 81.530280° W")
+
+# 4. Consensus result contract (BUG: build_plats_vector/build_plats_batch read quorum_pct and
+#    yes_votes from the result; only history records had them, so every batch run raised KeyError)
+_c0 = MultiAgentConsensusSolver().iterate_consensus({"a": 1.0}, max_rounds=20)
+check("consensus result exposes yes_votes and quorum_pct",
+      _c0.get("yes_votes") == 100 and _c0.get("quorum_pct") == 100.0, sorted(_c0))
+try:
+    _c1 = MultiAgentConsensusSolver().iterate_consensus({"a": 1.0}, max_rounds=0)
+    check("consensus max_rounds=0 reports not-converged instead of raising", _c1["converged"] is False)
+except Exception as _ex:   # the old code raised UnboundLocalError here
+    check("consensus max_rounds=0 reports not-converged instead of raising", False, repr(_ex))
+_bad_root = tempfile.mkdtemp()
+os.makedirs(os.path.join(_bad_root, "engine"))
+with open(os.path.join(_bad_root, "engine", "broken.py"), "w") as _f:
+    _f.write("def f(:\n")
+check("codebase audit FAILs when a source file has a syntax error",
+      CodebaseAuditPanel().audit_codebase(_bad_root)["status"] == "FAIL")
+
+# 5. Batch vectorizer end to end on the smallest real plat (BUG: crashed with KeyError on every
+#    plat, and an unknown plat was silently stamped with a made-up GPS tie)
+_pdf = "Plat/Duval_Plat_Book_30_Page_82-1.pdf"
+if shutil.which("pdftoppm") and os.path.exists(_pdf):
+    from build_plats_vector import process_plats as _batch
+    _d = tempfile.mkdtemp()
+    os.makedirs(os.path.join(_d, "plats"))
+    shutil.copy(_pdf, os.path.join(_d, "plats"))
+    _rc = _batch(os.path.join(_d, "plats"), os.path.join(_d, "tmp"), os.path.join(_d, "out"))
+    check("batch vectorizer runs end to end and returns 0", _rc == 0)
+    check("batch vectorizer writes the DXF and its QML",
+          os.path.exists(os.path.join(_d, "out", "Duval_Plat_Book_30_Page_82-1_vectorized.dxf"))
+          and os.path.exists(os.path.join(_d, "out", "Duval_Plat_Book_30_Page_82-1_vectorized.qml")))
+    shutil.copy(_pdf, os.path.join(_d, "plats", "Unknown_Plat_Not_In_Table.pdf"))
+    _rc2 = _batch(os.path.join(_d, "plats"), os.path.join(_d, "tmp"), os.path.join(_d, "out2"))
+    check("batch vectorizer skips an unknown plat instead of inventing a GPS tie",
+          _rc2 == 1 and not os.path.exists(os.path.join(_d, "out2", "Unknown_Plat_Not_In_Table_vectorized.dxf")))
+else:
+    print("  SKIP  batch vectorizer end-to-end (pdftoppm or sample PDF not available)")
+
 # 9. Omni-Parameter Circular Curve Solver (All 8 Parameters & 28 Pairs)
 from engine.curves import solve_curve_all_parameters, Curve
 base_c = solve_curve_all_parameters(radius=200.0, delta_deg=45.0)
@@ -589,6 +715,15 @@ print(f"{len(FAILURES)} failure(s)" if FAILURES else "ALL TESTS PASS")
 if FAILURES:
     for f in FAILURES:
         print("  -", f)
+
+
+def test_engine_regressions():
+    """pytest entry point. Every check above runs at import time and records
+    into FAILURES; without a test_* function pytest collected nothing."""
+    assert not FAILURES, FAILURES
+
+
+if __name__ == "__main__" and FAILURES:
     sys.exit(1)
 
 

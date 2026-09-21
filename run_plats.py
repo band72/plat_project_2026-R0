@@ -6,7 +6,7 @@ physical GPS coordinates with zero artificial fudging, and exports layered DXFs.
 """
 import os, sys, subprocess
 sys.path.insert(0, '.')
-from engine.georeference import get_intersection_gps
+from engine.georeference import get_intersection_gps, format_gps
 
 PLATS = [
     {
@@ -117,8 +117,9 @@ def main():
             print(f'  [ERROR] {script} failed:')
             print('   ', run_res.stderr.strip()[:200])
             p['status'] = 'FAIL'
+            results.append(p)  # keep failures in the summary; they used to vanish from it
             continue
-            
+
         # 2. Check primary intersection GPS tie
         h_st, v_st = p['primary_intersection']
         gps = get_intersection_gps(h_st, v_st)
@@ -133,7 +134,7 @@ def main():
         else:
             p['status'] = 'MISSING DXF'
             
-        gps_str = f'{gps[0]:.6f}° N, {gps[1]:.6f}° W' if gps else 'Control Tie'
+        gps_str = format_gps(*gps) if gps else 'Control Tie'
         print(f'  -> DXF Output: {dxf_path} ({p.get("dxf_size", "N/A")})')
         print(f'  -> Ground-Truthed GPS: {gps_str} (Zero Fudging)')
         print(f'  -> Status: {p["status"]}\n')
@@ -142,12 +143,19 @@ def main():
     print('========================================================================================')
     print('                                PIPELINE EXECUTION SUMMARY                              ')
     print('========================================================================================')
-    print(f'{"Date":<6} | {"Plat / Subdivision":<32} | {"Book/Page":<18} | {"GPS Coordinates":<26} | {"DXF"}')
-    print('-'*98)
+    print(f'{"Date":<6} | {"Plat / Subdivision":<32} | {"Book/Page":<18} | {"GPS Coordinates":<30} | {"DXF":<10} | {"Status"}')
+    print('-'*112)
     for r in results:
-        gps_coord = f'{r["gps"][0]:.5f}° N, {r["gps"][1]:.5f}° W' if r.get('gps') else 'Sec 12 Control Tie'
-        print(f'{r["date"]:6} | {r["name"][:32]:<32} | {r["book_page"]:<18} | {gps_coord:<26} | {r["dxf_size"]}')
+        gps_coord = format_gps(*r['gps'], places=5) if r.get('gps') else 'Sec 12 Control Tie'
+        # dxf_size only exists when the DXF was found -- MISSING DXF / FAIL rows
+        # used to raise KeyError here and abort the summary.
+        print(f'{r["date"]:6} | {r["name"][:32]:<32} | {r["book_page"]:<18} | {gps_coord:<30} | {r.get("dxf_size", "N/A"):<10} | {r["status"]}')
     print('========================================================================================\n')
 
+    failed = [r['name'] for r in results if r['status'] != 'PASS']
+    if failed:
+        print(f'[FAIL] {len(failed)} of {len(results)} plats did not complete: {", ".join(failed)}')
+    return 1 if failed else 0
+
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

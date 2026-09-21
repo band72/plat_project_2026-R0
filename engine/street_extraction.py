@@ -1,17 +1,30 @@
 import cv2
 import numpy as np
-import easyocr
 import math
 import os
 from typing import Any
 
 import pytesseract
 
-# Initialize EasyOCR reader as optional fallback
-try:
-    reader = easyocr.Reader(['en'])
-except Exception as e:
-    reader = None
+_reader = None
+_reader_failed = False
+
+
+def _get_reader():
+    """EasyOCR reader, built on first use.
+
+    It is only the fallback for when Tesseract raises. Building it at import
+    time loaded torch and model weights for every importer (the test suite,
+    build_plats_batch) whether or not OCR ever ran, and made this module
+    unimportable on a machine without easyocr."""
+    global _reader, _reader_failed
+    if _reader is None and not _reader_failed:
+        try:
+            import easyocr
+            _reader = easyocr.Reader(['en'])
+        except Exception:
+            _reader_failed = True
+    return _reader
 
 def apply_clahe(img: np.ndarray) -> np.ndarray:
     """Apply Contrast Limited Adaptive Histogram Equalization."""
@@ -107,8 +120,9 @@ def extract_streets(img_path: str) -> dict:
             lines = [l.strip() for l in txt.split('\n') if len(l.strip()) > 3]
             results[name] = lines
         except Exception:
-            if reader is not None:
-                res = reader.readtext(rot_img, detail=0, paragraph=False)
+            ocr_reader = _get_reader()
+            if ocr_reader is not None:
+                res = ocr_reader.readtext(rot_img, detail=0, paragraph=False)
                 results[name] = [r for r in res if len(r) > 3]
             else:
                 results[name] = []

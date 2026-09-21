@@ -3,7 +3,7 @@ import glob
 import subprocess
 import shutil
 from engine.street_extraction import extract_streets, pair_intersections_with_consensus
-from engine.georeference import assert_zero_fudging
+from engine.georeference import assert_zero_fudging, format_gps
 
 def convert_pdf_to_images(pdf_path: str, output_dir: str, dpi: int = 200) -> list[str]:
     """Convert PDF pages to PNG images using pdftoppm."""
@@ -61,7 +61,7 @@ def process_plats(plats_dir: str, temp_img_dir: str = "temp_images"):
                             lat = item["gps_latitude"]
                             lon = item["gps_longitude"]
                             assert_zero_fudging((lat, lon), (lat, lon), name=f"{h} & {v}")
-                            print(f"      [VERIFIED GPS] {h} & {v} -> ({lat:.6f}° N, {lon:.6f}° W) (Zero Fudging)")
+                            print(f"      [VERIFIED GPS] {h} & {v} -> ({format_gps(lat, lon)}) (Zero Fudging)")
                             total_verified_all += 1
                         else:
                             print(f"      [CONSENSUS CANDIDATE] {h} & {v} (Corridor identified, awaiting DB mapping)")

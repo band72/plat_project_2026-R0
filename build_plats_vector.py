@@ -16,7 +16,9 @@ from typing import Any
 from engine.vectorize import map_mask_excluding, extract_polylines, px_to_feet_polylines
 from engine.dxf_writer import DXFWriter
 from engine.consensus import MultiAgentConsensusSolver
-from engine.georeference import assert_zero_fudging, get_intersection_gps
+import sys
+import traceback
+from engine.georeference import assert_zero_fudging, get_intersection_gps, format_gps
 from engine.audit import dxf_audit
 
 # Known Ground-Truthed Physical Intersections (Zero Artificial Offset Fudging)
@@ -173,9 +175,10 @@ def process_plats(plats_dir: str = "Plat", temp_img_dir: str = "temp_images", ou
     
     if not pdf_files:
         print(f"No PDFs found in {plats_dir}")
-        return
-        
+        return 1
+
     os.makedirs(output_dir, exist_ok=True)
+    done, skipped, failed = [], [], []
     print("=" * 80)
     print("  100-AGENT MULTIAGENT CONSENSUS: BATCH PLAT VECTORIZER")
     print("=" * 80)
@@ -184,8 +187,14 @@ def process_plats(plats_dir: str = "Plat", temp_img_dir: str = "temp_images", ou
         base_name = os.path.splitext(os.path.basename(pdf))[0]
         print(f"\n>>> Vectorizing Plat: {base_name} <<<")
         
-        # Look up plat metadata
-        meta = KNOWN_PLAT_GPS.get(base_name, ("Main Street", "East 8th Street", (30.345753, -81.653909), 100.0))
+        # Look up plat metadata. An unknown plat is skipped, never guessed: the
+        # old fallback stamped a made-up intersection, GPS tie and 1"=100' scale
+        # onto its DXF and labelled the result "Zero Fudging Verified".
+        meta = KNOWN_PLAT_GPS.get(base_name)
+        if meta is None:
+            print(f"  [SKIP] {base_name}: no ground-truth intersection/scale in KNOWN_PLAT_GPS -- add one to vectorize it")
+            skipped.append(base_name)
+            continue
         s1, s2, gps_coords, scale_ft = meta
         dpi = 200
         ft_px = scale_ft / float(dpi)
@@ -249,7 +258,7 @@ def process_plats(plats_dir: str = "Plat", temp_img_dir: str = "temp_images", ou
                 # Ground-truthed physical GPS Control point (Zero Fudging)
                 ctrl_n = max_n if max_n != -1e18 else 0
                 dxf.point((ctrl_n, offset_e), layer="CONTROL")
-                dxf.text((ctrl_n + 15, offset_e), f"GPS TIE: {s1} & {s2} ({gps_coords[0]:.6f} N, {gps_coords[1]:.6f} W)", height=12, layer="CONTROL")
+                dxf.text((ctrl_n + 15, offset_e), f"GPS TIE: {s1} & {s2} ({format_gps(*gps_coords)})", height=12, layer="CONTROL")
                 
                 if max_e != -1e18:
                     offset_e = max_e + 1500.0
@@ -269,7 +278,7 @@ def process_plats(plats_dir: str = "Plat", temp_img_dir: str = "temp_images", ou
             
             print(f"  [100-AGENT CONSENSUS] Status: {consensus_res['status']} | Quorum: {consensus_res['consensus']['quorum_pct']:.0f}% ({consensus_res['consensus']['yes_votes']}/100 votes)")
             print(f"    Rounds: {consensus_res['consensus']['rounds']} | Final Delta: {consensus_res['consensus']['final_delta']:.8f} | Variance: {consensus_res['consensus']['final_variance']:.2e}")
-            print(f"    Ground-Truthed GPS: {gps_coords[0]:.6f}° N, {gps_coords[1]:.6f}° W (Zero Fudging Verified)")
+            print(f"    Ground-Truthed GPS: {format_gps(*gps_coords)} (Zero Fudging Verified)")
             
             # 5. Save Output DXF & Companion QML
             out_path = os.path.join(output_dir, f"{base_name}_vectorized.dxf")
@@ -278,16 +287,26 @@ def process_plats(plats_dir: str = "Plat", temp_img_dir: str = "temp_images", ou
             
             # 6. DXF Audit
             audit_res = dxf_audit(out_path)
-            print(f"  DXF Audit: {audit_res['status']} | Linework: {audit_res['entity_counts'].get('lines', 0) + audit_res['entity_counts'].get('polylines', 0)} entities | 0 noise circles")
-            
+            counts = audit_res['entity_counts']
+            print(f"  DXF Audit: {audit_res['status']} | Linework: {counts['lines'] + counts['polylines']} entities | {counts['circles']} noise circles")
+            (failed if audit_res['status'] in ('FAIL', 'ERROR') else done).append(base_name)
+
         except Exception as e:
             print(f"Error vectorizing {pdf}: {e}")
+            traceback.print_exc()
+            failed.append(base_name)
 
+    # This banner used to read "ALL DELIVERABLES CERTIFIED" unconditionally,
+    # even when every plat had errored out or been skipped.
     print("\n" + "=" * 80)
-    print("BATCH VECTORIZATION PIPELINE COMPLETE (ALL DELIVERABLES CERTIFIED)")
+    print(f"BATCH VECTORIZATION COMPLETE: {len(done)} vectorized, {len(skipped)} skipped, {len(failed)} failed")
+    for label, names in (("skipped", skipped), ("failed", failed)):
+        if names:
+            print(f"  {label}: {', '.join(names)}")
     print("=" * 80)
+    return 1 if (failed or skipped) else 0
 
 
 if __name__ == "__main__":
-    process_plats("Plat")
+    sys.exit(process_plats("Plat"))
 

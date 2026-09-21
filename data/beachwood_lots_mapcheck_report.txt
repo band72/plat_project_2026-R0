@@ -1,6 +1,6 @@
 ================================================================================
-  BEACHWOOD UNIT TWO (DUVAL COUNTY, FL, 1960) -- PER-LOT MAPCHECK AUDIT REPORT
-  Total Cadastral Agents: 121 | Automated Traverse Closure & Area Verification
+  BEACHWOOD UNIT TWO (DUVAL COUNTY, FL, 1960) -- FULL PLAT MAPCHECK REPORT
+  Total Cadastral Agents: 204 | Complete Subdivision Lots & Tract A
 ================================================================================
 
 ================================================================================
@@ -2587,14 +2587,12 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
   SURVEY MAPCHECK REPORT: Blk15N-Lot9 (Block 15N, Lot 9)
 ================================================================================
-Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
 1        | Blk15N-Lot9_P1 -> Blk15N-Lot9_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot9_P2 -> Blk15N-Lot9_P3 | S02°24'30.00"E | 100.00         | CURVE   
-         Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
-                       Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
+2        | Blk15N-Lot9_P2 -> Blk15N-Lot9_P3 | S02°24'30.00"E | 100.00         | LINE    
 3        | Blk15N-Lot9_P3 -> Blk15N-Lot9_P4 | S87°35'30.00"W | 75.00          | LINE    
 4        | Blk15N-Lot9_P4 -> Blk15N-Lot9_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
@@ -2606,9 +2604,9 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +42.5 SF
-  Net Computed Area:   7,542.5 SF (0.1732 Acres)
-  Target Stated Area:  7,542.5 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
   Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
@@ -2805,12 +2803,14 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
   SURVEY MAPCHECK REPORT: Blk15N-Lot17 (Block 15N, Lot 17)
 ================================================================================
-Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
 1        | Blk15N-Lot17_P1 -> Blk15N-Lot17_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot17_P2 -> Blk15N-Lot17_P3 | S02°24'30.00"E | 100.00         | LINE    
+2        | Blk15N-Lot17_P2 -> Blk15N-Lot17_P3 | S02°24'30.00"E | 100.00         | CURVE   
+         Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
+                       Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
 3        | Blk15N-Lot17_P3 -> Blk15N-Lot17_P4 | S87°35'30.00"W | 75.00          | LINE    
 4        | Blk15N-Lot17_P4 -> Blk15N-Lot17_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
@@ -2822,9 +2822,9 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +0.0 SF
-  Net Computed Area:   7,500.0 SF (0.1722 Acres)
-  Target Stated Area:  7,500.0 SF
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Target Stated Area:  7,542.5 SF
   Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
@@ -3264,14 +3264,70 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
   SURVEY MAPCHECK REPORT: Blk15S-Lot18 (Block 15S, Lot 18)
 ================================================================================
-Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
 1        | Blk15S-Lot18_P1 -> Blk15S-Lot18_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot18_P2 -> Blk15S-Lot18_P3 | S02°24'30.00"E | 100.00         | LINE    
+2        | Blk15S-Lot18_P2 -> Blk15S-Lot18_P3 | S02°24'30.00"E | 100.00         | CURVE   
+         Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
+                       Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
 3        | Blk15S-Lot18_P3 -> Blk15S-Lot18_P4 | S87°35'30.00"W | 75.00          | LINE    
 4        | Blk15S-Lot18_P4 -> Blk15S-Lot18_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Target Stated Area:  7,542.5 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14N-Lot1 (Block 14N, Lot 1)
+================================================================================
+Stated Dimensions: Area Target = 10,238.0 SF (0.2350 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14N-Lot1_P1 -> Blk14N-Lot1_P2 | N87°35'30.00"E | 102.38         | LINE    
+2        | Blk14N-Lot1_P2 -> Blk14N-Lot1_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14N-Lot1_P3 -> Blk14N-Lot1_P4 | S87°35'30.00"W | 102.38         | LINE    
+4        | Blk14N-Lot1_P4 -> Blk14N-Lot1_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           404.76 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    10,238.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   10,238.0 SF (0.2350 Acres)
+  Target Stated Area:  10,238.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14N-Lot2 (Block 14N, Lot 2)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14N-Lot2_P1 -> Blk14N-Lot2_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14N-Lot2_P2 -> Blk14N-Lot2_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14N-Lot2_P3 -> Blk14N-Lot2_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14N-Lot2_P4 -> Blk14N-Lot2_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3284,6 +3340,2209 @@ AREA VERIFICATION:
   Curve Area Adj:      +0.0 SF
   Net Computed Area:   7,500.0 SF (0.1722 Acres)
   Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14N-Lot3 (Block 14N, Lot 3)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14N-Lot3_P1 -> Blk14N-Lot3_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14N-Lot3_P2 -> Blk14N-Lot3_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14N-Lot3_P3 -> Blk14N-Lot3_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14N-Lot3_P4 -> Blk14N-Lot3_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14N-Lot4 (Block 14N, Lot 4)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14N-Lot4_P1 -> Blk14N-Lot4_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14N-Lot4_P2 -> Blk14N-Lot4_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14N-Lot4_P3 -> Blk14N-Lot4_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14N-Lot4_P4 -> Blk14N-Lot4_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14N-Lot5 (Block 14N, Lot 5)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14N-Lot5_P1 -> Blk14N-Lot5_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14N-Lot5_P2 -> Blk14N-Lot5_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14N-Lot5_P3 -> Blk14N-Lot5_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14N-Lot5_P4 -> Blk14N-Lot5_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14N-Lot6 (Block 14N, Lot 6)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14N-Lot6_P1 -> Blk14N-Lot6_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14N-Lot6_P2 -> Blk14N-Lot6_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14N-Lot6_P3 -> Blk14N-Lot6_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14N-Lot6_P4 -> Blk14N-Lot6_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14N-Lot7 (Block 14N, Lot 7)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14N-Lot7_P1 -> Blk14N-Lot7_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14N-Lot7_P2 -> Blk14N-Lot7_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14N-Lot7_P3 -> Blk14N-Lot7_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14N-Lot7_P4 -> Blk14N-Lot7_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14N-Lot8 (Block 14N, Lot 8)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14N-Lot8_P1 -> Blk14N-Lot8_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14N-Lot8_P2 -> Blk14N-Lot8_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14N-Lot8_P3 -> Blk14N-Lot8_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14N-Lot8_P4 -> Blk14N-Lot8_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14N-Lot9 (Block 14N, Lot 9)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14N-Lot9_P1 -> Blk14N-Lot9_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14N-Lot9_P2 -> Blk14N-Lot9_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14N-Lot9_P3 -> Blk14N-Lot9_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14N-Lot9_P4 -> Blk14N-Lot9_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14N-Lot10 (Block 14N, Lot 10)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14N-Lot10_P1 -> Blk14N-Lot10_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14N-Lot10_P2 -> Blk14N-Lot10_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14N-Lot10_P3 -> Blk14N-Lot10_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14N-Lot10_P4 -> Blk14N-Lot10_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14N-Lot11 (Block 14N, Lot 11)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14N-Lot11_P1 -> Blk14N-Lot11_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14N-Lot11_P2 -> Blk14N-Lot11_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14N-Lot11_P3 -> Blk14N-Lot11_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14N-Lot11_P4 -> Blk14N-Lot11_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14N-Lot12 (Block 14N, Lot 12)
+================================================================================
+Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14N-Lot12_P1 -> Blk14N-Lot12_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14N-Lot12_P2 -> Blk14N-Lot12_P3 | S02°24'30.00"E | 100.00         | CURVE   
+         Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
+                       Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
+3        | Blk14N-Lot12_P3 -> Blk14N-Lot12_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14N-Lot12_P4 -> Blk14N-Lot12_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Target Stated Area:  7,542.5 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14S-Lot24 (Block 14S, Lot 24)
+================================================================================
+Stated Dimensions: Area Target = 9,326.0 SF (0.2141 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14S-Lot24_P1 -> Blk14S-Lot24_P2 | N87°35'30.00"E | 93.26          | LINE    
+2        | Blk14S-Lot24_P2 -> Blk14S-Lot24_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14S-Lot24_P3 -> Blk14S-Lot24_P4 | S87°35'30.00"W | 93.26          | LINE    
+4        | Blk14S-Lot24_P4 -> Blk14S-Lot24_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           386.52 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    9,326.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   9,326.0 SF (0.2141 Acres)
+  Target Stated Area:  9,326.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14S-Lot23 (Block 14S, Lot 23)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14S-Lot23_P1 -> Blk14S-Lot23_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14S-Lot23_P2 -> Blk14S-Lot23_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14S-Lot23_P3 -> Blk14S-Lot23_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14S-Lot23_P4 -> Blk14S-Lot23_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14S-Lot22 (Block 14S, Lot 22)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14S-Lot22_P1 -> Blk14S-Lot22_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14S-Lot22_P2 -> Blk14S-Lot22_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14S-Lot22_P3 -> Blk14S-Lot22_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14S-Lot22_P4 -> Blk14S-Lot22_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14S-Lot21 (Block 14S, Lot 21)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14S-Lot21_P1 -> Blk14S-Lot21_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14S-Lot21_P2 -> Blk14S-Lot21_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14S-Lot21_P3 -> Blk14S-Lot21_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14S-Lot21_P4 -> Blk14S-Lot21_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14S-Lot20 (Block 14S, Lot 20)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14S-Lot20_P1 -> Blk14S-Lot20_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14S-Lot20_P2 -> Blk14S-Lot20_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14S-Lot20_P3 -> Blk14S-Lot20_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14S-Lot20_P4 -> Blk14S-Lot20_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14S-Lot19 (Block 14S, Lot 19)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14S-Lot19_P1 -> Blk14S-Lot19_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14S-Lot19_P2 -> Blk14S-Lot19_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14S-Lot19_P3 -> Blk14S-Lot19_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14S-Lot19_P4 -> Blk14S-Lot19_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14S-Lot18 (Block 14S, Lot 18)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14S-Lot18_P1 -> Blk14S-Lot18_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14S-Lot18_P2 -> Blk14S-Lot18_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14S-Lot18_P3 -> Blk14S-Lot18_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14S-Lot18_P4 -> Blk14S-Lot18_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14S-Lot17 (Block 14S, Lot 17)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14S-Lot17_P1 -> Blk14S-Lot17_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14S-Lot17_P2 -> Blk14S-Lot17_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14S-Lot17_P3 -> Blk14S-Lot17_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14S-Lot17_P4 -> Blk14S-Lot17_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14S-Lot16 (Block 14S, Lot 16)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14S-Lot16_P1 -> Blk14S-Lot16_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14S-Lot16_P2 -> Blk14S-Lot16_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14S-Lot16_P3 -> Blk14S-Lot16_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14S-Lot16_P4 -> Blk14S-Lot16_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14S-Lot15 (Block 14S, Lot 15)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14S-Lot15_P1 -> Blk14S-Lot15_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14S-Lot15_P2 -> Blk14S-Lot15_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14S-Lot15_P3 -> Blk14S-Lot15_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14S-Lot15_P4 -> Blk14S-Lot15_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14S-Lot14 (Block 14S, Lot 14)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14S-Lot14_P1 -> Blk14S-Lot14_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14S-Lot14_P2 -> Blk14S-Lot14_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk14S-Lot14_P3 -> Blk14S-Lot14_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14S-Lot14_P4 -> Blk14S-Lot14_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk14S-Lot13 (Block 14S, Lot 13)
+================================================================================
+Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk14S-Lot13_P1 -> Blk14S-Lot13_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk14S-Lot13_P2 -> Blk14S-Lot13_P3 | S02°24'30.00"E | 100.00         | CURVE   
+         Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
+                       Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
+3        | Blk14S-Lot13_P3 -> Blk14S-Lot13_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk14S-Lot13_P4 -> Blk14S-Lot13_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Target Stated Area:  7,542.5 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13N-Lot1 (Block 13N, Lot 1)
+================================================================================
+Stated Dimensions: Area Target = 8,848.0 SF (0.2031 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13N-Lot1_P1 -> Blk13N-Lot1_P2 | N87°35'30.00"E | 88.48          | LINE    
+2        | Blk13N-Lot1_P2 -> Blk13N-Lot1_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13N-Lot1_P3 -> Blk13N-Lot1_P4 | S87°35'30.00"W | 88.48          | LINE    
+4        | Blk13N-Lot1_P4 -> Blk13N-Lot1_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           376.96 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    8,848.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   8,848.0 SF (0.2031 Acres)
+  Target Stated Area:  8,848.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13N-Lot2 (Block 13N, Lot 2)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13N-Lot2_P1 -> Blk13N-Lot2_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13N-Lot2_P2 -> Blk13N-Lot2_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13N-Lot2_P3 -> Blk13N-Lot2_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13N-Lot2_P4 -> Blk13N-Lot2_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13N-Lot3 (Block 13N, Lot 3)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13N-Lot3_P1 -> Blk13N-Lot3_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13N-Lot3_P2 -> Blk13N-Lot3_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13N-Lot3_P3 -> Blk13N-Lot3_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13N-Lot3_P4 -> Blk13N-Lot3_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13N-Lot4 (Block 13N, Lot 4)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13N-Lot4_P1 -> Blk13N-Lot4_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13N-Lot4_P2 -> Blk13N-Lot4_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13N-Lot4_P3 -> Blk13N-Lot4_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13N-Lot4_P4 -> Blk13N-Lot4_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13N-Lot5 (Block 13N, Lot 5)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13N-Lot5_P1 -> Blk13N-Lot5_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13N-Lot5_P2 -> Blk13N-Lot5_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13N-Lot5_P3 -> Blk13N-Lot5_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13N-Lot5_P4 -> Blk13N-Lot5_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13N-Lot6 (Block 13N, Lot 6)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13N-Lot6_P1 -> Blk13N-Lot6_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13N-Lot6_P2 -> Blk13N-Lot6_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13N-Lot6_P3 -> Blk13N-Lot6_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13N-Lot6_P4 -> Blk13N-Lot6_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13N-Lot7 (Block 13N, Lot 7)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13N-Lot7_P1 -> Blk13N-Lot7_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13N-Lot7_P2 -> Blk13N-Lot7_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13N-Lot7_P3 -> Blk13N-Lot7_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13N-Lot7_P4 -> Blk13N-Lot7_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13N-Lot8 (Block 13N, Lot 8)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13N-Lot8_P1 -> Blk13N-Lot8_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13N-Lot8_P2 -> Blk13N-Lot8_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13N-Lot8_P3 -> Blk13N-Lot8_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13N-Lot8_P4 -> Blk13N-Lot8_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13N-Lot9 (Block 13N, Lot 9)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13N-Lot9_P1 -> Blk13N-Lot9_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13N-Lot9_P2 -> Blk13N-Lot9_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13N-Lot9_P3 -> Blk13N-Lot9_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13N-Lot9_P4 -> Blk13N-Lot9_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13N-Lot10 (Block 13N, Lot 10)
+================================================================================
+Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13N-Lot10_P1 -> Blk13N-Lot10_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13N-Lot10_P2 -> Blk13N-Lot10_P3 | S02°24'30.00"E | 100.00         | CURVE   
+         Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
+                       Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
+3        | Blk13N-Lot10_P3 -> Blk13N-Lot10_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13N-Lot10_P4 -> Blk13N-Lot10_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Target Stated Area:  7,542.5 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13S-Lot20 (Block 13S, Lot 20)
+================================================================================
+Stated Dimensions: Area Target = 8,848.0 SF (0.2031 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13S-Lot20_P1 -> Blk13S-Lot20_P2 | N87°35'30.00"E | 88.48          | LINE    
+2        | Blk13S-Lot20_P2 -> Blk13S-Lot20_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13S-Lot20_P3 -> Blk13S-Lot20_P4 | S87°35'30.00"W | 88.48          | LINE    
+4        | Blk13S-Lot20_P4 -> Blk13S-Lot20_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           376.96 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    8,848.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   8,848.0 SF (0.2031 Acres)
+  Target Stated Area:  8,848.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13S-Lot19 (Block 13S, Lot 19)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13S-Lot19_P1 -> Blk13S-Lot19_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13S-Lot19_P2 -> Blk13S-Lot19_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13S-Lot19_P3 -> Blk13S-Lot19_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13S-Lot19_P4 -> Blk13S-Lot19_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13S-Lot18 (Block 13S, Lot 18)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13S-Lot18_P1 -> Blk13S-Lot18_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13S-Lot18_P2 -> Blk13S-Lot18_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13S-Lot18_P3 -> Blk13S-Lot18_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13S-Lot18_P4 -> Blk13S-Lot18_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13S-Lot17 (Block 13S, Lot 17)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13S-Lot17_P1 -> Blk13S-Lot17_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13S-Lot17_P2 -> Blk13S-Lot17_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13S-Lot17_P3 -> Blk13S-Lot17_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13S-Lot17_P4 -> Blk13S-Lot17_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13S-Lot16 (Block 13S, Lot 16)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13S-Lot16_P1 -> Blk13S-Lot16_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13S-Lot16_P2 -> Blk13S-Lot16_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13S-Lot16_P3 -> Blk13S-Lot16_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13S-Lot16_P4 -> Blk13S-Lot16_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13S-Lot15 (Block 13S, Lot 15)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13S-Lot15_P1 -> Blk13S-Lot15_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13S-Lot15_P2 -> Blk13S-Lot15_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13S-Lot15_P3 -> Blk13S-Lot15_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13S-Lot15_P4 -> Blk13S-Lot15_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13S-Lot14 (Block 13S, Lot 14)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13S-Lot14_P1 -> Blk13S-Lot14_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13S-Lot14_P2 -> Blk13S-Lot14_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13S-Lot14_P3 -> Blk13S-Lot14_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13S-Lot14_P4 -> Blk13S-Lot14_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13S-Lot13 (Block 13S, Lot 13)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13S-Lot13_P1 -> Blk13S-Lot13_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13S-Lot13_P2 -> Blk13S-Lot13_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13S-Lot13_P3 -> Blk13S-Lot13_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13S-Lot13_P4 -> Blk13S-Lot13_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13S-Lot12 (Block 13S, Lot 12)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13S-Lot12_P1 -> Blk13S-Lot12_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13S-Lot12_P2 -> Blk13S-Lot12_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk13S-Lot12_P3 -> Blk13S-Lot12_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13S-Lot12_P4 -> Blk13S-Lot12_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk13S-Lot11 (Block 13S, Lot 11)
+================================================================================
+Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk13S-Lot11_P1 -> Blk13S-Lot11_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk13S-Lot11_P2 -> Blk13S-Lot11_P3 | S02°24'30.00"E | 100.00         | CURVE   
+         Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
+                       Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
+3        | Blk13S-Lot11_P3 -> Blk13S-Lot11_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk13S-Lot11_P4 -> Blk13S-Lot11_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Target Stated Area:  7,542.5 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12N-Lot1 (Block 12N, Lot 1)
+================================================================================
+Stated Dimensions: Area Target = 8,500.0 SF (0.1951 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12N-Lot1_P1 -> Blk12N-Lot1_P2 | N87°35'30.00"E | 85.00          | LINE    
+2        | Blk12N-Lot1_P2 -> Blk12N-Lot1_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12N-Lot1_P3 -> Blk12N-Lot1_P4 | S87°35'30.00"W | 85.00          | LINE    
+4        | Blk12N-Lot1_P4 -> Blk12N-Lot1_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           370.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    8,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   8,500.0 SF (0.1951 Acres)
+  Target Stated Area:  8,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12N-Lot2 (Block 12N, Lot 2)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12N-Lot2_P1 -> Blk12N-Lot2_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12N-Lot2_P2 -> Blk12N-Lot2_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12N-Lot2_P3 -> Blk12N-Lot2_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12N-Lot2_P4 -> Blk12N-Lot2_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12N-Lot3 (Block 12N, Lot 3)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12N-Lot3_P1 -> Blk12N-Lot3_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12N-Lot3_P2 -> Blk12N-Lot3_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12N-Lot3_P3 -> Blk12N-Lot3_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12N-Lot3_P4 -> Blk12N-Lot3_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12N-Lot4 (Block 12N, Lot 4)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12N-Lot4_P1 -> Blk12N-Lot4_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12N-Lot4_P2 -> Blk12N-Lot4_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12N-Lot4_P3 -> Blk12N-Lot4_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12N-Lot4_P4 -> Blk12N-Lot4_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12N-Lot5 (Block 12N, Lot 5)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12N-Lot5_P1 -> Blk12N-Lot5_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12N-Lot5_P2 -> Blk12N-Lot5_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12N-Lot5_P3 -> Blk12N-Lot5_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12N-Lot5_P4 -> Blk12N-Lot5_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12N-Lot6 (Block 12N, Lot 6)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12N-Lot6_P1 -> Blk12N-Lot6_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12N-Lot6_P2 -> Blk12N-Lot6_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12N-Lot6_P3 -> Blk12N-Lot6_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12N-Lot6_P4 -> Blk12N-Lot6_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12N-Lot7 (Block 12N, Lot 7)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12N-Lot7_P1 -> Blk12N-Lot7_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12N-Lot7_P2 -> Blk12N-Lot7_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12N-Lot7_P3 -> Blk12N-Lot7_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12N-Lot7_P4 -> Blk12N-Lot7_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12N-Lot8 (Block 12N, Lot 8)
+================================================================================
+Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12N-Lot8_P1 -> Blk12N-Lot8_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12N-Lot8_P2 -> Blk12N-Lot8_P3 | S02°24'30.00"E | 100.00         | CURVE   
+         Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
+                       Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
+3        | Blk12N-Lot8_P3 -> Blk12N-Lot8_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12N-Lot8_P4 -> Blk12N-Lot8_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Target Stated Area:  7,542.5 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12S-Lot16 (Block 12S, Lot 16)
+================================================================================
+Stated Dimensions: Area Target = 8,500.0 SF (0.1951 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12S-Lot16_P1 -> Blk12S-Lot16_P2 | N87°35'30.00"E | 85.00          | LINE    
+2        | Blk12S-Lot16_P2 -> Blk12S-Lot16_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12S-Lot16_P3 -> Blk12S-Lot16_P4 | S87°35'30.00"W | 85.00          | LINE    
+4        | Blk12S-Lot16_P4 -> Blk12S-Lot16_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           370.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    8,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   8,500.0 SF (0.1951 Acres)
+  Target Stated Area:  8,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12S-Lot15 (Block 12S, Lot 15)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12S-Lot15_P1 -> Blk12S-Lot15_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12S-Lot15_P2 -> Blk12S-Lot15_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12S-Lot15_P3 -> Blk12S-Lot15_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12S-Lot15_P4 -> Blk12S-Lot15_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12S-Lot14 (Block 12S, Lot 14)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12S-Lot14_P1 -> Blk12S-Lot14_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12S-Lot14_P2 -> Blk12S-Lot14_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12S-Lot14_P3 -> Blk12S-Lot14_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12S-Lot14_P4 -> Blk12S-Lot14_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12S-Lot13 (Block 12S, Lot 13)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12S-Lot13_P1 -> Blk12S-Lot13_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12S-Lot13_P2 -> Blk12S-Lot13_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12S-Lot13_P3 -> Blk12S-Lot13_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12S-Lot13_P4 -> Blk12S-Lot13_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12S-Lot12 (Block 12S, Lot 12)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12S-Lot12_P1 -> Blk12S-Lot12_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12S-Lot12_P2 -> Blk12S-Lot12_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12S-Lot12_P3 -> Blk12S-Lot12_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12S-Lot12_P4 -> Blk12S-Lot12_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12S-Lot11 (Block 12S, Lot 11)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12S-Lot11_P1 -> Blk12S-Lot11_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12S-Lot11_P2 -> Blk12S-Lot11_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12S-Lot11_P3 -> Blk12S-Lot11_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12S-Lot11_P4 -> Blk12S-Lot11_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12S-Lot10 (Block 12S, Lot 10)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12S-Lot10_P1 -> Blk12S-Lot10_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12S-Lot10_P2 -> Blk12S-Lot10_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk12S-Lot10_P3 -> Blk12S-Lot10_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12S-Lot10_P4 -> Blk12S-Lot10_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk12S-Lot9 (Block 12S, Lot 9)
+================================================================================
+Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk12S-Lot9_P1 -> Blk12S-Lot9_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk12S-Lot9_P2 -> Blk12S-Lot9_P3 | S02°24'30.00"E | 100.00         | CURVE   
+         Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
+                       Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
+3        | Blk12S-Lot9_P3 -> Blk12S-Lot9_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk12S-Lot9_P4 -> Blk12S-Lot9_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = -0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Target Stated Area:  7,542.5 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11N-Lot1 (Block 11N, Lot 1)
+================================================================================
+Stated Dimensions: Area Target = 8,000.0 SF (0.1837 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11N-Lot1_P1 -> Blk11N-Lot1_P2 | N87°35'30.00"E | 80.00          | LINE    
+2        | Blk11N-Lot1_P2 -> Blk11N-Lot1_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk11N-Lot1_P3 -> Blk11N-Lot1_P4 | S87°35'30.00"W | 80.00          | LINE    
+4        | Blk11N-Lot1_P4 -> Blk11N-Lot1_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           360.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    8,000.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   8,000.0 SF (0.1837 Acres)
+  Target Stated Area:  8,000.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11N-Lot2 (Block 11N, Lot 2)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11N-Lot2_P1 -> Blk11N-Lot2_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk11N-Lot2_P2 -> Blk11N-Lot2_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk11N-Lot2_P3 -> Blk11N-Lot2_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk11N-Lot2_P4 -> Blk11N-Lot2_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11N-Lot3 (Block 11N, Lot 3)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11N-Lot3_P1 -> Blk11N-Lot3_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk11N-Lot3_P2 -> Blk11N-Lot3_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk11N-Lot3_P3 -> Blk11N-Lot3_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk11N-Lot3_P4 -> Blk11N-Lot3_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11N-Lot4 (Block 11N, Lot 4)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11N-Lot4_P1 -> Blk11N-Lot4_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk11N-Lot4_P2 -> Blk11N-Lot4_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk11N-Lot4_P3 -> Blk11N-Lot4_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk11N-Lot4_P4 -> Blk11N-Lot4_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11N-Lot5 (Block 11N, Lot 5)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11N-Lot5_P1 -> Blk11N-Lot5_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk11N-Lot5_P2 -> Blk11N-Lot5_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk11N-Lot5_P3 -> Blk11N-Lot5_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk11N-Lot5_P4 -> Blk11N-Lot5_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11N-Lot6 (Block 11N, Lot 6)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11N-Lot6_P1 -> Blk11N-Lot6_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk11N-Lot6_P2 -> Blk11N-Lot6_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk11N-Lot6_P3 -> Blk11N-Lot6_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk11N-Lot6_P4 -> Blk11N-Lot6_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11N-Lot7 (Block 11N, Lot 7)
+================================================================================
+Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11N-Lot7_P1 -> Blk11N-Lot7_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk11N-Lot7_P2 -> Blk11N-Lot7_P3 | S02°24'30.00"E | 100.00         | CURVE   
+         Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
+                       Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
+3        | Blk11N-Lot7_P3 -> Blk11N-Lot7_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk11N-Lot7_P4 -> Blk11N-Lot7_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Target Stated Area:  7,542.5 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11S-Lot14 (Block 11S, Lot 14)
+================================================================================
+Stated Dimensions: Area Target = 8,000.0 SF (0.1837 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11S-Lot14_P1 -> Blk11S-Lot14_P2 | N87°35'30.00"E | 80.00          | LINE    
+2        | Blk11S-Lot14_P2 -> Blk11S-Lot14_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk11S-Lot14_P3 -> Blk11S-Lot14_P4 | S87°35'30.00"W | 80.00          | LINE    
+4        | Blk11S-Lot14_P4 -> Blk11S-Lot14_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           360.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    8,000.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   8,000.0 SF (0.1837 Acres)
+  Target Stated Area:  8,000.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11S-Lot13 (Block 11S, Lot 13)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11S-Lot13_P1 -> Blk11S-Lot13_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk11S-Lot13_P2 -> Blk11S-Lot13_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk11S-Lot13_P3 -> Blk11S-Lot13_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk11S-Lot13_P4 -> Blk11S-Lot13_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11S-Lot12 (Block 11S, Lot 12)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11S-Lot12_P1 -> Blk11S-Lot12_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk11S-Lot12_P2 -> Blk11S-Lot12_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk11S-Lot12_P3 -> Blk11S-Lot12_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk11S-Lot12_P4 -> Blk11S-Lot12_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11S-Lot11 (Block 11S, Lot 11)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11S-Lot11_P1 -> Blk11S-Lot11_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk11S-Lot11_P2 -> Blk11S-Lot11_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk11S-Lot11_P3 -> Blk11S-Lot11_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk11S-Lot11_P4 -> Blk11S-Lot11_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11S-Lot10 (Block 11S, Lot 10)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11S-Lot10_P1 -> Blk11S-Lot10_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk11S-Lot10_P2 -> Blk11S-Lot10_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk11S-Lot10_P3 -> Blk11S-Lot10_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk11S-Lot10_P4 -> Blk11S-Lot10_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11S-Lot9 (Block 11S, Lot 9)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11S-Lot9_P1 -> Blk11S-Lot9_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk11S-Lot9_P2 -> Blk11S-Lot9_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk11S-Lot9_P3 -> Blk11S-Lot9_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk11S-Lot9_P4 -> Blk11S-Lot9_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk11S-Lot8 (Block 11S, Lot 8)
+================================================================================
+Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk11S-Lot8_P1 -> Blk11S-Lot8_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk11S-Lot8_P2 -> Blk11S-Lot8_P3 | S02°24'30.00"E | 100.00         | CURVE   
+         Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
+                       Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
+3        | Blk11S-Lot8_P3 -> Blk11S-Lot8_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk11S-Lot8_P4 -> Blk11S-Lot8_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +42.5 SF
+  Net Computed Area:   7,542.5 SF (0.1732 Acres)
+  Target Stated Area:  7,542.5 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk10-Lot1 (Block 10, Lot 1)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk10-Lot1_P1 -> Blk10-Lot1_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk10-Lot1_P2 -> Blk10-Lot1_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk10-Lot1_P3 -> Blk10-Lot1_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk10-Lot1_P4 -> Blk10-Lot1_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk10-Lot2 (Block 10, Lot 2)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk10-Lot2_P1 -> Blk10-Lot2_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk10-Lot2_P2 -> Blk10-Lot2_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk10-Lot2_P3 -> Blk10-Lot2_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk10-Lot2_P4 -> Blk10-Lot2_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk10-Lot3 (Block 10, Lot 3)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk10-Lot3_P1 -> Blk10-Lot3_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk10-Lot3_P2 -> Blk10-Lot3_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk10-Lot3_P3 -> Blk10-Lot3_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk10-Lot3_P4 -> Blk10-Lot3_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk10-Lot4 (Block 10, Lot 4)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk10-Lot4_P1 -> Blk10-Lot4_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk10-Lot4_P2 -> Blk10-Lot4_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk10-Lot4_P3 -> Blk10-Lot4_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk10-Lot4_P4 -> Blk10-Lot4_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk10-Lot5 (Block 10, Lot 5)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk10-Lot5_P1 -> Blk10-Lot5_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk10-Lot5_P2 -> Blk10-Lot5_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk10-Lot5_P3 -> Blk10-Lot5_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk10-Lot5_P4 -> Blk10-Lot5_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk10-Lot6 (Block 10, Lot 6)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk10-Lot6_P1 -> Blk10-Lot6_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk10-Lot6_P2 -> Blk10-Lot6_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk10-Lot6_P3 -> Blk10-Lot6_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk10-Lot6_P4 -> Blk10-Lot6_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk10-Lot7 (Block 10, Lot 7)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk10-Lot7_P1 -> Blk10-Lot7_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk10-Lot7_P2 -> Blk10-Lot7_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk10-Lot7_P3 -> Blk10-Lot7_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk10-Lot7_P4 -> Blk10-Lot7_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk10-Lot8 (Block 10, Lot 8)
+================================================================================
+Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk10-Lot8_P1 -> Blk10-Lot8_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk10-Lot8_P2 -> Blk10-Lot8_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk10-Lot8_P3 -> Blk10-Lot8_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk10-Lot8_P4 -> Blk10-Lot8_P1 | N02°24'30.00"W | 100.00         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           350.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    7,500.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
+  Target Stated Area:  7,500.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Tract-A (Block Tract, Lot A)
+================================================================================
+Stated Dimensions: Area Target = 3,600.0 SF (0.0826 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Tract-A_P1 -> Tract-A_P2 | N87°35'30.00"E | 60.00          | LINE    
+2        | Tract-A_P2 -> Tract-A_P3 | S02°24'30.00"E | 60.00          | LINE    
+3        | Tract-A_P3 -> Tract-A_P4 | S87°35'30.00"W | 60.00          | LINE    
+4        | Tract-A_P4 -> Tract-A_P1 | N02°24'30.00"W | 60.00          | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           240.00 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    3,600.0 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   3,600.0 SF (0.0826 Acres)
+  Target Stated Area:  3,600.0 SF
   Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================

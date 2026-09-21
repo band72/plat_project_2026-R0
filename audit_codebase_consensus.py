@@ -39,6 +39,12 @@ def run_codebase_consensus_audit(root_dir: str = ".") -> dict:
     fudging_violations = 0
     for s1, s2, expected_gps in intersections_to_check:
         actual_gps = get_intersection_gps(s1, s2)
+        if actual_gps is None:
+            # A missing DB entry used to crash here with TypeError (only
+            # AssertionError was caught) instead of being reported.
+            print(f"  [FAIL] {s1} & {s2}: no ground-truth entry in the GPS database")
+            fudging_violations += 1
+            continue
         try:
             assert_zero_fudging(actual_gps, expected_gps, max_dist_ft=0.01)
             print(f"  [PASS] {s1} & {s2}: {actual_gps} (Zero Fudging verified)")
@@ -67,6 +73,13 @@ def run_codebase_consensus_audit(root_dir: str = ".") -> dict:
     print("\n[Audit Step 3/4] Convening 100 Agents for Multiagent Consensus Convergence...")
     audit_report = panel.audit_codebase(root_dir=root_dir)
     panel.solver.print_summary()
+
+    # The GPS and DXF findings above used to be printed and then ignored: the
+    # exit status depended only on the (input-independent) consensus result.
+    audit_report["fudging_violations"] = fudging_violations
+    audit_report["dxf_issues"] = dxf_issues
+    if audit_report["status"] == "PASS" and (fudging_violations or dxf_issues):
+        audit_report["status"] = "FAIL"
 
     # 4. Final Quorum Scorecard
     print("\n[Audit Step 4/4] Final 100-Agent Consensus Scorecard:")

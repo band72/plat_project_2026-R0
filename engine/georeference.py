@@ -2,9 +2,15 @@ import json
 import os
 import csv
 import math
+import re
 
-# Local cache for intersection GPS coordinates
-_GPS_DB_PATH = "data/intersection_gps_db.json"
+# Local cache for intersection GPS coordinates. Anchored to this repo rather
+# than the current working directory: a CWD-relative path made every call from
+# another directory look for (and, previously, fabricate) a data/ folder there.
+_GPS_DB_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "data", "intersection_gps_db.json",
+)
 
 # Clay County GIS master database paths
 _CLAY_GIS_MASTER_PATHS = [
@@ -14,6 +20,64 @@ _CLAY_GIS_MASTER_PATHS = [
 ]
 
 _CLAY_GIS_INDEX = None
+_CLAY_CANDIDATES = None
+
+# Street-type spellings -> one canonical token, so AVENUE == AVE and STREET == ST.
+_STREET_TYPES = {
+    "STREET": "ST", "ST": "ST", "AVENUE": "AVE", "AVE": "AVE", "ROAD": "RD", "RD": "RD",
+    "DRIVE": "DR", "DR": "DR", "LANE": "LN", "LN": "LN", "COURT": "CT", "CT": "CT",
+    "PLACE": "PL", "PL": "PL", "BOULEVARD": "BLVD", "BLVD": "BLVD", "CIRCLE": "CIR",
+    "CIR": "CIR", "HIGHWAY": "HWY", "HWY": "HWY", "WAY": "WAY", "TERRACE": "TER",
+    "TER": "TER", "PARKWAY": "PKWY", "PKWY": "PKWY",
+}
+# Directionals are part of a street's identity (EAST 8TH ST is not WEST 8TH ST).
+_DIRECTIONS = {
+    "N": "NORTH", "S": "SOUTH", "E": "EAST", "W": "WEST",
+    "NE": "NORTHEAST", "NW": "NORTHWEST", "SE": "SOUTHEAST", "SW": "SOUTHWEST",
+}
+
+
+def _norm_street(name: str) -> tuple[tuple[str, ...], str]:
+    """Canonical (name tokens, street type) for one street.
+
+    Punctuation and case are ignored, directionals are expanded and kept as
+    name tokens, and a trailing street type is canonicalised and split off
+    ('' when absent) so 'Starfish Ave' and 'STARFISH AVENUE' compare equal
+    while 'Starfish Court' and 'South Starfish Avenue' do not."""
+    tokens = [_DIRECTIONS.get(t, t) for t in re.sub(r"[^A-Z0-9 ]", " ", str(name).upper()).split()]
+    street_type = _STREET_TYPES[tokens.pop()] if tokens and tokens[-1] in _STREET_TYPES else ""
+    return tuple(tokens), street_type
+
+
+def _pair_match(q, c, exact: bool) -> bool:
+    """Does query pair q match candidate pair c, in either street order?
+
+    exact=True needs identical names AND street types. exact=False (the
+    fallback for OCR text that lost its street type) still needs identical
+    names and lets a missing type on either side act as a wildcard."""
+    def same(a, b):
+        return a[0] == b[0] and (a[1] == b[1] if exact else (a[1] == b[1] or not a[1] or not b[1]))
+    return (same(q[0], c[0]) and same(q[1], c[1])) or (same(q[0], c[1]) and same(q[1], c[0]))
+
+
+def _load_gps_db() -> list[tuple[tuple, tuple[float, float]]]:
+    """Normalized ((street_a, street_b), (lat, lon)) candidates from the JSON
+    cache. A missing file is an empty database: nothing is invented, and
+    reading never writes. Malformed entries are skipped, not fatal."""
+    if not os.path.exists(_GPS_DB_PATH):
+        return []
+    with open(_GPS_DB_PATH, 'r') as f:
+        db = json.load(f)
+    out = []
+    for key, val in db.items():
+        parts = key.split("&")
+        try:
+            lat, lon = float(val[0]), float(val[1])
+        except (TypeError, ValueError, IndexError):
+            continue
+        if len(parts) == 2:
+            out.append(((_norm_street(parts[0]), _norm_street(parts[1])), (lat, lon)))
+    return out
 
 
 def _load_clay_gis_index() -> dict[tuple[str, str], tuple[float, float]]:
@@ -50,61 +114,41 @@ def _load_clay_gis_index() -> dict[tuple[str, str], tuple[float, float]]:
     return _CLAY_GIS_INDEX
 
 
+def _clay_candidates() -> list[tuple[tuple, tuple[float, float]]]:
+    """Clay GIS index in the same normalized form as _load_gps_db(), built once."""
+    global _CLAY_CANDIDATES
+    if _CLAY_CANDIDATES is None:
+        _CLAY_CANDIDATES = [((_norm_street(s1), _norm_street(s2)), gps)
+                            for (s1, s2), gps in _load_clay_gis_index().items()]
+    return _CLAY_CANDIDATES
+
+
 def get_intersection_gps(street1: str, street2: str) -> tuple[float, float] | None:
     """
-    Returns true WGS84 GPS latitude and longitude of the ground-truthed 
+    Returns true WGS84 GPS latitude and longitude of the ground-truthed
     physical street intersection, without artificial fudging.
     Queries both local cache and Clay County GIS master georeferenced database.
+
+    Returns None rather than a near miss. A wrong coordinate presented as
+    ground truth is worse than no coordinate, so:
+      1. exact match on normalized names + street types (JSON cache, then Clay GIS);
+      2. else a match on names alone -- for OCR text that lost its street type --
+         accepted only when it identifies exactly ONE coordinate.
+    Directionals are significant, so 'West 8th St' never resolves to 'East 8th St'.
     """
-    if not os.path.exists(_GPS_DB_PATH):
-        # Create a stub database if it doesn't exist
-        os.makedirs("data", exist_ok=True)
-        stub_data = {
-            "Main Street & East 8th Street": [30.345753, -81.653909],
-            "Pelican Court & Marsh Drive": [30.123456, -81.123456],
-            "Camellia Court & Brant Boulevard": [30.234567, -81.234567]
-        }
-        with open(_GPS_DB_PATH, 'w') as f:
-            json.dump(stub_data, f, indent=2)
+    q = (_norm_street(street1), _norm_street(street2))
+    if not q[0][0] or not q[1][0]:
+        return None
 
-    with open(_GPS_DB_PATH, 'r') as f:
-        db = json.load(f)
-
-    # Normalize intersection pairing (order-independent)
-    s1, s2 = sorted([street1.strip().upper(), street2.strip().upper()])
-    
-    # 1. Exact match check in JSON cache
-    for key, (lat, lon) in db.items():
-        ks1, ks2 = sorted([s.strip().upper() for s in key.split("&")])
-        if s1 == ks1 and s2 == ks2:
-            return (lat, lon)
-
-    # 2. Exact match check in Clay GIS database
-    clay_idx = _load_clay_gis_index()
-    if (s1, s2) in clay_idx:
-        return clay_idx[(s1, s2)]
-
-    # 3. Fuzzy token match check across JSON cache and Clay GIS database
-    stopwords = {"STREET", "DRIVE", "AVENUE", "LANE", "ROAD", "BOULEVARD", "BLVD", "WAY", "COURT", "CT", "PL", "&", "THE", "OF", "CIR", "CIRCLE", "HWY", "HIGHWAY", "RD", "AVE", "ST", "DR", "LN"}
-    tokens1 = {t for t in s1.split() if t not in stopwords and len(t) > 2}
-    tokens2 = {t for t in s2.split() if t not in stopwords and len(t) > 2}
-
-    if tokens1 and tokens2:
-        # Check JSON cache
-        for key, (lat, lon) in db.items():
-            ks1, ks2 = sorted([s.strip().upper() for s in key.split("&")])
-            ktoks1 = {t for t in ks1.split() if t not in stopwords and len(t) > 2}
-            ktoks2 = {t for t in ks2.split() if t not in stopwords and len(t) > 2}
-            if (tokens1 & ktoks1 and tokens2 & ktoks2) or (tokens1 & ktoks2 and tokens2 & ktoks1):
-                return (lat, lon)
-
-        # Check Clay GIS database
-        for (ks1, ks2), (lat, lon) in clay_idx.items():
-            ktoks1 = {t for t in ks1.split() if t not in stopwords and len(t) > 2}
-            ktoks2 = {t for t in ks2.split() if t not in stopwords and len(t) > 2}
-            if (tokens1 & ktoks1 and tokens2 & ktoks2) or (tokens1 & ktoks2 and tokens2 & ktoks1):
-                return (lat, lon)
-
+    sources = (_load_gps_db(), _clay_candidates())
+    for candidates in sources:
+        for pair, gps in candidates:
+            if _pair_match(q, pair, exact=True):
+                return gps
+    for candidates in sources:
+        hits = {gps for pair, gps in candidates if _pair_match(q, pair, exact=False)}
+        if len(hits) == 1:
+            return hits.pop()
     return None
 
 
@@ -114,13 +158,23 @@ def add_intersection_gps(street1: str, street2: str, lat: float, lon: float):
             db = json.load(f)
     else:
         db = {}
-        
+
     s1, s2 = sorted([street1.strip().upper(), street2.strip().upper()])
     key = f"{s1} & {s2}"
     db[key] = [lat, lon]
-    
+
+    os.makedirs(os.path.dirname(_GPS_DB_PATH), exist_ok=True)
     with open(_GPS_DB_PATH, 'w') as f:
         json.dump(db, f, indent=2)
+
+
+def format_gps(lat: float, lon: float, places: int = 6) -> str:
+    """Human-readable WGS84 pair with the hemisphere letter carrying the sign.
+
+    Longitudes here are negative (west), so printing them with a fixed 'W'
+    produced '-81.530280 W' -- a sign and a hemisphere at once."""
+    return (f"{abs(lat):.{places}f}° {'N' if lat >= 0 else 'S'}, "
+            f"{abs(lon):.{places}f}° {'E' if lon >= 0 else 'W'}")
 
 
 def haversine_distance_ft(coord_a: tuple[float, float], coord_b: tuple[float, float]) -> float:
@@ -147,4 +201,3 @@ def assert_zero_fudging(coord_a: tuple[float, float], coord_b: tuple[float, floa
             f"(exceeds zero-fudging tolerance of {max_dist_ft:.4f} ft)."
         )
     return True
-

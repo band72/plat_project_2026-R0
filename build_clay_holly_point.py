@@ -197,7 +197,7 @@ def build_holly_point():
              "HOLLY POINT -- PLAT BOOK 4, PAGE 17 (7 SHEETS ASSEMBLED)",
              height=18.0, layer="BOUNDARY")
 
-    out_dxf = "/home/artwalk/Downloads/plat_project_2026-R0/dxf/PB0004_P0017_HollyPoint_SurveyGrade.dxf"
+    out_dxf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dxf", "PB0004_P0017_HollyPoint_SurveyGrade.dxf")
     dxf.save(out_dxf)
     print(f"Saved -> {out_dxf}")
 

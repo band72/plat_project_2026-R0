@@ -218,6 +218,13 @@ class MultiAgentConsensusSolver:
         param_keys = sorted(target_state.keys())
         n_params = len(param_keys)
 
+        # Per-run history (a shared list leaked earlier runs into later results),
+        # and defined-before-the-loop metrics so max_rounds < 1 reports "not
+        # converged" instead of raising UnboundLocalError.
+        self.iteration_history = []
+        delta_state = variance = float("inf")
+        yes_votes = 0
+
         # Agent state matrices: shape (100, n_params)
         agent_mat = np.zeros((100, n_params), dtype=np.float64)
         for i, a in enumerate(self.agents):
@@ -291,6 +298,11 @@ class MultiAgentConsensusSolver:
             "final_variance": variance,
             "unanimous_quorum": (yes_votes == 100),
             "votes": yes_votes,
+            # build_plats_vector / build_plats_batch print these two; they were
+            # only present inside each history record, so every batch run died
+            # with KeyError right after vectorizing the first sheet.
+            "yes_votes": yes_votes,
+            "quorum_pct": (yes_votes / 100.0) * 100.0,
             "final_state": final_consensus,
             "history": self.iteration_history,
         }
@@ -399,9 +411,14 @@ class CodebaseAuditPanel:
                         total_functions += 1
                     elif isinstance(node, ast.ClassDef):
                         total_classes += 1
-            except SyntaxError:
+            except (SyntaxError, ValueError):  # ValueError: e.g. null bytes in source
                 syntax_errors += 1
 
+        # NOTE: only syntax_integrity and the three file counts are measured.
+        # The other entries are fixed 1.0 placeholders and the solver pulls its
+        # agents toward whatever target it is given, so convergence here is not
+        # evidence about them -- the status below is gated on the real syntax
+        # check for that reason.
         target_state = {
             "syntax_integrity": 1.0 if syntax_errors == 0 else 0.0,
             "total_engine_modules": float(len(engine_files)),
@@ -423,8 +440,15 @@ class CodebaseAuditPanel:
             tol_vote=1e-4,
         )
 
+        if syntax_errors:
+            status = "FAIL"
+        elif consensus_result["converged"] and consensus_result["unanimous_quorum"]:
+            status = "PASS"
+        else:
+            status = "WARN"
+
         return {
-            "status": "PASS" if consensus_result["converged"] and consensus_result["unanimous_quorum"] else "WARN",
+            "status": status,
             "total_agents": len(self.solver.agents),
             "total_guilds": len(self.solver.guilds),
             "engine_files_count": len(engine_files),
