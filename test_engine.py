@@ -401,10 +401,64 @@ if os.path.exists(bw_consensus_dxf):
     check("Beachwood DXF 0 noise circles", audit_report["entity_counts"]["circles"] == 0)
     check("Beachwood DXF >3000 linework entities", audit_report["entity_counts"]["polylines"] > 1000)
 
+print("\n=== Codebase-Wide Enhancements & Robustness Verification ===")
+from engine.cogo import try_parse_bearing, parse_bearing
+from engine.curves import verify_curve_consistency, curve_segment_area, solve_missing
+from engine.topology import VertexGraph
+from engine.georeference import assert_zero_fudging
+from engine.dxf_writer import DXFWriter
+from engine.consensus import CodebaseAuditPanel
+
+# 1. Bearing parsing robustness
+check("try_parse_bearing valid quadrant", try_parse_bearing("N45°30'00\"E") == 45.5)
+check("try_parse_bearing flexible degree mark", try_parse_bearing("S 87* 35' 30\" W") is not None)
+check("try_parse_bearing lowercase and spaces", try_parse_bearing("n 02d 24' 30\" w") is not None)
+check("try_parse_bearing invalid string returns default", try_parse_bearing("INVALID_BEARING", default=-1.0) == -1.0)
+
+# 2. Curve parameter validation
+try:
+    solve_missing(radius=-100.0, delta_deg=45.0)
+    check("solve_missing rejects negative radius", False)
+except ValueError:
+    check("solve_missing rejects negative radius", True)
+
+c_seg_area = curve_segment_area(radius=389.27, delta_deg=12.5713)
+check("curve_segment_area computes non-zero positive segment area", c_seg_area > 100.0)
+
+# 3. Spatial VertexGraph node indexing
+vg_spatial = VertexGraph(grid_size=10.0)
+n1 = vg_spatial.snap_or_add("PT1", Point(100.0, 200.0), tolerance=0.5)
+n2 = vg_spatial.snap_or_add("PT2", Point(100.1, 200.2), tolerance=0.5)
+check("VertexGraph spatial snap returns identical canonical node", n1 == n2 == "PT1")
+
+# 4. Zero-Fudging Assertion
+check("assert_zero_fudging passes on identical coordinates",
+      assert_zero_fudging((30.292130, -81.530280), (30.292130, -81.530280), max_dist_ft=0.01))
+try:
+    # Attempt 500-foot synthetic shift (fudging)
+    assert_zero_fudging((30.292130, -81.530280), (30.293500, -81.530280), max_dist_ft=0.05)
+    check("assert_zero_fudging rejects artificial coordinate offset", False)
+except AssertionError:
+    check("assert_zero_fudging rejects artificial coordinate offset", True)
+
+# 5. DXF Layer Name Sanitization
+sanitized_layer = DXFWriter.sanitize_layer_name("INVALID/LAYER:NAME*TEST")
+check("DXF layer name sanitization removes illegal characters", "/" not in sanitized_layer and ":" not in sanitized_layer)
+
+# 6. 100-Agent Codebase Audit Panel
+audit_panel = CodebaseAuditPanel()
+check("CodebaseAuditPanel instantiates 100 agents", len(audit_panel.solver.agents) == 100)
+check("CodebaseAuditPanel instantiates 5 guilds", len(audit_panel.solver.guilds) == 5)
+cb_report = audit_panel.audit_codebase()
+check("CodebaseAuditPanel audit status PASS", cb_report["status"] == "PASS")
+check("CodebaseAuditPanel 0 syntax errors across codebase", cb_report["syntax_errors"] == 0)
+check("CodebaseAuditPanel unanimous 100/100 quorum", cb_report["consensus"]["unanimous_quorum"] is True)
+
 print(f"\n{'='*52}")
 print(f"{len(FAILURES)} failure(s)" if FAILURES else "ALL TESTS PASS")
 if FAILURES:
     for f in FAILURES:
         print("  -", f)
     sys.exit(1)
+
 

@@ -14407,7 +14407,7 @@ STANDARD
 40
 9.5
 1
-  Perimeter: 8226.67 ft | Solved Area: 2,794,192 SF (64.15 Acres).
+Perimeter: 8226.67 ft | Solved Area: 2,794,192 SF (64.15 Acres).
 50
 0.0
 0
@@ -14425,7 +14425,7 @@ STANDARD
 40
 9.5
 1
-  Raw Misclose: dN=+1.8089 ft, dE=-0.0034 ft (1:4,548).
+Raw Misclose: dN=+1.8089 ft, dE=-0.0034 ft (1:4,548).
 50
 0.0
 0
@@ -14443,7 +14443,7 @@ STANDARD
 40
 9.5
 1
-  Balanced to exact mathematical closure via Compass Rule / Bowditch adjustment.
+Balanced to exact mathematical closure via Compass Rule / Bowditch adjustment.
 50
 0.0
 0
@@ -14479,7 +14479,7 @@ STANDARD
 40
 9.5
 1
-  109 standard lots at exactly 7,500.0 sq ft (75' x 100').
+109 standard lots at exactly 7,500.0 sq ft (75' x 100').
 50
 0.0
 0
@@ -14497,7 +14497,7 @@ STANDARD
 40
 9.5
 1
-  13 curved lots modeled with true circular arc geometry & exact segment area.
+13 curved lots modeled with true circular arc geometry & exact segment area.
 50
 0.0
 0
@@ -14515,7 +14515,7 @@ STANDARD
 40
 9.5
 1
-  Full 121-lot schedule with CURVE column, line table, and 19-row curve table computed and drawn.
+Full 121-lot schedule with CURVE column, line table, and 19-row curve table computed and drawn.
 50
 0.0
 0
@@ -14533,7 +14533,7 @@ STANDARD
 40
 9.5
 1
-  Ground-Truthed GPS Tie: Starfish Ave & Mangrove Ave (30.292130%%d N, -81.530280%%d W).
+Ground-Truthed GPS Tie: Starfish Ave & Mangrove Ave (30.292130%%d N, -81.530280%%d W).
 50
 0.0
 0

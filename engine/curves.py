@@ -63,6 +63,11 @@ def solve_missing(radius=None, length=None, delta_deg=None, chord=None):
     if len(have) < 2:
         raise ValueError("Need at least 2 parameters to solve circular curve")
 
+    for k in ("radius", "length", "delta_deg", "chord"):
+        if k in have and have[k] is not None:
+            if float(have[k]) <= 0.0:
+                raise ValueError(f"Curve parameter {k} must be strictly positive, got {have[k]}")
+
     if "radius" in have and "delta_deg" in have:
         radius = float(have["radius"])
         delta_deg = float(have["delta_deg"])
@@ -129,4 +134,18 @@ def solve_missing(radius=None, length=None, delta_deg=None, chord=None):
         raise ValueError("Could not solve curve with provided parameters")
 
     return dict(radius=radius, length=length, delta_deg=delta_deg, chord=chord)
+
+
+def verify_curve_consistency(curve: Curve, tol: float = 0.05) -> bool:
+    """Verify internal mathematical consistency of all 4 circular curve parameters."""
+    return curve.check(tol=tol)
+
+
+def curve_segment_area(radius: float, delta_deg: float) -> float:
+    """Calculate circular segment area between arc and chord: A = 0.5 * R^2 * (theta - sin(theta))."""
+    if radius <= 0 or delta_deg <= 0:
+        return 0.0
+    theta = math.radians(delta_deg)
+    return 0.5 * (radius ** 2) * (theta - math.sin(theta))
+
 

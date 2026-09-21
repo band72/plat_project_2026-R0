@@ -17,6 +17,7 @@ Point object, so their common boundary is drawn once and both lots close
 through the identical node.
 """
 from __future__ import annotations
+import math
 from dataclasses import dataclass, field
 from engine.cogo import Point
 from engine.lots import shoelace_area, safe_area, is_simple_polygon
@@ -26,9 +27,14 @@ class VertexGraph:
     """Named vertices, each created once. Courses reference vertices by
     name, never by recomputing coordinates independently."""
 
-    def __init__(self):
+    def __init__(self, grid_size: float = 10.0):
         self.points: dict[str, Point] = {}
         self.edges: list[tuple] = []   # (name1, name2, bearing, distance, kind)
+        self.grid_size = grid_size
+        self._grid: dict[tuple[int, int], list[str]] = {}
+
+    def _grid_key(self, pt: Point) -> tuple[int, int]:
+        return (int(math.floor(pt.n / self.grid_size)), int(math.floor(pt.e / self.grid_size)))
 
     def add(self, name: str, point: Point):
         if name in self.points:
@@ -40,6 +46,8 @@ class VertexGraph:
                     f"duplicate-vertex defect this graph exists to prevent")
             return self.points[name]
         self.points[name] = point
+        k = self._grid_key(point)
+        self._grid.setdefault(k, []).append(name)
         return point
 
     def walk(self, start_name: str, start_point: Point, courses: list):
@@ -64,11 +72,27 @@ class VertexGraph:
             chord=chord, arc_points=arc_points), "curve"))
 
     def snap_or_add(self, name: str, point: Point, tolerance: float = 0.5) -> str:
-        """Find an existing vertex within tolerance or register a new one.
+        """Find an existing vertex within tolerance using spatial grid lookup or register a new one.
         Returns the canonical vertex name."""
-        for existing_name, pt in self.points.items():
+        k = self._grid_key(point)
+        # Search neighboring 9 cells
+        candidates = []
+        for dn in (-1, 0, 1):
+            for de in (-1, 0, 1):
+                candidates.extend(self._grid.get((k[0] + dn, k[1] + de), []))
+
+        # Check candidate points
+        for c_name in candidates:
+            pt = self.points[c_name]
             if pt.dist_to(point) <= tolerance:
-                return existing_name
+                return c_name
+
+        # Fallback to linear scan if tolerance exceeds grid cell size
+        if tolerance > self.grid_size:
+            for existing_name, pt in self.points.items():
+                if pt.dist_to(point) <= tolerance:
+                    return existing_name
+
         self.add(name, point)
         return name
 
@@ -82,6 +106,7 @@ class VertexGraph:
                 if pt_a.dist_to(pt_b) <= tolerance:
                     seam_map[name_b] = name_a
         return seam_map
+
 
 
 

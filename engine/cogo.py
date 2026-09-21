@@ -10,7 +10,8 @@ import re
 from dataclasses import dataclass
 
 BEARING_RE = re.compile(
-    r"^([NS])\s*(\d{1,3})[°*]\s*(\d{1,2})['`]\s*(\d{1,2}(?:\.\d+)?)?\"?\s*([EW])$"
+    r"^([NS])\s*(\d{1,3})[°*ºD^]?\s*(\d{1,2})['`]?\s*(\d{1,2}(?:\.\d+)?)?[\"”]?\s*([EW])$",
+    re.IGNORECASE
 )
 
 
@@ -21,10 +22,13 @@ def parse_bearing(text: str) -> float:
     """Parse a quadrant bearing string into an azimuth in decimal degrees
     (0 = North, clockwise positive, matching survey azimuth convention).
 
-    Accepts the cardinal forms azimuth_to_bearing() now emits ("DUE N",
+    Accepts the cardinal forms azimuth_to_bearing() emits ("DUE N",
     "DUE EAST", "NORTH", "EAST") as well as quadrant bearings, so that
     format -> parse round-trips cleanly."""
-    t = text.strip().upper().replace("’", "'").replace('"', '"')
+    if not isinstance(text, str):
+        raise TypeError(f"Bearing must be a string, got {type(text)}")
+    t = text.strip().upper().replace("’", "'").replace('"', '"').replace("”", '"')
+    t = t.replace("%%D", "°").replace("%D", "°").replace("DEG", "°")
     # cardinal forms
     c = t.replace("DUE", "").replace(".", "").strip()
     if c in CARDINAL_AZ:
@@ -35,8 +39,8 @@ def parse_bearing(text: str) -> float:
             return CARDINAL_AZ[letter]
     m = BEARING_RE.match(t.replace(" ", ""))
     if not m:
-        # fall back: allow missing seconds e.g. N45*30'E
-        m2 = re.match(r"^([NS])(\d{1,3})[°*](\d{1,2})?['`]?([EW])$", t.replace(" ", ""))
+        # fall back: allow missing minutes/seconds e.g. N45*E or N45*30'E
+        m2 = re.match(r"^([NS])\s*(\d{1,3})[°*ºD^]?\s*(\d{1,2})?['`]?\s*([EW])$", t.replace(" ", ""), re.IGNORECASE)
         if not m2:
             raise ValueError(f"Cannot parse bearing: {text!r}")
         ns, deg, mn, ew = m2.groups()
@@ -45,6 +49,9 @@ def parse_bearing(text: str) -> float:
     else:
         ns, deg, mn, sec, ew = m.groups()
         sec = float(sec) if sec else 0.0
+        mn = mn or "0"
+    ns = ns.upper()
+    ew = ew.upper()
     ang = float(deg) + float(mn) / 60.0 + sec / 3600.0
     if ns == "N" and ew == "E":
         az = ang
@@ -55,6 +62,14 @@ def parse_bearing(text: str) -> float:
     else:  # N, W
         az = 360.0 - ang
     return az % 360.0
+
+
+def try_parse_bearing(text: str, default: float | None = None) -> float | None:
+    """Safely attempt to parse a bearing without raising ValueError."""
+    try:
+        return parse_bearing(text)
+    except Exception:
+        return default
 
 
 def azimuth_to_bearing(az: float, cardinal=True) -> str:

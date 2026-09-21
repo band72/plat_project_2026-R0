@@ -8,6 +8,7 @@ DXF R12 is a stable, widely-supported plain-text format -- opens cleanly in
 AutoCAD, Carlson, BricsCAD, QGIS, etc.
 """
 from __future__ import annotations
+import re
 from dataclasses import dataclass, field
 
 # Standard AutoCAD Color Index values we use
@@ -39,13 +40,21 @@ class DXFWriter:
         self.custom_linetypes: set[str] = set()
         self.add_layer("0", "white", "CONTINUOUS")
 
+    @staticmethod
+    def sanitize_layer_name(name: str) -> str:
+        """Sanitize layer names to comply with standard CAD DXF conventions."""
+        clean = re.sub(r'[<>\\/":;?*|=]', '_', str(name))
+        return clean.strip() or "0"
+
     def add_style(self, name: str, font: str = "Arial"):
         """Register a custom or substitute font style in the STYLE table."""
         self.styles[name] = font
 
     def add_layer(self, name, color="white", linetype="CONTINUOUS"):
+        clean_name = self.sanitize_layer_name(name)
         c = ACI.get(color, color if isinstance(color, int) else 7)
-        self.layers[name] = Layer(name, c, linetype)
+        self.layers[clean_name] = Layer(clean_name, c, linetype)
+        return clean_name
 
     # ---- entities ----
     def line(self, p1, p2, layer="0"):
@@ -79,7 +88,8 @@ class DXFWriter:
         linetype: optional linetype; if rotation != 0 and linetype is None,
                   automatically encodes ROT_{rotation:.2f} for QGIS dynamic label rotation
         """
-        clean_val = str(value).replace("°", "%%d")
+        clean_val = str(value).replace("°", "%%d").replace("\r", "").replace("\n", " ").strip()
+        layer = self.sanitize_layer_name(layer)
         rot_val = round(float(rotation), 2)
         lt_str = ""
         if linetype is not None:

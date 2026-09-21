@@ -1,6 +1,7 @@
 import json
 import os
 import csv
+import math
 
 # Local cache for intersection GPS coordinates
 _GPS_DB_PATH = "data/intersection_gps_db.json"
@@ -120,4 +121,29 @@ def add_intersection_gps(street1: str, street2: str, lat: float, lon: float):
     
     with open(_GPS_DB_PATH, 'w') as f:
         json.dump(db, f, indent=2)
+
+
+def haversine_distance_ft(coord_a: tuple[float, float], coord_b: tuple[float, float]) -> float:
+    """Compute great-circle distance in survey feet between two WGS84 coordinates (lat, lon)."""
+    lat1, lon1 = coord_a
+    lat2, lon2 = coord_b
+    r_earth_ft = 20902231.0  # WGS84 mean radius in feet
+    phi1, phi2 = math.radians(lat1), math.radians(lat2)
+    dphi = math.radians(lat2 - lat1)
+    dlam = math.radians(lon2 - lon1)
+    a = math.sin(dphi / 2.0) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlam / 2.0) ** 2
+    c = 2.0 * math.atan2(math.sqrt(a), math.sqrt(1.0 - a))
+    return r_earth_ft * c
+
+
+def assert_zero_fudging(coord_a: tuple[float, float], coord_b: tuple[float, float], max_dist_ft: float = 0.05) -> bool:
+    """Enforce Permanent Agent Rule:
+    Shared ground intersections MUST share the exact same true physical GPS coordinates with zero artificial offset fudging."""
+    dist_ft = haversine_distance_ft(coord_a, coord_b)
+    if dist_ft > max_dist_ft:
+        raise AssertionError(
+            f"Zero-Fudging Violation: Coordinates {coord_a} and {coord_b} differ by {dist_ft:.4f} ft "
+            f"(exceeds zero-fudging tolerance of {max_dist_ft:.4f} ft)."
+        )
+    return True
 
