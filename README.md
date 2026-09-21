@@ -54,6 +54,33 @@ A high-precision coordinate geometry (COGO) and mapcheck verification suite for 
 
 ---
 
+## Interactive Cadastral Web Application
+
+The platform includes a modern, high-performance web interface for uploading subdivision plats, dispatching them to the cadastral model, and downloading survey deliverables.
+
+<p align="center">
+  <img src="images/web_interface_grid.png" alt="Cadastral Web Application Interface" width="95%" />
+</p>
+
+### Web Application Features:
+- **Plat Upload & Presets**: Drag-and-drop file upload supporting PDF, TIFF, PNG, and JPG, or select ground-truthed subdivision plat presets.
+- **Dynamic Parameter Tuning**: Configurable corner return radius ($R$), closure standards (F.A.C. 5J-17 / 61G17-6), and P.I. angle bar tangent rules.
+- **Interactive Cadastral Canvas**: Responsive SVG coordinate geometry visualizer with dynamic pan/zoom, lot hover highlights, bearing tooltips, matchlines, and monuments.
+- **Deliverables Batch Download Bar**: Instant one-click exports for Master Production DXF, Surveyor CheckSheets DXF, Certified ASCII MapCheck Report, GIS GeoJSON, and CSV summary.
+- **Certified Parcel Results Grid**: Interactive parcel cards and comprehensive cadastral traverse ledger with dedicated single-lot DXF exports and popup surveyor checksheets.
+
+### Launching the Web Server:
+```bash
+# Start the web server (runs on port 8000)
+python3 web/server.py
+
+# Or run with uvicorn directly
+uvicorn web.server:app --host 0.0.0.0 --port 8000 --reload
+```
+Open **`http://localhost:8000`** in your browser.
+
+---
+
 ## Quickstart & CLI Usage
 
 ### Run the Block 9 Deterministic Suite

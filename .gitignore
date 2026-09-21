@@ -8,3 +8,5 @@ temp_images/
 *.swp
 *.bak
 symbology-style.db
+web/uploads/*
+!web/uploads/.gitkeep

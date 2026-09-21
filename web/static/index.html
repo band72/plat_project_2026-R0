@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beachwood Plat AI & Cadastral COGO Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <!-- Background Glow FX -->
+  <div class="glow-orb glow-orb-1"></div>
+  <div class="glow-orb glow-orb-2"></div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="logo-badge">
+          <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="title-row">
+            <h1>Cadastral Plat AI & COGO Engine</h1>
+            <span class="version-tag">2026-R0</span>
+          </div>
+          <p class="subtitle">Autonomous Plat MapCheck, Dynamic Curve Decomposition & Vector CAD Engine</p>
+        </div>
+      </div>
+
+      <div class="header-badges">
+        <div class="status-pill status-pill-success">
+          <span class="status-dot"></span>
+          <span>F.A.C. 5J-17 / 61G17-6 Compliant</span>
+        </div>
+        <div class="status-pill status-pill-info">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          <span id="headerTimeBadge">Beachwood Unit 2 • Block 9</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Top Grid: Upload & Controls + Model Pipeline -->
+    <section class="control-panel-grid">
+      <!-- File Upload Card -->
+      <div class="glass-card upload-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-step">01</span>
+            <h2>Upload Plat Map</h2>
+          </div>
+          <span class="format-hint">PDF • TIFF • PNG • JPG</span>
+        </div>
+
+        <!-- Drag & Drop Zone -->
+        <div class="dropzone" id="platDropzone">
+          <input type="file" id="platFileInput" accept=".pdf,.png,.jpg,.jpeg,.tif,.tiff" class="file-input-hidden">
+          <div class="dropzone-content">
+            <div class="dropzone-icon-circle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <p class="dropzone-title">Drag & drop your survey plat image or PDF</p>
+            <p class="dropzone-sub">or <button type="button" class="btn-link" id="browseFileBtn">browse local file</button></p>
+            <div id="fileUploadStatus" class="file-status-badge hidden">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span id="uploadedFileName">PB30_PG82_Beachwood_Block9.png</span>
+              <span id="uploadedFileSize">(3.2 MB)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plat Presets Selector -->
+        <div class="preset-group">
+          <label for="platPresetSelect" class="input-label">Select Ground-Truthed Plat Dataset:</label>
+          <div class="select-wrapper">
+            <select id="platPresetSelect" class="custom-select">
+              <option value="block9" selected>Beachwood Unit Two — Block 9 (Lots 23–31, PB 30 PG 82)</option>
+              <option value="custom">Custom Uploaded Plat Drawing</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Parameters Drawer -->
+        <div class="params-row">
+          <div class="param-item">
+            <label class="param-label" for="paramRadius">Corner Radius (R)</label>
+            <div class="input-with-unit">
+              <input type="number" id="paramRadius" value="25.0" step="0.5" min="1.0" max="100.0" class="num-input">
+              <span class="unit-tag">ft</span>
+            </div>
+          </div>
+          <div class="param-item">
+            <label class="param-label" for="paramFac">Closure Standard</label>
+            <div class="input-with-unit">
+              <input type="text" id="paramFac" value="F.A.C. 5J-17" readonly class="num-input disabled">
+            </div>
+          </div>
+          <div class="param-item toggle-item">
+            <label class="param-label">P.I. Tangent Rule</label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="paramPiRule" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <button type="button" class="btn-primary-action" id="runModelBtn">
+          <span class="btn-glow"></span>
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          <span class="btn-label">Send to Cadastral AI Model</span>
+        </button>
+      </div>
+
+      <!-- Execution Progress & Metrics Card -->
+      <div class="glass-card status-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-step">02</span>
+            <h2>Model Inference & Verification</h2>
+          </div>
+          <span class="badge-status-pill" id="modelStatusBadge">Engine Ready</span>
+        </div>
+
+        <!-- Pipeline Execution Stepper -->
+        <div class="pipeline-stepper" id="pipelineStepper">
+          <div class="step-node active" id="step1">
+            <div class="step-indicator">1</div>
+            <div class="step-info">
+              <div class="step-name">Plat OCR & Corridor Recognition</div>
+              <div class="step-detail">Cape Horn Ave & San Salvadore Ave R/W</div>
+            </div>
+            <span class="step-tag tag-done">READY</span>
+          </div>
+
+          <div class="step-node active" id="step2">
+            <div class="step-indicator">2</div>
+            <div class="step-info">
+              <div class="step-name">Corner Return & P.I. Decomposition</div>
+              <div class="step-detail">R=25', Δ=90°00'00", T=25.00', L=39.27'</div>
+            </div>
+            <span class="step-tag tag-done">CALCULATED</span>
+          </div>
+
+          <div class="step-node active" id="step3">
+            <div class="step-indicator">3</div>
+            <div class="step-info">
+              <div class="step-name">Surveyor MapCheck & Gauss Area</div>
+              <div class="step-detail">Latitude/Departure Closure & Net Acreage</div>
+            </div>
+            <span class="step-tag tag-done">PASS (1:∞)</span>
+          </div>
+
+          <div class="step-node active" id="step4">
+            <div class="step-indicator">4</div>
+            <div class="step-info">
+              <div class="step-name">Vector CAD DXF & Report Generation</div>
+              <div class="step-detail">AutoCAD 2000 R15 & Checksheets</div>
+            </div>
+            <span class="step-tag tag-done">COMPILED</span>
+          </div>
+        </div>
+
+        <!-- Key Real-time Metrics -->
+        <div class="realtime-metrics-grid">
+          <div class="metric-box">
+            <div class="metric-label">Max Linear Error</div>
+            <div class="metric-val highlight-cyan" id="metricMisclose">0.00000 ft</div>
+            <div class="metric-sub">Certified F.A.C. 5J-17</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Survey Precision</div>
+            <div class="metric-val highlight-emerald" id="metricPrecision">1:∞ (EXACT)</div>
+            <div class="metric-sub">Zero Accumulation</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Total Net Area</div>
+            <div class="metric-val highlight-amber" id="metricArea">119,657.4 SF</div>
+            <div class="metric-sub" id="metricAcres">2.7469 Acres</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Certified Lots</div>
+            <div class="metric-val highlight-purple" id="metricLotsCount">9 / 9 PASS</div>
+            <div class="metric-sub">100% Deterministic</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cadastral Interactive Canvas & Visualizer -->
+    <section class="glass-card visualizer-card">
+      <div class="visualizer-header">
+        <div class="card-title-group">
+          <span class="card-step">03</span>
+          <h2>Interactive Cadastral Coordinate Geometry Canvas</h2>
+        </div>
+        <div class="canvas-controls">
+          <button type="button" class="btn-tool" id="fitViewBtn" title="Fit to Extents">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            <span>Reset Extents</span>
+          </button>
+          <div class="legend-pills">
+            <span class="legend-pill lot-pill">Parcels (Lots 23–31)</span>
+            <span class="legend-pill curve-pill">Curved Fillets</span>
+            <span class="legend-pill matchline-pill">Matchline (200.0')</span>
+            <span class="legend-pill prm-pill">P.R.M. Monument</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="canvas-wrapper" id="canvasWrapper">
+        <svg id="cadastralSvg" class="cadastral-svg" viewBox="-50 -50 700 400">
+          <defs>
+            <filter id="lotGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#00f0ff" flood-opacity="0.6"/>
+            </filter>
+            <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#gridPattern)" />
+          <!-- SVG Dynamic Geometry Group injected by JS -->
+          <g id="svgGeometryGroup"></g>
+        </svg>
+
+        <!-- Tooltip for hovered lot / course -->
+        <div class="lot-tooltip hidden" id="lotTooltip"></div>
+      </div>
+    </section>
+
+    <!-- Master Deliverables Batch Download Bar -->
+    <section class="download-action-banner glass-card">
+      <div class="banner-info">
+        <div class="banner-title-row">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <h3>Download Certified Survey Deliverables</h3>
+        </div>
+        <p class="banner-desc">Instant one-click exports: Production CAD DXF layers, Individual Checksheets, F.A.C. Reports, GeoJSON, and CSV.</p>
+      </div>
+
+      <div class="download-btn-group">
+        <a href="/api/download/master_dxf" class="btn-download btn-dxf" download>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          <span>Production DXF</span>
+        </a>
+        <a href="/api/download/checksheets_dxf" class="btn-download btn-checksheets" download>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+          <span>CheckSheets DXF</span>
+        </a>
+        <a href="/api/download/report_txt" class="btn-download btn-report" download>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          <span>MapCheck Report</span>
+        </a>
+        <a href="/api/download/geojson" class="btn-download btn-geojson" download>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span>GIS GeoJSON</span>
+        </a>
+        <a href="/api/download/csv" class="btn-download btn-csv" download>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+            <line x1="3" y1="15" x2="21" y2="15"></line>
+            <line x1="9" y1="3" x2="9" y2="21"></line>
+          </svg>
+          <span>Parcels CSV</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Parcel Results Section (Cards Grid + Surveyor Table) -->
+    <section class="results-section">
+      <div class="section-title-row">
+        <div class="card-title-group">
+          <span class="card-step">04</span>
+          <div>
+            <h2>Block 9 Certified Parcel Results Grid</h2>
+            <p class="section-sub">Individual parcel verification cards with dedicated CAD DXF downloads & surveyor checksheets.</p>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <input type="text" id="filterLotInput" placeholder="Filter by Lot # (e.g. 27, 28)..." class="search-input">
+          <span class="count-pill" id="filteredCountBadge">Showing 9 Parcels</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Cards Grid -->
+      <div class="parcels-grid" id="parcelsCardsGrid">
+        <!-- Parcel cards dynamically injected here -->
+      </div>
+
+      <!-- Detailed Survey Table Grid -->
+      <div class="glass-card table-card">
+        <div class="table-header">
+          <h3>Full Cadastral Traverse & Closure Ledger</h3>
+          <span class="fac-tag">Florida F.A.C. 5J-17 Standards</span>
+        </div>
+        <div class="table-responsive">
+          <table class="cadastral-table" id="cadastralTable">
+            <thead>
+              <tr>
+                <th>Lot ID</th>
+                <th>Frontage Corridor</th>
+                <th>Perimeter</th>
+                <th>Linear Misclose</th>
+                <th>Survey Precision</th>
+                <th>Computed Area</th>
+                <th>Acres</th>
+                <th>F.A.C. Status</th>
+                <th>Downloads</th>
+              </tr>
+            </thead>
+            <tbody id="cadastralTableBody">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Surveyor Checksheet Modal -->
+  <div class="modal-backdrop hidden" id="checksheetModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          <h3 id="modalLotTitle">Lot 27 Surveyor Checksheet</h3>
+        </div>
+        <button type="button" class="btn-close-modal" id="closeModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <pre class="checksheet-code" id="checksheetContent"></pre>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-tool" id="copyChecksheetBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>Copy Checksheet</span>
+        </button>
+        <a id="modalDxfDownloadBtn" href="#" class="btn-primary-action btn-compact" download>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Download Lot DXF</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <p><strong>Beachwood Subdivision Unit Two</strong> — Plat Book 30, Pages 82 & 82A, Duval County, Florida.</p>
+        <p class="footer-sub">Cadastral AI & Boundary Vectorization Engine • Autonomous MapCheck & Curve Solver</p>
+      </div>
+      <div class="footer-right">
+        <span class="mit-license-badge">MIT License • Open Source</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
