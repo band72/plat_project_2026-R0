@@ -78,6 +78,20 @@ class DXFWriter:
     def arc_as_polyline(self, points, layer="CURVE"):
         self.polyline(points, layer=layer, closed=False)
 
+    def arc(self, center: tuple[float, float], radius: float, start_angle_deg: float, end_angle_deg: float, layer: str = "CURVE"):
+        """Add true CAD ARC entity to DXF.
+        center: (Northing, Easting) or (y, x). Note: DXF uses x=Easting, y=Northing.
+        start_angle_deg, end_angle_deg: degrees counter-clockwise from East (AutoCAD standard).
+        """
+        clean_layer = self.sanitize_layer_name(layer)
+        sa = round(float(start_angle_deg) % 360.0, 4)
+        ea = round(float(end_angle_deg) % 360.0, 4)
+        self.entities.append(
+            "0\nARC\n8\n{layer}\n10\n{x:.4f}\n20\n{y:.4f}\n30\n0.0\n40\n{r:.4f}\n50\n{sa:.4f}\n51\n{ea:.4f}\n".format(
+                layer=clean_layer, x=center[1], y=center[0], r=radius, sa=sa, ea=ea
+            )
+        )
+
     def text(self, pos, value, height=2.0, layer="TEXT-LABELS", rotation=0.0,
              halign: int = 0, valign: int = 0, style: str = "STANDARD", linetype: str = None):
         """Add TEXT entity with universal compatible font (Arial / STANDARD).

@@ -118,6 +118,7 @@ class BeachwoodLotAgent:
         stated_dimensions: str = "75.0' x 100.0'",
         skeleton_pts: list[Any] | None = None,
         skeleton_resolution_ft: float = 2.0,
+        is_approx: bool = False,
     ):
         self.agent_id = agent_id
         self.lot_id = lot_id
@@ -130,6 +131,7 @@ class BeachwoodLotAgent:
         self.stated_dimensions = stated_dimensions
         self.skeleton_pts = skeleton_pts
         self.skeleton_resolution_ft = skeleton_resolution_ft
+        self.is_approx = is_approx
         self.mapcheck_report: MapCheckReport | None = None
 
 
@@ -299,10 +301,29 @@ class BeachwoodLotAgent:
         self.mapcheck_report = report
         return report
 
+    def get_arcs_dict(self) -> dict[int, dict[str, Any]]:
+        """Return dict for verify_ring and lotsheets plot_all:
+        {course_idx: {"radius": r, "delta": d, "arc_points": arc_points, ...}}
+        """
+        if not self.mapcheck_report:
+            self.compute_mapcheck()
+        arcs = {}
+        for c in self.mapcheck_report.courses:
+            if c.is_curve and c.arc_points:
+                arcs[c.course_num - 1] = {
+                    "radius": c.curve_data.get("radius"),
+                    "delta": c.curve_data.get("delta_deg"),
+                    "length": c.curve_data.get("length"),
+                    "chord": c.curve_data.get("chord"),
+                    "arc_points": c.arc_points,
+                    "curve_rot": c.curve_rot,
+                }
+        return arcs
+
     def draw(
         self,
         dxf: DXFWriter,
-        layer: str = "LOT_LINE",
+        layer: str | None = None,
         text_layer: str = "TEXT-LABELS",
         dim_layer: str = "DIM-LABELS",
         curve_layer: str = "CURVE",
@@ -312,7 +333,11 @@ class BeachwoodLotAgent:
         if not self.mapcheck_report:
             self.compute_mapcheck()
 
-        # Draw boundary polyline
+        # If layer is not specified, choose LOT_LINE_APPROX for assumed lots or LOT_LINE for verified
+        if layer is None:
+            layer = "LOT_LINE_APPROX" if self.is_approx else "LOT_LINE"
+
+        # Draw boundary polyline with exact curve segments
         full_boundary_coords: list[tuple[float, float]] = []
         for c in self.mapcheck_report.courses:
             if c.is_curve and c.arc_points:
@@ -324,6 +349,34 @@ class BeachwoodLotAgent:
                 full_boundary_coords.append((c.start_pt.n, c.start_pt.e))
 
         dxf.polyline(full_boundary_coords, layer=layer, closed=True)
+
+        # Draw native CAD ARC entities on CURVE layer if supported
+        if hasattr(dxf, "arc"):
+            for c in self.mapcheck_report.courses:
+                if c.is_curve and c.arc_points and c.curve_data:
+                    try:
+                        r = float(c.curve_data.get("radius", 0.0))
+                        if r > 0.0:
+                            p1, p2 = c.start_pt, c.end_pt
+                            half_chord = p1.dist_to(p2) / 2.0
+                            if r >= half_chord:
+                                d_cen = math.sqrt(max(0.0, r * r - half_chord * half_chord))
+                                mid_n, mid_e = (p1.n + p2.n) / 2.0, (p1.e + p2.e) / 2.0
+                                dn, de = p2.n - p1.n, p2.e - p1.e
+                                L = math.hypot(dn, de)
+                                if L > 1e-6:
+                                    norm_n = -de / L if c.curve_rot == "CCW" else de / L
+                                    norm_e = dn / L if c.curve_rot == "CCW" else -dn / L
+                                    cen_n = mid_n - norm_n * d_cen
+                                    cen_e = mid_e - norm_e * d_cen
+                                    # AutoCAD angles are CCW from East (math.atan2(y, x))
+                                    sa = math.degrees(math.atan2(p1.n - cen_n, p1.e - cen_e)) % 360.0
+                                    ea = math.degrees(math.atan2(p2.n - cen_n, p2.e - cen_e)) % 360.0
+                                    if c.curve_rot == "CW":
+                                        sa, ea = ea, sa
+                                    dxf.arc((cen_n, cen_e), r, sa, ea, layer=curve_layer)
+                    except Exception:
+                        pass
 
         # Centroid calculation for text label
         pts = self.corners[:-1] if (len(self.corners) > 1 and self.corners[0].dist_to(self.corners[-1]) < 1e-4) else self.corners

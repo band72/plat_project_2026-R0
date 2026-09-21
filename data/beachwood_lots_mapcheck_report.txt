@@ -2369,16 +2369,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot1 (Block 15N, Lot 1)
+  SURVEY MAPCHECK REPORT: Blk15-Lot1 (Block 15N, Lot 1)
 ================================================================================
 Stated Dimensions: Area Target = 9,350.0 SF (0.2146 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot1_P1 -> Blk15N-Lot1_P2 | N87°35'30.00"E | 93.50          | LINE    
-2        | Blk15N-Lot1_P2 -> Blk15N-Lot1_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot1_P3 -> Blk15N-Lot1_P4 | S87°35'30.00"W | 93.50          | LINE    
-4        | Blk15N-Lot1_P4 -> Blk15N-Lot1_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot1_P1 -> Blk15-Lot1_P2 | N87°35'30.00"E | 93.50          | LINE    
+2        | Blk15-Lot1_P2 -> Blk15-Lot1_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot1_P3 -> Blk15-Lot1_P4 | S87°35'30.00"W | 93.50          | LINE    
+4        | Blk15-Lot1_P4 -> Blk15-Lot1_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           387.00 ft
@@ -2396,16 +2396,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot2 (Block 15N, Lot 2)
+  SURVEY MAPCHECK REPORT: Blk15-Lot2 (Block 15N, Lot 2)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot2_P1 -> Blk15N-Lot2_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot2_P2 -> Blk15N-Lot2_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot2_P3 -> Blk15N-Lot2_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot2_P4 -> Blk15N-Lot2_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot2_P1 -> Blk15-Lot2_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot2_P2 -> Blk15-Lot2_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot2_P3 -> Blk15-Lot2_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot2_P4 -> Blk15-Lot2_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2423,16 +2423,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot3 (Block 15N, Lot 3)
+  SURVEY MAPCHECK REPORT: Blk15-Lot3 (Block 15N, Lot 3)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot3_P1 -> Blk15N-Lot3_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot3_P2 -> Blk15N-Lot3_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot3_P3 -> Blk15N-Lot3_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot3_P4 -> Blk15N-Lot3_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot3_P1 -> Blk15-Lot3_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot3_P2 -> Blk15-Lot3_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot3_P3 -> Blk15-Lot3_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot3_P4 -> Blk15-Lot3_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2450,43 +2450,103 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot4 (Block 15N, Lot 4)
+  SURVEY MAPCHECK REPORT: Blk15-Lot4 (Block 15N, Lot 4)
 ================================================================================
-Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+Stated Dimensions: Area Target = 6,247.7 SF (0.1434 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot4_P1 -> Blk15N-Lot4_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot4_P2 -> Blk15N-Lot4_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot4_P3 -> Blk15N-Lot4_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot4_P4 -> Blk15N-Lot4_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot4_P1 -> Blk15-Lot4_P2 | S87°11'22.62"E | 86.79          | CURVE   
+         Curve Data -> Radius: 329.27' | Arc: 87.04' | Delta: 15°08'44.5" | Chord: 86.79'
+                       Tangent: 43.78' | Mid-Ord: 2.87' | Ext: 2.90' | Seg Area: 166.3 SF
+2        | Blk15-Lot4_P2 -> Blk15-Lot4_P3 | S21°34'50.33"W | 100.81         | LINE    
+3        | Blk15-Lot4_P3 -> Blk15-Lot4_P4 | S87°35'30.00"W | 45.44          | LINE    
+4        | Blk15-Lot4_P4 -> Blk15-Lot4_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
-  Perimeter:           350.00 ft
+  Perimeter:           333.04 ft
   Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
-  Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +0.0 SF
-  Net Computed Area:   7,500.0 SF (0.1722 Acres)
-  Target Stated Area:  7,500.0 SF
+  Raw Polygon Area:    6,414.0 SF
+  Curve Area Adj:      -166.3 SF
+  Net Computed Area:   6,247.7 SF (0.1434 Acres)
+  Target Stated Area:  6,247.7 SF
   Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot5 (Block 15N, Lot 5)
+  SURVEY MAPCHECK REPORT: Blk15-Lot5 (Block 15N, Lot 5)
+================================================================================
+Stated Dimensions: Area Target = 5,999.4 SF (0.1377 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk15-Lot5_P1 -> Blk15-Lot5_P2 | S73°33'05.00"E | 72.10          | CURVE   
+         Curve Data -> Radius: 329.27' | Arc: 72.25' | Delta: 12°34'16.7" | Chord: 72.10'
+                       Tangent: 36.27' | Mid-Ord: 1.98' | Ext: 1.99' | Seg Area: 95.2 SF
+2        | Blk15-Lot5_P2 -> Blk15-Lot5_P3 | S26°02'26.84"W | 78.25          | LINE    
+3        | Blk15-Lot5_P3 -> Blk15-Lot5_P4 | S87°35'30.00"W | 71.94          | LINE    
+4        | Blk15-Lot5_P4 -> Blk15-Lot5_P1 | N21°34'50.33"E | 100.81         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           323.11 ft
+  Misclose Vector:     dN = -0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    6,094.6 SF
+  Curve Area Adj:      -95.2 SF
+  Net Computed Area:   5,999.4 SF (0.1377 Acres)
+  Target Stated Area:  5,999.4 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk15-Lot6 (Block 15N, Lot 6)
+================================================================================
+Stated Dimensions: Area Target = 3,831.7 SF (0.0880 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | Blk15-Lot6_P1 -> Blk15-Lot6_P2 | S60°58'48.33"E | 72.10          | CURVE   
+         Curve Data -> Radius: 329.27' | Arc: 72.25' | Delta: 12°34'16.7" | Chord: 72.10'
+                       Tangent: 36.27' | Mid-Ord: 1.98' | Ext: 1.99' | Seg Area: 95.2 SF
+2        | Blk15-Lot6_P2 -> Blk15-Lot6_P3 | S39°09'51.90"W | 41.71          | LINE    
+3        | Blk15-Lot6_P3 -> Blk15-Lot6_P4 | S87°35'30.00"W | 71.12          | LINE    
+4        | Blk15-Lot6_P4 -> Blk15-Lot6_P1 | N26°02'26.84"E | 78.25          | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           263.19 ft
+  Misclose Vector:     dN = -0.0000 ft, dE = -0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    3,926.9 SF
+  Curve Area Adj:      -95.2 SF
+  Net Computed Area:   3,831.7 SF (0.0880 Acres)
+  Target Stated Area:  3,831.7 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk15-Lot7 (Block 15N, Lot 7)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot5_P1 -> Blk15N-Lot5_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot5_P2 -> Blk15N-Lot5_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot5_P3 -> Blk15N-Lot5_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot5_P4 -> Blk15N-Lot5_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot7_P1 -> Blk15-Lot7_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot7_P2 -> Blk15-Lot7_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot7_P3 -> Blk15-Lot7_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot7_P4 -> Blk15-Lot7_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2504,16 +2564,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot6 (Block 15N, Lot 6)
+  SURVEY MAPCHECK REPORT: Blk15-Lot8 (Block 15N, Lot 8)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot6_P1 -> Blk15N-Lot6_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot6_P2 -> Blk15N-Lot6_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot6_P3 -> Blk15N-Lot6_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot6_P4 -> Blk15N-Lot6_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot8_P1 -> Blk15-Lot8_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot8_P2 -> Blk15-Lot8_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot8_P3 -> Blk15-Lot8_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot8_P4 -> Blk15-Lot8_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2531,16 +2591,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot7 (Block 15N, Lot 7)
+  SURVEY MAPCHECK REPORT: Blk15-Lot9 (Block 15N, Lot 9)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot7_P1 -> Blk15N-Lot7_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot7_P2 -> Blk15N-Lot7_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot7_P3 -> Blk15N-Lot7_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot7_P4 -> Blk15N-Lot7_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot9_P1 -> Blk15-Lot9_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot9_P2 -> Blk15-Lot9_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot9_P3 -> Blk15-Lot9_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot9_P4 -> Blk15-Lot9_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2558,16 +2618,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot8 (Block 15N, Lot 8)
+  SURVEY MAPCHECK REPORT: Blk15-Lot10 (Block 15N, Lot 10)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot8_P1 -> Blk15N-Lot8_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot8_P2 -> Blk15N-Lot8_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot8_P3 -> Blk15N-Lot8_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot8_P4 -> Blk15N-Lot8_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot10_P1 -> Blk15-Lot10_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot10_P2 -> Blk15-Lot10_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot10_P3 -> Blk15-Lot10_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot10_P4 -> Blk15-Lot10_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2585,16 +2645,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot9 (Block 15N, Lot 9)
+  SURVEY MAPCHECK REPORT: Blk15-Lot11 (Block 15N, Lot 11)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot9_P1 -> Blk15N-Lot9_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot9_P2 -> Blk15N-Lot9_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot9_P3 -> Blk15N-Lot9_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot9_P4 -> Blk15N-Lot9_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot11_P1 -> Blk15-Lot11_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot11_P2 -> Blk15-Lot11_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot11_P3 -> Blk15-Lot11_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot11_P4 -> Blk15-Lot11_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2612,16 +2672,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot10 (Block 15N, Lot 10)
+  SURVEY MAPCHECK REPORT: Blk15-Lot12 (Block 15N, Lot 12)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot10_P1 -> Blk15N-Lot10_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot10_P2 -> Blk15N-Lot10_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot10_P3 -> Blk15N-Lot10_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot10_P4 -> Blk15N-Lot10_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot12_P1 -> Blk15-Lot12_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot12_P2 -> Blk15-Lot12_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot12_P3 -> Blk15-Lot12_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot12_P4 -> Blk15-Lot12_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2639,16 +2699,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot11 (Block 15N, Lot 11)
+  SURVEY MAPCHECK REPORT: Blk15-Lot13 (Block 15N, Lot 13)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot11_P1 -> Blk15N-Lot11_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot11_P2 -> Blk15N-Lot11_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot11_P3 -> Blk15N-Lot11_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot11_P4 -> Blk15N-Lot11_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot13_P1 -> Blk15-Lot13_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot13_P2 -> Blk15-Lot13_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot13_P3 -> Blk15-Lot13_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot13_P4 -> Blk15-Lot13_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2666,16 +2726,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot12 (Block 15N, Lot 12)
+  SURVEY MAPCHECK REPORT: Blk15-Lot14 (Block 15N, Lot 14)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot12_P1 -> Blk15N-Lot12_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot12_P2 -> Blk15N-Lot12_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot12_P3 -> Blk15N-Lot12_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot12_P4 -> Blk15N-Lot12_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot14_P1 -> Blk15-Lot14_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot14_P2 -> Blk15-Lot14_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot14_P3 -> Blk15-Lot14_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot14_P4 -> Blk15-Lot14_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2693,16 +2753,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot13 (Block 15N, Lot 13)
+  SURVEY MAPCHECK REPORT: Blk15-Lot15 (Block 15N, Lot 15)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot13_P1 -> Blk15N-Lot13_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot13_P2 -> Blk15N-Lot13_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot13_P3 -> Blk15N-Lot13_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot13_P4 -> Blk15N-Lot13_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot15_P1 -> Blk15-Lot15_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot15_P2 -> Blk15-Lot15_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot15_P3 -> Blk15-Lot15_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot15_P4 -> Blk15-Lot15_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2720,16 +2780,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot14 (Block 15N, Lot 14)
+  SURVEY MAPCHECK REPORT: Blk15-Lot16 (Block 15N, Lot 16)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot14_P1 -> Blk15N-Lot14_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot14_P2 -> Blk15N-Lot14_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot14_P3 -> Blk15N-Lot14_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot14_P4 -> Blk15N-Lot14_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot16_P1 -> Blk15-Lot16_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot16_P2 -> Blk15-Lot16_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot16_P3 -> Blk15-Lot16_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot16_P4 -> Blk15-Lot16_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2747,72 +2807,18 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot15 (Block 15N, Lot 15)
-================================================================================
-Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
---------------------------------------------------------------------------------
-Course   | From -> To         | Bearing        | Distance (ft)  | Type    
---------------------------------------------------------------------------------
-1        | Blk15N-Lot15_P1 -> Blk15N-Lot15_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot15_P2 -> Blk15N-Lot15_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot15_P3 -> Blk15N-Lot15_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot15_P4 -> Blk15N-Lot15_P1 | N02°24'30.00"W | 100.00         | LINE    
---------------------------------------------------------------------------------
-TRAVERSE CLOSURE & PRECISION:
-  Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
-  Linear Misclose:     0.0000 ft
-  Relative Precision:  EXACT (0.000 ft)
-  Traverse Status:     PASS (CLOSED)
-AREA VERIFICATION:
-  Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +0.0 SF
-  Net Computed Area:   7,500.0 SF (0.1722 Acres)
-  Target Stated Area:  7,500.0 SF
-  Discrepancy:         +0.0 SF (0.00%)
-FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
-================================================================================
-
-================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot16 (Block 15N, Lot 16)
-================================================================================
-Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
---------------------------------------------------------------------------------
-Course   | From -> To         | Bearing        | Distance (ft)  | Type    
---------------------------------------------------------------------------------
-1        | Blk15N-Lot16_P1 -> Blk15N-Lot16_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot16_P2 -> Blk15N-Lot16_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15N-Lot16_P3 -> Blk15N-Lot16_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot16_P4 -> Blk15N-Lot16_P1 | N02°24'30.00"W | 100.00         | LINE    
---------------------------------------------------------------------------------
-TRAVERSE CLOSURE & PRECISION:
-  Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
-  Linear Misclose:     0.0000 ft
-  Relative Precision:  EXACT (0.000 ft)
-  Traverse Status:     PASS (CLOSED)
-AREA VERIFICATION:
-  Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +0.0 SF
-  Net Computed Area:   7,500.0 SF (0.1722 Acres)
-  Target Stated Area:  7,500.0 SF
-  Discrepancy:         +0.0 SF (0.00%)
-FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
-================================================================================
-
-================================================================================
-  SURVEY MAPCHECK REPORT: Blk15N-Lot17 (Block 15N, Lot 17)
+  SURVEY MAPCHECK REPORT: Blk15-Lot17 (Block 15N, Lot 17)
 ================================================================================
 Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15N-Lot17_P1 -> Blk15N-Lot17_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15N-Lot17_P2 -> Blk15N-Lot17_P3 | S02°24'30.00"E | 100.00         | CURVE   
+1        | Blk15-Lot17_P1 -> Blk15-Lot17_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot17_P2 -> Blk15-Lot17_P3 | S02°24'30.00"E | 100.00         | CURVE   
          Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
                        Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
-3        | Blk15N-Lot17_P3 -> Blk15N-Lot17_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15N-Lot17_P4 -> Blk15N-Lot17_P1 | N02°24'30.00"W | 100.00         | LINE    
+3        | Blk15-Lot17_P3 -> Blk15-Lot17_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot17_P4 -> Blk15-Lot17_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2830,16 +2836,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot34 (Block 15S, Lot 34)
+  SURVEY MAPCHECK REPORT: Blk15-Lot34 (Block 15S, Lot 34)
 ================================================================================
 Stated Dimensions: Area Target = 9,350.0 SF (0.2146 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot34_P1 -> Blk15S-Lot34_P2 | N87°35'30.00"E | 93.50          | LINE    
-2        | Blk15S-Lot34_P2 -> Blk15S-Lot34_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot34_P3 -> Blk15S-Lot34_P4 | S87°35'30.00"W | 93.50          | LINE    
-4        | Blk15S-Lot34_P4 -> Blk15S-Lot34_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot34_P1 -> Blk15-Lot34_P2 | N87°35'30.00"E | 93.50          | LINE    
+2        | Blk15-Lot34_P2 -> Blk15-Lot34_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot34_P3 -> Blk15-Lot34_P4 | S87°35'30.00"W | 93.50          | LINE    
+4        | Blk15-Lot34_P4 -> Blk15-Lot34_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           387.00 ft
@@ -2857,16 +2863,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot33 (Block 15S, Lot 33)
+  SURVEY MAPCHECK REPORT: Blk15-Lot33 (Block 15S, Lot 33)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot33_P1 -> Blk15S-Lot33_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot33_P2 -> Blk15S-Lot33_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot33_P3 -> Blk15S-Lot33_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot33_P4 -> Blk15S-Lot33_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot33_P1 -> Blk15-Lot33_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot33_P2 -> Blk15-Lot33_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot33_P3 -> Blk15-Lot33_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot33_P4 -> Blk15-Lot33_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2884,16 +2890,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot32 (Block 15S, Lot 32)
+  SURVEY MAPCHECK REPORT: Blk15-Lot32 (Block 15S, Lot 32)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot32_P1 -> Blk15S-Lot32_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot32_P2 -> Blk15S-Lot32_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot32_P3 -> Blk15S-Lot32_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot32_P4 -> Blk15S-Lot32_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot32_P1 -> Blk15-Lot32_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot32_P2 -> Blk15-Lot32_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot32_P3 -> Blk15-Lot32_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot32_P4 -> Blk15-Lot32_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2911,16 +2917,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot31 (Block 15S, Lot 31)
+  SURVEY MAPCHECK REPORT: Blk15-Lot31 (Block 15S, Lot 31)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot31_P1 -> Blk15S-Lot31_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot31_P2 -> Blk15S-Lot31_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot31_P3 -> Blk15S-Lot31_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot31_P4 -> Blk15S-Lot31_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot31_P1 -> Blk15-Lot31_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot31_P2 -> Blk15-Lot31_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot31_P3 -> Blk15-Lot31_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot31_P4 -> Blk15-Lot31_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2938,16 +2944,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot30 (Block 15S, Lot 30)
+  SURVEY MAPCHECK REPORT: Blk15-Lot30 (Block 15S, Lot 30)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot30_P1 -> Blk15S-Lot30_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot30_P2 -> Blk15S-Lot30_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot30_P3 -> Blk15S-Lot30_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot30_P4 -> Blk15S-Lot30_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot30_P1 -> Blk15-Lot30_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot30_P2 -> Blk15-Lot30_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot30_P3 -> Blk15-Lot30_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot30_P4 -> Blk15-Lot30_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2965,16 +2971,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot29 (Block 15S, Lot 29)
+  SURVEY MAPCHECK REPORT: Blk15-Lot29 (Block 15S, Lot 29)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot29_P1 -> Blk15S-Lot29_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot29_P2 -> Blk15S-Lot29_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot29_P3 -> Blk15S-Lot29_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot29_P4 -> Blk15S-Lot29_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot29_P1 -> Blk15-Lot29_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot29_P2 -> Blk15-Lot29_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot29_P3 -> Blk15-Lot29_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot29_P4 -> Blk15-Lot29_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -2992,16 +2998,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot28 (Block 15S, Lot 28)
+  SURVEY MAPCHECK REPORT: Blk15-Lot28 (Block 15S, Lot 28)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot28_P1 -> Blk15S-Lot28_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot28_P2 -> Blk15S-Lot28_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot28_P3 -> Blk15S-Lot28_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot28_P4 -> Blk15S-Lot28_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot28_P1 -> Blk15-Lot28_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot28_P2 -> Blk15-Lot28_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot28_P3 -> Blk15-Lot28_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot28_P4 -> Blk15-Lot28_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3019,16 +3025,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot27 (Block 15S, Lot 27)
+  SURVEY MAPCHECK REPORT: Blk15-Lot27 (Block 15S, Lot 27)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot27_P1 -> Blk15S-Lot27_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot27_P2 -> Blk15S-Lot27_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot27_P3 -> Blk15S-Lot27_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot27_P4 -> Blk15S-Lot27_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot27_P1 -> Blk15-Lot27_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot27_P2 -> Blk15-Lot27_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot27_P3 -> Blk15-Lot27_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot27_P4 -> Blk15-Lot27_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3046,16 +3052,18 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot26 (Block 15S, Lot 26)
+  SURVEY MAPCHECK REPORT: Blk15-Lot26 (Block 15S, Lot 26)
 ================================================================================
-Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+Stated Dimensions: Area Target = 7,355.2 SF (0.1689 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot26_P1 -> Blk15S-Lot26_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot26_P2 -> Blk15S-Lot26_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot26_P3 -> Blk15S-Lot26_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot26_P4 -> Blk15S-Lot26_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot26_P1 -> Blk15-Lot26_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot26_P2 -> Blk15-Lot26_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot26_P3 -> Blk15-Lot26_P4 | S87°35'30.00"W | 75.00          | CURVE   
+         Curve Data -> Radius: 429.36' | Arc: 90.76' | Delta: 12°06'40" | Chord: 90.59'
+                       Tangent: 45.55' | Mid-Ord: 2.40' | Ext: 2.41' | Seg Area: 144.8 SF
+4        | Blk15-Lot26_P4 -> Blk15-Lot26_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3065,24 +3073,26 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +0.0 SF
-  Net Computed Area:   7,500.0 SF (0.1722 Acres)
-  Target Stated Area:  7,500.0 SF
+  Curve Area Adj:      -144.8 SF
+  Net Computed Area:   7,355.2 SF (0.1689 Acres)
+  Target Stated Area:  7,355.2 SF
   Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot25 (Block 15S, Lot 25)
+  SURVEY MAPCHECK REPORT: Blk15-Lot25 (Block 15S, Lot 25)
 ================================================================================
-Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+Stated Dimensions: Area Target = 7,355.2 SF (0.1689 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot25_P1 -> Blk15S-Lot25_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot25_P2 -> Blk15S-Lot25_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot25_P3 -> Blk15S-Lot25_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot25_P4 -> Blk15S-Lot25_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot25_P1 -> Blk15-Lot25_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot25_P2 -> Blk15-Lot25_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot25_P3 -> Blk15-Lot25_P4 | S87°35'30.00"W | 75.00          | CURVE   
+         Curve Data -> Radius: 429.36' | Arc: 90.76' | Delta: 12°06'40" | Chord: 90.59'
+                       Tangent: 45.55' | Mid-Ord: 2.40' | Ext: 2.41' | Seg Area: 144.8 SF
+4        | Blk15-Lot25_P4 -> Blk15-Lot25_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3092,24 +3102,26 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +0.0 SF
-  Net Computed Area:   7,500.0 SF (0.1722 Acres)
-  Target Stated Area:  7,500.0 SF
+  Curve Area Adj:      -144.8 SF
+  Net Computed Area:   7,355.2 SF (0.1689 Acres)
+  Target Stated Area:  7,355.2 SF
   Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot24 (Block 15S, Lot 24)
+  SURVEY MAPCHECK REPORT: Blk15-Lot24 (Block 15S, Lot 24)
 ================================================================================
-Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
+Stated Dimensions: Area Target = 7,355.2 SF (0.1689 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot24_P1 -> Blk15S-Lot24_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot24_P2 -> Blk15S-Lot24_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot24_P3 -> Blk15S-Lot24_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot24_P4 -> Blk15S-Lot24_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot24_P1 -> Blk15-Lot24_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot24_P2 -> Blk15-Lot24_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot24_P3 -> Blk15-Lot24_P4 | S87°35'30.00"W | 75.00          | CURVE   
+         Curve Data -> Radius: 429.36' | Arc: 90.76' | Delta: 12°06'40" | Chord: 90.59'
+                       Tangent: 45.55' | Mid-Ord: 2.40' | Ext: 2.41' | Seg Area: 144.8 SF
+4        | Blk15-Lot24_P4 -> Blk15-Lot24_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3119,24 +3131,24 @@ TRAVERSE CLOSURE & PRECISION:
   Traverse Status:     PASS (CLOSED)
 AREA VERIFICATION:
   Raw Polygon Area:    7,500.0 SF
-  Curve Area Adj:      +0.0 SF
-  Net Computed Area:   7,500.0 SF (0.1722 Acres)
-  Target Stated Area:  7,500.0 SF
+  Curve Area Adj:      -144.8 SF
+  Net Computed Area:   7,355.2 SF (0.1689 Acres)
+  Target Stated Area:  7,355.2 SF
   Discrepancy:         +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot23 (Block 15S, Lot 23)
+  SURVEY MAPCHECK REPORT: Blk15-Lot23 (Block 15S, Lot 23)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot23_P1 -> Blk15S-Lot23_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot23_P2 -> Blk15S-Lot23_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot23_P3 -> Blk15S-Lot23_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot23_P4 -> Blk15S-Lot23_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot23_P1 -> Blk15-Lot23_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot23_P2 -> Blk15-Lot23_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot23_P3 -> Blk15-Lot23_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot23_P4 -> Blk15-Lot23_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3154,16 +3166,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot22 (Block 15S, Lot 22)
+  SURVEY MAPCHECK REPORT: Blk15-Lot22 (Block 15S, Lot 22)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot22_P1 -> Blk15S-Lot22_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot22_P2 -> Blk15S-Lot22_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot22_P3 -> Blk15S-Lot22_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot22_P4 -> Blk15S-Lot22_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot22_P1 -> Blk15-Lot22_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot22_P2 -> Blk15-Lot22_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot22_P3 -> Blk15-Lot22_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot22_P4 -> Blk15-Lot22_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3181,16 +3193,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot21 (Block 15S, Lot 21)
+  SURVEY MAPCHECK REPORT: Blk15-Lot21 (Block 15S, Lot 21)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot21_P1 -> Blk15S-Lot21_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot21_P2 -> Blk15S-Lot21_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot21_P3 -> Blk15S-Lot21_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot21_P4 -> Blk15S-Lot21_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot21_P1 -> Blk15-Lot21_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot21_P2 -> Blk15-Lot21_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot21_P3 -> Blk15-Lot21_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot21_P4 -> Blk15-Lot21_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3208,16 +3220,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot20 (Block 15S, Lot 20)
+  SURVEY MAPCHECK REPORT: Blk15-Lot20 (Block 15S, Lot 20)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot20_P1 -> Blk15S-Lot20_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot20_P2 -> Blk15S-Lot20_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot20_P3 -> Blk15S-Lot20_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot20_P4 -> Blk15S-Lot20_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot20_P1 -> Blk15-Lot20_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot20_P2 -> Blk15-Lot20_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot20_P3 -> Blk15-Lot20_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot20_P4 -> Blk15-Lot20_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3235,16 +3247,16 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot19 (Block 15S, Lot 19)
+  SURVEY MAPCHECK REPORT: Blk15-Lot19 (Block 15S, Lot 19)
 ================================================================================
 Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot19_P1 -> Blk15S-Lot19_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot19_P2 -> Blk15S-Lot19_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk15S-Lot19_P3 -> Blk15S-Lot19_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot19_P4 -> Blk15S-Lot19_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk15-Lot19_P1 -> Blk15-Lot19_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot19_P2 -> Blk15-Lot19_P3 | S02°24'30.00"E | 100.00         | LINE    
+3        | Blk15-Lot19_P3 -> Blk15-Lot19_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot19_P4 -> Blk15-Lot19_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3262,18 +3274,18 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
 ================================================================================
 
 ================================================================================
-  SURVEY MAPCHECK REPORT: Blk15S-Lot18 (Block 15S, Lot 18)
+  SURVEY MAPCHECK REPORT: Blk15-Lot18 (Block 15S, Lot 18)
 ================================================================================
 Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk15S-Lot18_P1 -> Blk15S-Lot18_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk15S-Lot18_P2 -> Blk15S-Lot18_P3 | S02°24'30.00"E | 100.00         | CURVE   
+1        | Blk15-Lot18_P1 -> Blk15-Lot18_P2 | N87°35'30.00"E | 75.00          | LINE    
+2        | Blk15-Lot18_P2 -> Blk15-Lot18_P3 | S02°24'30.00"E | 100.00         | CURVE   
          Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
                        Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
-3        | Blk15S-Lot18_P3 -> Blk15S-Lot18_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk15S-Lot18_P4 -> Blk15S-Lot18_P1 | N02°24'30.00"W | 100.00         | LINE    
+3        | Blk15-Lot18_P3 -> Blk15-Lot18_P4 | S87°35'30.00"W | 75.00          | LINE    
+4        | Blk15-Lot18_P4 -> Blk15-Lot18_P1 | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3297,10 +3309,10 @@ Stated Dimensions: Area Target = 10,238.0 SF (0.2350 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14N-Lot1_P1 -> Blk14N-Lot1_P2 | N87°35'30.00"E | 102.38         | LINE    
-2        | Blk14N-Lot1_P2 -> Blk14N-Lot1_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14N-Lot1_P3 -> Blk14N-Lot1_P4 | S87°35'30.00"W | 102.38         | LINE    
-4        | Blk14N-Lot1_P4 -> Blk14N-Lot1_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14N-Lot1_P1 -> Blk14N-Lot1_P2 | S54°41'39.84"E | 102.38         | LINE    
+2        | Blk14N-Lot1_P2 -> Blk14N-Lot1_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14N-Lot1_P3 -> Blk14N-Lot1_P4 | N54°41'39.84"W | 102.38         | LINE    
+4        | Blk14N-Lot1_P4 -> Blk14N-Lot1_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           404.76 ft
@@ -3324,10 +3336,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14N-Lot2_P1 -> Blk14N-Lot2_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14N-Lot2_P2 -> Blk14N-Lot2_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14N-Lot2_P3 -> Blk14N-Lot2_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14N-Lot2_P4 -> Blk14N-Lot2_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14N-Lot2_P1 -> Blk14N-Lot2_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14N-Lot2_P2 -> Blk14N-Lot2_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14N-Lot2_P3 -> Blk14N-Lot2_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14N-Lot2_P4 -> Blk14N-Lot2_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3351,10 +3363,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14N-Lot3_P1 -> Blk14N-Lot3_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14N-Lot3_P2 -> Blk14N-Lot3_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14N-Lot3_P3 -> Blk14N-Lot3_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14N-Lot3_P4 -> Blk14N-Lot3_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14N-Lot3_P1 -> Blk14N-Lot3_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14N-Lot3_P2 -> Blk14N-Lot3_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14N-Lot3_P3 -> Blk14N-Lot3_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14N-Lot3_P4 -> Blk14N-Lot3_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3378,14 +3390,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14N-Lot4_P1 -> Blk14N-Lot4_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14N-Lot4_P2 -> Blk14N-Lot4_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14N-Lot4_P3 -> Blk14N-Lot4_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14N-Lot4_P4 -> Blk14N-Lot4_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14N-Lot4_P1 -> Blk14N-Lot4_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14N-Lot4_P2 -> Blk14N-Lot4_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14N-Lot4_P3 -> Blk14N-Lot4_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14N-Lot4_P4 -> Blk14N-Lot4_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -3405,14 +3417,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14N-Lot5_P1 -> Blk14N-Lot5_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14N-Lot5_P2 -> Blk14N-Lot5_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14N-Lot5_P3 -> Blk14N-Lot5_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14N-Lot5_P4 -> Blk14N-Lot5_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14N-Lot5_P1 -> Blk14N-Lot5_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14N-Lot5_P2 -> Blk14N-Lot5_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14N-Lot5_P3 -> Blk14N-Lot5_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14N-Lot5_P4 -> Blk14N-Lot5_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -3432,14 +3444,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14N-Lot6_P1 -> Blk14N-Lot6_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14N-Lot6_P2 -> Blk14N-Lot6_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14N-Lot6_P3 -> Blk14N-Lot6_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14N-Lot6_P4 -> Blk14N-Lot6_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14N-Lot6_P1 -> Blk14N-Lot6_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14N-Lot6_P2 -> Blk14N-Lot6_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14N-Lot6_P3 -> Blk14N-Lot6_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14N-Lot6_P4 -> Blk14N-Lot6_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -3459,14 +3471,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14N-Lot7_P1 -> Blk14N-Lot7_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14N-Lot7_P2 -> Blk14N-Lot7_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14N-Lot7_P3 -> Blk14N-Lot7_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14N-Lot7_P4 -> Blk14N-Lot7_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14N-Lot7_P1 -> Blk14N-Lot7_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14N-Lot7_P2 -> Blk14N-Lot7_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14N-Lot7_P3 -> Blk14N-Lot7_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14N-Lot7_P4 -> Blk14N-Lot7_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -3486,10 +3498,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14N-Lot8_P1 -> Blk14N-Lot8_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14N-Lot8_P2 -> Blk14N-Lot8_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14N-Lot8_P3 -> Blk14N-Lot8_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14N-Lot8_P4 -> Blk14N-Lot8_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14N-Lot8_P1 -> Blk14N-Lot8_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14N-Lot8_P2 -> Blk14N-Lot8_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14N-Lot8_P3 -> Blk14N-Lot8_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14N-Lot8_P4 -> Blk14N-Lot8_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3513,10 +3525,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14N-Lot9_P1 -> Blk14N-Lot9_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14N-Lot9_P2 -> Blk14N-Lot9_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14N-Lot9_P3 -> Blk14N-Lot9_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14N-Lot9_P4 -> Blk14N-Lot9_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14N-Lot9_P1 -> Blk14N-Lot9_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14N-Lot9_P2 -> Blk14N-Lot9_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14N-Lot9_P3 -> Blk14N-Lot9_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14N-Lot9_P4 -> Blk14N-Lot9_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3540,14 +3552,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14N-Lot10_P1 -> Blk14N-Lot10_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14N-Lot10_P2 -> Blk14N-Lot10_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14N-Lot10_P3 -> Blk14N-Lot10_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14N-Lot10_P4 -> Blk14N-Lot10_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14N-Lot10_P1 -> Blk14N-Lot10_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14N-Lot10_P2 -> Blk14N-Lot10_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14N-Lot10_P3 -> Blk14N-Lot10_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14N-Lot10_P4 -> Blk14N-Lot10_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -3567,10 +3579,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14N-Lot11_P1 -> Blk14N-Lot11_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14N-Lot11_P2 -> Blk14N-Lot11_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14N-Lot11_P3 -> Blk14N-Lot11_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14N-Lot11_P4 -> Blk14N-Lot11_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14N-Lot11_P1 -> Blk14N-Lot11_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14N-Lot11_P2 -> Blk14N-Lot11_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14N-Lot11_P3 -> Blk14N-Lot11_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14N-Lot11_P4 -> Blk14N-Lot11_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3594,12 +3606,12 @@ Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14N-Lot12_P1 -> Blk14N-Lot12_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14N-Lot12_P2 -> Blk14N-Lot12_P3 | S02°24'30.00"E | 100.00         | CURVE   
+1        | Blk14N-Lot12_P1 -> Blk14N-Lot12_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14N-Lot12_P2 -> Blk14N-Lot12_P3 | S35°18'20.16"W | 100.00         | CURVE   
          Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
                        Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
-3        | Blk14N-Lot12_P3 -> Blk14N-Lot12_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14N-Lot12_P4 -> Blk14N-Lot12_P1 | N02°24'30.00"W | 100.00         | LINE    
+3        | Blk14N-Lot12_P3 -> Blk14N-Lot12_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14N-Lot12_P4 -> Blk14N-Lot12_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3623,10 +3635,10 @@ Stated Dimensions: Area Target = 9,326.0 SF (0.2141 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14S-Lot24_P1 -> Blk14S-Lot24_P2 | N87°35'30.00"E | 93.26          | LINE    
-2        | Blk14S-Lot24_P2 -> Blk14S-Lot24_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14S-Lot24_P3 -> Blk14S-Lot24_P4 | S87°35'30.00"W | 93.26          | LINE    
-4        | Blk14S-Lot24_P4 -> Blk14S-Lot24_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14S-Lot24_P1 -> Blk14S-Lot24_P2 | S54°41'39.84"E | 93.26          | LINE    
+2        | Blk14S-Lot24_P2 -> Blk14S-Lot24_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14S-Lot24_P3 -> Blk14S-Lot24_P4 | N54°41'39.84"W | 93.26          | LINE    
+4        | Blk14S-Lot24_P4 -> Blk14S-Lot24_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           386.52 ft
@@ -3650,14 +3662,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14S-Lot23_P1 -> Blk14S-Lot23_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14S-Lot23_P2 -> Blk14S-Lot23_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14S-Lot23_P3 -> Blk14S-Lot23_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14S-Lot23_P4 -> Blk14S-Lot23_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14S-Lot23_P1 -> Blk14S-Lot23_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14S-Lot23_P2 -> Blk14S-Lot23_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14S-Lot23_P3 -> Blk14S-Lot23_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14S-Lot23_P4 -> Blk14S-Lot23_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = -0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -3677,10 +3689,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14S-Lot22_P1 -> Blk14S-Lot22_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14S-Lot22_P2 -> Blk14S-Lot22_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14S-Lot22_P3 -> Blk14S-Lot22_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14S-Lot22_P4 -> Blk14S-Lot22_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14S-Lot22_P1 -> Blk14S-Lot22_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14S-Lot22_P2 -> Blk14S-Lot22_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14S-Lot22_P3 -> Blk14S-Lot22_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14S-Lot22_P4 -> Blk14S-Lot22_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3704,10 +3716,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14S-Lot21_P1 -> Blk14S-Lot21_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14S-Lot21_P2 -> Blk14S-Lot21_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14S-Lot21_P3 -> Blk14S-Lot21_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14S-Lot21_P4 -> Blk14S-Lot21_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14S-Lot21_P1 -> Blk14S-Lot21_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14S-Lot21_P2 -> Blk14S-Lot21_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14S-Lot21_P3 -> Blk14S-Lot21_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14S-Lot21_P4 -> Blk14S-Lot21_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3731,14 +3743,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14S-Lot20_P1 -> Blk14S-Lot20_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14S-Lot20_P2 -> Blk14S-Lot20_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14S-Lot20_P3 -> Blk14S-Lot20_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14S-Lot20_P4 -> Blk14S-Lot20_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14S-Lot20_P1 -> Blk14S-Lot20_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14S-Lot20_P2 -> Blk14S-Lot20_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14S-Lot20_P3 -> Blk14S-Lot20_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14S-Lot20_P4 -> Blk14S-Lot20_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -3758,10 +3770,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14S-Lot19_P1 -> Blk14S-Lot19_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14S-Lot19_P2 -> Blk14S-Lot19_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14S-Lot19_P3 -> Blk14S-Lot19_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14S-Lot19_P4 -> Blk14S-Lot19_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14S-Lot19_P1 -> Blk14S-Lot19_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14S-Lot19_P2 -> Blk14S-Lot19_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14S-Lot19_P3 -> Blk14S-Lot19_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14S-Lot19_P4 -> Blk14S-Lot19_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3785,10 +3797,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14S-Lot18_P1 -> Blk14S-Lot18_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14S-Lot18_P2 -> Blk14S-Lot18_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14S-Lot18_P3 -> Blk14S-Lot18_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14S-Lot18_P4 -> Blk14S-Lot18_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14S-Lot18_P1 -> Blk14S-Lot18_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14S-Lot18_P2 -> Blk14S-Lot18_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14S-Lot18_P3 -> Blk14S-Lot18_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14S-Lot18_P4 -> Blk14S-Lot18_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3812,14 +3824,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14S-Lot17_P1 -> Blk14S-Lot17_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14S-Lot17_P2 -> Blk14S-Lot17_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14S-Lot17_P3 -> Blk14S-Lot17_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14S-Lot17_P4 -> Blk14S-Lot17_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14S-Lot17_P1 -> Blk14S-Lot17_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14S-Lot17_P2 -> Blk14S-Lot17_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14S-Lot17_P3 -> Blk14S-Lot17_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14S-Lot17_P4 -> Blk14S-Lot17_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -3839,10 +3851,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14S-Lot16_P1 -> Blk14S-Lot16_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14S-Lot16_P2 -> Blk14S-Lot16_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14S-Lot16_P3 -> Blk14S-Lot16_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14S-Lot16_P4 -> Blk14S-Lot16_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14S-Lot16_P1 -> Blk14S-Lot16_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14S-Lot16_P2 -> Blk14S-Lot16_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14S-Lot16_P3 -> Blk14S-Lot16_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14S-Lot16_P4 -> Blk14S-Lot16_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3866,14 +3878,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14S-Lot15_P1 -> Blk14S-Lot15_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14S-Lot15_P2 -> Blk14S-Lot15_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14S-Lot15_P3 -> Blk14S-Lot15_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14S-Lot15_P4 -> Blk14S-Lot15_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14S-Lot15_P1 -> Blk14S-Lot15_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14S-Lot15_P2 -> Blk14S-Lot15_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14S-Lot15_P3 -> Blk14S-Lot15_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14S-Lot15_P4 -> Blk14S-Lot15_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = -0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -3893,10 +3905,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14S-Lot14_P1 -> Blk14S-Lot14_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14S-Lot14_P2 -> Blk14S-Lot14_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk14S-Lot14_P3 -> Blk14S-Lot14_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14S-Lot14_P4 -> Blk14S-Lot14_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk14S-Lot14_P1 -> Blk14S-Lot14_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14S-Lot14_P2 -> Blk14S-Lot14_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk14S-Lot14_P3 -> Blk14S-Lot14_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14S-Lot14_P4 -> Blk14S-Lot14_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3920,12 +3932,12 @@ Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk14S-Lot13_P1 -> Blk14S-Lot13_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk14S-Lot13_P2 -> Blk14S-Lot13_P3 | S02°24'30.00"E | 100.00         | CURVE   
+1        | Blk14S-Lot13_P1 -> Blk14S-Lot13_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk14S-Lot13_P2 -> Blk14S-Lot13_P3 | S35°18'20.16"W | 100.00         | CURVE   
          Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
                        Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
-3        | Blk14S-Lot13_P3 -> Blk14S-Lot13_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk14S-Lot13_P4 -> Blk14S-Lot13_P1 | N02°24'30.00"W | 100.00         | LINE    
+3        | Blk14S-Lot13_P3 -> Blk14S-Lot13_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk14S-Lot13_P4 -> Blk14S-Lot13_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -3949,10 +3961,10 @@ Stated Dimensions: Area Target = 8,848.0 SF (0.2031 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13N-Lot1_P1 -> Blk13N-Lot1_P2 | N87°35'30.00"E | 88.48          | LINE    
-2        | Blk13N-Lot1_P2 -> Blk13N-Lot1_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13N-Lot1_P3 -> Blk13N-Lot1_P4 | S87°35'30.00"W | 88.48          | LINE    
-4        | Blk13N-Lot1_P4 -> Blk13N-Lot1_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13N-Lot1_P1 -> Blk13N-Lot1_P2 | S54°41'39.84"E | 88.48          | LINE    
+2        | Blk13N-Lot1_P2 -> Blk13N-Lot1_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13N-Lot1_P3 -> Blk13N-Lot1_P4 | N54°41'39.84"W | 88.48          | LINE    
+4        | Blk13N-Lot1_P4 -> Blk13N-Lot1_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           376.96 ft
@@ -3976,10 +3988,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13N-Lot2_P1 -> Blk13N-Lot2_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13N-Lot2_P2 -> Blk13N-Lot2_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13N-Lot2_P3 -> Blk13N-Lot2_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13N-Lot2_P4 -> Blk13N-Lot2_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13N-Lot2_P1 -> Blk13N-Lot2_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13N-Lot2_P2 -> Blk13N-Lot2_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13N-Lot2_P3 -> Blk13N-Lot2_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13N-Lot2_P4 -> Blk13N-Lot2_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4003,10 +4015,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13N-Lot3_P1 -> Blk13N-Lot3_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13N-Lot3_P2 -> Blk13N-Lot3_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13N-Lot3_P3 -> Blk13N-Lot3_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13N-Lot3_P4 -> Blk13N-Lot3_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13N-Lot3_P1 -> Blk13N-Lot3_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13N-Lot3_P2 -> Blk13N-Lot3_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13N-Lot3_P3 -> Blk13N-Lot3_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13N-Lot3_P4 -> Blk13N-Lot3_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4030,14 +4042,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13N-Lot4_P1 -> Blk13N-Lot4_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13N-Lot4_P2 -> Blk13N-Lot4_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13N-Lot4_P3 -> Blk13N-Lot4_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13N-Lot4_P4 -> Blk13N-Lot4_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13N-Lot4_P1 -> Blk13N-Lot4_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13N-Lot4_P2 -> Blk13N-Lot4_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13N-Lot4_P3 -> Blk13N-Lot4_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13N-Lot4_P4 -> Blk13N-Lot4_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -4057,10 +4069,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13N-Lot5_P1 -> Blk13N-Lot5_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13N-Lot5_P2 -> Blk13N-Lot5_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13N-Lot5_P3 -> Blk13N-Lot5_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13N-Lot5_P4 -> Blk13N-Lot5_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13N-Lot5_P1 -> Blk13N-Lot5_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13N-Lot5_P2 -> Blk13N-Lot5_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13N-Lot5_P3 -> Blk13N-Lot5_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13N-Lot5_P4 -> Blk13N-Lot5_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4084,10 +4096,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13N-Lot6_P1 -> Blk13N-Lot6_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13N-Lot6_P2 -> Blk13N-Lot6_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13N-Lot6_P3 -> Blk13N-Lot6_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13N-Lot6_P4 -> Blk13N-Lot6_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13N-Lot6_P1 -> Blk13N-Lot6_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13N-Lot6_P2 -> Blk13N-Lot6_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13N-Lot6_P3 -> Blk13N-Lot6_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13N-Lot6_P4 -> Blk13N-Lot6_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4111,14 +4123,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13N-Lot7_P1 -> Blk13N-Lot7_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13N-Lot7_P2 -> Blk13N-Lot7_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13N-Lot7_P3 -> Blk13N-Lot7_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13N-Lot7_P4 -> Blk13N-Lot7_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13N-Lot7_P1 -> Blk13N-Lot7_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13N-Lot7_P2 -> Blk13N-Lot7_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13N-Lot7_P3 -> Blk13N-Lot7_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13N-Lot7_P4 -> Blk13N-Lot7_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -4138,10 +4150,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13N-Lot8_P1 -> Blk13N-Lot8_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13N-Lot8_P2 -> Blk13N-Lot8_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13N-Lot8_P3 -> Blk13N-Lot8_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13N-Lot8_P4 -> Blk13N-Lot8_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13N-Lot8_P1 -> Blk13N-Lot8_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13N-Lot8_P2 -> Blk13N-Lot8_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13N-Lot8_P3 -> Blk13N-Lot8_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13N-Lot8_P4 -> Blk13N-Lot8_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4165,14 +4177,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13N-Lot9_P1 -> Blk13N-Lot9_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13N-Lot9_P2 -> Blk13N-Lot9_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13N-Lot9_P3 -> Blk13N-Lot9_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13N-Lot9_P4 -> Blk13N-Lot9_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13N-Lot9_P1 -> Blk13N-Lot9_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13N-Lot9_P2 -> Blk13N-Lot9_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13N-Lot9_P3 -> Blk13N-Lot9_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13N-Lot9_P4 -> Blk13N-Lot9_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = -0.0000 ft, dE = +0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -4192,12 +4204,12 @@ Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13N-Lot10_P1 -> Blk13N-Lot10_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13N-Lot10_P2 -> Blk13N-Lot10_P3 | S02°24'30.00"E | 100.00         | CURVE   
+1        | Blk13N-Lot10_P1 -> Blk13N-Lot10_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13N-Lot10_P2 -> Blk13N-Lot10_P3 | S35°18'20.16"W | 100.00         | CURVE   
          Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
                        Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
-3        | Blk13N-Lot10_P3 -> Blk13N-Lot10_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13N-Lot10_P4 -> Blk13N-Lot10_P1 | N02°24'30.00"W | 100.00         | LINE    
+3        | Blk13N-Lot10_P3 -> Blk13N-Lot10_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13N-Lot10_P4 -> Blk13N-Lot10_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4221,10 +4233,10 @@ Stated Dimensions: Area Target = 8,848.0 SF (0.2031 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13S-Lot20_P1 -> Blk13S-Lot20_P2 | N87°35'30.00"E | 88.48          | LINE    
-2        | Blk13S-Lot20_P2 -> Blk13S-Lot20_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13S-Lot20_P3 -> Blk13S-Lot20_P4 | S87°35'30.00"W | 88.48          | LINE    
-4        | Blk13S-Lot20_P4 -> Blk13S-Lot20_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13S-Lot20_P1 -> Blk13S-Lot20_P2 | S54°41'39.84"E | 88.48          | LINE    
+2        | Blk13S-Lot20_P2 -> Blk13S-Lot20_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13S-Lot20_P3 -> Blk13S-Lot20_P4 | N54°41'39.84"W | 88.48          | LINE    
+4        | Blk13S-Lot20_P4 -> Blk13S-Lot20_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           376.96 ft
@@ -4248,10 +4260,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13S-Lot19_P1 -> Blk13S-Lot19_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13S-Lot19_P2 -> Blk13S-Lot19_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13S-Lot19_P3 -> Blk13S-Lot19_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13S-Lot19_P4 -> Blk13S-Lot19_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13S-Lot19_P1 -> Blk13S-Lot19_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13S-Lot19_P2 -> Blk13S-Lot19_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13S-Lot19_P3 -> Blk13S-Lot19_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13S-Lot19_P4 -> Blk13S-Lot19_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4275,14 +4287,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13S-Lot18_P1 -> Blk13S-Lot18_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13S-Lot18_P2 -> Blk13S-Lot18_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13S-Lot18_P3 -> Blk13S-Lot18_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13S-Lot18_P4 -> Blk13S-Lot18_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13S-Lot18_P1 -> Blk13S-Lot18_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13S-Lot18_P2 -> Blk13S-Lot18_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13S-Lot18_P3 -> Blk13S-Lot18_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13S-Lot18_P4 -> Blk13S-Lot18_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -4302,14 +4314,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13S-Lot17_P1 -> Blk13S-Lot17_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13S-Lot17_P2 -> Blk13S-Lot17_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13S-Lot17_P3 -> Blk13S-Lot17_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13S-Lot17_P4 -> Blk13S-Lot17_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13S-Lot17_P1 -> Blk13S-Lot17_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13S-Lot17_P2 -> Blk13S-Lot17_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13S-Lot17_P3 -> Blk13S-Lot17_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13S-Lot17_P4 -> Blk13S-Lot17_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -4329,10 +4341,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13S-Lot16_P1 -> Blk13S-Lot16_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13S-Lot16_P2 -> Blk13S-Lot16_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13S-Lot16_P3 -> Blk13S-Lot16_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13S-Lot16_P4 -> Blk13S-Lot16_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13S-Lot16_P1 -> Blk13S-Lot16_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13S-Lot16_P2 -> Blk13S-Lot16_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13S-Lot16_P3 -> Blk13S-Lot16_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13S-Lot16_P4 -> Blk13S-Lot16_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4356,10 +4368,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13S-Lot15_P1 -> Blk13S-Lot15_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13S-Lot15_P2 -> Blk13S-Lot15_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13S-Lot15_P3 -> Blk13S-Lot15_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13S-Lot15_P4 -> Blk13S-Lot15_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13S-Lot15_P1 -> Blk13S-Lot15_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13S-Lot15_P2 -> Blk13S-Lot15_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13S-Lot15_P3 -> Blk13S-Lot15_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13S-Lot15_P4 -> Blk13S-Lot15_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4383,14 +4395,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13S-Lot14_P1 -> Blk13S-Lot14_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13S-Lot14_P2 -> Blk13S-Lot14_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13S-Lot14_P3 -> Blk13S-Lot14_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13S-Lot14_P4 -> Blk13S-Lot14_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13S-Lot14_P1 -> Blk13S-Lot14_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13S-Lot14_P2 -> Blk13S-Lot14_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13S-Lot14_P3 -> Blk13S-Lot14_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13S-Lot14_P4 -> Blk13S-Lot14_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = -0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -4410,10 +4422,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13S-Lot13_P1 -> Blk13S-Lot13_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13S-Lot13_P2 -> Blk13S-Lot13_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13S-Lot13_P3 -> Blk13S-Lot13_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13S-Lot13_P4 -> Blk13S-Lot13_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13S-Lot13_P1 -> Blk13S-Lot13_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13S-Lot13_P2 -> Blk13S-Lot13_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13S-Lot13_P3 -> Blk13S-Lot13_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13S-Lot13_P4 -> Blk13S-Lot13_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4437,10 +4449,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13S-Lot12_P1 -> Blk13S-Lot12_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13S-Lot12_P2 -> Blk13S-Lot12_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk13S-Lot12_P3 -> Blk13S-Lot12_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13S-Lot12_P4 -> Blk13S-Lot12_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk13S-Lot12_P1 -> Blk13S-Lot12_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13S-Lot12_P2 -> Blk13S-Lot12_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk13S-Lot12_P3 -> Blk13S-Lot12_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13S-Lot12_P4 -> Blk13S-Lot12_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4464,16 +4476,16 @@ Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk13S-Lot11_P1 -> Blk13S-Lot11_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk13S-Lot11_P2 -> Blk13S-Lot11_P3 | S02°24'30.00"E | 100.00         | CURVE   
+1        | Blk13S-Lot11_P1 -> Blk13S-Lot11_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk13S-Lot11_P2 -> Blk13S-Lot11_P3 | S35°18'20.16"W | 100.00         | CURVE   
          Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
                        Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
-3        | Blk13S-Lot11_P3 -> Blk13S-Lot11_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk13S-Lot11_P4 -> Blk13S-Lot11_P1 | N02°24'30.00"W | 100.00         | LINE    
+3        | Blk13S-Lot11_P3 -> Blk13S-Lot11_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk13S-Lot11_P4 -> Blk13S-Lot11_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -4493,10 +4505,10 @@ Stated Dimensions: Area Target = 8,500.0 SF (0.1951 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12N-Lot1_P1 -> Blk12N-Lot1_P2 | N87°35'30.00"E | 85.00          | LINE    
-2        | Blk12N-Lot1_P2 -> Blk12N-Lot1_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12N-Lot1_P3 -> Blk12N-Lot1_P4 | S87°35'30.00"W | 85.00          | LINE    
-4        | Blk12N-Lot1_P4 -> Blk12N-Lot1_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12N-Lot1_P1 -> Blk12N-Lot1_P2 | S54°41'39.84"E | 85.00          | LINE    
+2        | Blk12N-Lot1_P2 -> Blk12N-Lot1_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12N-Lot1_P3 -> Blk12N-Lot1_P4 | N54°41'39.84"W | 85.00          | LINE    
+4        | Blk12N-Lot1_P4 -> Blk12N-Lot1_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           370.00 ft
@@ -4520,10 +4532,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12N-Lot2_P1 -> Blk12N-Lot2_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12N-Lot2_P2 -> Blk12N-Lot2_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12N-Lot2_P3 -> Blk12N-Lot2_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12N-Lot2_P4 -> Blk12N-Lot2_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12N-Lot2_P1 -> Blk12N-Lot2_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12N-Lot2_P2 -> Blk12N-Lot2_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12N-Lot2_P3 -> Blk12N-Lot2_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12N-Lot2_P4 -> Blk12N-Lot2_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4547,10 +4559,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12N-Lot3_P1 -> Blk12N-Lot3_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12N-Lot3_P2 -> Blk12N-Lot3_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12N-Lot3_P3 -> Blk12N-Lot3_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12N-Lot3_P4 -> Blk12N-Lot3_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12N-Lot3_P1 -> Blk12N-Lot3_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12N-Lot3_P2 -> Blk12N-Lot3_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12N-Lot3_P3 -> Blk12N-Lot3_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12N-Lot3_P4 -> Blk12N-Lot3_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4574,10 +4586,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12N-Lot4_P1 -> Blk12N-Lot4_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12N-Lot4_P2 -> Blk12N-Lot4_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12N-Lot4_P3 -> Blk12N-Lot4_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12N-Lot4_P4 -> Blk12N-Lot4_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12N-Lot4_P1 -> Blk12N-Lot4_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12N-Lot4_P2 -> Blk12N-Lot4_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12N-Lot4_P3 -> Blk12N-Lot4_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12N-Lot4_P4 -> Blk12N-Lot4_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4601,10 +4613,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12N-Lot5_P1 -> Blk12N-Lot5_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12N-Lot5_P2 -> Blk12N-Lot5_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12N-Lot5_P3 -> Blk12N-Lot5_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12N-Lot5_P4 -> Blk12N-Lot5_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12N-Lot5_P1 -> Blk12N-Lot5_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12N-Lot5_P2 -> Blk12N-Lot5_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12N-Lot5_P3 -> Blk12N-Lot5_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12N-Lot5_P4 -> Blk12N-Lot5_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4628,10 +4640,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12N-Lot6_P1 -> Blk12N-Lot6_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12N-Lot6_P2 -> Blk12N-Lot6_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12N-Lot6_P3 -> Blk12N-Lot6_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12N-Lot6_P4 -> Blk12N-Lot6_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12N-Lot6_P1 -> Blk12N-Lot6_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12N-Lot6_P2 -> Blk12N-Lot6_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12N-Lot6_P3 -> Blk12N-Lot6_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12N-Lot6_P4 -> Blk12N-Lot6_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4655,10 +4667,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12N-Lot7_P1 -> Blk12N-Lot7_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12N-Lot7_P2 -> Blk12N-Lot7_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12N-Lot7_P3 -> Blk12N-Lot7_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12N-Lot7_P4 -> Blk12N-Lot7_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12N-Lot7_P1 -> Blk12N-Lot7_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12N-Lot7_P2 -> Blk12N-Lot7_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12N-Lot7_P3 -> Blk12N-Lot7_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12N-Lot7_P4 -> Blk12N-Lot7_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4682,12 +4694,12 @@ Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12N-Lot8_P1 -> Blk12N-Lot8_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12N-Lot8_P2 -> Blk12N-Lot8_P3 | S02°24'30.00"E | 100.00         | CURVE   
+1        | Blk12N-Lot8_P1 -> Blk12N-Lot8_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12N-Lot8_P2 -> Blk12N-Lot8_P3 | S35°18'20.16"W | 100.00         | CURVE   
          Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
                        Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
-3        | Blk12N-Lot8_P3 -> Blk12N-Lot8_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12N-Lot8_P4 -> Blk12N-Lot8_P1 | N02°24'30.00"W | 100.00         | LINE    
+3        | Blk12N-Lot8_P3 -> Blk12N-Lot8_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12N-Lot8_P4 -> Blk12N-Lot8_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4711,14 +4723,14 @@ Stated Dimensions: Area Target = 8,500.0 SF (0.1951 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12S-Lot16_P1 -> Blk12S-Lot16_P2 | N87°35'30.00"E | 85.00          | LINE    
-2        | Blk12S-Lot16_P2 -> Blk12S-Lot16_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12S-Lot16_P3 -> Blk12S-Lot16_P4 | S87°35'30.00"W | 85.00          | LINE    
-4        | Blk12S-Lot16_P4 -> Blk12S-Lot16_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12S-Lot16_P1 -> Blk12S-Lot16_P2 | S54°41'39.84"E | 85.00          | LINE    
+2        | Blk12S-Lot16_P2 -> Blk12S-Lot16_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12S-Lot16_P3 -> Blk12S-Lot16_P4 | N54°41'39.84"W | 85.00          | LINE    
+4        | Blk12S-Lot16_P4 -> Blk12S-Lot16_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           370.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -4738,10 +4750,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12S-Lot15_P1 -> Blk12S-Lot15_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12S-Lot15_P2 -> Blk12S-Lot15_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12S-Lot15_P3 -> Blk12S-Lot15_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12S-Lot15_P4 -> Blk12S-Lot15_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12S-Lot15_P1 -> Blk12S-Lot15_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12S-Lot15_P2 -> Blk12S-Lot15_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12S-Lot15_P3 -> Blk12S-Lot15_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12S-Lot15_P4 -> Blk12S-Lot15_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4765,14 +4777,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12S-Lot14_P1 -> Blk12S-Lot14_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12S-Lot14_P2 -> Blk12S-Lot14_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12S-Lot14_P3 -> Blk12S-Lot14_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12S-Lot14_P4 -> Blk12S-Lot14_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12S-Lot14_P1 -> Blk12S-Lot14_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12S-Lot14_P2 -> Blk12S-Lot14_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12S-Lot14_P3 -> Blk12S-Lot14_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12S-Lot14_P4 -> Blk12S-Lot14_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -4792,10 +4804,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12S-Lot13_P1 -> Blk12S-Lot13_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12S-Lot13_P2 -> Blk12S-Lot13_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12S-Lot13_P3 -> Blk12S-Lot13_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12S-Lot13_P4 -> Blk12S-Lot13_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12S-Lot13_P1 -> Blk12S-Lot13_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12S-Lot13_P2 -> Blk12S-Lot13_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12S-Lot13_P3 -> Blk12S-Lot13_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12S-Lot13_P4 -> Blk12S-Lot13_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4819,10 +4831,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12S-Lot12_P1 -> Blk12S-Lot12_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12S-Lot12_P2 -> Blk12S-Lot12_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12S-Lot12_P3 -> Blk12S-Lot12_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12S-Lot12_P4 -> Blk12S-Lot12_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12S-Lot12_P1 -> Blk12S-Lot12_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12S-Lot12_P2 -> Blk12S-Lot12_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12S-Lot12_P3 -> Blk12S-Lot12_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12S-Lot12_P4 -> Blk12S-Lot12_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4846,14 +4858,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12S-Lot11_P1 -> Blk12S-Lot11_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12S-Lot11_P2 -> Blk12S-Lot11_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12S-Lot11_P3 -> Blk12S-Lot11_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12S-Lot11_P4 -> Blk12S-Lot11_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12S-Lot11_P1 -> Blk12S-Lot11_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12S-Lot11_P2 -> Blk12S-Lot11_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12S-Lot11_P3 -> Blk12S-Lot11_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12S-Lot11_P4 -> Blk12S-Lot11_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -4873,10 +4885,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12S-Lot10_P1 -> Blk12S-Lot10_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12S-Lot10_P2 -> Blk12S-Lot10_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk12S-Lot10_P3 -> Blk12S-Lot10_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12S-Lot10_P4 -> Blk12S-Lot10_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk12S-Lot10_P1 -> Blk12S-Lot10_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12S-Lot10_P2 -> Blk12S-Lot10_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk12S-Lot10_P3 -> Blk12S-Lot10_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12S-Lot10_P4 -> Blk12S-Lot10_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4900,16 +4912,16 @@ Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk12S-Lot9_P1 -> Blk12S-Lot9_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk12S-Lot9_P2 -> Blk12S-Lot9_P3 | S02°24'30.00"E | 100.00         | CURVE   
+1        | Blk12S-Lot9_P1 -> Blk12S-Lot9_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk12S-Lot9_P2 -> Blk12S-Lot9_P3 | S35°18'20.16"W | 100.00         | CURVE   
          Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
                        Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
-3        | Blk12S-Lot9_P3 -> Blk12S-Lot9_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk12S-Lot9_P4 -> Blk12S-Lot9_P1 | N02°24'30.00"W | 100.00         | LINE    
+3        | Blk12S-Lot9_P3 -> Blk12S-Lot9_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk12S-Lot9_P4 -> Blk12S-Lot9_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = -0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -4929,14 +4941,14 @@ Stated Dimensions: Area Target = 8,000.0 SF (0.1837 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11N-Lot1_P1 -> Blk11N-Lot1_P2 | N87°35'30.00"E | 80.00          | LINE    
-2        | Blk11N-Lot1_P2 -> Blk11N-Lot1_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk11N-Lot1_P3 -> Blk11N-Lot1_P4 | S87°35'30.00"W | 80.00          | LINE    
-4        | Blk11N-Lot1_P4 -> Blk11N-Lot1_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk11N-Lot1_P1 -> Blk11N-Lot1_P2 | S54°41'39.84"E | 80.00          | LINE    
+2        | Blk11N-Lot1_P2 -> Blk11N-Lot1_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk11N-Lot1_P3 -> Blk11N-Lot1_P4 | N54°41'39.84"W | 80.00          | LINE    
+4        | Blk11N-Lot1_P4 -> Blk11N-Lot1_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           360.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -4956,10 +4968,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11N-Lot2_P1 -> Blk11N-Lot2_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk11N-Lot2_P2 -> Blk11N-Lot2_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk11N-Lot2_P3 -> Blk11N-Lot2_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk11N-Lot2_P4 -> Blk11N-Lot2_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk11N-Lot2_P1 -> Blk11N-Lot2_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk11N-Lot2_P2 -> Blk11N-Lot2_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk11N-Lot2_P3 -> Blk11N-Lot2_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk11N-Lot2_P4 -> Blk11N-Lot2_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -4983,10 +4995,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11N-Lot3_P1 -> Blk11N-Lot3_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk11N-Lot3_P2 -> Blk11N-Lot3_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk11N-Lot3_P3 -> Blk11N-Lot3_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk11N-Lot3_P4 -> Blk11N-Lot3_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk11N-Lot3_P1 -> Blk11N-Lot3_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk11N-Lot3_P2 -> Blk11N-Lot3_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk11N-Lot3_P3 -> Blk11N-Lot3_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk11N-Lot3_P4 -> Blk11N-Lot3_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -5010,14 +5022,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11N-Lot4_P1 -> Blk11N-Lot4_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk11N-Lot4_P2 -> Blk11N-Lot4_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk11N-Lot4_P3 -> Blk11N-Lot4_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk11N-Lot4_P4 -> Blk11N-Lot4_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk11N-Lot4_P1 -> Blk11N-Lot4_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk11N-Lot4_P2 -> Blk11N-Lot4_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk11N-Lot4_P3 -> Blk11N-Lot4_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk11N-Lot4_P4 -> Blk11N-Lot4_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -5037,10 +5049,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11N-Lot5_P1 -> Blk11N-Lot5_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk11N-Lot5_P2 -> Blk11N-Lot5_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk11N-Lot5_P3 -> Blk11N-Lot5_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk11N-Lot5_P4 -> Blk11N-Lot5_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk11N-Lot5_P1 -> Blk11N-Lot5_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk11N-Lot5_P2 -> Blk11N-Lot5_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk11N-Lot5_P3 -> Blk11N-Lot5_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk11N-Lot5_P4 -> Blk11N-Lot5_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -5064,10 +5076,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11N-Lot6_P1 -> Blk11N-Lot6_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk11N-Lot6_P2 -> Blk11N-Lot6_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk11N-Lot6_P3 -> Blk11N-Lot6_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk11N-Lot6_P4 -> Blk11N-Lot6_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk11N-Lot6_P1 -> Blk11N-Lot6_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk11N-Lot6_P2 -> Blk11N-Lot6_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk11N-Lot6_P3 -> Blk11N-Lot6_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk11N-Lot6_P4 -> Blk11N-Lot6_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -5091,16 +5103,16 @@ Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11N-Lot7_P1 -> Blk11N-Lot7_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk11N-Lot7_P2 -> Blk11N-Lot7_P3 | S02°24'30.00"E | 100.00         | CURVE   
+1        | Blk11N-Lot7_P1 -> Blk11N-Lot7_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk11N-Lot7_P2 -> Blk11N-Lot7_P3 | S35°18'20.16"W | 100.00         | CURVE   
          Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
                        Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
-3        | Blk11N-Lot7_P3 -> Blk11N-Lot7_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk11N-Lot7_P4 -> Blk11N-Lot7_P1 | N02°24'30.00"W | 100.00         | LINE    
+3        | Blk11N-Lot7_P3 -> Blk11N-Lot7_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk11N-Lot7_P4 -> Blk11N-Lot7_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = -0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -5120,10 +5132,10 @@ Stated Dimensions: Area Target = 8,000.0 SF (0.1837 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11S-Lot14_P1 -> Blk11S-Lot14_P2 | N87°35'30.00"E | 80.00          | LINE    
-2        | Blk11S-Lot14_P2 -> Blk11S-Lot14_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk11S-Lot14_P3 -> Blk11S-Lot14_P4 | S87°35'30.00"W | 80.00          | LINE    
-4        | Blk11S-Lot14_P4 -> Blk11S-Lot14_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk11S-Lot14_P1 -> Blk11S-Lot14_P2 | S54°41'39.84"E | 80.00          | LINE    
+2        | Blk11S-Lot14_P2 -> Blk11S-Lot14_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk11S-Lot14_P3 -> Blk11S-Lot14_P4 | N54°41'39.84"W | 80.00          | LINE    
+4        | Blk11S-Lot14_P4 -> Blk11S-Lot14_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           360.00 ft
@@ -5147,10 +5159,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11S-Lot13_P1 -> Blk11S-Lot13_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk11S-Lot13_P2 -> Blk11S-Lot13_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk11S-Lot13_P3 -> Blk11S-Lot13_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk11S-Lot13_P4 -> Blk11S-Lot13_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk11S-Lot13_P1 -> Blk11S-Lot13_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk11S-Lot13_P2 -> Blk11S-Lot13_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk11S-Lot13_P3 -> Blk11S-Lot13_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk11S-Lot13_P4 -> Blk11S-Lot13_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -5174,14 +5186,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11S-Lot12_P1 -> Blk11S-Lot12_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk11S-Lot12_P2 -> Blk11S-Lot12_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk11S-Lot12_P3 -> Blk11S-Lot12_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk11S-Lot12_P4 -> Blk11S-Lot12_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk11S-Lot12_P1 -> Blk11S-Lot12_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk11S-Lot12_P2 -> Blk11S-Lot12_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk11S-Lot12_P3 -> Blk11S-Lot12_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk11S-Lot12_P4 -> Blk11S-Lot12_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -5201,10 +5213,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11S-Lot11_P1 -> Blk11S-Lot11_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk11S-Lot11_P2 -> Blk11S-Lot11_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk11S-Lot11_P3 -> Blk11S-Lot11_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk11S-Lot11_P4 -> Blk11S-Lot11_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk11S-Lot11_P1 -> Blk11S-Lot11_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk11S-Lot11_P2 -> Blk11S-Lot11_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk11S-Lot11_P3 -> Blk11S-Lot11_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk11S-Lot11_P4 -> Blk11S-Lot11_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -5228,10 +5240,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11S-Lot10_P1 -> Blk11S-Lot10_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk11S-Lot10_P2 -> Blk11S-Lot10_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk11S-Lot10_P3 -> Blk11S-Lot10_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk11S-Lot10_P4 -> Blk11S-Lot10_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk11S-Lot10_P1 -> Blk11S-Lot10_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk11S-Lot10_P2 -> Blk11S-Lot10_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk11S-Lot10_P3 -> Blk11S-Lot10_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk11S-Lot10_P4 -> Blk11S-Lot10_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -5255,14 +5267,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11S-Lot9_P1 -> Blk11S-Lot9_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk11S-Lot9_P2 -> Blk11S-Lot9_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk11S-Lot9_P3 -> Blk11S-Lot9_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk11S-Lot9_P4 -> Blk11S-Lot9_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk11S-Lot9_P1 -> Blk11S-Lot9_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk11S-Lot9_P2 -> Blk11S-Lot9_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk11S-Lot9_P3 -> Blk11S-Lot9_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk11S-Lot9_P4 -> Blk11S-Lot9_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -5282,12 +5294,12 @@ Stated Dimensions: Area Target = 7,542.5 SF (0.1732 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk11S-Lot8_P1 -> Blk11S-Lot8_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk11S-Lot8_P2 -> Blk11S-Lot8_P3 | S02°24'30.00"E | 100.00         | CURVE   
+1        | Blk11S-Lot8_P1 -> Blk11S-Lot8_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk11S-Lot8_P2 -> Blk11S-Lot8_P3 | S35°18'20.16"W | 100.00         | CURVE   
          Curve Data -> Radius: 1959.86' | Arc: 100.00' | Delta: 02°55'24.5" | Chord: 99.99'
                        Tangent: 50.01' | Mid-Ord: 0.64' | Ext: 0.64' | Seg Area: 42.5 SF
-3        | Blk11S-Lot8_P3 -> Blk11S-Lot8_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk11S-Lot8_P4 -> Blk11S-Lot8_P1 | N02°24'30.00"W | 100.00         | LINE    
+3        | Blk11S-Lot8_P3 -> Blk11S-Lot8_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk11S-Lot8_P4 -> Blk11S-Lot8_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -5311,10 +5323,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk10-Lot1_P1 -> Blk10-Lot1_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk10-Lot1_P2 -> Blk10-Lot1_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk10-Lot1_P3 -> Blk10-Lot1_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk10-Lot1_P4 -> Blk10-Lot1_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk10-Lot1_P1 -> Blk10-Lot1_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk10-Lot1_P2 -> Blk10-Lot1_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk10-Lot1_P3 -> Blk10-Lot1_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk10-Lot1_P4 -> Blk10-Lot1_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -5338,10 +5350,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk10-Lot2_P1 -> Blk10-Lot2_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk10-Lot2_P2 -> Blk10-Lot2_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk10-Lot2_P3 -> Blk10-Lot2_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk10-Lot2_P4 -> Blk10-Lot2_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk10-Lot2_P1 -> Blk10-Lot2_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk10-Lot2_P2 -> Blk10-Lot2_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk10-Lot2_P3 -> Blk10-Lot2_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk10-Lot2_P4 -> Blk10-Lot2_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -5365,14 +5377,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk10-Lot3_P1 -> Blk10-Lot3_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk10-Lot3_P2 -> Blk10-Lot3_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk10-Lot3_P3 -> Blk10-Lot3_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk10-Lot3_P4 -> Blk10-Lot3_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk10-Lot3_P1 -> Blk10-Lot3_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk10-Lot3_P2 -> Blk10-Lot3_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk10-Lot3_P3 -> Blk10-Lot3_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk10-Lot3_P4 -> Blk10-Lot3_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -5392,14 +5404,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk10-Lot4_P1 -> Blk10-Lot4_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk10-Lot4_P2 -> Blk10-Lot4_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk10-Lot4_P3 -> Blk10-Lot4_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk10-Lot4_P4 -> Blk10-Lot4_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk10-Lot4_P1 -> Blk10-Lot4_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk10-Lot4_P2 -> Blk10-Lot4_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk10-Lot4_P3 -> Blk10-Lot4_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk10-Lot4_P4 -> Blk10-Lot4_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -5419,14 +5431,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk10-Lot5_P1 -> Blk10-Lot5_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk10-Lot5_P2 -> Blk10-Lot5_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk10-Lot5_P3 -> Blk10-Lot5_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk10-Lot5_P4 -> Blk10-Lot5_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk10-Lot5_P1 -> Blk10-Lot5_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk10-Lot5_P2 -> Blk10-Lot5_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk10-Lot5_P3 -> Blk10-Lot5_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk10-Lot5_P4 -> Blk10-Lot5_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -5446,10 +5458,10 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk10-Lot6_P1 -> Blk10-Lot6_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk10-Lot6_P2 -> Blk10-Lot6_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk10-Lot6_P3 -> Blk10-Lot6_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk10-Lot6_P4 -> Blk10-Lot6_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk10-Lot6_P1 -> Blk10-Lot6_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk10-Lot6_P2 -> Blk10-Lot6_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk10-Lot6_P3 -> Blk10-Lot6_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk10-Lot6_P4 -> Blk10-Lot6_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
@@ -5473,14 +5485,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk10-Lot7_P1 -> Blk10-Lot7_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk10-Lot7_P2 -> Blk10-Lot7_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk10-Lot7_P3 -> Blk10-Lot7_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk10-Lot7_P4 -> Blk10-Lot7_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk10-Lot7_P1 -> Blk10-Lot7_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk10-Lot7_P2 -> Blk10-Lot7_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk10-Lot7_P3 -> Blk10-Lot7_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk10-Lot7_P4 -> Blk10-Lot7_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -5500,14 +5512,14 @@ Stated Dimensions: Area Target = 7,500.0 SF (0.1722 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To         | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | Blk10-Lot8_P1 -> Blk10-Lot8_P2 | N87°35'30.00"E | 75.00          | LINE    
-2        | Blk10-Lot8_P2 -> Blk10-Lot8_P3 | S02°24'30.00"E | 100.00         | LINE    
-3        | Blk10-Lot8_P3 -> Blk10-Lot8_P4 | S87°35'30.00"W | 75.00          | LINE    
-4        | Blk10-Lot8_P4 -> Blk10-Lot8_P1 | N02°24'30.00"W | 100.00         | LINE    
+1        | Blk10-Lot8_P1 -> Blk10-Lot8_P2 | S54°41'39.84"E | 75.00          | LINE    
+2        | Blk10-Lot8_P2 -> Blk10-Lot8_P3 | S35°18'20.16"W | 100.00         | LINE    
+3        | Blk10-Lot8_P3 -> Blk10-Lot8_P4 | N54°41'39.84"W | 75.00          | LINE    
+4        | Blk10-Lot8_P4 -> Blk10-Lot8_P1 | N35°18'20.16"E | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           350.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)
@@ -5534,7 +5546,7 @@ Course   | From -> To         | Bearing        | Distance (ft)  | Type
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & PRECISION:
   Perimeter:           240.00 ft
-  Misclose Vector:     dN = +0.0000 ft, dE = +0.0000 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
   Linear Misclose:     0.0000 ft
   Relative Precision:  EXACT (0.000 ft)
   Traverse Status:     PASS (CLOSED)

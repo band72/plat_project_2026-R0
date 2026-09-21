@@ -1,0 +1,142 @@
+================================================================================
+  BEACHWOOD UNIT TWO -- BLOCK 15 (LOTS 15, 16, 17, 18) CURVE MAPCHECK REPORT
+  Plat Book 30, Pages 82 & 82A, Duval County, FL (1960)
+  High-Precision Omni-Parameter Circular Curve Audit & Mathematical Closure
+================================================================================
+
+================================================================================
+  GEOMETRIC CURVE ELEMENT DECOMPOSITION TABLE (KEEL DR & MARINA AVE)
+================================================================================
+Curve Identifier   | Lot 15 Frontage    | Lot 16 Frontage    | Lot 17 Corner Return
+--------------------------------------------------------------------------------
+Radius (R)         |         173.93'  |         173.93'  |          25.00'
+Delta (Delta)      |      24°59'59.2"  |      27°25'17.5"  |      57°42'29.9"
+Arc Length (L)     |          75.89'  |          83.24'  |          25.18'
+Chord (C)          |          75.29'  |          82.45'  |          24.13'
+Chord Bearing      |      S75°05'30"W  |      S48°56'55"W  |      S47°29'21"W
+Tangent (T)        |          38.56'  |          42.43'  |          13.77'
+Mid-Ordinate (M)   |           4.12'  |           4.96'  |           3.10'
+External (E)       |           4.22'  |           5.10'  |           3.54'
+Segment Area       |        207.4 SF  |        273.2 SF  |         50.6 SF
+Sector Area        |       6599.8 SF  |       7239.2 SF  |        314.8 SF
+Tangent In         |      S87°35'30"W  |      S62°35'30"W  |      S54°41'40"E
+Tangent Out        |      S62°35'30"W  |      S35°18'20"W  |      S35°18'20"W
+Radial In          |      N02°24'30"W  |      N27°24'30"W  |      N35°18'20"E
+Radial Out         |      N27°24'30"W  |      N54°41'40"W  |      S54°41'40"E
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk15-Lot15 (Block 15, Lot 15)
+================================================================================
+Stated Dimensions: Area Target = 8,504.0 SF (0.1952 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | NW_Cor -> NE_Cor   | N87°03'17.65"E | 87.13          | LINE    
+2        | NE_Cor -> SE_Cor(PC) | S02°24'30.00"E | 100.00         | LINE    
+3        | SE_Cor(PC) -> SW_Cor(PT) | S75°05'30.00"W | 75.29          | CURVE   
+         Curve Data -> Radius: 173.93' | Arc: 75.89' | Delta: 24°59'59.2" | Chord: 75.29'
+                       Tangent: 38.56' | Mid-Ord: 4.12' | Ext: 4.22' | Seg Area: 207.4 SF
+4        | SW_Cor(PT) -> NW_Cor | N09°08'07.00"W | 116.28         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           378.70 ft
+  Misclose Vector:     dN = -0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    8,711.5 SF
+  Curve Area Adj:      -207.4 SF
+  Net Computed Area:   8,504.0 SF (0.1952 Acres)
+  Target Stated Area:  8,504.0 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk15-Lot16 (Block 15, Lot 16)
+================================================================================
+Stated Dimensions: Area Target = 9,084.2 SF (0.2085 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | NW_Cor -> NE_Cor   | N88°05'41.29"E | 63.18          | LINE    
+2        | NE_Cor -> SE_Cor(PC) | S09°08'07.00"E | 116.28         | LINE    
+3        | SE_Cor(PC) -> SW_Cor(PT) | S48°56'55.00"W | 82.45          | CURVE   
+         Curve Data -> Radius: 173.93' | Arc: 83.24' | Delta: 27°25'17.5" | Chord: 82.45'
+                       Tangent: 42.43' | Mid-Ord: 4.96' | Ext: 5.10' | Seg Area: 273.2 SF
+4        | SW_Cor(PT) -> NW_Cor | N06°38'32.00"W | 167.98         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           429.89 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    9,357.4 SF
+  Curve Area Adj:      -273.2 SF
+  Net Computed Area:   9,084.2 SF (0.2085 Acres)
+  Target Stated Area:  9,084.2 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk15-Lot17 (Block 15, Lot 17)
+================================================================================
+Stated Dimensions: Area Target = 12,777.6 SF (0.2933 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | NW_Cor -> NE_Cor   | S81°40'01.00"E | 40.46          | LINE    
+2        | NE_Cor -> SE_Cor   | S06°38'32.00"E | 167.98         | LINE    
+3        | SE_Cor -> Marina_PC | S47°29'20.57"W | 19.21          | CURVE   
+         Curve Data -> Radius: 25.00' | Arc: 25.18' | Delta: 57°42'29.9" | Chord: 24.13'
+                       Tangent: 13.77' | Mid-Ord: 3.10' | Ext: 3.54' | Seg Area: 50.6 SF
+4        | Marina_PC -> SW_Cor | N54°41'40.00"W | 125.00         | LINE    
+5        | SW_Cor -> NW_Cor   | N26°33'26.62"E | 126.84         | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           479.49 ft
+  Misclose Vector:     dN = -0.0000 ft, dE = +0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    12,727.0 SF
+  Curve Area Adj:      +50.6 SF
+  Net Computed Area:   12,777.6 SF (0.2933 Acres)
+  Target Stated Area:  12,777.6 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK REPORT: Blk15-Lot18 (Block 15, Lot 18)
+================================================================================
+Stated Dimensions: Area Target = 10,487.1 SF (0.2408 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To         | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | NW_Cor -> NE_Cor   | S81°40'01.00"E | 101.78         | LINE    
+2        | NE_Cor -> SE_Cor   | S26°33'26.62"W | 126.84         | LINE    
+3        | SE_Cor -> SW_Cor   | N54°41'40.00"W | 110.00         | LINE    
+4        | SW_Cor -> NW_Cor   | N35°18'20.00"E | 79.20          | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & PRECISION:
+  Perimeter:           417.82 ft
+  Misclose Vector:     dN = +0.0000 ft, dE = -0.0000 ft
+  Linear Misclose:     0.0000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  Traverse Status:     PASS (CLOSED)
+AREA VERIFICATION:
+  Raw Polygon Area:    10,487.1 SF
+  Curve Area Adj:      +0.0 SF
+  Net Computed Area:   10,487.1 SF (0.2408 Acres)
+  Target Stated Area:  10,487.1 SF
+  Discrepancy:         +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure
+================================================================================
+

@@ -31,7 +31,10 @@ def draw_lot_sheet(dxf, verification, pts, origin_n, origin_e,
                    layer_lbl="SHEET_LABELS", layer_frame="SHEET_FRAME"):
     """Draw one lot's check sheet with its lower-left at (origin_n, origin_e)."""
     arcs = arcs or {}
-    minn, maxn, mine, maxe = _bounds(pts)
+    all_bounds_pts = list(pts)
+    for arc in arcs.values():
+        all_bounds_pts.extend(arc.get("arc_points") or [])
+    minn, maxn, mine, maxe = _bounds(all_bounds_pts)
     span_n = max(maxn - minn, 1e-6)
     span_e = max(maxe - mine, 1e-6)
     avail_n = PAGE_H - 2 * MARGIN - 34      # leave headroom for the title block
@@ -100,26 +103,36 @@ def draw_lot_sheet(dxf, verification, pts, origin_n, origin_e,
              f"VERTICES {v.n_vertices}   CLOSING SIDE {v.misclosure:.2f}'",
              height=4.0, layer=layer_lbl)
     row = ty - 25
-    for f in v.findings[:6]:
+    if layer_ok == "LOT_LINE_APPROX":
+        dxf.text((row, tx), "STATUS: ASSUMED (SCALED FROM SCAN - FOR REFINEMENT)",
+                 height=3.4, layer="LOT_LINE_APPROX")
+        row -= 5.2
+    for f in v.findings[:5]:
         dxf.text((row, tx), f"[{f.severity}] {f.code}: {f.message[:62]}",
                  height=3.4,
                  layer=layer_err if f.severity == "ERROR" else layer_lbl)
         row -= 5.2
-    if v.passed and not v.warnings:
+    if v.passed and not v.warnings and layer_ok != "LOT_LINE_APPROX":
         dxf.text((row, tx), "all geometric checks passed: closed single "
                  "polyline, no self-intersection, no overlap, no spikes",
                  height=3.4, layer=layer_lbl)
 
 
 def plot_all(dxf, verifications: dict, parcels: dict, arcs_by_lot=None,
-             cols=4, origin_n=0.0, origin_e=0.0):
+             cols=4, origin_n=0.0, origin_e=0.0, lot_layers=None,
+             layer_ok="LOT_POLYLINE", layer_err="ERROR",
+             layer_lbl="SHEET_LABELS", layer_frame="SHEET_FRAME"):
     """Lay out every lot's check sheet on a grid."""
     arcs_by_lot = arcs_by_lot or {}
+    lot_layers = lot_layers or {}
     order = list(parcels.keys())
     for k, lot in enumerate(order):
         r, c = divmod(k, cols)
         on = origin_n - r * (PAGE_H + 20)
         oe = origin_e + c * (PAGE_W + 20)
+        lyr = lot_layers.get(lot, layer_ok)
         draw_lot_sheet(dxf, verifications[lot], parcels[lot], on, oe,
-                       arcs=arcs_by_lot.get(lot))
+                       arcs=arcs_by_lot.get(lot), layer_ok=lyr,
+                       layer_err=layer_err, layer_lbl=layer_lbl,
+                       layer_frame=layer_frame)
     return len(order)
