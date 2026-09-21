@@ -8,15 +8,28 @@ from engine.ocr import (load_gray, find_table_regions_inside_border,
                         parse_table_by_cells, validate_curve, repair_curve)
 import data.trail_ridge_estates as trd
 
+import os
+
 FILES = {
     "PB0082_P0035_4216027_sheet_4_of_6.png": 3,
     "PB0082_P0035_4216027_sheet_5_of_6.png": 4,
     "PB0082_P0035_4216027_sheet_6_of_6.png": 5,
 }
 
-all_curves, all_lines = {}, {}
+found_files = {}
 for fn, sheet in FILES.items():
-    img = load_gray(f"/mnt/user-data/uploads/{fn}")
+    for p in [f"/mnt/user-data/uploads/{fn}", f"temp_images/{fn}", f"data/{fn}", fn]:
+        if os.path.exists(p):
+            found_files[p] = sheet
+            break
+
+if not found_files:
+    print(f"Benchmark skipped: local source images not found ({list(FILES.keys())})")
+    sys.exit(0)
+
+all_curves, all_lines = {}, {}
+for path, sheet in found_files.items():
+    img = load_gray(path)
     h, w = img.shape
     regs = [r for r in find_table_regions_inside_border(img) if r[0] > w * 0.65]
     sc, sl = {}, {}

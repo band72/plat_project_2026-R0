@@ -1,0 +1,376 @@
+"""
+scan_align.py -- register a scanned plat's skeleton onto the vector (COGO) plat
+the way a surveyor would, with no hand-picked pixel landmarks.
+
+  1. SCALE FIRST. The scan is converted to feet by the exact unit conversion
+     (ft/px = scale_ft / dpi). Scale is never fitted; it is CHECKED, by measuring a
+     long line whose length the plat states.
+  2. ANCHOR. One corner of the vector plat is pinned to the same corner on the
+     scan. The corner is where two fitted long lines cross, so it does not depend
+     on a pixel read off a blob.
+  3. BASELINE. The scan is rotated about that corner until a long scan line lies
+     on the same long line of the vector plat (the bearing of one long course fixes
+     the rotation; a second line at right angles cross-checks it).
+  4. ADD AND ADJUST. Vector polylines are added a group at a time, nearest the
+     anchor first. Each group is compared with the ink, and the alignment is
+     corrected -- translation first, then rotation once a distant group is in --
+     at most `max_adjustments` (three) times.
+
+Why not fit a Helmert transform to four landmarks (iterative_align_raster_to_cogo)?
+That is only as good as the landmarks. On Beachwood the four pixels named POB,
+Block 18 Lot 1, Starfish/Mangrove and the north-line end were not on those
+features (hundreds of feet off), so the fit returned a 0.9553 "scale" and a
+56.8 ft residual for one build and a meaningless 0.05 ft for the other -- a
+perfect fit to made-up points. A fixed scale, one corner and one baseline leave
+nothing to fit wrongly.
+
+Frames: the scan is in scan feet, (Northing = up the image, Easting = right), from
+px_to_feet_polylines. The alignment maps scan -> vector and is expressed in the
+same terms as iterative_align_raster_to_cogo, so align_skeleton_to_vector() applies
+it unchanged:
+
+    vector = scale * R(rotation_deg) @ scan + (translation_n, translation_e)
+    R(a) = [[cos a, -sin a], [sin a, cos a]]   (rotates an azimuth by +a)
+"""
+from __future__ import annotations
+import math
+from dataclasses import dataclass
+import numpy as np
+
+from .curve_follow import InkField, _OrientedDistance
+
+_PI = math.pi
+
+
+def _wrap180(a: float) -> float:
+    return (a + 180.0) % 360.0 - 180.0
+
+
+def _rot(deg: float) -> np.ndarray:
+    c, s = math.cos(math.radians(deg)), math.sin(math.radians(deg))
+    return np.array([[c, -s], [s, c]])
+
+
+# --------------------------------------------------------------------------- scan lines
+
+@dataclass
+class ScanLine:
+    """A straight stroke fitted through the scan's ink, in scan feet (n, e)."""
+    point: np.ndarray    # (2,) a point on the line (centroid of the ink used)
+    direction: np.ndarray  # (2,) unit vector, oriented as fitted (see `az_deg`)
+    a: np.ndarray        # (2,) one end of the ink extent
+    b: np.ndarray        # (2,) the other end
+    length_ft: float
+    n_points: int
+    rms_ft: float
+
+    @property
+    def az_deg(self) -> float:
+        """Azimuth of `direction` (0 = up the image, 90 = right), in [0, 360)."""
+        return math.degrees(math.atan2(self.direction[1], self.direction[0])) % 360.0
+
+
+def dominant_axes(ink: InkField, bin_deg: float = 0.25) -> tuple[float, float]:
+    """The two perpendicular directions most ink runs along (azimuth mod 180).
+
+    A drawn plat is almost always laid out on a rectangular sheet; its ruled lines
+    share two directions. Returns (near-vertical, near-horizontal) in degrees."""
+    deg = np.degrees(ink.angles)
+    h, edges = np.histogram(deg, bins=np.arange(0.0, 180.0 + bin_deg, bin_deg))
+    first = int(np.argmax(h))
+    a1 = edges[first] + bin_deg / 2
+    perp = (a1 + 90.0) % 180.0
+    lo = np.abs(((edges[:-1] + bin_deg / 2 - perp + 90.0) % 180.0) - 90.0) <= 3.0
+    a2 = (edges[:-1] + bin_deg / 2)[lo][int(np.argmax(h[lo]))]
+    return tuple(sorted((float(a1), float(a2)), key=lambda x: min(x, 180 - x)))
+
+
+def fit_scan_line(ink: InkField, hint_a, hint_b, corridor_ft: float = 8.0,
+                  dir_tol_deg: float = 3.0, gap_ft: float = 20.0) -> ScanLine:
+    """Least-squares straight line through the ink around a rough (a, b) hint.
+
+    Only ink running parallel to the hint (within dir_tol_deg) and inside a
+    corridor of +-corridor_ft counts. The fit is total least squares with the
+    worst residuals trimmed twice, so a lot line meeting the stroke or a tick
+    mark does not tilt it. The direction is good to about 0.01 deg over a
+    1,600 ft stroke -- the accuracy a baseline needs."""
+    a, b = np.asarray(hint_a, float), np.asarray(hint_b, float)
+    length = float(np.hypot(*(b - a)))
+    u = (b - a) / length
+    nrm = np.array([-u[1], u[0]])
+    hint_phi = math.atan2(u[1], u[0]) % _PI
+    rel = ink.points - a
+    along, perp = rel @ u, rel @ nrm
+    dphi = np.abs(((ink.angles - hint_phi + _PI / 2) % _PI) - _PI / 2)
+    m = ((np.abs(perp) <= corridor_ft) & (along >= -corridor_ft) & (along <= length + corridor_ft)
+         & (dphi <= math.radians(dir_tol_deg)))
+    Q = ink.points[m]
+    if len(Q) < 20:
+        raise ValueError(f"no straight stroke found near the hint (only {len(Q)} ink points in the corridor)")
+    for _ in range(3):
+        c = Q.mean(axis=0)
+        d = np.linalg.svd(Q - c, full_matrices=False)[2][0]
+        if d @ u < 0:
+            d = -d
+        res = (Q - c) @ np.array([-d[1], d[0]])
+        keep = np.abs(res) <= max(0.75, 2.5 * float(res.std()))
+        if keep.all():
+            break
+        Q = Q[keep]
+    t = (Q - c) @ d
+    order = np.argsort(t)
+    ts = t[order]
+    cuts = np.flatnonzero(np.diff(ts) > gap_ft)                # longest gap-free run of the stroke
+    runs = list(zip(np.r_[0, cuts + 1], np.r_[cuts, len(ts) - 1]))
+    s, e = max(runs, key=lambda r: ts[r[1]] - ts[r[0]])
+    res = (Q - c) @ np.array([-d[1], d[0]])
+    return ScanLine(c, d, c + d * ts[s], c + d * ts[e], float(ts[e] - ts[s]), len(Q), float(res.std()))
+
+
+def intersect(l1: ScanLine, l2: ScanLine) -> np.ndarray:
+    """Where two fitted lines cross (scan feet)."""
+    A = np.array([l1.direction, -l2.direction]).T
+    if abs(np.linalg.det(A)) < 1e-6:
+        raise ValueError("lines are parallel")
+    t = np.linalg.solve(A, l2.point - l1.point)
+    return l1.point + l1.direction * t[0]
+
+
+def _axis_toward(axes, az_deg: float) -> float:
+    """The scan axis (as a direction, 0-360) pointing the way vector azimuth az_deg points."""
+    best = None
+    for ax in axes:
+        for cand in (ax % 360.0, (ax + 180.0) % 360.0):
+            d = abs(_wrap180(cand - az_deg))
+            if best is None or d < best[0]:
+                best = (d, cand)
+    return best[1]
+
+
+def align_from_corner(ink: InkField, corner_hint, anchor_vec, baseline_vec_az: float,
+                      baseline_len_ft: float, cross_vec_az: float, cross_len_ft: float = 600.0,
+                      corridor_ft: float = 12.0) -> dict:
+    """Anchor + baseline alignment from one corner of the plat.
+
+    corner_hint: roughly where that corner is on the scan (scan feet, +-corridor_ft is
+    plenty). anchor_vec: the same corner in the vector plat. baseline_vec_az: azimuth,
+    in the vector plat, of the long line leaving the corner (its stated length is
+    baseline_len_ft); cross_vec_az: the azimuth of the second line leaving the corner
+    (roughly at right angles). The scan is assumed already in feet (scale first).
+
+    Both lines are fitted through all the ink along them, the corner is where the fits
+    cross, and the baseline sets the rotation. The result carries its own checks:
+
+      cross_check_deg  the rotation the SECOND line implies minus the baseline's. A
+                       drafted corner is square to a few hundredths of a degree; if this
+                       is large the wrong lines were fitted.
+      far_corner_ft    distance from the corner to where the baseline meets the line at
+                       its far end, vs the stated baseline_len_ft -- the scale check."""
+    axes = dominant_axes(ink)
+    hint = np.asarray(corner_hint, float)
+    az_b = _axis_toward(axes, baseline_vec_az)
+    az_c = _axis_toward(axes, cross_vec_az)
+    ub = np.array([math.cos(math.radians(az_b)), math.sin(math.radians(az_b))])
+    uc = np.array([math.cos(math.radians(az_c)), math.sin(math.radians(az_c))])
+    base = fit_scan_line(ink, hint - ub * 8.0, hint + ub * baseline_len_ft, corridor_ft=corridor_ft)
+    cross = fit_scan_line(ink, hint - uc * 8.0, hint + uc * cross_len_ft, corridor_ft=corridor_ft)
+    corner = intersect(base, cross)
+    ub_fit = base.direction if base.direction @ ub > 0 else -base.direction
+    uc_fit = cross.direction if cross.direction @ uc > 0 else -cross.direction
+    az_base = math.degrees(math.atan2(ub_fit[1], ub_fit[0])) % 360.0
+    az_cross = math.degrees(math.atan2(uc_fit[1], uc_fit[0])) % 360.0
+    theta = _wrap180(baseline_vec_az - az_base)
+    theta_cross = _wrap180(cross_vec_az - az_cross)
+    params = anchor_baseline_alignment(corner, anchor_vec, az_base, baseline_vec_az)
+    out = dict(params=params, corner_scan=corner, baseline=base, cross=cross,
+               baseline_scan_az=az_base, cross_scan_az=az_cross,
+               cross_check_deg=theta_cross - theta, far_corner_ft=None, scale_error_pct=None)
+    # scale check: the line at the far end of the baseline, square to it
+    far_hint = corner + ub_fit * baseline_len_ft
+    try:
+        far = fit_scan_line(ink, far_hint - uc * 8.0, far_hint + uc * cross_len_ft, corridor_ft=corridor_ft)
+        far_pt = intersect(base, far)
+        out["far_corner_ft"] = float(np.hypot(*(far_pt - corner)))
+        out["scale_error_pct"] = 100.0 * (out["far_corner_ft"] / baseline_len_ft - 1.0)
+    except ValueError:
+        pass
+    return out
+
+
+# --------------------------------------------------------------------------- alignment
+
+def anchor_baseline_alignment(anchor_scan, anchor_vec, baseline_scan_az: float,
+                              baseline_vec_az: float) -> dict:
+    """Scale-1 alignment from ONE corner and ONE baseline.
+
+    anchor_scan: the corner on the scan (scan feet); anchor_vec: the same corner in
+    the vector plat. baseline_scan_az / baseline_vec_az: the azimuth of the same long
+    line leaving that corner, measured on the scan and in the vector plat. Returns
+    params in the iterative_align_raster_to_cogo / align_skeleton_to_vector form."""
+    theta = _wrap180(baseline_vec_az - baseline_scan_az)
+    t = np.asarray(anchor_vec, float) - _rot(theta) @ np.asarray(anchor_scan, float)
+    return {"scale": 1.0, "rotation_deg": theta, "translation_n": float(t[0]), "translation_e": float(t[1])}
+
+
+def apply_alignment(params: dict, pts) -> np.ndarray:
+    """scan -> vector for an (N, 2) array of (n, e)."""
+    pts = np.asarray(pts, float).reshape(-1, 2)
+    return params["scale"] * (pts @ _rot(params["rotation_deg"]).T) + [params["translation_n"], params["translation_e"]]
+
+
+def invert_alignment(params: dict, pts) -> np.ndarray:
+    """vector -> scan."""
+    pts = np.asarray(pts, float).reshape(-1, 2) - [params["translation_n"], params["translation_e"]]
+    return (pts @ _rot(-params["rotation_deg"]).T) / params["scale"]
+
+
+def sample_polylines(polylines, step_ft: float = 2.0, min_len_ft: float = 10.0):
+    """Points along vector polylines every step_ft, with each one's direction (mod pi)."""
+    P, D = [], []
+    for poly in polylines:
+        V = np.asarray(poly, float)
+        for a, b in zip(V[:-1], V[1:]):
+            L = float(np.hypot(*(b - a)))
+            if L < min_len_ft:
+                continue
+            k = max(2, int(L / step_ft))
+            t = (np.arange(k) + 0.5) / k
+            P.append(a + (b - a) * t[:, None])
+            D.append(np.full(k, math.atan2(b[1] - a[1], b[0] - a[0]) % _PI))
+    if not P:
+        return np.empty((0, 2)), np.empty(0)
+    return np.vstack(P), np.concatenate(D)
+
+
+class _Comparator:
+    """Scores how well vector samples land on parallel ink, under any alignment."""
+
+    def __init__(self, ink: InkField, res_ft: float = 1.0, tol_ft: float = 2.0):
+        lo = ink.points.min(axis=0) - 5.0
+        hi = ink.points.max(axis=0) + 5.0
+        self.od = _OrientedDistance(ink, lo, hi, res_ft, width_deg=8.0, member_deg=10.0)
+        self.tol = tol_ft
+
+    def distances(self, params: dict, P, D, shift=(0.0, 0.0)) -> np.ndarray:
+        scan = invert_alignment(params, P + np.asarray(shift))
+        phi = (D - math.radians(params["rotation_deg"])) % _PI
+        bins = np.round(phi / self.od.width).astype(int) % self.od.n_bins
+        out = np.empty(len(P))
+        for b in np.unique(bins):
+            m = bins == b
+            out[m] = self.od.lookup(int(b), scan[m, 0], scan[m, 1])
+        return out
+
+    def agreement(self, params: dict, P, D, shift=(0.0, 0.0)) -> float:
+        """Fraction of the samples within tol_ft of ink running the same way."""
+        return float(np.mean(self.distances(params, P, D, shift) <= self.tol)) if len(P) else 0.0
+
+
+def measure_group(cmp: _Comparator, params: dict, P, D, window_ft: float = 25.0, step_ft: float = 0.5):
+    """How far the ink sits from a group of vector lines: the (dn, de) shift of the
+    vector samples that lands the most of them on ink, with its agreement and the
+    agreement with no shift. Ties are broken by the smallest mean distance, so the
+    answer sits in the middle of the plateau, not on its edge."""
+    g = np.arange(-window_ft, window_ft + 1e-9, step_ft)
+    dn, de = np.meshgrid(g, g, indexing="ij")
+    shifts = np.stack([dn.ravel(), de.ravel()], axis=1)
+    shifts = shifts[np.hypot(shifts[:, 0], shifts[:, 1]) <= window_ft]
+    sub = slice(None, None, max(1, len(P) // 1500))               # 1,500 samples is plenty for the search
+    Ps, Ds = P[sub], D[sub]
+    frac = np.empty(len(shifts))
+    dist = np.empty((len(shifts), len(Ps)), dtype=np.float32)
+    for i, s in enumerate(shifts):
+        dist[i] = cmp.distances(params, Ps, Ds, s)
+    frac = (dist <= cmp.tol).mean(axis=1)
+    best = np.flatnonzero(frac >= frac.max() - 1e-9)
+    j = best[np.argmin(np.minimum(dist[best], 2 * cmp.tol).mean(axis=1))]
+    return shifts[j].copy(), float(frac[j]), cmp.agreement(params, Ps, Ds)
+
+
+def _correct(params: dict, anchor_vec, dt, dtheta_deg: float) -> dict:
+    """Move the ink by -(dt + dtheta about the anchor) so it lands on the vector plat."""
+    a = np.asarray(anchor_vec, float)
+    t = np.array([params["translation_n"], params["translation_e"]])
+    t_new = _rot(-dtheta_deg) @ (t - a) + a - np.asarray(dt, float)
+    return {"scale": params["scale"], "rotation_deg": params["rotation_deg"] - dtheta_deg,
+            "translation_n": float(t_new[0]), "translation_e": float(t_new[1])}
+
+
+def refine_alignment(params: dict, groups, ink: InkField, anchor_vec, tol_ft: float = 2.0,
+                     window_ft: float = 25.0, min_agreement: float = 0.5, min_gain: float = 0.10,
+                     min_shift_ft: float = 1.0, min_spread_ft: float = 300.0,
+                     max_adjustments: int = 3) -> tuple[dict, list[dict]]:
+    """Add vector polylines a group at a time and correct the alignment, at most
+    `max_adjustments` times.
+
+    groups: list of (name, [polylines]) in the vector frame; they are taken nearest
+    the anchor first. For each group the ink's offset from the vector lines is
+    measured. A group is only trusted -- and only counts toward an adjustment -- if
+    the shift both lands at least min_agreement of it on ink and beats no shift by
+    min_gain; a block the vector plat models differently from the drawing cannot
+    pull the alignment around. Accepted offsets are combined: one group corrects
+    translation (re-anchoring); two or more at least min_spread_ft apart also
+    correct rotation about the anchor. Returns (params, history)."""
+    cmp = _Comparator(ink, tol_ft=tol_ft)
+    a = np.asarray(anchor_vec, float)
+
+    def dist_to_anchor(item):
+        P, _ = sample_polylines(item[1])
+        return float(np.hypot(*(P.mean(axis=0) - a))) if len(P) else 1e18
+    ordered = sorted(groups, key=dist_to_anchor)
+    history, accepted, adjustments = [], [], 0
+    for name, polylines in ordered:
+        P, D = sample_polylines(polylines)
+        if len(P) < 20:
+            continue
+        shift, best, base = measure_group(cmp, params, P, D, window_ft)
+        rec = dict(group=name, samples=len(P), agreement_before=round(base, 3), shift=tuple(np.round(shift, 2)),
+                   agreement_at_shift=round(best, 3), action="none")
+        trusted = best >= min_agreement and best - base >= min_gain
+        if not trusted:
+            rec["action"] = "skipped (vector and drawing do not agree well enough to steer by)"
+        elif adjustments >= max_adjustments:
+            rec["action"] = "checked only (adjustment budget spent)"
+        elif float(np.hypot(*shift)) < min_shift_ft:
+            rec["action"] = "within tolerance"
+        else:
+            accepted.append((P.mean(axis=0) - a, shift))
+            pos = np.array([p for p, _ in accepted])
+            d = np.array([s for _, s in accepted])
+            dtheta = 0.0
+            spread = float(np.ptp(np.hypot(pos[:, 0], pos[:, 1]))) if len(pos) > 1 else 0.0
+            if len(accepted) >= 2 and spread >= min_spread_ft:
+                # d_i = dt + delta * (-x_e, x_n), least squares for (dt_n, dt_e, delta_rad)
+                A = np.zeros((2 * len(pos), 3)); y = np.zeros(2 * len(pos))
+                for i, (x, s) in enumerate(zip(pos, d)):
+                    A[2 * i] = [1, 0, -x[1]]; A[2 * i + 1] = [0, 1, x[0]]
+                    y[2 * i], y[2 * i + 1] = s
+                sol = np.linalg.lstsq(A, y, rcond=None)[0]
+                dt, dtheta = sol[:2], math.degrees(sol[2])
+                rec["action"] = f"translation + rotation ({dtheta:+.4f} deg)"
+            else:
+                dt = d.mean(axis=0)
+                rec["action"] = "translation"
+            params = _correct(params, anchor_vec, dt, dtheta)
+            adjustments += 1
+            accepted = []                       # the correction absorbed them; later groups re-measure
+            rec["adjustment"] = adjustments
+        history.append(rec)
+    return params, history
+
+
+def alignment_agreement(params: dict, groups, ink: InkField, tol_ft: float = 2.0) -> dict:
+    """Independent check: what fraction of each group's line length lands within
+    tol_ft of parallel ink, and overall, under `params`. This is the number that
+    says whether an alignment is correct -- it never sees the landmarks or the
+    corner the alignment was built from."""
+    cmp = _Comparator(ink, tol_ft=tol_ft)
+    per, tot_n, tot_hit = {}, 0, 0.0
+    for name, polylines in groups:
+        P, D = sample_polylines(polylines)
+        if not len(P):
+            continue
+        f = cmp.agreement(params, P, D)
+        per[name] = f
+        tot_n += len(P); tot_hit += f * len(P)
+    return {"overall": tot_hit / tot_n if tot_n else 0.0, "groups": per}

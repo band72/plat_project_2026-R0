@@ -124,6 +124,11 @@ def ocr_region(img: np.ndarray, rect=None, psm=6, whitelist=None,
 SURVEY_WHITELIST = "0123456789NSEWCLcl#.,'\"*°-/ ()"
 
 
+def ocr_best(img: np.ndarray, rect=None, psm=6, whitelist=SURVEY_WHITELIST, upscale=2) -> str:
+    """OCR a region with optimal survey table defaults."""
+    return ocr_region(img, rect=rect, psm=psm, whitelist=whitelist, upscale=upscale)
+
+
 # ---------- parsing ----------
 
 def _pre_normalize(text: str) -> str:

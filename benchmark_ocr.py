@@ -9,6 +9,8 @@ from engine.ocr import (load_gray, ocr_best, parse_curve_rows, parse_line_rows,
                         validate_curve, repair_curve)
 import data.trail_ridge_estates as trd
 
+import os
+
 FILES = {
     # file name -> actual sheet number (naming is offset: file_1/file_2 are dupes of sheet 1)
     "PB0082_P0035_4216027_sheet_4_of_6.png": 3,
@@ -16,9 +18,20 @@ FILES = {
     "PB0082_P0035_4216027_sheet_6_of_6.png": 5,
 }
 
-all_curves, all_lines = {}, {}
+found_files = {}
 for fn, sheet in FILES.items():
-    img = load_gray(f"/mnt/user-data/uploads/{fn}")
+    for p in [f"/mnt/user-data/uploads/{fn}", f"temp_images/{fn}", f"data/{fn}", fn]:
+        if os.path.exists(p):
+            found_files[p] = sheet
+            break
+
+if not found_files:
+    print(f"Benchmark skipped: local source images not found ({list(FILES.keys())})")
+    sys.exit(0)
+
+all_curves, all_lines = {}, {}
+for path, sheet in found_files.items():
+    img = load_gray(path)
     h, w = img.shape
     # Clay County sheets put line/curve tables in the right margin
     strip = (int(w * 0.69), int(h * 0.18), int(w * 0.31), int(h * 0.60))
