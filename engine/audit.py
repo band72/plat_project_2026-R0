@@ -9,11 +9,13 @@ Audits survey traverses and exported DXFs against legal plats:
 """
 
 from __future__ import annotations
+
 import math
 import os
 from collections import Counter
+
 from engine.cogo import Point
-from engine.lots import shoelace_area, safe_area, is_simple_polygon
+from engine.lots import is_simple_polygon, safe_area
 
 # Entity types whose group codes 10/11 (x) and 20/21 (y) are real coordinates.
 # A POLYLINE header's own 10/20/30 are a dummy 0,0 elevation and must not
@@ -144,7 +146,7 @@ def audit_dxf_layers(dxf_path: str) -> dict:
     if not os.path.exists(dxf_path):
         return {"status": "ERROR", "reason": f"File not found: {dxf_path}"}
 
-    with open(dxf_path, "r", encoding="utf-8", errors="ignore") as f:
+    with open(dxf_path, encoding="utf-8", errors="ignore") as f:
         content = f.read()
 
     scan = _scan_dxf(content)

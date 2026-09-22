@@ -5,7 +5,9 @@ orthogonality (front bearing perpendicular to depth bearing) before building,
 since that's a strong self-check against transcription error.
 """
 from __future__ import annotations
+
 from dataclasses import dataclass
+
 from .cogo import Point, parse_bearing
 
 
@@ -51,7 +53,7 @@ def rect_row(start: Point, front_bearing: str, depth_bearing: str,
     depth_az = parse_bearing(depth_bearing)
     lots = []
     cur = start
-    for w, num in zip(widths, numbers):
+    for w, num in zip(widths, numbers, strict=True):
         p1 = cur
         p2 = cur.offset(front_az, w)
         p3 = p2.offset(depth_az, depth)
@@ -76,7 +78,7 @@ def rect_column_pair(start_a: Point, start_b: Point, front_bearing: str, depth_b
         az = (depth_az + 180) % 360 if reverse_depth else depth_az
         cur = start
         out = []
-        for d, num in zip(depths_, numbers_):
+        for d, num in zip(depths_, numbers_, strict=True):
             p1 = cur
             p2 = cur.offset(parse_bearing(front_bearing), width)
             p3 = p2.offset(az, d)
@@ -113,7 +115,7 @@ def is_simple_polygon(pts) -> tuple[bool, str]:
     produced the bogus ~1,250 sf "lots" early in this project (the lobes
     cancelled instead of erroring). Any parcel area must be gated on this
     check, never taken on faith."""
-    ring = [p for p in pts]
+    ring = list(pts)
     if len(ring) > 1 and ring[0].dist_to(ring[-1]) < 1e-9:
         ring = ring[:-1]
     n = len(ring)

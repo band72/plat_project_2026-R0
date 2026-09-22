@@ -11,15 +11,16 @@ Bearing Basis & Coordinates:
   Standard Lots: 50.00' frontage x 120.00' depth = 6,000.0 sq ft.
   Ground-Truthed Intersection: Dewees Ave & Coquina Pl (30.342120° N, -81.398650° W).
 """
-import sys, math
+import math
+import sys
+
 sys.path.insert(0, '.')
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing, course_label_geometry
-from engine.lots import shoelace_area, Lot
-from engine.topology import VertexGraph, Parcel
-from engine.verify import verify_ring, verify_network
+from engine.cogo import Point, azimuth_to_bearing, course_label_geometry, parse_bearing
 from engine.dxf_writer import DXFWriter
 from engine.georeference import get_intersection_gps
-from engine.blunder import course_deviation, classify
+from engine.lots import shoelace_area
+from engine.topology import Parcel, VertexGraph
+from engine.verify import verify_ring
 
 E_BEARING = "N89°35'00\"E"
 W_BEARING = "S89°35'00\"W"
@@ -227,8 +228,8 @@ for i, t in enumerate(body):
     dxf.text((curr_n, lft), t, height=8.0 if i == 0 else 5.0, layer="TITLEBLOCK")
     curr_n -= 28
 
-from engine.tables import build_lot_schedules, draw_cad_table
 from engine.lotsheets import plot_all
+from engine.tables import build_lot_schedules, draw_cad_table
 
 # -------------------------------------------------------------------------
 # Tabular Schedules (Lot Schedule, Line Table, Curve Table)

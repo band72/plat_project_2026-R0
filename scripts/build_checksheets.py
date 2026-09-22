@@ -12,13 +12,14 @@ construction code. It does not trust the builder's belief that a ring is
 valid; it re-derives closure, self-intersection, collinear overlap, spike
 vertices, vertex degree and area from the finished coordinates.
 """
-import sys, math
+import sys
+
 sys.path.insert(0, '.')
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.topology import VertexGraph
+from engine.cogo import Point, parse_bearing
 from engine.dxf_writer import DXFWriter
-from engine.verify import verify_ring, verify_network
 from engine.lotsheets import plot_all
+from engine.topology import VertexGraph
+from engine.verify import verify_network, verify_ring
 
 WIDTHS = [137.85, 55.00, 60.00, 55.00, 55.00, 60.00, 55.00, 55.00, 60.00, 55.00, 55.00, 60.00]
 LOTS = [137, 136, 135, 134, 133, 132, 131, 130, 129, 128, 127, 126]

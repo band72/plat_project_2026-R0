@@ -1,9 +1,10 @@
 import sys
+
 sys.path.insert(0, '.')
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.lots import rect_row, rect_column_pair, Lot
-from engine.dxf_writer import DXFWriter
 import data.lots_sheets_3_4 as ld
+from engine.cogo import Point, azimuth_to_bearing, parse_bearing
+from engine.dxf_writer import DXFWriter
+from engine.lots import Lot, rect_column_pair, rect_row
 
 dxf = DXFWriter()
 dxf.add_layer("LOT_LINE", "cyan", "CONTINUOUS")
@@ -126,6 +127,7 @@ lots_top = rect_row(origin_c, cfg["front_bearing"], cfg["depth_bearing"],
 # top row depths differ slightly (113.67 vs 113.64) -- rect_row assumes one depth;
 # rebuild lot 2 of top row with its own depth for exactness
 from engine.lots import shoelace_area
+
 front_az_c = parse_bearing(cfg["front_bearing"])
 depth_az_c = parse_bearing(cfg["depth_bearing"])
 p_start2 = origin_c.offset(front_az_c, top["widths"][0])

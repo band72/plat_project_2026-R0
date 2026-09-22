@@ -7,9 +7,11 @@ to resolve cadastral traverse closure, raster-to-vector alignment, curvilinear
 geometry, planar topology, and geodetic ground-truthing.
 """
 from __future__ import annotations
+
 import math
 from dataclasses import dataclass, field
-from typing import Callable, Any
+from typing import Any
+
 import numpy as np
 
 
@@ -72,7 +74,7 @@ class Guild:
         weights = [a.confidence for a in self.agents if key in a.state]
         if not vals:
             return 0.0
-        return sum(v * w for v, w in zip(vals, weights)) / sum(weights)
+        return sum(v * w for v, w in zip(vals, weights, strict=True)) / sum(weights)
 
 
 class MultiAgentConsensusSolver:
@@ -309,9 +311,9 @@ class MultiAgentConsensusSolver:
 
     def print_summary(self):
         """Print detailed summary of multi-agent consensus convergence."""
-        print(f"================================================================================")
-        print(f"  100-AGENT MULTIAGENT CONSENSUS SOLVER CONVERGENCE REPORT")
-        print(f"================================================================================")
+        print("================================================================================")
+        print("  100-AGENT MULTIAGENT CONSENSUS SOLVER CONVERGENCE REPORT")
+        print("================================================================================")
         print(f"Total Agents: {len(self.agents)} across {len(self.guilds)} Guilds (20 agents/guild)")
         for gid, g in self.guilds.items():
             print(f"  Guild {gid}: {g.name:<45} [{g.domain}]")
@@ -391,9 +393,9 @@ class CodebaseAuditPanel:
 
     def audit_codebase(self, root_dir: str = ".") -> dict[str, Any]:
         """Perform 100-agent multiagent consensus audit across the entire codebase."""
+        import ast
         import glob
         import os
-        import ast
 
         engine_files = sorted(glob.glob(os.path.join(root_dir, "engine", "*.py")))
         build_files = sorted(glob.glob(os.path.join(root_dir, "build_*.py")))
@@ -404,7 +406,7 @@ class CodebaseAuditPanel:
         total_classes = 0
         for f in engine_files + build_files:
             try:
-                with open(f, "r", encoding="utf-8", errors="ignore") as fp:
+                with open(f, encoding="utf-8", errors="ignore") as fp:
                     tree = ast.parse(fp.read(), filename=f)
                 for node in ast.walk(tree):
                     if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):

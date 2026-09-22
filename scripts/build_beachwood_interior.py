@@ -9,13 +9,14 @@ positioned by eye.
 
 All values visually transcribed at 3x from a 200 DPI scan.
 """
-import sys, math
+import sys
+
 sys.path.insert(0, '.')
 from engine.cogo import Point, parse_bearing
-from engine.lots import shoelace_area, Lot
 from engine.dxf_writer import DXFWriter
-from engine.verify import verify_ring
+from engine.lots import Lot, shoelace_area
 from engine.lotsheets import plot_all
+from engine.verify import verify_ring
 
 STREET_BEARING = "S87°35'30\"W"     # every E-W line on this sheet
 SIDE_BEARING = "N02°24'30\"W"       # every N-S lot line
@@ -102,7 +103,7 @@ for b, st in layout:
         all_lots.append((b["block"], Lot(number=num, corners=corners, area_sqft=area)))
         x += wdt
 
-print(f"\n=== CHECK C: lot closure ===")
+print("\n=== CHECK C: lot closure ===")
 n75 = sum(1 for _, l in all_lots if abs(l.area_sqft - 7500.0) < 0.5)
 odd = [(bk, l.number, round(l.area_sqft, 1)) for bk, l in all_lots
        if abs(l.area_sqft - 7500.0) >= 0.5]
@@ -182,11 +183,11 @@ body = [
     "SOURCE: 200 DPI scan; visual transcription at 3x, NOT OCR.",
     "",
     "VALIDATION:",
-    f"  A. Three independently-transcribed rows (different lot counts, different",
+    "  A. Three independently-transcribed rows (different lot counts, different",
     f"     west offsets) all terminate at {max(ends.values()):.2f} ft east of the west",
     f"     boundary. Spread = {spread:.2f} ft. Blk 18: 50.00+103.50+18(75); ",
-    f"     Blk 17/16: 210.00+93.50+16(75). Independent agreement.",
-    f"  B. Side bearing N2d24'30\"W + street S87d35'30\"W = 90d00'00\" exactly",
+    "     Blk 17/16: 210.00+93.50+16(75). Independent agreement.",
+    "  B. Side bearing N2d24'30\"W + street S87d35'30\"W = 90d00'00\" exactly",
     f"     (computed {ang:.6f} deg).",
     "  C. All rows parallel -> depth must be constant; all transcribed at 100.00 ft.",
     f"  D. {n75} of {len(all_lots)} lots close at exactly 7,500 sf; remainder are the",

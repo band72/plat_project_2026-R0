@@ -21,10 +21,14 @@ reliable to about a foot and is suitable for base mapping, area checks and
 overlay -- it is NOT a substitute for the recorded dimensions when
 retracing a boundary.
 """
-import sys, math, cv2
+import math
+import sys
+
+import cv2
+
 sys.path.insert(0, '.')
-from engine.vectorize import map_mask, map_mask_excluding, segments, merge_collinear, _len
 from engine.dxf_writer import DXFWriter
+from engine.vectorize import map_mask, map_mask_excluding, merge_collinear, segments
 
 SHEETS = [
     dict(file="src/abcc300-3.png", page=3, pg="134", scale_ft_px=50/300,

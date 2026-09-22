@@ -12,12 +12,12 @@ Zero artificial offset fudging.
 """
 
 import os
-import math
+
+from engine.audit import audit_dxf_layers, audit_parcel_area
 from engine.cogo import Point
-from engine.topology import VertexGraph, Parcel
 from engine.dxf_writer import DXFWriter
-from engine.labels import draw_course, lot_label, classify_cadastral_label
-from engine.audit import audit_traverse_closure, audit_parcel_area, audit_dxf_layers
+from engine.labels import draw_course
+from engine.topology import Parcel, VertexGraph
 
 # Ground-Truthed Anchor: West Shore of Kingsley Lake, Sec 16, T6S, R23E
 # Lat 29.9750° N, Lon -81.9950° W

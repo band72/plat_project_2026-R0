@@ -12,9 +12,11 @@ Features:
   - Multi-column splitting so 50-100 lot tables fit neatly on sheet viewports without vertical overflow.
 """
 from __future__ import annotations
+
 import math
 from dataclasses import dataclass
-from engine.cogo import Point, azimuth_to_bearing, parse_bearing
+
+from engine.cogo import azimuth_to_bearing
 
 
 @dataclass
@@ -105,7 +107,7 @@ def draw_cad_table(
     dxf.line((curr_n, left_e), (curr_n, right_e), layer=layer_border)
     
     col_x = left_e
-    for j, (h, w) in enumerate(zip(headers, col_widths)):
+    for j, (h, w) in enumerate(zip(headers, col_widths, strict=True)):
         cell_mid_e = col_x + w / 2.0
         cell_mid_n = prev_n - header_height / 2.0
         dxf.text((cell_mid_n, cell_mid_e), h, height=text_height * 1.15,
@@ -117,12 +119,12 @@ def draw_cad_table(
 
     # 4. Data Rows
     row_top = curr_n
-    for i, r in enumerate(rows):
+    for r in rows:
         row_bot = row_top - row_height
         dxf.line((row_bot, left_e), (row_bot, right_e), layer=layer_border)
 
         col_x = left_e
-        for j, (val, w) in enumerate(zip(r, col_widths)):
+        for j, (val, w) in enumerate(zip(r, col_widths, strict=True)):
             align = alignments[j] if j < len(alignments) else 1
             cell_mid_n = row_top - row_height / 2.0
             if align == 0:  # Left
@@ -190,7 +192,6 @@ def build_lot_schedules(
     lot_rows: list[LotRow] = []
     line_catalog: dict[tuple[str, float], str] = {}  # (bearing, rounded_dist) -> Line ID
     line_rows: list[LineRow] = []
-    curve_catalog: dict[str, str] = {}
     curve_rows: list[CurveRow] = []
 
     def get_line_id(bstr: str, dist: float) -> str:

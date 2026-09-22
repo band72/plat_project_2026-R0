@@ -8,22 +8,24 @@ Outputs:
 """
 
 from __future__ import annotations
+
 import math
 import os
 from dataclasses import dataclass, field
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from matplotlib.patches import Polygon as MplPolygon, Circle as MplCircle
-import matplotlib.patheffects as pe
 
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.curves import solve_curve_all_parameters
-from engine.lot_agent import BeachwoodLotAgent, MapCheckReport
-from engine.dxf_writer import DXFWriter
-from engine.audit import dxf_audit
-from engine.lotsheets import draw_lot_sheet, PAGE_W, PAGE_H
+import matplotlib
+
+matplotlib.use('Agg')
+import matplotlib.patheffects as pe
+import matplotlib.pyplot as plt
 from compute_user_mapchecks import solve_corner_curve
+from matplotlib.patches import Polygon as MplPolygon
+
+from engine.audit import dxf_audit
+from engine.cogo import Point, parse_bearing
+from engine.dxf_writer import DXFWriter
+from engine.lot_agent import BeachwoodLotAgent
+from engine.lotsheets import PAGE_H, PAGE_W, draw_lot_sheet
 
 
 def build_and_draw_block9():

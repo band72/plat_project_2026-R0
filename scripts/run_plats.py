@@ -4,9 +4,12 @@ Executes all plats in descending date order, verifies COGO traverses and
 topological graphs, performs dual-axis street extraction, maps ground-truthed
 physical GPS coordinates with zero artificial fudging, and exports layered DXFs.
 """
-import os, sys, subprocess
+import os
+import subprocess
+import sys
+
 sys.path.insert(0, '.')
-from engine.georeference import get_intersection_gps, format_gps
+from engine.georeference import format_gps, get_intersection_gps
 
 PLATS = [
     {
@@ -108,11 +111,16 @@ def main():
     
     results = []
     
+    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    env = os.environ.copy()
+    env['PYTHONPATH'] = root_dir + (':' + env['PYTHONPATH'] if 'PYTHONPATH' in env else '')
+
     for p in PLATS:
         print(f'>>> Processing [{p["date"]}] {p["name"]} ({p["book_page"]})...')
         # 1. Run build script
         script = p.get('build_script')
-        run_res = subprocess.run([sys.executable, script], capture_output=True, text=True)
+        script_path = os.path.join(os.path.dirname(__file__), script) if not os.path.isabs(script) else script
+        run_res = subprocess.run([sys.executable, script_path], cwd=root_dir, env=env, capture_output=True, text=True)
         if run_res.returncode != 0:
             print(f'  [ERROR] {script} failed:')
             print('   ', run_res.stderr.strip()[:200])

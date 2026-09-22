@@ -17,6 +17,7 @@ matter -- lot side lines also meet the boundary perpendicularly, so length
 is what separates a 3-5 ft tick from a 120 ft side line.
 """
 from __future__ import annotations
+
 import math
 
 
@@ -88,7 +89,7 @@ def stations_to_segments(ticks, boundary_length, include_ends=True):
     st = [t["station_ft"] for t in ticks]
     if include_ends:
         st = [0.0] + st + [boundary_length]
-    st = sorted(set(round(x, 3) for x in st))
+    st = sorted({round(x, 3) for x in st})
     return [(st[i], st[i + 1], st[i + 1] - st[i]) for i in range(len(st) - 1)]
 
 
@@ -130,7 +131,6 @@ def scan_boundary_profile(mask, boundary_px, step_px=2, probe_min=6,
                               line meeting the boundary and stopping)
         ink on neither     -> plain boundary
     """
-    import numpy as np
     x1, y1, x2, y2 = boundary_px
     dx, dy = x2 - x1, y2 - y1
     L = math.hypot(dx, dy)

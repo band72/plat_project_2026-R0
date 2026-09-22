@@ -4,14 +4,17 @@ test_engine.py -- regression tests for the plat pipeline.
 Every test here corresponds to a real defect found by auditing the code,
 not a hypothetical. Run before shipping any change to engine/.
 """
-import sys, math, random
+import math
+import random
+import sys
+
 sys.path.insert(0, '.')
 sys.path.insert(0, './scripts')
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.lots import shoelace_area, is_simple_polygon, safe_area
+from engine.cogo import Point, azimuth_to_bearing, parse_bearing
 from engine.curves import Curve
-from engine.topology import VertexGraph, Parcel
+from engine.lots import is_simple_polygon, safe_area, shoelace_area
 from engine.registration import ATLANTIC_SHEET3
+from engine.topology import Parcel, VertexGraph
 
 FAILURES = []
 
@@ -108,7 +111,8 @@ ang = abs((parse_bearing("N00°32'22\"E") - parse_bearing("N89°27'38\"W") + 180
 check("Block A perpendicularity EXACT 90", abs(ang - 90) < 1e-6, f"{ang:.6f}")
 
 print("\n=== verification engine (must catch what it is built to catch) ===")
-from engine.verify import verify_ring, verify_network
+from engine.verify import verify_network, verify_ring
+
 _sq=[Point(0,0),Point(0,100),Point(100,100),Point(100,0)]
 _v=verify_ring("sq",_sq)
 check("clean square passes", _v.passed, [f.code for f in _v.errors])
@@ -130,8 +134,11 @@ check("shared-vertex network check runs", "near_duplicate_vertices" in _net)
 
 print("\n=== tick/junction detection (validated on known lot corners) ===")
 import cv2 as _cv2
+
+from engine.ticks import cluster_stations as _clus
+from engine.ticks import scan_boundary_profile as _scan
 from engine.vectorize import map_mask_excluding as _mme
-from engine.ticks import scan_boundary_profile as _scan, cluster_stations as _clus
+
 _img=_cv2.imread('src/abcc300-3.png',0)
 if _img is not None:
     _m=_mme(_img, exclude=[(0.085,0.20,0.165,0.44),(0.085,0.66,0.12,0.09),
@@ -148,9 +155,12 @@ else:
 
 print("\n=== block auto-derivation (90/10 bulk processing) ===")
 import cv2 as _c2
-from engine.vectorize import map_mask_excluding as _mm
-from engine.blocks import BlockSpec as _BS, build_block as _bb
+
+from engine.blocks import BlockSpec as _BS
+from engine.blocks import build_block as _bb
 from engine.topology import VertexGraph as _VG
+from engine.vectorize import map_mask_excluding as _mm
+
 _im=_c2.imread('src/abcc300-3.png',0)
 if _im is not None:
     _EX=[(0.085,0.20,0.165,0.44),(0.085,0.66,0.12,0.09),(0.02,0.80,0.20,0.18)]
@@ -170,7 +180,11 @@ else:
     print("  SKIP  source scan not available")
 
 print("\n=== Beachwood parent caption traverse & 121-lot tabular schedule ===")
-from build_beachwood_boundary import RAW_COURSES, balanced_poly, parent_area, all_parcels as bw_parcels, lot_rows as bw_lot_rows, curve_rows as bw_curve_rows
+from build_beachwood_boundary import RAW_COURSES, balanced_poly, parent_area
+from build_beachwood_boundary import all_parcels as bw_parcels
+from build_beachwood_boundary import curve_rows as bw_curve_rows
+from build_beachwood_boundary import lot_rows as bw_lot_rows
+
 check("Beachwood 27 courses transcribed", len(RAW_COURSES) == 27, len(RAW_COURSES))
 check("Beachwood parent balanced closure EXACT",
       abs(balanced_poly[0].dist_to(balanced_poly[-1])) < 1e-6)
@@ -182,7 +196,10 @@ check("Beachwood 13 curved lots identified with curve IDs", len([r for r in bw_l
 check("Beachwood 19 circular curves tabulated (C1-C19)", len(bw_curve_rows) == 19, len(bw_curve_rows))
 
 print("\n=== Ocean Grove parent boundary & 20-lot tabular schedule ===")
-from build_ocean_grove import boundary_pts, boundary_area, fec_dist, all_parcels as og_parcels, lot_rows as og_lot_rows
+from build_ocean_grove import all_parcels as og_parcels
+from build_ocean_grove import boundary_area, boundary_pts, fec_dist
+from build_ocean_grove import lot_rows as og_lot_rows
+
 check("Ocean Grove 4-point closed polygon", len(boundary_pts) == 5)
 check("Ocean Grove parent closure EXACT",
       abs(boundary_pts[0].dist_to(boundary_pts[-1])) < 1e-6)
@@ -194,6 +211,7 @@ check("Ocean Grove all lots at 6000 sf", all(abs(r.area_sqft - 6000.0) < 0.5 for
 
 print("\n=== Ground-Truthed GPS database (Zero Fudging) ===")
 from engine.georeference import get_intersection_gps
+
 g_ab = get_intersection_gps("Maritime Oak Drive", "Coastal Oak Lane")
 g_bev = get_intersection_gps("Heckscher Drive", "Beverly Isle Drive")
 g_bw = get_intersection_gps("Starfish Avenue", "Mangrove Avenue")
@@ -207,7 +225,8 @@ check("Ocean Grove GPS exact", g_og == (30.34212, -81.39865), g_og)
 check("Hicks Subdivision GPS exact", g_hk == (30.15528, -81.75833), g_hk)
 
 print("\n=== Cadastral Label & Aliquot Dimension Disambiguation ===")
-from engine.labels import is_aliquot_dimension, classify_cadastral_label
+from engine.labels import classify_cadastral_label, is_aliquot_dimension
+
 check("330 is dimension", is_aliquot_dimension("330") is True)
 check("660 is dimension", is_aliquot_dimension("660'") is True)
 check("106.83 is dimension", is_aliquot_dimension("106.83") is True)
@@ -218,6 +237,7 @@ check("classify BROADWAY -> STREET_NAMES", classify_cadastral_label("BROADWAY") 
 
 print("\n=== Speckle & False Circle Monument Filtering ===")
 from engine.vectorize import filter_speckle_monuments
+
 candidate_circles = [(10, 10, 3), (500, 500, 2), (1200, 1500, 24), (2000, 3000, 95)]
 filtered = filter_speckle_monuments(candidate_circles, (4000, 4000))
 check("speckle filter removes tiny dust and oversized circles", len(filtered) == 1 and filtered[0][2] == 24)
@@ -225,6 +245,7 @@ check("speckle filter removes tiny dust and oversized circles", len(filtered) ==
 print("\n=== Matchline Seam Stitching (VertexGraph) ===")
 from engine.cogo import Point
 from engine.topology import VertexGraph
+
 vg = VertexGraph()
 p1 = Point(100.0, 200.0)
 p2 = Point(100.1, 200.2)  # within 0.5 ft tolerance
@@ -236,9 +257,10 @@ check("stitch_matchlines maps adjoining sheet nodes", seam.get("M2") == "M1")
 
 print("\n=== Clay County Survey-Grade Plat Vectorization ===")
 from build_clay_granada import build_granada
-from build_clay_orange_grove import build_orange_grove_vale_blvd
-from build_clay_kingsley_church import build_kingsley_church
 from build_clay_holly_point import build_holly_point
+from build_clay_kingsley_church import build_kingsley_church
+from build_clay_orange_grove import build_orange_grove_vale_blvd
+
 from engine.audit import audit_dxf_layers
 
 dxf_granada = build_granada()
@@ -262,6 +284,7 @@ check("Holly Point 0 noise circles (eliminated 9,342 circles)", audit_hp["entity
 
 print("\n=== 6-Way Complete Circular Curve Solver ===")
 from engine.curves import solve_missing
+
 # R=500.0, Delta=45.0 -> L=392.699, C=382.683
 c_rd = solve_missing(radius=500.0, delta_deg=45.0)
 check("curve pair (R, Delta)", abs(c_rd["length"] - 392.699) < 0.01 and abs(c_rd["chord"] - 382.683) < 0.01)
@@ -284,6 +307,7 @@ check("Clay GIS exact Trail Ridge Rd & Tynes Blvd", g_clay_tt is not None and ab
 
 print("\n=== Parcel Inner Rings (Conservation Holes & Net Acreage) ===")
 from engine.topology import Parcel
+
 vg_hole = VertexGraph()
 # Outer 200x200 square = 40,000 sq ft
 vg_hole.add("O1", Point(0.0, 0.0))
@@ -302,6 +326,7 @@ check("net acreage exact", abs(p_hole.net_acreage() - (37500.0 / 43560.0)) < 1e-
 
 print("\n=== DXF Linetypes & Text Alignment Verification ===")
 from engine.dxf_writer import DXFWriter
+
 dxf_test = DXFWriter()
 dxf_test.add_layer("TEST_CENTER", "cyan", "CENTER")
 dxf_test.add_layer("TEST_HIDDEN", "magenta", "HIDDEN")
@@ -321,7 +346,9 @@ check("DXF header has ACADVER AC1009", "$ACADVER\n1\nAC1009" in header_str)
 check("DXF header has DWGCODEPAGE ANSI_1252", "$DWGCODEPAGE\n3\nANSI_1252" in header_str)
 
 print("\n=== QGIS DXF Font & Companion QML Verification ===")
-import tempfile, os
+import os
+import tempfile
+
 qgis_dxf = DXFWriter()
 qgis_dxf.add_layer("BOUNDARY", "green")
 qgis_dxf.line((0, 0), (100, 0), layer="BOUNDARY")
@@ -373,9 +400,9 @@ if os.path.exists(qml_file):
     os.remove(qml_file)
 
 print("\n=== 100-Agent Multiagent Consensus Solver & Plat Vectorization ===")
-from engine.consensus import MultiAgentConsensusSolver
-from engine.vectorize import vectorize_plat_sheet, iterative_align_raster_to_cogo
 from engine.audit import audit_dxf_layers
+from engine.consensus import MultiAgentConsensusSolver
+from engine.vectorize import iterative_align_raster_to_cogo
 
 # 1. 100-Agent Consensus Solver Instantiation
 solver_test = MultiAgentConsensusSolver()
@@ -416,12 +443,12 @@ if os.path.exists(bw_consensus_dxf):
     check("Beachwood DXF >3000 linework entities", audit_report["entity_counts"]["polylines"] > 1000)
 
 print("\n=== Codebase-Wide Enhancements & Robustness Verification ===")
-from engine.cogo import try_parse_bearing, parse_bearing
-from engine.curves import verify_curve_consistency, curve_segment_area, solve_missing
-from engine.topology import VertexGraph
-from engine.georeference import assert_zero_fudging
-from engine.dxf_writer import DXFWriter
+from engine.cogo import parse_bearing, try_parse_bearing
 from engine.consensus import CodebaseAuditPanel
+from engine.curves import curve_segment_area, solve_missing
+from engine.dxf_writer import DXFWriter
+from engine.georeference import assert_zero_fudging
+from engine.topology import VertexGraph
 
 # 1. Bearing parsing robustness
 check("try_parse_bearing valid quadrant", try_parse_bearing("N45°30'00\"E") == 45.5)
@@ -470,6 +497,7 @@ check("CodebaseAuditPanel unanimous 100/100 quorum", cb_report["consensus"]["una
 
 # 7. 100-Agent Street Extraction Consensus Panel
 from engine.street_extraction import StreetExtractionConsensusPanel, pair_intersections_with_consensus
+
 street_panel = StreetExtractionConsensusPanel()
 check("StreetExtractionConsensusPanel instantiates 100 agents", len(street_panel.solver.agents) == 100)
 check("StreetExtractionConsensusPanel instantiates 5 guilds", len(street_panel.solver.guilds) == 5)
@@ -489,6 +517,7 @@ check("Street consensus verifies Starfish & Mangrove ground-truth GPS",
 
 # 8. 100-Agent Batch Plat Vectorization Consensus Panel
 from build_plats_vector import BatchPlatConsensusPanel
+
 vector_panel = BatchPlatConsensusPanel()
 check("BatchPlatConsensusPanel instantiates 100 agents", len(vector_panel.solver.agents) == 100)
 check("BatchPlatConsensusPanel instantiates 5 guilds", len(vector_panel.solver.guilds) == 5)
@@ -567,6 +596,7 @@ check("GPS: 'South Starfish Avenue' is not 'Starfish Avenue'",
 check("GPS: 'Starfish Court' is not 'Starfish Avenue'",
       get_intersection_gps("Starfish Court", "Mangrove Avenue") is None)
 import engine.georeference as _geo
+
 _saved_db = _geo._GPS_DB_PATH
 _ghost = os.path.join(tempfile.mkdtemp(), "no_such_dir", "db.json")
 _geo._GPS_DB_PATH = _ghost
@@ -618,11 +648,13 @@ else:
     print("  SKIP  batch vectorizer end-to-end (pdftoppm or sample PDF not available)")
 
 print("\n=== Curve following: which side a curve bulges, decided from the scan skeleton ===")
-import numpy as np
-import cv2
 from dataclasses import replace as _replace
-from engine.vectorize import skeletonize, map_mask_excluding, extract_polylines, px_to_feet_polylines
-from engine.curve_follow import InkField, choose_curve_side, follow_curve, verify_curve_sides, _as_array
+
+import cv2
+import numpy as np
+
+from engine.curve_follow import InkField, _as_array, choose_curve_side, follow_curve, verify_curve_sides
+from engine.vectorize import extract_polylines, map_mask_excluding, px_to_feet_polylines, skeletonize
 
 # 1. Skeleton back-end (BUG: with cv2.ximgproc missing, skeletonize() silently used a morphological
 #    fallback that shredded strokes -- 2,744 pieces on a sheet whose real linework is 20 connected
@@ -716,7 +748,8 @@ check("follow_curve's registered arc sits on the drawn line (mid-arc within 2 ft
 check("follow_curve reports measured ink along most of the arc", float(_tr.measured.mean()) > 0.7, float(_tr.measured.mean()))
 
 # 9. Omni-Parameter Circular Curve Solver (All 8 Parameters & 28 Pairs)
-from engine.curves import solve_curve_all_parameters, Curve
+from engine.curves import Curve, solve_curve_all_parameters
+
 base_c = solve_curve_all_parameters(radius=200.0, delta_deg=45.0)
 check("solve_curve_all_parameters returns all 8 core parameters",
       all(k in base_c for k in ["radius", "delta_deg", "delta_rad", "delta_dms", "length", "chord",
@@ -776,6 +809,7 @@ check("solve_curve_all_parameters (D, L) solves radius and delta",
 
 # 10. Autonomous Cadastral Lot Agent & MapCheck Verification
 from engine.lot_agent import BeachwoodLotAgent
+
 p_nw = Point(100.0, 0.0)
 p_ne = Point(100.0, 75.0)
 p_se = Point(0.0, 75.0)
@@ -812,8 +846,9 @@ check("BeachwoodLotAgent curved side has tangent, mid-ordinate, and segment area
 # 11. Skeleton Scan Vector Alignment & Curve Direction Determination
 print("\n=== skeleton scan vector alignment & curve direction determination ===")
 import numpy as np
-from engine.vectorize import extract_skeleton_points, align_skeleton_to_vector, sample_skeleton_corridor
+
 from engine.curves import determine_curve_direction_from_skeleton, trace_curve_from_skeleton
+from engine.vectorize import align_skeleton_to_vector, extract_skeleton_points
 
 # Test 11.1: extract_skeleton_points from binary mask
 syn_mask = np.zeros((100, 100), dtype=np.uint8)
@@ -906,10 +941,10 @@ check("a scan that cannot resolve the sagitta does NOT override the coded curve 
 
 
 print("\n=== skeleton alignment debug pass (anchor + baseline, area geometry, gating) ===")
-from engine.vectorize import align_skeleton_to_vector, iterative_align_raster_to_cogo
 from engine import scan_align as SA
 from engine.curve_follow import InkField as _IF
 from engine.lot_agent import BeachwoodLotAgent as _BLA
+from engine.vectorize import align_skeleton_to_vector, iterative_align_raster_to_cogo
 
 # 1. align_skeleton_to_vector applies  vector = scale * R(rot) @ scan + t  exactly (round trip vs a known transform)
 _rng2 = random.Random(5)

@@ -11,25 +11,26 @@ Processes:
   4. Vector Alignment: Rigid Helmert/survey registration onto the parent vector coordinate frame.
   5. DXF Output: Dedicated traced DXF with separate layers for traced straight lines and traced curves (AutoCAD ARC entities).
 """
+import math
 import os
 import sys
-import math
+
 import cv2
 import numpy as np
 
 sys.path.insert(0, ".")
-from engine.cogo import Point, parse_bearing
+from engine import scan_align as SA
+from engine.audit import dxf_audit
+from engine.cogo import parse_bearing
+from engine.curve_follow import InkField
+from engine.dxf_writer import DXFWriter
 from engine.vectorize import (
-    map_mask_excluding,
     break_at_junctions,
     derive_scale_factor,
-    px_to_feet_polylines,
     extract_polylines,
+    map_mask_excluding,
+    px_to_feet_polylines,
 )
-from engine.dxf_writer import DXFWriter
-from engine.audit import dxf_audit
-from engine import scan_align as SA
-from engine.curve_follow import InkField
 
 
 def fit_circle_least_squares(pts: np.ndarray) -> tuple[float, float, float, float] | None:

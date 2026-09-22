@@ -12,7 +12,9 @@ disagree about why. Rather than pick one, this DXF draws BOTH hypotheses on
 separate layers so the discrepancy is visible and can be adjudicated against
 the original document.
 """
-import sys, math
+import math
+import sys
+
 sys.path.insert(0, '.')
 from engine.cogo import Point, parse_bearing
 from engine.dxf_writer import DXFWriter
@@ -48,8 +50,8 @@ HYP_B = [
 ]
 
 
-def traverse(courses, origin=Point(0.0, 0.0)):
-    p = origin
+def traverse(courses, origin=None):
+    p = origin if origin is not None else Point(0.0, 0.0)
     pts = [p]
     for b, d, _ in courses:
         p = p.offset(parse_bearing(b), d)

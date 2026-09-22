@@ -40,9 +40,11 @@ wrong side is worse than no answer, so DECIDED is deliberately hard to earn.
 Coordinates are (Northing, Easting) in feet, like the rest of the engine.
 """
 from __future__ import annotations
+
 import math
 from collections import defaultdict
 from dataclasses import dataclass, replace
+
 import cv2
 import numpy as np
 
@@ -70,7 +72,7 @@ class InkField:
 
     @classmethod
     def from_polylines(cls, polylines, step_ft: float = 0.5, min_seg_ft: float = 1.5,
-                       cell_ft: float = 10.0) -> "InkField":
+                       cell_ft: float = 10.0) -> InkField:
         """Build from skeleton polylines in feet, e.g. vectorize_plat_sheet()'s
         'polylines_ft'. Segments are densified to step_ft so distances to the ink
         are accurate to about step_ft / 2; segments shorter than min_seg_ft are
@@ -78,7 +80,7 @@ class InkField:
         pts, ang = [], []
         for poly in polylines:
             P = np.asarray(poly, dtype=float)
-            for a, b in zip(P[:-1], P[1:]):
+            for a, b in zip(P[:-1], P[1:], strict=True):
                 d = b - a
                 length = math.hypot(d[0], d[1])
                 if length < min_seg_ft:
@@ -92,7 +94,7 @@ class InkField:
 
     @classmethod
     def from_points(cls, points, radius_ft: float = 6.0, min_neighbors: int = 3,
-                    cell_ft: float = 10.0) -> "InkField":
+                    cell_ft: float = 10.0) -> InkField:
         """Build from bare skeleton points (no polylines to read a direction from).
 
         Each point's stroke direction is the principal axis of the points within

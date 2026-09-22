@@ -15,11 +15,12 @@ PLAT NOTES (sheet 2, transcribed):
   6. Easements are for drainage & utilities.
   7. Tract "A" is reserved for Sewage Lift Station.
 """
-import sys, math
+import sys
+
 sys.path.insert(0, '.')
 from engine.cogo import Point, parse_bearing
-from engine.lots import shoelace_area, Lot
 from engine.dxf_writer import DXFWriter
+from engine.lots import Lot, shoelace_area
 
 # ---- north boundary (N'ly line of Section 32) ----
 NORTH_BEARING = "S87°35'30\"W"
@@ -59,7 +60,7 @@ print("  (87d35'30\" + 2d24'30\" = 90d00'00\" -- the two bearings are read from 
 
 print("\n=== CHECK 2: parallel boundaries imply constant depth ===")
 print(f"  north line {NORTH_BEARING} and Starfish Ave {BLK18_STREET_BEARING} are")
-print(f"  identical -> convergence 0' -> predicted depth decrement 0.000 ft")
+print("  identical -> convergence 0' -> predicted depth decrement 0.000 ft")
 print(f"  observed: all depths transcribed as {BLK18_DEPTH} ft (decrement 0.000)")
 print("  -> CONSISTENT (contrast Cedar Oaks, where 27' convergence predicted")
 print("     0.628 ft/lot and the depths duly shrank)")
@@ -69,7 +70,7 @@ tot = sum(BLK18_WIDTHS)
 print(f"  Lot 1 103.50 + 18 x 75.00 = {tot:.2f} ft")
 print(f"  north line total {NORTH_DISTANCE} ft -> remainder east of Lot 19 = "
       f"{NORTH_DISTANCE - tot:.2f} ft")
-print(f"  (remainder covers the Beachwood Blvd tie -- see UNRESOLVED)")
+print("  (remainder covers the Beachwood Blvd tie -- see UNRESOLVED)")
 
 # ================= BUILD =================
 saz = parse_bearing(BLK18_STREET_BEARING)
@@ -151,9 +152,9 @@ body = [
     "(Tesseract parsed 0 usable bearings here across 8 preprocessing variants.)",
     "",
     "VALIDATION:",
-    f"  Side bearing N2d24'30\"W + street bearing S87d35'30\"W = 90d00'00\" exactly",
+    "  Side bearing N2d24'30\"W + street bearing S87d35'30\"W = 90d00'00\" exactly",
     f"    -> included angle computed {ang:.6f} deg. The two bearings are read from",
-    f"       different parts of the sheet and independently confirm each other.",
+    "       different parts of the sheet and independently confirm each other.",
     "  North line and Starfish Ave are parallel -> depth must be constant;",
     "    all depths transcribed as 100.00 ft. Consistent.",
     f"  Block width 103.50 + 18(75.00) = {tot:.2f} ft of the {NORTH_DISTANCE} ft north line.",

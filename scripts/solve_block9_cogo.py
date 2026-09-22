@@ -23,22 +23,23 @@ import argparse
 import math
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from dataclasses import dataclass, field
 
 import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib.patches import Polygon as MplPolygon, Circle as MplCircle
-import matplotlib.patheffects as pe
 
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.curves import solve_curve_all_parameters
-from engine.cogo_block import BeachwoodBlock9Solver, LotMapCheckResult, solve_corner_return
-from engine.lot_agent import BeachwoodLotAgent, MapCheckReport
-from engine.dxf_writer import DXFWriter
+matplotlib.use("Agg")
+import matplotlib.patheffects as pe
+import matplotlib.pyplot as plt
+from matplotlib.patches import Polygon as MplPolygon
+
 from engine.audit import dxf_audit
-from engine.lotsheets import draw_lot_sheet, PAGE_W, PAGE_H
+from engine.cogo import Point, parse_bearing
+from engine.cogo_block import BeachwoodBlock9Solver
+from engine.dxf_writer import DXFWriter
+from engine.lot_agent import BeachwoodLotAgent
+from engine.lotsheets import PAGE_H, PAGE_W, draw_lot_sheet
 
 
 def build_agents(solver: BeachwoodBlock9Solver) -> list[BeachwoodLotAgent]:

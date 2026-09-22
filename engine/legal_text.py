@@ -18,6 +18,7 @@ they are dictionary tokens, they are longer, and OCR confusions between
 NORMALLY THE SURVIVOR, and it can be used to repair the numeral.
 """
 from __future__ import annotations
+
 import re
 
 UNITS = {

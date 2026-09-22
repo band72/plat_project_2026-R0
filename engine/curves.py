@@ -10,10 +10,12 @@ gives tangent-in/tangent-out bearings, which is enough to draw the arc as a
 free-standing entity placed at a known PC).
 """
 from __future__ import annotations
+
 import math
 from dataclasses import dataclass
 from typing import Any
-from .cogo import Point, parse_bearing, azimuth_to_bearing
+
+from .cogo import Point, azimuth_to_bearing, parse_bearing
 
 
 @dataclass

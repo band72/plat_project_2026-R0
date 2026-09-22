@@ -6,11 +6,11 @@ Sheets 3-6 is the next iteration once Sheet 6 (Pg 40) is supplied -- see
 MASTER_PROMPT.md.
 """
 import sys
+
 sys.path.insert(0, '.')
-from engine.cogo import Point, Course, run_traverse, closure_report, azimuth_to_bearing
-from engine.curves import Curve
-from engine.dxf_writer import DXFWriter
 import data.trail_ridge_estates as trd
+from engine.cogo import Course, Point, closure_report, run_traverse
+from engine.dxf_writer import DXFWriter
 
 dxf = DXFWriter()
 dxf.add_layer("BOUNDARY", "white", "CONTINUOUS")
@@ -32,6 +32,7 @@ for i in range(len(pts) - 1):
 # point of commencement, offset back from POB along the ROW course, reversed
 comm_az = (270 - (0)) # placeholder, computed properly below
 from engine.cogo import parse_bearing
+
 poc_az = (parse_bearing(trd.COMMENCEMENT_TO_POB["bearing"]) + 180) % 360
 poc = pob.offset(poc_az, trd.COMMENCEMENT_TO_POB["distance"])
 dxf.line((poc.n, poc.e), (pob.n, pob.e), layer="SECTION_LINE")

@@ -12,14 +12,12 @@ or via:
 """
 
 import math
-import pytest
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.curves import solve_curve_all_parameters
+
+from engine.cogo import Point, parse_bearing
 from engine.cogo_block import (
     BeachwoodBlock9Solver,
-    solve_corner_return,
     intersect_bearings,
-    DeterministicLotSolver,
+    solve_corner_return,
 )
 
 
@@ -156,7 +154,6 @@ def test_corner_fillet_area_deduction():
 
 
 if __name__ == "__main__":
-    import sys
     print("=" * 80)
     print("  RUNNING DETERMINISTIC COGO UNIT TESTS (OFFLINE / ZERO AI)")
     print("=" * 80)

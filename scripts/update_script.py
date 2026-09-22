@@ -1,4 +1,4 @@
-with open("generate_lot_images_dxf.py", "r") as f:
+with open("generate_lot_images_dxf.py") as f:
     code = f.read()
 
 # Replace draw_arc_segments to also add true CAD ARC entity:

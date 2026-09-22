@@ -16,12 +16,14 @@ Scan-to-Vector Pipeline:
   5. Ground-Truth GPS tie: Heckscher Dr & Beverly Isle Dr (30.407420° N, -81.442180° W).
   6. Export layered DXF to dxf/Duval_BeverlyIsle_1968.dxf.
 """
-import sys, math, cv2
-import numpy as np
+import sys
+
+import cv2
+
 sys.path.insert(0, '.')
-from engine.vectorize import skeletonize, segments, merge_collinear
 from engine.dxf_writer import DXFWriter
 from engine.georeference import get_intersection_gps
+from engine.vectorize import merge_collinear, segments, skeletonize
 
 img = cv2.imread('src/beverly_thumb.png', cv2.IMREAD_GRAYSCALE)
 rot = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)

@@ -28,7 +28,9 @@ Rigor distinction, carried into the DXF:
     transcription is attached to the right physical lots, not survey-grade
     for the registration itself.
 """
-import sys, math, re
+import math
+import sys
+
 sys.path.insert(0, '.')
 from engine.cogo import Point, parse_bearing
 from engine.dxf_writer import DXFWriter
@@ -114,7 +116,9 @@ for n, c, lt in [("SHEET3_SCALED", "gray", "CONTINUOUS"),
 
 # re-vectorize sheet 3 onto this same local frame as background reference
 import cv2
-from engine.vectorize import map_mask_excluding, segments, merge_collinear
+
+from engine.vectorize import map_mask_excluding, merge_collinear, segments
+
 img = cv2.imread("src/abcc300-3.png", 0)
 mask = map_mask_excluding(img, exclude=[(0.085,0.20,0.165,0.44),(0.085,0.66,0.12,0.09),
                                         (0.02,0.80,0.20,0.18)])
@@ -157,7 +161,7 @@ body = [
     "GRAY  = scaled linework (raster-vectorized, ~1 ft accuracy, Iter 16)",
     "RED   = TRUE traverse: lots 137-126, transcribed bearings & distances",
     "",
-    f"Registration: 2-point fit (Tract K corner, corner after 772.85' run).",
+    "Registration: 2-point fit (Tract K corner, corner after 772.85' run).",
     f"  Pixel-measured control distance {pixel_dist:.2f}' vs true 772.85' "
     f"({abs(pixel_dist-772.85):.2f} ft agreement).",
     f"  Solved sheet rotation: {PHI:.3f} deg from a north-up frame.",

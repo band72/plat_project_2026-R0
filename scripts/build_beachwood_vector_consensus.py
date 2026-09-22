@@ -20,27 +20,24 @@ Pipeline:
      with zero artificial offset fudging.
 """
 from __future__ import annotations
-import os
-import sys
+
 import math
+import os
 import subprocess
-import glob
-import cv2
-import numpy as np
+import sys
 
 sys.path.insert(0, ".")
-from engine.cogo import Point, parse_bearing, course_label_geometry
-from engine.lots import shoelace_area, Lot
-from engine.topology import VertexGraph, Parcel
+from engine.cogo import Point, course_label_geometry, parse_bearing
+from engine.consensus import MultiAgentConsensusSolver
 from engine.curves import Curve
 from engine.dxf_writer import DXFWriter
 from engine.georeference import get_intersection_gps
+from engine.lots import shoelace_area
 from engine.tables import build_lot_schedules, draw_cad_table, draw_split_table
-from engine.consensus import MultiAgentConsensusSolver
+from engine.topology import Parcel, VertexGraph
 from engine.vectorize import (
-    vectorize_plat_sheet,
     iterative_align_raster_to_cogo,
-    derive_scale_factor,
+    vectorize_plat_sheet,
 )
 
 

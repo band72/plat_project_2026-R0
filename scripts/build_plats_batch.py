@@ -1,9 +1,10 @@
-import os
 import glob
+import os
 import subprocess
-import shutil
-from engine.street_extraction import extract_streets, pair_intersections_with_consensus
+
 from engine.georeference import assert_zero_fudging, format_gps
+from engine.street_extraction import extract_streets, pair_intersections_with_consensus
+
 
 def convert_pdf_to_images(pdf_path: str, output_dir: str, dpi: int = 200) -> list[str]:
     """Convert PDF pages to PNG images using pdftoppm."""

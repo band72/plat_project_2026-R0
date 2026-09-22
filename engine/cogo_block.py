@@ -22,16 +22,15 @@ Engine Principles:
 """
 
 from __future__ import annotations
+
 import math
 import os
 from dataclasses import dataclass, field
-from typing import Any, Callable
+from typing import Any
 
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.curves import solve_curve_all_parameters, deg_to_dms_str, curve_segment_area
+from engine.cogo import Point, azimuth_to_bearing, parse_bearing
+from engine.curves import solve_curve_all_parameters
 from engine.lots import shoelace_area
-from engine.dxf_writer import DXFWriter
-
 
 # ==============================================================================
 # 1. SURVEYING CORNER RETURN SOLVER
@@ -562,18 +561,18 @@ class BeachwoodBlock9Solver:
             f.write("  RULE 2: CORNER RETURN CURVE DERIVATIONS & P.I. TANGENT CUTBACKS\n")
             f.write("=" * 80 + "\n")
             f.write(f"Lot 27 (NW Corner): Delta = {self.sol27.delta_deg:.2f}° | Tangent T = {self.sol27.tangent:.4f}' | Arc = {self.sol27.arc_length:.2f}'\n")
-            f.write(f"  Stated Dimension along West to P.I. Tick: 140.00'\n")
+            f.write("  Stated Dimension along West to P.I. Tick: 140.00'\n")
             f.write(f"  Straight Course Length to P.C. = 140.00' - 25.00' = {self.sol27.straight_in:.2f}'\n")
             f.write(f"Lot 26 (SW Corner): Delta = {self.sol26.delta_deg:.2f}° | Tangent T = {self.sol26.tangent:.4f}' | Arc = {self.sol26.arc_length:.2f}'\n")
-            f.write(f"  Stated Dimension along West to P.I. Tick: 109.00'\n")
+            f.write("  Stated Dimension along West to P.I. Tick: 109.00'\n")
             f.write(f"  Straight Course Length to P.C. = 109.00' - 25.00' = {self.sol26.straight_in:.2f}'\n\n")
 
             f.write("=" * 80 + "\n")
             f.write("  MATCHLINE & CONTROL MONUMENT VERIFICATION\n")
             f.write("=" * 80 + "\n")
-            f.write(f"  Matchline Bearing: N35°18'20\"E, Length = 200.00 ft\n")
-            f.write(f"  Control Anchor: P.R.M. Monument at Cape Horn Avenue R/W (NE Corner Lot 31)\n")
-            f.write(f"  South Anchor: San Salvadore Avenue R/W (SE Corner Lot 23)\n\n")
+            f.write("  Matchline Bearing: N35°18'20\"E, Length = 200.00 ft\n")
+            f.write("  Control Anchor: P.R.M. Monument at Cape Horn Avenue R/W (NE Corner Lot 31)\n")
+            f.write("  South Anchor: San Salvadore Avenue R/W (SE Corner Lot 23)\n\n")
 
             for lot_num in ["27", "28", "29", "30", "31", "26", "25", "24", "23"]:
                 res = results[lot_num]

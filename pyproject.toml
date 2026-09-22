@@ -1,0 +1,43 @@
+[project]
+name = "plat-project"
+version = "2026.0"
+description = "Cadastral Survey Plat COGO & Vectorization Engine"
+requires-python = ">=3.12"
+readme = "README.md"
+license = { text = "MIT" }
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = ["temp_images", "images", "src", "dxf", "Plat", "__pycache__"]
+
+[tool.ruff.lint]
+# E/F = pyflakes+pycodestyle core correctness, B = bugbear, C4 = comprehension
+# cleanups, I = import sorting, UP = pyupgrade. Docstring/quote-style
+# nitpicking (D/Q) is intentionally left off: this is a domain-heavy codebase
+# with long descriptive strings, and double quotes are the project convention.
+select = ["E", "F", "B", "C4", "I", "UP"]
+ignore = [
+    "E501",   # long lines: mostly bearing/legal-description string literals
+    "E402",   # scripts do `sys.path.insert(...)` before local imports so they
+              # run standalone without the package being installed
+]
+
+[tool.ruff.lint.flake8-bugbear]
+# FastAPI's DI pattern requires calling File()/Form()/Query()/Depends() as an
+# argument default; that's not the mutable-default footgun B008 warns about.
+extend-immutable-calls = ["fastapi.File", "fastapi.Form", "fastapi.Query", "fastapi.Depends", "fastapi.Body"]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
+python_files = ["test_*.py"]
+
+[tool.pyright]
+# This is a flat layout (engine/, scripts/, web/, data/ are the packages,
+# imported via the sys.path.insert(...) done at the top of each entry point)
+# -- NOT a src/ layout. src/ here holds reference images, not code. Pin the
+# analysis root explicitly so the language server doesn't guess src/ and
+# fail to resolve `engine.*` / `scripts.*` imports.
+include = ["engine", "scripts", "web", "data", "*.py"]
+exclude = ["src", "temp_images", "images", "dxf", "Plat", "**/__pycache__"]
+extraPaths = ["."]

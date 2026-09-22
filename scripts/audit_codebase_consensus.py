@@ -10,13 +10,14 @@ codebase using 100 simulated autonomous agents partitioned into 5 specialized gu
   5. Geodesy, GIS & Public Land Records (Agents 81-100)
 """
 from __future__ import annotations
-import sys
+
 import os
+import sys
 
 sys.path.insert(0, ".")
-from engine.consensus import CodebaseAuditPanel
-from engine.georeference import get_intersection_gps, assert_zero_fudging
 from engine.audit import audit_dxf_layers
+from engine.consensus import CodebaseAuditPanel
+from engine.georeference import assert_zero_fudging, get_intersection_gps
 
 
 def run_codebase_consensus_audit(root_dir: str = ".") -> dict:

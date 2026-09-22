@@ -20,11 +20,13 @@ Pipeline: threshold -> drop small components (text) -> Hough segments ->
 merge collinear -> convert px to feet -> DXF.
 """
 from __future__ import annotations
+
 import math
 import warnings
+from typing import Any
+
 import cv2
 import numpy as np
-from typing import Any
 
 
 def map_mask(img: np.ndarray, rect: tuple, min_diag=150) -> np.ndarray:
@@ -101,7 +103,7 @@ def segments(mask: np.ndarray, min_len_px=48, max_gap=6, thresh=60):
     accumulator support than a thick stroke of the same length."""
     lines = cv2.HoughLinesP(mask, 1, np.pi / 720, threshold=max(20, thresh // 2),
                             minLineLength=min_len_px, maxLineGap=max(max_gap, 10))
-    return [] if lines is None else [tuple(int(v) for v in l) for l in lines[:, 0]]
+    return [] if lines is None else [tuple(int(v) for v in row) for row in lines[:, 0]]
 
 
 def _ang(s):
@@ -185,7 +187,6 @@ def map_mask_excluding(img, border_frac=0.012, exclude=None, min_diag=150,
     skeleton=True (default) thins strokes to 1px before returning -- see
     skeletonize() docstring for why this is required, not optional, to avoid
     duplicate near-parallel lines from each stroke's two edges."""
-    import numpy as np, cv2
     h, w = img.shape
     m = map_mask(img, (0, 0, w, h), min_diag=min_diag)
     b = int(min(h, w) * border_frac)
@@ -548,7 +549,7 @@ def align_skeleton_to_vector(
     arr = np.array([(p.n, p.e) if hasattr(p, "n") else (p[0], p[1]) for p in skeleton_pts], dtype=float)
     an = scale * (arr[:, 0] * cos_t - arr[:, 1] * sin_t) + t_n
     ae = scale * (arr[:, 0] * sin_t + arr[:, 1] * cos_t) + t_e
-    return [Point(float(n), float(e)) for n, e in zip(an, ae)]
+    return [Point(float(n), float(e)) for n, e in zip(an, ae, strict=True)]
 
 
 def sample_skeleton_corridor(

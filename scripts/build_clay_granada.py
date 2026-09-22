@@ -12,12 +12,12 @@ State Plane East: EPSG:2236.
 """
 
 import os
-import math
+
+from engine.audit import audit_dxf_layers, audit_parcel_area
 from engine.cogo import Point
-from engine.topology import VertexGraph, Parcel
 from engine.dxf_writer import DXFWriter
-from engine.labels import draw_course, road_name_label, lot_label
-from engine.audit import audit_traverse_closure, audit_parcel_area, audit_dxf_layers
+from engine.labels import draw_course, lot_label, road_name_label
+from engine.topology import Parcel, VertexGraph
 
 # State Plane Florida East (EPSG:2236, US Survey Feet) Anchor Point
 # Derived from true physical intersection at Kavie Ct & Industrial Park Rd (29.949625 N, -81.691813 W)

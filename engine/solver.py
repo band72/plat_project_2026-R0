@@ -21,8 +21,9 @@ Provenance is tracked for every value so a DERIVED number is never confused
 with something actually read from the plat.
 """
 from __future__ import annotations
+
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 READ, DERIVED, UNKNOWN = "READ", "DERIVED", "UNKNOWN"
 
@@ -62,7 +63,7 @@ class Model:
             self.unknown(name)
         return self.q[name]
 
-    def add(self, c: "Constraint"):
+    def add(self, c: Constraint):
         c.model = self
         self.constraints.append(c)
         return c
@@ -123,8 +124,8 @@ class Model:
         print(f"quantities: {len(self.q)}   READ {nread}   DERIVED {nderv}   UNKNOWN {nunk}")
         if self.log:
             print("\nderivations:")
-            for l in self.log:
-                print("  " + l)
+            for line in self.log:
+                print("  " + line)
         if self.checks:
             print("\nchecks (all inputs known -> residual):")
             for c in self.checks:

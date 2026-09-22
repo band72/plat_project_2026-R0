@@ -15,14 +15,15 @@ This replaces the hand-transcription approach. Pipeline:
 Requires: tesseract binary, opencv, pillow, numpy. No network.
 """
 from __future__ import annotations
+
+import math
+import os
 import re
 import subprocess
 import tempfile
-import os
-import math
+
 import cv2
 import numpy as np
-
 
 # ---------- preprocessing ----------
 
@@ -115,7 +116,7 @@ def ocr_region(img: np.ndarray, rect=None, psm=6, whitelist=None,
         cv2.imwrite(p, crop)
         cmd = ["tesseract", p, "stdout", "--psm", str(psm), "-l", "eng"]
         if whitelist:
-            cmd += [f"-c", f"tessedit_char_whitelist={whitelist}"]
+            cmd += ["-c", f"tessedit_char_whitelist={whitelist}"]
         r = subprocess.run(cmd, capture_output=True, text=True)
         return r.stdout
 
@@ -579,7 +580,7 @@ def infer_curve_columns(rows_text: list[list[str]], tol=0.05) -> dict:
     from itertools import permutations
     roles = ["length", "radius", "chord", "tangent"][:len(num_cols)]
     for perm in permutations(num_cols, len(roles)):
-        assign = dict(zip(roles, perm))
+        assign = dict(zip(roles, perm, strict=True))
         score = 0
         for D, vals in data:
             R = vals.get(assign.get("radius"))

@@ -12,12 +12,12 @@ Features:
   - Corner return curves (R=25.0') with P.I. angle bar glyphs (Lot 27 NW '┌', Lot 26 SW '└').
 """
 
-import math
 import os
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.curves import solve_curve_all_parameters
-from engine.lot_agent import BeachwoodLotAgent, MapCheckReport
+
 from compute_user_mapchecks import solve_corner_curve
+
+from engine.cogo import Point, parse_bearing
+from engine.lot_agent import BeachwoodLotAgent, MapCheckReport
 
 
 def run_block9_mapcheck() -> list[MapCheckReport]:
@@ -213,19 +213,19 @@ def run_block9_mapcheck() -> list[MapCheckReport]:
         f.write("=" * 80 + "\n")
         f.write("  SUMMARY OF CORNER RETURN CURVE SOLVES & P.I. TANGENTS (R = 25.00 ft)\n")
         f.write("=" * 80 + "\n")
-        f.write(f"Lot 27 (NW Corner): Delta = 90°00'00\" | Tangent T = 25.0000' | Arc = 39.27' | Chord = 35.36'\n")
-        f.write(f"  Stated West Dimension to P.I.: 140.00' -> Straight West Line to P.C. = 115.00'\n")
-        f.write(f"  Stated North Dimension to P.C.: 25.00' -> Tangent from P.I. to P.C. = 25.00'\n")
-        f.write(f"Lot 26 (SW Corner): Delta = 90°00'00\" | Tangent T = 25.0000' | Arc = 39.27' | Chord = 35.36'\n")
-        f.write(f"  Stated West Dimension to P.I.: 109.00' -> Straight West Line to P.C. = 84.00'\n")
-        f.write(f"  Stated South Dimension to P.C.: 25.00' -> Tangent from P.I. to P.C. = 25.00'\n\n")
+        f.write("Lot 27 (NW Corner): Delta = 90°00'00\" | Tangent T = 25.0000' | Arc = 39.27' | Chord = 35.36'\n")
+        f.write("  Stated West Dimension to P.I.: 140.00' -> Straight West Line to P.C. = 115.00'\n")
+        f.write("  Stated North Dimension to P.C.: 25.00' -> Tangent from P.I. to P.C. = 25.00'\n")
+        f.write("Lot 26 (SW Corner): Delta = 90°00'00\" | Tangent T = 25.0000' | Arc = 39.27' | Chord = 35.36'\n")
+        f.write("  Stated West Dimension to P.I.: 109.00' -> Straight West Line to P.C. = 84.00'\n")
+        f.write("  Stated South Dimension to P.C.: 25.00' -> Tangent from P.I. to P.C. = 25.00'\n\n")
 
         f.write("=" * 80 + "\n")
         f.write("  MATCHLINE & CONTROL MONUMENT DATA\n")
         f.write("=" * 80 + "\n")
-        f.write(f"  Matchline: Bearing N35°18'20\"E, Total Length = 200.00 ft\n")
-        f.write(f"  Control: P.R.M. Monument at NE Corner of Lot 31 (Cape Horn Ave R/W)\n")
-        f.write(f"  South End: SE Corner of Lot 23 (San Salvadore Ave R/W)\n\n")
+        f.write("  Matchline: Bearing N35°18'20\"E, Total Length = 200.00 ft\n")
+        f.write("  Control: P.R.M. Monument at NE Corner of Lot 31 (Cape Horn Ave R/W)\n")
+        f.write("  South End: SE Corner of Lot 23 (San Salvadore Ave R/W)\n\n")
 
         for rep in reports:
             f.write(rep.format_text() + "\n\n")

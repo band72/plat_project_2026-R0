@@ -11,16 +11,15 @@ from the official plat drawing and dimensions:
       * Keel Drive North R/W curve chords (Lots 15 & 16)
       * Corner return curve (Lot 17 & Lot 1)
 """
+import math
 import os
 import sys
-import math
-from dataclasses import dataclass
+
+from engine.audit import dxf_audit
 from engine.cogo import Point, parse_bearing
 from engine.curves import solve_curve_all_parameters
-from engine.lots import shoelace_area
-from engine.lot_agent import BeachwoodLotAgent, MapCheckReport
 from engine.dxf_writer import DXFWriter
-from engine.audit import dxf_audit
+from engine.lot_agent import BeachwoodLotAgent, MapCheckReport
 
 
 def run_block15_mapcheck():

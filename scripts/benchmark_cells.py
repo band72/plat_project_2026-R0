@@ -3,12 +3,12 @@ Cell-accurate OCR benchmark vs hand-transcribed ground truth.
 This is the real accuracy number for the pipeline.
 """
 import sys
-sys.path.insert(0, '.')
-from engine.ocr import (load_gray, find_table_regions_inside_border,
-                        parse_table_by_cells, validate_curve, repair_curve)
-import data.trail_ridge_estates as trd
 
+sys.path.insert(0, '.')
 import os
+
+import data.trail_ridge_estates as trd
+from engine.ocr import find_table_regions_inside_border, load_gray, parse_table_by_cells, repair_curve, validate_curve
 
 FILES = {
     "PB0082_P0035_4216027_sheet_4_of_6.png": 3,

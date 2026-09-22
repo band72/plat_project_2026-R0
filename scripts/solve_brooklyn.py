@@ -5,11 +5,11 @@ Only quantities actually READ off the sheet are declared as such. Everything
 else starts UNKNOWN and is either derived by constraint propagation or is
 reported on the frontier as something still to be read or rescanned.
 """
-import sys, math
+import sys
+
 sys.path.insert(0, '.')
-from engine.solver import (Model, SumEquals, TraverseClosure, CurveRelation,
-                           Complementary, TangentRelation)
 from engine.cogo import parse_bearing
+from engine.solver import CurveRelation, Model, SumEquals, TangentRelation, TraverseClosure
 
 m = Model("BROOKLYN LAKE ESTATES -- PB 4/39, Clay County FL")
 

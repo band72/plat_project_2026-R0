@@ -1,0 +1,21 @@
+# Core numerics / geometry
+numpy>=1.26
+
+# Raster processing, tracing, and vectorization
+opencv-python-headless>=4.9
+scikit-image>=0.22
+
+# OCR (plat table / label extraction)
+pytesseract>=0.3.10
+easyocr>=1.7
+
+# Plotting / MapCheck drawing output
+matplotlib>=3.8
+
+# Web app (engine/web/server.py)
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+
+# Testing
+pytest>=7.4

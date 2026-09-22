@@ -17,12 +17,10 @@ Features:
     * MONUMENTS (Magenta/Points & Circles)
 """
 import math
-import os
-import sys
 
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.curves import solve_curve_all_parameters
+from engine.cogo import Point, parse_bearing
 from engine.dxf_writer import DXFWriter
+
 
 def create_dxf():
     print("=" * 80)

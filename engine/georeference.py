@@ -1,7 +1,7 @@
-import json
-import os
 import csv
+import json
 import math
+import os
 import re
 
 # Local cache for intersection GPS coordinates. Anchored to this repo rather
@@ -66,7 +66,7 @@ def _load_gps_db() -> list[tuple[tuple, tuple[float, float]]]:
     reading never writes. Malformed entries are skipped, not fatal."""
     if not os.path.exists(_GPS_DB_PATH):
         return []
-    with open(_GPS_DB_PATH, 'r') as f:
+    with open(_GPS_DB_PATH) as f:
         db = json.load(f)
     out = []
     for key, val in db.items():
@@ -90,7 +90,7 @@ def _load_clay_gis_index() -> dict[tuple[str, str], tuple[float, float]]:
     for csv_path in _CLAY_GIS_MASTER_PATHS:
         if os.path.exists(csv_path):
             try:
-                with open(csv_path, "r", encoding="utf-8", errors="ignore") as f:
+                with open(csv_path, encoding="utf-8", errors="ignore") as f:
                     reader = csv.DictReader(f)
                     for row in reader:
                         for idx in ("1", "2", "3"):
@@ -154,7 +154,7 @@ def get_intersection_gps(street1: str, street2: str) -> tuple[float, float] | No
 
 def add_intersection_gps(street1: str, street2: str, lat: float, lon: float):
     if os.path.exists(_GPS_DB_PATH):
-        with open(_GPS_DB_PATH, 'r') as f:
+        with open(_GPS_DB_PATH) as f:
             db = json.load(f)
     else:
         db = {}

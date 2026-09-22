@@ -7,7 +7,7 @@ Plat Book 30, Pages 82 & 82A, Duval County, FL (Beachwood Unit Two):
   Image 3: Block 14 (Lots 24, 23) along Shellfish Dr, Mangrove Ave, and South 60' Street R/W
 """
 import math
-import os
+
 from engine.cogo import Point, parse_bearing
 from engine.curves import solve_curve_all_parameters
 from engine.lot_agent import BeachwoodLotAgent, MapCheckReport

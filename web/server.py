@@ -9,27 +9,27 @@ FastAPI web application providing:
 """
 
 from __future__ import annotations
+
 import io
-import json
-import math
+import logging
 import os
-import shutil
 import sys
-from typing import Any
+import uuid
 
 # Ensure project root is in sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from fastapi import FastAPI, File, UploadFile, Form, HTTPException
-from fastapi.responses import HTMLResponse, FileResponse, JSONResponse, StreamingResponse
-from fastapi.staticfiles import StaticFiles
 import uvicorn
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, StreamingResponse
+from fastapi.staticfiles import StaticFiles
 
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.curves import solve_curve_all_parameters
-from engine.cogo_block import BeachwoodBlock9Solver, LotMapCheckResult
+from engine.cogo_block import BeachwoodBlock9Solver
 from engine.dxf_writer import DXFWriter
-from scripts.solve_block9_cogo import build_agents, write_production_dxf, write_checksheets_dxf, render_plot
+from scripts.solve_block9_cogo import build_agents, render_plot, write_checksheets_dxf, write_production_dxf
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+logger = logging.getLogger("plat_web")
 
 app = FastAPI(title="Cadastral Survey Plat COGO & Vectorization Engine", version="2026-R0")
 
@@ -38,16 +38,36 @@ STATIC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "static"))
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(STATIC_DIR, exist_ok=True)
 
+# Only Block 9 (Beachwood Unit Two) has a deterministic COGO solver wired up
+# today; "custom" is a placeholder in the UI for a future OCR/vectorization
+# pipeline. Every solve in this module walks lots in this fixed order.
+LOT_ORDER = ["27", "28", "29", "30", "31", "26", "25", "24", "23"]
+SUPPORTED_PRESETS = {"block9"}
+
+MAX_UPLOAD_BYTES = 50 * 1024 * 1024  # 50 MB: generous for a scanned plat sheet
+ALLOWED_UPLOAD_EXTENSIONS = {".pdf", ".png", ".jpg", ".jpeg", ".tif", ".tiff"}
+
 # Mount static directory
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.mount("/images", StaticFiles(directory=os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "images"))), name="images")
+
+
+def _solve_block9(return_radius: float = 25.0) -> tuple[BeachwoodBlock9Solver, dict]:
+    """Build and run the Block 9 COGO solver, optionally overriding the
+    corner-return radius shared by lots 26/27. Returns (solver, results)."""
+    solver = BeachwoodBlock9Solver()
+    if return_radius != 25.0:
+        solver.sol27.radius = return_radius
+        solver.sol26.radius = return_radius
+    results = solver.solve_all()
+    return solver, results
 
 
 @app.get("/", response_class=HTMLResponse)
 async def index():
     html_file = os.path.join(STATIC_DIR, "index.html")
     if os.path.exists(html_file):
-        with open(html_file, "r", encoding="utf-8") as f:
+        with open(html_file, encoding="utf-8") as f:
             return f.read()
     return "<h1>Cadastral Plat Engine</h1><p>Static index.html not found.</p>"
 
@@ -57,17 +77,37 @@ async def upload_plat(file: UploadFile = File(...)):
     """Handle uploaded plat file and return metadata."""
     if not file.filename:
         raise HTTPException(status_code=400, detail="No file selected")
-    
-    filename = file.filename
-    clean_name = "".join(c for c in filename if c.isalnum() or c in "._- ")
+
+    file_ext = os.path.splitext(file.filename)[1].lower()
+    if file_ext not in ALLOWED_UPLOAD_EXTENSIONS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported file type {file_ext or '(none)'}. "
+                   f"Allowed: {', '.join(sorted(ALLOWED_UPLOAD_EXTENSIONS))}",
+        )
+
+    clean_stem = "".join(c for c in os.path.splitext(file.filename)[0] if c.isalnum() or c in "._- ").strip()
+    clean_name = f"{clean_stem or uuid.uuid4().hex}{file_ext}"
     dest_path = os.path.join(UPLOAD_DIR, clean_name)
-    
-    with open(dest_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-        
-    file_size_kb = round(os.path.getsize(dest_path) / 1024.0, 1)
-    file_ext = os.path.splitext(clean_name)[1].lower()
-    
+
+    size = 0
+    try:
+        with open(dest_path, "wb") as buffer:
+            while chunk := file.file.read(1024 * 1024):
+                size += len(chunk)
+                if size > MAX_UPLOAD_BYTES:
+                    raise HTTPException(
+                        status_code=413,
+                        detail=f"File exceeds {MAX_UPLOAD_BYTES // (1024 * 1024)} MB upload limit",
+                    )
+                buffer.write(chunk)
+    except HTTPException:
+        os.remove(dest_path)
+        raise
+
+    file_size_kb = round(size / 1024.0, 1)
+    logger.info("Uploaded plat %s (%.1f KB)", clean_name, file_size_kb)
+
     return {
         "status": "success",
         "filename": clean_name,
@@ -89,14 +129,22 @@ async def analyze_plat(
     """
     Execute autonomous cadastral COGO solver and MapCheck model.
     """
-    solver = BeachwoodBlock9Solver()
-    # If custom radius supplied, update corner return solver
-    if return_radius != 25.0:
-        solver.sol27.radius = return_radius
-        solver.sol26.radius = return_radius
+    if not (1.0 <= return_radius <= 100.0):
+        raise HTTPException(status_code=400, detail="return_radius must be between 1.0 and 100.0 ft")
 
-    results = solver.solve_all()
-    agents = build_agents(solver)
+    note = None
+    if preset not in SUPPORTED_PRESETS:
+        # No custom-plat OCR/vectorization pipeline is wired up yet; fall back
+        # to the certified Block 9 reference solve but say so explicitly
+        # rather than silently mislabeling it as the uploaded plat's result.
+        note = (
+            f"Preset '{preset}' has no solver yet -- showing the certified "
+            "Beachwood Unit Two, Block 9 reference solve instead."
+        )
+        logger.info("Unsupported preset %r requested (uploaded_filename=%r); using block9 fallback",
+                    preset, uploaded_filename)
+
+    solver, results = _solve_block9(return_radius)
 
     # Ensure DXF and Reports are generated
     write_production_dxf(solver, "dxf/PB0030_P0082_Block9_MapCheck.dxf")
@@ -106,7 +154,6 @@ async def analyze_plat(
 
     pts = solver.points
     parcels = []
-    lot_order = ["27", "28", "29", "30", "31", "26", "25", "24", "23"]
 
     frontage_map = {
         "27": "Cape Horn Ave & Avenue R/W (NW Corner Return)",
@@ -126,10 +173,9 @@ async def analyze_plat(
     min_n, max_n = min(all_n) - 30.0, max(all_n) + 30.0
     min_e, max_e = min(all_e) - 30.0, max(all_e) + 30.0
 
-    for lot_num in lot_order:
+    for lot_num in LOT_ORDER:
         res = results[lot_num]
-        ag = next(a for a in agents if a.lot_number == lot_num)
-        
+
         # Build courses payload
         course_list = []
         for c in res.courses:
@@ -188,6 +234,7 @@ async def analyze_plat(
 
     return {
         "status": "success",
+        "note": note,
         "model_version": "Cadastral COGO Engine 2026-R0 (Deterministic)",
         "plat_name": "Beachwood Unit Two -- Block 9 (West of Matchline)",
         "records": "Plat Book 30, Pages 82 & 82A, Duval County, FL",
@@ -238,13 +285,13 @@ async def download_file(file_type: str):
         return FileResponse(abs_path, media_type=media_type, filename=filename)
 
     elif file_type == "csv":
-        solver = BeachwoodBlock9Solver()
-        results = solver.solve_all()
+        _, results = _solve_block9()
         output = io.StringIO()
         output.write("Lot ID,Block,Lot Number,Perimeter (ft),Linear Misclose (ft),Precision,Net Area (SF),Acres,Stated Area (SF),F.A.C. 5J-17 Status\n")
-        for num in ["27", "28", "29", "30", "31", "26", "25", "24", "23"]:
+        for num in LOT_ORDER:
             r = results[num]
-            output.write(f"{r.lot_id},{r.block_id},{r.lot_number},{r.perimeter_ft:.2f},{r.misclose_dist_ft:.5f},{r.precision_str},{r.computed_area_sqft:.1f},{r.computed_acres:.4f},{r.stated_area_sqft:.1f},PASS\n")
+            status = "PASS" if r.passed else "FAIL"
+            output.write(f"{r.lot_id},{r.block_id},{r.lot_number},{r.perimeter_ft:.2f},{r.misclose_dist_ft:.5f},{r.precision_str},{r.computed_area_sqft:.1f},{r.computed_acres:.4f},{r.stated_area_sqft:.1f},{status}\n")
         output.seek(0)
         return StreamingResponse(
             io.BytesIO(output.getvalue().encode("utf-8")),
@@ -253,10 +300,9 @@ async def download_file(file_type: str):
         )
 
     elif file_type == "geojson":
-        solver = BeachwoodBlock9Solver()
-        results = solver.solve_all()
+        solver, results = _solve_block9()
         features = []
-        for num in ["27", "28", "29", "30", "31", "26", "25", "24", "23"]:
+        for num in LOT_ORDER:
             r = results[num]
             verts = solver.lots[num].vertices
             coords = [[round(p.e, 4), round(p.n, 4)] for p in verts] + [[round(verts[0].e, 4), round(verts[0].n, 4)]]

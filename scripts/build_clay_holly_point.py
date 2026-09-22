@@ -22,13 +22,14 @@ Delivers:
 - Florida State Plane East (EPSG:2236) tied to true physical ground monuments.
 """
 
-import os
 import math
+import os
+
+from engine.audit import audit_dxf_layers, audit_parcel_area, audit_traverse_closure
 from engine.cogo import Point, parse_bearing
-from engine.topology import VertexGraph, Parcel
 from engine.dxf_writer import DXFWriter
-from engine.labels import draw_course, road_name_label, lot_label, classify_cadastral_label
-from engine.audit import audit_traverse_closure, audit_parcel_area, audit_dxf_layers
+from engine.labels import draw_course, lot_label, road_name_label
+from engine.topology import Parcel, VertexGraph
 
 # Ground-Truthed Anchor: Kingsley Ave & River Rd / Doctors Lake, Orange Park (Sec 41, T4S, R26E)
 # Lat 30.1685° N, Lon -81.6980° W

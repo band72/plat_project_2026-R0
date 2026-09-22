@@ -27,12 +27,14 @@ network for the CONFIRMED front+side geometry is still built and delivered
 below, because it is real, useful, and directly demonstrates the "polylines
 share a vertex" fix -- it is just not yet a set of closed lot polygons.
 """
-import sys, math
+import math
+import sys
+
 sys.path.insert(0, '.')
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.topology import VertexGraph, Parcel
+from engine.cogo import Point, parse_bearing
 from engine.dxf_writer import DXFWriter
-from engine.labels import draw_course, lot_label, course_label_positions
+from engine.labels import course_label_positions, draw_course
+from engine.topology import VertexGraph
 
 WIDTHS = [137.85,55.00,60.00,55.00,55.00,60.00,55.00,55.00,60.00,55.00,55.00,60.00]
 LOTS = [137,136,135,134,133,132,131,130,129,128,127,126]
@@ -72,6 +74,7 @@ print(f"  perpendicularity: {ang:.6f} deg -> {'EXACT 90' if abs(ang-90) < 1e-6 e
 
 print("\n=== rear boundary curve validation (both chains) ===")
 from engine.ocr import validate_curve
+
 REAR_CURVES = {
     "C195": dict(length=43.64, radius=700.00, delta=3+34/60+19/3600, chord_bearing="S02°30'44\"W", chord=43.63),
     "C196": dict(length=60.07, radius=700.00, delta=4+54/60+59/3600, chord_bearing="S01°43'55\"E", chord=60.05),

@@ -26,10 +26,11 @@ plotter can draw exactly the offending segment in red rather than flagging
 the whole lot vaguely.
 """
 from __future__ import annotations
+
 import math
 from dataclasses import dataclass, field
-from engine.cogo import Point
 
+from engine.cogo import Point
 
 TOL_COINCIDE = 0.01      # ft: two points are "the same point"
 TOL_ZERO = 0.02          # ft: shortest permissible side
@@ -147,9 +148,8 @@ def verify_ring(lot: str, pts: list, arcs: dict | None = None,
                 geometry=[_seg(a, b)]))
 
     # --- ring closure (explicit: does the walk return to the start) ---
-    misclosure = pts[0].dist_to(pts[-1]) if n > 1 else 0.0
     # for a ring defined by ordered vertices, closure is structural; report
-    # the last->first side length as the closing side instead
+    # the last->first side length as the closing side
     closing = pts[-1].dist_to(pts[0])
 
     # --- self-intersection ---

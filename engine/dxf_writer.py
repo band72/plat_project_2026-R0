@@ -8,8 +8,9 @@ DXF R12 is a stable, widely-supported plain-text format -- opens cleanly in
 AutoCAD, Carlson, BricsCAD, QGIS, etc.
 """
 from __future__ import annotations
+
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 # Standard AutoCAD Color Index values we use
 ACI = {
@@ -59,19 +60,15 @@ class DXFWriter:
     # ---- entities ----
     def line(self, p1, p2, layer="0"):
         self.entities.append(
-            "0\nLINE\n8\n{layer}\n10\n{x1:.4f}\n20\n{y1:.4f}\n30\n0.0\n"
-            "11\n{x2:.4f}\n21\n{y2:.4f}\n31\n0.0\n".format(
-                layer=layer, x1=p1[1], y1=p1[0], x2=p2[1], y2=p2[0]
-            )
+            f"0\nLINE\n8\n{layer}\n10\n{p1[1]:.4f}\n20\n{p1[0]:.4f}\n30\n0.0\n"
+            f"11\n{p2[1]:.4f}\n21\n{p2[0]:.4f}\n31\n0.0\n"
         )  # note: DXF x=Easting, y=Northing
 
     def polyline(self, points, layer="0", closed=False):
         flag = 1 if closed else 0
-        s = "0\nPOLYLINE\n8\n{layer}\n66\n1\n70\n{flag}\n".format(layer=layer, flag=flag)
+        s = f"0\nPOLYLINE\n8\n{layer}\n66\n1\n70\n{flag}\n"
         for p in points:
-            s += "0\nVERTEX\n8\n{layer}\n10\n{x:.4f}\n20\n{y:.4f}\n30\n0.0\n".format(
-                layer=layer, x=p[1], y=p[0]
-            )
+            s += f"0\nVERTEX\n8\n{layer}\n10\n{p[1]:.4f}\n20\n{p[0]:.4f}\n30\n0.0\n"
         s += "0\nSEQEND\n"
         self.entities.append(s)
 
@@ -87,9 +84,7 @@ class DXFWriter:
         sa = round(float(start_angle_deg) % 360.0, 4)
         ea = round(float(end_angle_deg) % 360.0, 4)
         self.entities.append(
-            "0\nARC\n8\n{layer}\n10\n{x:.4f}\n20\n{y:.4f}\n30\n0.0\n40\n{r:.4f}\n50\n{sa:.4f}\n51\n{ea:.4f}\n".format(
-                layer=clean_layer, x=center[1], y=center[0], r=radius, sa=sa, ea=ea
-            )
+            f"0\nARC\n8\n{clean_layer}\n10\n{center[1]:.4f}\n20\n{center[0]:.4f}\n30\n0.0\n40\n{radius:.4f}\n50\n{sa:.4f}\n51\n{ea:.4f}\n"
         )
 
     def text(self, pos, value, height=2.0, layer="TEXT-LABELS", rotation=0.0,
@@ -115,24 +110,18 @@ class DXFWriter:
             lt_str = f"6\n{lt}\n"
 
         s = (
-            "0\nTEXT\n8\n{layer}\n{lt}7\n{style}\n10\n{x:.4f}\n20\n{y:.4f}\n30\n0.0\n"
-            "40\n{h}\n1\n{val}\n50\n{rot}\n".format(
-                layer=layer, lt=lt_str, style=style, x=pos[1], y=pos[0], h=height, val=clean_val, rot=rot_val
-            )
+            f"0\nTEXT\n8\n{layer}\n{lt_str}7\n{style}\n10\n{pos[1]:.4f}\n20\n{pos[0]:.4f}\n30\n0.0\n"
+            f"40\n{height}\n1\n{clean_val}\n50\n{rot_val}\n"
         )
         if halign != 0 or valign != 0:
             s += (
-                "72\n{h_align}\n11\n{x:.4f}\n21\n{y:.4f}\n31\n0.0\n73\n{v_align}\n".format(
-                    h_align=halign, x=pos[1], y=pos[0], v_align=valign
-                )
+                f"72\n{halign}\n11\n{pos[1]:.4f}\n21\n{pos[0]:.4f}\n31\n0.0\n73\n{valign}\n"
             )
         self.entities.append(s)
 
     def point(self, pos, layer="0"):
         self.entities.append(
-            "0\nPOINT\n8\n{layer}\n10\n{x:.4f}\n20\n{y:.4f}\n30\n0.0\n".format(
-                layer=layer, x=pos[1], y=pos[0]
-            )
+            f"0\nPOINT\n8\n{layer}\n10\n{pos[1]:.4f}\n20\n{pos[0]:.4f}\n30\n0.0\n"
         )
 
     # ---- output ----
@@ -148,7 +137,7 @@ class DXFWriter:
         s = "0\nSECTION\n2\nTABLES\n"
         # 1. LTYPE table
         custom_lts = sorted(self.custom_linetypes)
-        s += "0\nTABLE\n2\nLTYPE\n70\n{}\n".format(6 + len(custom_lts))
+        s += f"0\nTABLE\n2\nLTYPE\n70\n{6 + len(custom_lts)}\n"
         s += "0\nLTYPE\n2\nCONTINUOUS\n70\n0\n3\nSolid\n72\n65\n73\n0\n40\n0.0\n"
         s += ("0\nLTYPE\n2\nDASHED\n70\n0\n3\nDashed\n72\n65\n73\n2\n40\n0.75\n"
               "49\n0.5\n74\n0\n49\n-0.25\n74\n0\n")
@@ -166,21 +155,17 @@ class DXFWriter:
         s += "0\nENDTAB\n"
 
         # 2. LAYER table
-        s += "0\nTABLE\n2\nLAYER\n70\n{}\n".format(len(self.layers))
+        s += f"0\nTABLE\n2\nLAYER\n70\n{len(self.layers)}\n"
         for lyr in self.layers.values():
-            s += "0\nLAYER\n2\n{name}\n70\n0\n62\n{color}\n6\n{lt}\n".format(
-                name=lyr.name, color=lyr.color, lt=lyr.linetype
-            )
+            s += f"0\nLAYER\n2\n{lyr.name}\n70\n0\n62\n{lyr.color}\n6\n{lyr.linetype}\n"
         s += "0\nENDTAB\n"
 
         # 3. STYLE table (Universally compatible TrueType font: Arial / arial.ttf)
-        s += "0\nTABLE\n2\nSTYLE\n70\n{}\n".format(len(self.styles))
+        s += f"0\nTABLE\n2\nSTYLE\n70\n{len(self.styles)}\n"
         for style_name, font_file in self.styles.items():
             s += (
-                "0\nSTYLE\n2\n{name}\n70\n0\n40\n0.0\n41\n1.0\n50\n0.0\n"
-                "71\n0\n42\n0.2\n3\n{font}\n4\n\n".format(
-                    name=style_name, font=font_file
-                )
+                f"0\nSTYLE\n2\n{style_name}\n70\n0\n40\n0.0\n41\n1.0\n50\n0.0\n"
+                f"71\n0\n42\n0.2\n3\n{font_file}\n4\n\n"
             )
         s += "0\nENDTAB\n0\nENDSEC\n"
         return s

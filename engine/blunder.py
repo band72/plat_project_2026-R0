@@ -26,8 +26,8 @@ This is the classic "plot it and look" check a surveyor does by eye,
 made quantitative and repeatable.
 """
 from __future__ import annotations
+
 import math
-from engine.cogo import Point
 
 
 def _point_seg_distance(pn, pe, seg):
@@ -81,7 +81,7 @@ def classify(dev: dict, tol_ok=2.0, tol_flag=4.0) -> tuple[str, str]:
         return "MISSING", ("course has no counterpart in the drawn linework "
                            "-- either transcribed from the wrong part of the "
                            "sheet, or the raster lost that line")
-    mx, mean = dev["max"], dev["mean"]
+    mx = dev["max"]
     if mx <= tol_ok:
         return "OK", "tracks the drawn line within scale accuracy"
     s, m, e = dev["start_dev"], dev["mid_dev"], dev["end_dev"]

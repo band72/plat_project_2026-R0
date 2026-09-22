@@ -8,24 +8,24 @@ Outputs:
 """
 
 from __future__ import annotations
+
 import math
 import os
 from dataclasses import dataclass, field
+
 import matplotlib
+
 matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from matplotlib.patches import Polygon as MplPolygon, Arc as MplArc, Wedge
 import matplotlib.patheffects as pe
-
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.curves import solve_curve_all_parameters, Curve
-from engine.lot_agent import BeachwoodLotAgent, MapCheckReport
-from engine.dxf_writer import DXFWriter
-from engine.audit import dxf_audit
-from engine.lotsheets import draw_lot_sheet, PAGE_W, PAGE_H
-
-
+import matplotlib.pyplot as plt
 from compute_user_mapchecks import solve_corner_curve
+from matplotlib.patches import Polygon as MplPolygon
+
+from engine.audit import dxf_audit
+from engine.cogo import Point, parse_bearing
+from engine.dxf_writer import DXFWriter
+from engine.lot_agent import BeachwoodLotAgent, MapCheckReport
+from engine.lotsheets import PAGE_H, PAGE_W, draw_lot_sheet
 
 
 def build_and_draw_mapchecks():
@@ -478,7 +478,7 @@ def build_and_draw_mapchecks():
             cen_e = sum(p.e for p in ag.corners) / len(ag.corners)
             cen_n = sum(p.n for p in ag.corners) / len(ag.corners)
             lot_name = ag.lot_number
-            ax.text(cen_e, cen_n + 5.0, f"LOT {lot_name}" if not "Tract" in str(lot_name) and not "R/W" in str(lot_name) else str(lot_name),
+            ax.text(cen_e, cen_n + 5.0, f"LOT {lot_name}" if "Tract" not in str(lot_name) and "R/W" not in str(lot_name) else str(lot_name),
                     color='#ffffff', fontsize=11, fontweight='bold', ha='center', va='center',
                     path_effects=[pe.withStroke(linewidth=2.5, foreground='#0d1117')])
             ax.text(cen_e, cen_n - 8.0, f"{rep.computed_area_sqft:,.0f} SF\n{rep.computed_acres:.4f} Ac",

@@ -5,6 +5,7 @@ Bearing convention: quadrant bearings, e.g. N45*30'12"E, S00*36'13"E.
 Coordinates: (Northing, Easting) matching plat State Plane convention.
 """
 from __future__ import annotations
+
 import math
 import re
 from dataclasses import dataclass
@@ -135,13 +136,13 @@ class Point:
     def easting(self) -> float:
         return self.e
 
-    def offset(self, az_deg: float, dist: float) -> "Point":
+    def offset(self, az_deg: float, dist: float) -> Point:
         rad = math.radians(az_deg)
         dn = dist * math.cos(rad)
         de = dist * math.sin(rad)
         return Point(self.n + dn, self.e + de)
 
-    def dist_to(self, other: "Point") -> float:
+    def dist_to(self, other: Point) -> float:
         return math.hypot(other.n - self.n, other.e - self.e)
 
 

@@ -12,7 +12,9 @@ Pages are laid out on a grid in one DXF so the whole block can be reviewed
 by panning, while each page remains an independent closed figure.
 """
 from __future__ import annotations
+
 import math
+
 from engine.cogo import Point, azimuth_to_bearing
 from engine.labels import course_label_positions
 
@@ -58,7 +60,7 @@ def draw_lot_sheet(dxf, verification, pts, origin_n, origin_e,
     dxf.polyline([(q[0], q[1]) for q in placed], layer=layer_ok, closed=True)
 
     # arcs drawn as their own polyline along the same side
-    for idx, arc in arcs.items():
+    for arc in arcs.values():
         apts = arc.get("arc_points") or []
         if len(apts) >= 2:
             dxf.polyline([place(p) for p in apts], layer=layer_ok, closed=False)

@@ -6,14 +6,16 @@ Plat Book 30, Pages 82 & 82A, Duval County, FL (1960).
 """
 
 from __future__ import annotations
+
 import math
 import os
 import sys
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.curves import solve_curve_all_parameters, Curve
-from engine.lot_agent import BeachwoodLotAgent, MapCheckReport
-from engine.dxf_writer import DXFWriter
+
 from engine.audit import dxf_audit
+from engine.cogo import Point, parse_bearing
+from engine.curves import Curve, solve_curve_all_parameters
+from engine.dxf_writer import DXFWriter
+from engine.lot_agent import BeachwoodLotAgent, MapCheckReport
 
 
 def deg_to_dms(deg_val: float) -> str:
@@ -226,7 +228,7 @@ def run_lots15_18_curve_mapcheck() -> dict:
     dxf.text((p_sw18.easting - 50, p_sw18.northing - 40),
              "BEACHWOOD UNIT TWO -- BLOCK 15 (LOTS 15-18) CURVE AUDIT", height=6.0, layer="TITLEBLOCK")
     dxf.text((p_sw18.easting - 50, p_sw18.northing - 50),
-             f"All 4 Lots 100% Survey-Grade Closed (0.0000 ft Misclose) | PB 30, Pages 82 & 82A", height=4.0, layer="TITLEBLOCK")
+             "All 4 Lots 100% Survey-Grade Closed (0.0000 ft Misclose) | PB 30, Pages 82 & 82A", height=4.0, layer="TITLEBLOCK")
 
     dxf.save(dxf_path)
     audit = dxf_audit(dxf_path)

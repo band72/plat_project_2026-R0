@@ -6,20 +6,21 @@ skeletonization, convenes a 100-agent multiagent consensus solver across 5 speci
 to converge scale, orientation, layer separation, and ground-truth georeferencing,
 and outputs survey-grade layered DXFs with companion QGIS QML styles.
 """
-import os
 import glob
-import subprocess
-import shutil
-import cv2
 import math
-from typing import Any
-from engine.vectorize import map_mask_excluding, extract_polylines, px_to_feet_polylines
-from engine.dxf_writer import DXFWriter
-from engine.consensus import MultiAgentConsensusSolver
+import os
+import subprocess
 import sys
 import traceback
-from engine.georeference import assert_zero_fudging, get_intersection_gps, format_gps
+from typing import Any
+
+import cv2
+
 from engine.audit import dxf_audit
+from engine.consensus import MultiAgentConsensusSolver
+from engine.dxf_writer import DXFWriter
+from engine.georeference import assert_zero_fudging, format_gps
+from engine.vectorize import extract_polylines, map_mask_excluding, px_to_feet_polylines
 
 # Known Ground-Truthed Physical Intersections (Zero Artificial Offset Fudging)
 KNOWN_PLAT_GPS = {

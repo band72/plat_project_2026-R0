@@ -8,19 +8,21 @@ evaluates mathematical traverse closure and relative precision, computes Shoelac
 and emits survey MapCheck reports and CAD drawing entities.
 """
 from __future__ import annotations
-import os
+
 import math
+import os
+
 import numpy as np
-from typing import Any
+
+from engine.audit import dxf_audit
 from engine.cogo import Point, parse_bearing
-from engine.curves import solve_curve_all_parameters, Curve
-from engine.lots import shoelace_area
-from engine.lot_agent import BeachwoodLotAgent, MapCheckReport
+from engine.curves import solve_curve_all_parameters
 from engine.dxf_writer import DXFWriter
 from engine.georeference import assert_zero_fudging
-from engine.audit import dxf_audit
-from engine.verify import verify_ring
+from engine.lot_agent import BeachwoodLotAgent, MapCheckReport
+from engine.lots import shoelace_area
 from engine.lotsheets import plot_all
+from engine.verify import verify_ring
 
 
 def fit_circle_least_squares(pts: np.ndarray) -> tuple[float, float, float, float] | None:
@@ -65,12 +67,20 @@ def _align_scan_to_vectors(agents, skeleton_pts, north_distance, street_bearing,
         print(f"(scan {scan_path} not present: skeleton alignment skipped, coded curve sides kept)")
         return [], []
     import collections
+
     import cv2
+
     from engine import scan_align as SA
     from engine.curve_follow import InkField
-    from engine.vectorize import (map_mask_excluding, break_at_junctions, extract_polylines,
-                                  px_to_feet_polylines, extract_skeleton_points, align_skeleton_to_vector,
-                                  derive_scale_factor)
+    from engine.vectorize import (
+        align_skeleton_to_vector,
+        break_at_junctions,
+        derive_scale_factor,
+        extract_polylines,
+        extract_skeleton_points,
+        map_mask_excluding,
+        px_to_feet_polylines,
+    )
     img = cv2.imread(scan_path, 0)
     if img is None:
         print(f"(could not read {scan_path}: skeleton alignment skipped)")
@@ -669,7 +679,7 @@ def build_beachwood_plat_lots():
                 passed_count += 1
             rf.write(rep.format_text() + "\n\n")
 
-    print(f"\nCompleted Full Plat MapCheck Audit:")
+    print("\nCompleted Full Plat MapCheck Audit:")
     print(f"  Passed MapChecks: {passed_count} / {len(agents)} ({passed_count/len(agents)*100.0:.1f}%)")
     print(f"  All MapCheck Reports saved to: {report_file_path}")
 

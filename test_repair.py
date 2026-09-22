@@ -1,13 +1,18 @@
 """
 Does inverse-solving actually recover the corrupted OCR fields?
-Tested against the real failing rows from benchmark_cells.py, scored on the
-hand-transcribed ground truth.
+
+Tested against the real failing rows from benchmark_cells.py, scored against
+the hand-transcribed ground truth in data/trail_ridge_estates.py.
+
+This was previously a print-only script (no assertions), so a regression in
+engine.repair could silently drop the recovery rate to zero and the "test"
+would still report success. These are real pytest assertions instead.
 """
-import sys
-sys.path.insert(0, '.')
-from engine.repair import inverse_solve_curve, radius_consensus, apply_corrections
-from engine.ocr import validate_curve
+from __future__ import annotations
+
 import data.trail_ridge_estates as trd
+from engine.ocr import validate_curve
+from engine.repair import apply_corrections, digit_edit_ok, inverse_solve_curve, radius_consensus
 
 # Actual OCR output rows that failed (verbatim from the benchmark run)
 OCR_ROWS = {
@@ -24,68 +29,100 @@ OCR_ROWS = {
     "C37": dict(length=20.38,  radius=1000.0, delta=87.5533, chord_bearing="S87°33'12\"E", chord=20.88),
 }
 
-gt = {k: v for k, v in trd.CURVE_TABLE.items() if isinstance(v, dict) and "radius" in v}
+# Rows the current tiered pipeline (intra-row inverse + radius consensus)
+# recovers to an EXACT match against ground truth. Locks in the measured
+# 4/11 (36%) recovery rate as a regression floor: if this set shrinks, the
+# repair pipeline got worse.
+EXPECTED_EXACT = {"C3", "C21", "C45", "C46"}
 
-print("=== TIER 1: INTRA-ROW INVERSE SOLVE ===\n")
-corrections = {}
-for cid, rec in OCR_ROWS.items():
-    good, msg = validate_curve(rec)
-    cands = inverse_solve_curve(rec)
-    g = gt.get(cid)
-    print(f"{cid}: validate={'OK' if good else 'FAIL'}")
-    if not cands:
-        print("   no single-field inverse explains it -> leave for higher-tier context\n")
-        continue
-    best = cands[0]
-    corrections[cid] = best
-    print(f"   -> {best['field']}: read {best['read']} | solved {best['solved']}")
-    print(f"      {best['why']}; {best['corroboration']}")
-    if g:
-        truth = g[best["field"] if best["field"] != "delta" else "delta"]
-        hit = abs(truth - best["solved"]) < 0.02
-        print(f"      GROUND TRUTH {best['field']}={truth}  -> {'CORRECT' if hit else 'WRONG'}")
-    print()
+GROUND_TRUTH = {k: v for k, v in trd.CURVE_TABLE.items() if isinstance(v, dict) and "radius" in v}
 
-print("\n=== TIER 2: RADIUS CONSENSUS ACROSS TABLE ===\n")
-cons = radius_consensus({**OCR_ROWS})
-for cid, c in cons.items():
-    g = gt.get(cid)
-    print(f"{cid}: R read {c['read']} -> solved {c['solved']}  ({c['why']}; {c['corroboration']})")
-    if g:
-        print(f"    GROUND TRUTH radius={g['radius']} -> "
-              f"{'CORRECT' if abs(g['radius']-c['solved'])<0.02 else 'WRONG'}")
-for cid, c in cons.items():
-    corrections.setdefault(cid, c)
 
-print("\n=== APPLY + RE-VERIFY ===\n")
-fixed, applied, review = apply_corrections(OCR_ROWS, corrections)
-print("AUTO-APPLIED (single-digit edit, high confidence):")
-for e in applied:
-    print(f"  {e['curve']}.{e['field']}: {e['read']} -> {e['solved']}   [{e['why']}]")
-print("\nFLAGGED FOR REVIEW (redundancy-only / implausible radius):")
-for e in review:
-    print(f"  {e['curve']}.{e['field']}: read {e['read']} -> proposed {e['solved']}")
-    print(f"      {e['why']}")
-    print(f"      {e['corroboration']}; radius in family: {e['radius_in_family']}")
+def _matches_ground_truth(rec: dict, gt: dict, tol=0.02) -> bool:
+    return (abs(rec["radius"] - gt["radius"]) < tol
+            and abs(rec["length"] - gt["length"]) < tol
+            and abs(rec["chord"] - gt["chord"]) < tol
+            and abs(rec["delta"] - gt["delta"]) < 0.01)
 
-print("\n=== FINAL SCORE vs GROUND TRUTH ===\n")
-n = ex = 0
-for cid, rec in sorted(fixed.items()):
-    g = gt.get(cid)
-    if not g:
-        continue
-    n += 1
-    same = (abs(rec["radius"] - g["radius"]) < 0.02 and
-            abs(rec["length"] - g["length"]) < 0.02 and
-            abs(rec["chord"] - g["chord"]) < 0.02 and
-            abs(rec["delta"] - g["delta"]) < 0.01)
-    ok, _ = validate_curve(rec)
-    if same:
-        ex += 1
-    status = "EXACT" if same else ("closes-but-differs" if ok else "still bad")
-    print(f"  {cid}: {status}")
-    if not same:
-        print(f"      got L={rec['length']} R={rec['radius']} d={rec['delta']:.4f} c={rec['chord']}")
-        print(f"      gt  L={g['length']} R={g['radius']} d={g['delta']:.4f} c={g['chord']}")
-print(f"\nrecovered exactly: {ex}/{n}  ({100*ex/n:.0f}%)" if n else "")
-print(f"(before repair: 0/{n} of these rows were correct)")
+
+def _run_pipeline():
+    """Tier 1 (intra-row inverse) + Tier 2 (radius consensus), applied and
+    re-verified -- mirrors the manual repair workflow in scripts/benchmark_cells.py."""
+    corrections = {}
+    for cid, rec in OCR_ROWS.items():
+        cands = inverse_solve_curve(rec)
+        if cands:
+            corrections[cid] = cands[0]
+
+    for cid, c in radius_consensus(dict(OCR_ROWS)).items():
+        corrections.setdefault(cid, c)
+
+    return apply_corrections(OCR_ROWS, corrections)
+
+
+def test_all_ground_truth_rows_present():
+    """Sanity check on the fixture data itself: every OCR row under test has
+    a matching hand-transcribed ground-truth row to score against."""
+    missing = set(OCR_ROWS) - set(GROUND_TRUTH)
+    assert not missing, f"no ground truth for: {sorted(missing)}"
+
+
+def test_exact_recovery_rate_does_not_regress():
+    fixed, _applied, _review = _run_pipeline()
+    exact = {cid for cid, rec in fixed.items() if _matches_ground_truth(rec, GROUND_TRUTH[cid])}
+    assert exact >= EXPECTED_EXACT, (
+        f"lost previously-recovered rows: {EXPECTED_EXACT - exact}. "
+        f"Currently exact: {sorted(exact)}"
+    )
+
+
+def test_recovered_rows_are_individually_correct():
+    fixed, _applied, _review = _run_pipeline()
+    for cid in EXPECTED_EXACT:
+        gt = GROUND_TRUTH[cid]
+        rec = fixed[cid]
+        assert _matches_ground_truth(rec, gt), f"{cid}: got {rec}, expected {gt}"
+        ok, _ = validate_curve(rec)
+        assert ok, f"{cid}: corrected row does not pass geometric validation: {rec}"
+
+
+def test_auto_applied_corrections_are_all_high_confidence():
+    """Only single-digit-edit-plausible corrections may be applied
+    automatically; redundancy-only ("column leak") corrections must be
+    flagged for human review, never written in silently."""
+    _fixed, applied, review = _run_pipeline()
+    assert applied, "expected at least one auto-applied correction"
+    for entry in applied:
+        assert entry["action"] == "auto-applied"
+    for entry in review:
+        assert entry["action"] == "FLAGGED for review (not auto-applied)"
+    # C49 and C25 are only corroborated by redundancy (no plausible
+    # single-digit edit) -- they must be flagged, not auto-applied.
+    review_ids = {e["curve"] for e in review}
+    assert {"C49", "C25"} <= review_ids
+
+
+def test_unrecovered_rows_stay_flagged_not_silently_wrong():
+    """Rows the pipeline can't confidently fix must not be marked exact --
+    guards against a false-positive "fix" being worse than no fix."""
+    fixed, _applied, _review = _run_pipeline()
+    still_bad = set(OCR_ROWS) - EXPECTED_EXACT
+    for cid in still_bad:
+        assert not _matches_ground_truth(fixed[cid], GROUND_TRUTH[cid]), (
+            f"{cid} now matches ground truth -- update EXPECTED_EXACT if the "
+            "repair pipeline genuinely improved"
+        )
+
+
+# --- lower-level unit coverage for the OCR digit-confusion matcher ---
+
+def test_digit_edit_ok_detects_substitution():
+    # '5' and '6' are in each other's OCR confusion set (CONFUSE).
+    ok, why = digit_edit_ok(5.0, 6.0, decimals=0)
+    assert ok
+    assert "substitution" in why
+
+
+def test_digit_edit_ok_rejects_multi_digit_difference():
+    ok, _why = digit_edit_ok(12.5572, 99.9999, decimals=4)
+    assert not ok

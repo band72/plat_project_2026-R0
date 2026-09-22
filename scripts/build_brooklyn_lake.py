@@ -21,11 +21,13 @@ Because the lake front is a COMPUTED CLOSING MEANDER, each lot is a closed
 figure and must close tightly -- unlike a true natural-boundary lot. That
 makes per-lot closure a valid and strict test here.
 """
-import sys, math
+import math
+import sys
+
 sys.path.insert(0, '.')
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.lots import shoelace_area, Lot
+from engine.cogo import Point, azimuth_to_bearing, parse_bearing
 from engine.dxf_writer import DXFWriter
+from engine.lots import Lot, shoelace_area
 
 SOUTH_BEARING = "N90°00'00\"E"          # "EAST" per the assumed-bearing note
 SOUTH_TOTAL_STATED = 378.00             # "EAST 378.0'"

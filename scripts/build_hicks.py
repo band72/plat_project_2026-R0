@@ -11,13 +11,14 @@ Geometry & Standard Dimensions:
   Bearing Basis: Cardinal (DUE EAST / DUE WEST, DUE NORTH / DUE SOUTH).
   Ground-Truthed Coordinate Tie: Sec 12, T4S, R25E (30.155280° N, -81.758330° W).
 """
-import sys, math
+import sys
+
 sys.path.insert(0, '.')
 from engine.cogo import Point, parse_bearing
-from engine.topology import VertexGraph, Parcel
-from engine.verify import verify_ring
 from engine.dxf_writer import DXFWriter
 from engine.georeference import get_intersection_gps
+from engine.topology import Parcel, VertexGraph
+from engine.verify import verify_ring
 
 E_AZ = parse_bearing('DUE E')
 W_AZ = parse_bearing('DUE W')

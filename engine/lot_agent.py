@@ -9,13 +9,15 @@ Each lot in the subdivision plat is assigned a dedicated autonomous agent respon
 5. Generating professional surveyor MapCheck reports and CAD drawing entities.
 """
 from __future__ import annotations
+
 import math
 from dataclasses import dataclass, field
 from typing import Any
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.curves import solve_curve_all_parameters, Curve, deg_to_dms_str, curve_segment_area
-from engine.lots import shoelace_area
+
+from engine.cogo import Point, azimuth_to_bearing, parse_bearing
+from engine.curves import Curve, solve_curve_all_parameters
 from engine.dxf_writer import DXFWriter
+from engine.lots import shoelace_area
 
 
 @dataclass
@@ -58,13 +60,13 @@ class MapCheckReport:
     def format_text(self) -> str:
         """Format the MapCheck into standard professional land survey format."""
         lines = [
-            f"================================================================================",
+            "================================================================================",
             f"  SURVEY MAPCHECK REPORT: {self.lot_id} (Block {self.block_id}, Lot {self.lot_number})",
-            f"================================================================================",
+            "================================================================================",
             f"Stated Dimensions: Area Target = {self.stated_area_sqft:,.1f} SF ({self.stated_area_sqft/43560.0:.4f} Acres)",
-            f"--------------------------------------------------------------------------------",
+            "--------------------------------------------------------------------------------",
             f"{'Course':<8} | {'From -> To':<18} | {'Bearing':<14} | {'Distance (ft)':<14} | {'Type':<8}",
-            f"--------------------------------------------------------------------------------",
+            "--------------------------------------------------------------------------------",
         ]
         for c in self.courses:
             ctype = "CURVE" if c.is_curve else "LINE"
@@ -80,21 +82,21 @@ class MapCheckReport:
                     f"Ext: {cd.get('external', 0.0):.2f}' | Seg Area: {cd.get('segment_area', 0.0):.1f} SF"
                 )
         lines.extend([
-            f"--------------------------------------------------------------------------------",
-            f"TRAVERSE CLOSURE & PRECISION:",
+            "--------------------------------------------------------------------------------",
+            "TRAVERSE CLOSURE & PRECISION:",
             f"  Perimeter:           {self.perimeter_ft:,.2f} ft",
             f"  Misclose Vector:     dN = {self.misclose_n_ft:+.4f} ft, dE = {self.misclose_e_ft:+.4f} ft",
             f"  Linear Misclose:     {self.misclose_dist_ft:.4f} ft",
             f"  Relative Precision:  {self.precision_str}",
             f"  Traverse Status:     {'PASS (CLOSED)' if self.passed else 'FAIL (OPEN)'}",
-            f"AREA VERIFICATION:",
+            "AREA VERIFICATION:",
             f"  Raw Polygon Area:    {self.raw_shoelace_sqft:,.1f} SF",
             f"  Curve Area Adj:      {self.curve_adj_sqft:+,.1f} SF",
             f"  Net Computed Area:   {self.computed_area_sqft:,.1f} SF ({self.computed_acres:.4f} Acres)",
             f"  Target Stated Area:  {self.stated_area_sqft:,.1f} SF",
             f"  Discrepancy:         {self.area_diff_sqft:+,.1f} SF ({abs(self.area_diff_sqft)/self.stated_area_sqft*100.0:.2f}%)",
             f"FINAL VERDICT:         {self.verdict}",
-            f"================================================================================",
+            "================================================================================",
         ])
         return "\n".join(lines)
 

@@ -4,12 +4,12 @@ Trail Ridge Estates. This is how we learn whether the algorithm is good
 enough to trust on plats where no human transcription exists.
 """
 import sys
-sys.path.insert(0, '.')
-from engine.ocr import (load_gray, ocr_best, parse_curve_rows, parse_line_rows,
-                        validate_curve, repair_curve)
-import data.trail_ridge_estates as trd
 
+sys.path.insert(0, '.')
 import os
+
+import data.trail_ridge_estates as trd
+from engine.ocr import load_gray, ocr_best, parse_curve_rows, parse_line_rows, repair_curve, validate_curve
 
 FILES = {
     # file name -> actual sheet number (naming is offset: file_1/file_2 are dupes of sheet 1)

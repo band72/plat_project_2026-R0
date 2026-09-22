@@ -1,9 +1,7 @@
-import cv2
-import numpy as np
-import math
-import os
 from typing import Any
 
+import cv2
+import numpy as np
 import pytesseract
 
 _reader = None
@@ -117,7 +115,7 @@ def extract_streets(img_path: str) -> dict:
         # Try Tesseract first
         try:
             txt = pytesseract.image_to_string(rot_img, config='--psm 11')
-            lines = [l.strip() for l in txt.split('\n') if len(l.strip()) > 3]
+            lines = [line.strip() for line in txt.split('\n') if len(line.strip()) > 3]
             results[name] = lines
         except Exception:
             ocr_reader = _get_reader()
@@ -129,8 +127,9 @@ def extract_streets(img_path: str) -> dict:
                 
     return results
 
-from engine.georeference import get_intersection_gps, assert_zero_fudging
 from engine.consensus import MultiAgentConsensusSolver
+from engine.georeference import assert_zero_fudging, get_intersection_gps
+
 
 class StreetExtractionConsensusPanel:
     """
@@ -336,8 +335,8 @@ def pair_intersections(extracted: dict) -> list[tuple[str, str]]:
             v_streets.add(cs)
             
     pairs = []
-    for h in sorted(list(h_streets)):
-        for v in sorted(list(v_streets)):
+    for h in sorted(h_streets):
+        for v in sorted(v_streets):
             if h != v:
                 pairs.append((h, v))
                 

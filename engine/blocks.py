@@ -23,12 +23,14 @@ the run continues. Failures are reported as a manual work queue, not as an
 exception that halts the batch.
 """
 from __future__ import annotations
+
 import math
 from dataclasses import dataclass, field
+
 from engine.cogo import Point, parse_bearing
+from engine.ticks import cluster_stations, scan_boundary_profile
 from engine.topology import VertexGraph
 from engine.verify import verify_ring
-from engine.ticks import scan_boundary_profile, cluster_stations
 
 
 @dataclass
@@ -151,7 +153,7 @@ def build_block(mask, spec: BlockSpec, graph: VertexGraph | None = None,
 
     # build the ring network with shared vertices
     tag = spec.name.replace(" ", "")
-    fz, sz = parse_bearing(spec.front_bearing), parse_bearing(spec.side_bearing)
+    sz = parse_bearing(spec.side_bearing)
     g.walk(f"{tag}_F0", Point(0.0, 0.0),
            [(f"{tag}_F{i+1}", spec.front_bearing, w) for i, w in enumerate(widths)])
     for i in range(n_expected + 1):

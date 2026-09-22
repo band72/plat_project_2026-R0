@@ -31,16 +31,19 @@ very large radius (R=700', and R=150') elsewhere -- the induced area error
 is small and is QUANTIFIED below against the actual drawn linework, rather
 than merely asserted to be small.
 """
-import sys, math, cv2
+import math
+import sys
+
+import cv2
+
 sys.path.insert(0, '.')
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.topology import VertexGraph, Parcel
+from engine.blunder import classify, course_deviation
+from engine.cogo import Point, azimuth_to_bearing, parse_bearing
 from engine.dxf_writer import DXFWriter
-from engine.labels import draw_course, course_label_positions
+from engine.labels import course_label_positions, draw_course
 from engine.registration import ATLANTIC_SHEET3 as REG
-from engine.vectorize import map_mask_excluding, segments, merge_collinear
-from engine.blunder import course_deviation, classify
-from engine.lots import is_simple_polygon, safe_area
+from engine.topology import Parcel, VertexGraph
+from engine.vectorize import map_mask_excluding, merge_collinear, segments
 
 WIDTHS = [137.85, 55.00, 60.00, 55.00, 55.00, 60.00, 55.00, 55.00, 60.00, 55.00, 55.00, 60.00]
 LOTS = [137, 136, 135, 134, 133, 132, 131, 130, 129, 128, 127, 126]
@@ -63,8 +66,8 @@ g.add("S12", g.points["F12"].offset(side_az, ASSUMED_LAST_DEPTH))
 
 print("=== what is TRANSCRIBED vs ASSUMED ===")
 print(f"  transcribed: front boundary {FRONT_BEARING} 772.85' (EXACT closure)")
-print(f"  transcribed: 12 lot widths, 12 side-line depths")
-print(f"  ASSUMED    : rear boundary = straight chord between side endpoints")
+print("  transcribed: 12 lot widths, 12 side-line depths")
+print("  ASSUMED    : rear boundary = straight chord between side endpoints")
 print(f"  ASSUMED    : east side of lot 126 depth = {ASSUMED_LAST_DEPTH:.2f}' "
       f"(trend continuation, not read)")
 
@@ -206,7 +209,7 @@ body = [
     "     R=150' (C199-201), plus an 80.00' tangent parallel to the front",
     "     (confirmed: 45.89'+34.12'=80.01'). NOT known: which curve station",
     "     belongs to which lot corner -- hence the chord assumption.",
-    f"     Measured against the drawn linework, the assumed rear deviates",
+    "     Measured against the drawn linework, the assumed rear deviates",
     f"     at most {worst:.2f} ft. That is the size of this assumption.",
     "   east side of lot 126: depth continued from the trend, not read.",
     "",

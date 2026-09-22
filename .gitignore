@@ -8,5 +8,10 @@ temp_images/
 *.swp
 *.bak
 symbology-style.db
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
 web/uploads/*
 !web/uploads/.gitkeep

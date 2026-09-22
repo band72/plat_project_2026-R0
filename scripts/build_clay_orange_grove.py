@@ -15,12 +15,12 @@ Zero artificial offset fudging.
 """
 
 import os
-import math
+
+from engine.audit import audit_dxf_layers, audit_parcel_area
 from engine.cogo import Point
-from engine.topology import VertexGraph, Parcel
 from engine.dxf_writer import DXFWriter
-from engine.labels import draw_course, road_name_label, lot_label, classify_cadastral_label
-from engine.audit import audit_traverse_closure, audit_parcel_area, audit_dxf_layers
+from engine.labels import classify_cadastral_label, draw_course, lot_label, road_name_label
+from engine.topology import Parcel, VertexGraph
 
 # Ground-Truthed PLSS Section Corner Anchor (Sec 24 & 25, T7S, R24E)
 # Near Belmore / Kingsley: Lat 29.8700° N, Lon -81.8550° W

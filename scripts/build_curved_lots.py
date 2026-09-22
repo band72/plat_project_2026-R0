@@ -17,12 +17,13 @@ This block stays in its own local frame (PC of C23 = local origin) pending
 Block A/B/C registration -- see MASTER_PROMPT.md iteration 3 item.
 """
 import sys
+
 sys.path.insert(0, '.')
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.curves import Curve
-from engine.lots import shoelace_area, Lot
-from engine.dxf_writer import DXFWriter
 import data.trail_ridge_estates as trd
+from engine.cogo import Point, azimuth_to_bearing, parse_bearing
+from engine.curves import Curve
+from engine.dxf_writer import DXFWriter
+from engine.lots import shoelace_area
 
 ROT = "CW"  # confirmed by tangency test between C24 and C25
 
@@ -83,6 +84,8 @@ combined_perimeter = [pc23] + arc23[1:] + [pc24] + arc24[1:] + arc25[1:] + [rear
 combined_area = shoelace_area(combined_perimeter + [combined_perimeter[0]])
 
 import math
+
+
 def bearing_and_dist(p1, p2):
     dn, de = p2.n - p1.n, p2.e - p1.e
     dist = math.hypot(dn, de)
@@ -92,7 +95,7 @@ def bearing_and_dist(p1, p2):
 rear_bearing, rear_dist = bearing_and_dist(rear44, rear45)
 
 print(f"Combined Lots 44+45 outer boundary area: {combined_area:,.0f} sf")
-print(f"(Sheet 2 min lot area 7,200-9,600 sf/lot -> combined 2-lot expectation: 14,400-19,200 sf -- PASSES)")
+print("(Sheet 2 min lot area 7,200-9,600 sf/lot -> combined 2-lot expectation: 14,400-19,200 sf -- PASSES)")
 print(f"Derived rear closing line: {rear_bearing}  {rear_dist:.2f}' (computed, not independently OCR'd)")
 
 # --- internal 44/45 split: not recoverable from transcribed text. Placed at

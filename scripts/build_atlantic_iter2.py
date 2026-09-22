@@ -14,12 +14,17 @@ Adds to the Iter 17 overlay:
     vectorization, via automatic enclosed-region detection + OCR, filtered
     against the transcribed lots as a cross-check
 """
-import sys, math, cv2, numpy as np
+import math
+import sys
+
+import cv2
+import numpy as np
+
 sys.path.insert(0, '.')
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
+from engine.cogo import Point, parse_bearing
 from engine.dxf_writer import DXFWriter
-from engine.labels import draw_course, road_name_label, lot_label, course_label_positions
-from engine.vectorize import map_mask_excluding, segments, merge_collinear
+from engine.labels import course_label_positions, draw_course, lot_label
+from engine.vectorize import map_mask_excluding, merge_collinear, segments
 
 FT_PER_PX = 50.0 / 300.0
 IMG_H = 6600
@@ -190,8 +195,8 @@ for i in range(len(DEPTHS_A)):
 #      geometry is NOT drawn here -- see TBL_PENDING note above. Only the
 #      confirmed text fact is recorded, not placed on the map, so nothing
 #      false appears at a guessed location.
-print(f"\nTimber Bridge Lane (50' R/W), centerline N80°24'17\"W 362.66' -- "
-      f"NAME/WIDTH confirmed by direct read; NOT drawn (see TBL_PENDING).")
+print("\nTimber Bridge Lane (50' R/W), centerline N80°24'17\"W 362.66' -- "
+      "NAME/WIDTH confirmed by direct read; NOT drawn (see TBL_PENDING).")
 
 # ---- lot numbers recovered automatically from the scaled polygons ----
 closed = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, np.ones((5, 5), np.uint8))

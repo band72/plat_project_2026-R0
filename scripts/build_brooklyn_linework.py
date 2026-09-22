@@ -7,12 +7,14 @@ Distances on the caption boundary are taken from the WORD channel
 (spelled-out form), which was shown in Iter 13 to survive OCR where the
 numeral form did not.
 """
-import sys, math
+import math
+import sys
+
 sys.path.insert(0, '.')
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
+from engine.cogo import Point, azimuth_to_bearing, parse_bearing
 from engine.curves import Curve
-from engine.lots import shoelace_area, Lot
 from engine.dxf_writer import DXFWriter
+from engine.lots import Lot, shoelace_area
 
 EAST = parse_bearing("N90°00'00\"E")
 NORTH = 0.0

@@ -24,13 +24,14 @@ UNRESOLVED on this sheet (recorded, not guessed):
   - lots 101,102 (123.46', 139.62') are on a curved return and were not
     closed this pass.
 """
-import sys, math
+import sys
+
 sys.path.insert(0, '.')
 from engine.cogo import Point, parse_bearing
-from engine.topology import VertexGraph
 from engine.dxf_writer import DXFWriter
-from engine.verify import verify_network
 from engine.lotsheets import plot_all
+from engine.topology import VertexGraph
+from engine.verify import verify_network
 
 FRONT = "N38°23'04\"W"
 SIDE_A = "S51°36'56\"W"      # block A side lines

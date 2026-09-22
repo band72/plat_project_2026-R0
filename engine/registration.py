@@ -15,9 +15,11 @@ Method (validated on Atlantic Beach sheet 3):
   second point from the fit and checking the residual.
 """
 from __future__ import annotations
+
 import math
 from dataclasses import dataclass
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
+
+from engine.cogo import parse_bearing
 
 
 @dataclass

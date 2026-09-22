@@ -17,10 +17,12 @@ Point object, so their common boundary is drawn once and both lots close
 through the identical node.
 """
 from __future__ import annotations
+
 import math
 from dataclasses import dataclass, field
+
 from engine.cogo import Point
-from engine.lots import shoelace_area, safe_area, is_simple_polygon
+from engine.lots import is_simple_polygon, safe_area
 
 
 class VertexGraph:

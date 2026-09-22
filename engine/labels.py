@@ -12,6 +12,7 @@ recorded survey drawing):
     overlap the linework itself.
 """
 from __future__ import annotations
+
 import math
 
 

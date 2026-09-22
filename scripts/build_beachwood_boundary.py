@@ -10,15 +10,16 @@ Closure solved using engine/solver.py fixpoint constraint solver.
 Ground-truthed physical GPS intersection tie at Starfish Ave & Mangrove Ave
 (30.292130° N, -81.530280° W) with zero artificial fudging.
 """
-import sys, math
+import math
+import sys
+
 sys.path.insert(0, '.')
-from engine.cogo import Point, parse_bearing, course_label_geometry
-from engine.lots import shoelace_area, Lot
-from engine.topology import VertexGraph, Parcel
-from engine.verify import verify_ring
+from engine.cogo import Point, course_label_geometry, parse_bearing
 from engine.curves import Curve
 from engine.dxf_writer import DXFWriter
 from engine.georeference import get_intersection_gps
+from engine.lots import shoelace_area
+from engine.topology import Parcel, VertexGraph
 
 RAW_COURSES = [
     ("c1",  "S02°24'30\"E", 730.50,  "West boundary, first leg"),

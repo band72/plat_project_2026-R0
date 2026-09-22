@@ -1,9 +1,11 @@
-import sys, math
+import math
+import sys
+
 sys.path.insert(0, '.')
-from engine.cogo import Point, parse_bearing, azimuth_to_bearing
-from engine.lots import shoelace_area, Lot
-from engine.dxf_writer import DXFWriter
 import data.cedar_oaks as co
+from engine.cogo import Point, parse_bearing
+from engine.dxf_writer import DXFWriter
+from engine.lots import Lot, shoelace_area
 
 # ---------- validation 1: depth progression vs bearing convergence ----------
 print("=== CHECK 1: depth progression vs bearing convergence ===")

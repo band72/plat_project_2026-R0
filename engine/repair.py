@@ -19,8 +19,8 @@ Tiers of context, weakest to strongest:
   4. traverse closure    (surrounding lot/boundary must close)
 """
 from __future__ import annotations
+
 import math
-from itertools import product
 
 # OCR confusion sets observed on these plat scans
 CONFUSE = {
@@ -39,7 +39,7 @@ def digit_edit_ok(read: float, solved: float, decimals=2) -> tuple[bool, str]:
         return True, "identical"
     # same length -> substitution
     if len(a) == len(b):
-        diff = [i for i, (x, y) in enumerate(zip(a, b)) if x != y]
+        diff = [i for i, (x, y) in enumerate(zip(a, b, strict=True)) if x != y]
         if len(diff) == 1:
             i = diff[0]
             if a[i].isdigit() and b[i].isdigit():

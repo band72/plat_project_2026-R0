@@ -33,8 +33,10 @@ it unchanged:
     R(a) = [[cos a, -sin a], [sin a, cos a]]   (rotates an azimuth by +a)
 """
 from __future__ import annotations
+
 import math
 from dataclasses import dataclass
+
 import numpy as np
 
 from .curve_follow import InkField, _OrientedDistance
@@ -121,7 +123,7 @@ def fit_scan_line(ink: InkField, hint_a, hint_b, corridor_ft: float = 8.0,
     order = np.argsort(t)
     ts = t[order]
     cuts = np.flatnonzero(np.diff(ts) > gap_ft)                # longest gap-free run of the stroke
-    runs = list(zip(np.r_[0, cuts + 1], np.r_[cuts, len(ts) - 1]))
+    runs = list(zip(np.r_[0, cuts + 1], np.r_[cuts, len(ts) - 1], strict=True))
     s, e = max(runs, key=lambda r: ts[r[1]] - ts[r[0]])
     res = (Q - c) @ np.array([-d[1], d[0]])
     return ScanLine(c, d, c + d * ts[s], c + d * ts[e], float(ts[e] - ts[s]), len(Q), float(res.std()))
@@ -240,7 +242,7 @@ def sample_polylines(polylines, step_ft: float = 2.0, min_len_ft: float = 10.0):
     P, D = [], []
     for poly in polylines:
         V = np.asarray(poly, float)
-        for a, b in zip(V[:-1], V[1:]):
+        for a, b in zip(V[:-1], V[1:], strict=True):
             L = float(np.hypot(*(b - a)))
             if L < min_len_ft:
                 continue
