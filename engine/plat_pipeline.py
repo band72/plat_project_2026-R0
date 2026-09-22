@@ -30,9 +30,11 @@ path cannot promise for arbitrary source material.
 """
 from __future__ import annotations
 
+import atexit
 import math
 import os
 import re
+import shutil
 import subprocess
 import tempfile
 from dataclasses import dataclass, field
@@ -41,6 +43,7 @@ from engine.cogo import Course, Point, azimuth_to_bearing, run_traverse
 from engine.cogo_block import LotMapCheckResult, TraverseCourse
 from engine.lots import Lot, check_orthogonal, is_simple_polygon, rect_row, safe_area
 from engine.ocr import (
+    find_table_regions,
     find_table_regions_inside_border,
     load_gray,
     ocr_best,
@@ -123,6 +126,7 @@ def rasterize_pdf_first_page(pdf_path: str, dpi: int | None = None) -> str:
             dpi = max(72, min(300, int(MAX_RASTER_EDGE_PX / long_edge_in)))
 
     out_dir = tempfile.mkdtemp(prefix="plat_pdf_")
+    atexit.register(shutil.rmtree, out_dir, ignore_errors=True)
     out_prefix = os.path.join(out_dir, "page")
     subprocess.run(
         ["pdftoppm", "-png", "-r", str(dpi), "-f", "1", "-l", "1", pdf_path, out_prefix],
@@ -178,8 +182,13 @@ def extract_call_table(img) -> tuple[dict, dict, PipelineDiagnostics]:
     diag = PipelineDiagnostics()
     regions = find_table_regions_inside_border(img)
     if not regions:
-        diag.warnings.append("no ruled table region found on this sheet")
-        return {}, {}, diag
+        # Fall back to finding table regions without outer border filtering
+        regions = find_table_regions(img)
+    if not regions:
+        # Fall back to treating the full image as candidate table region (e.g. dedicated table crop)
+        h, w = img.shape[:2]
+        regions = [(0, 0, w, h)]
+        diag.warnings.append("no ruled table border detected; falling back to full image table scan")
 
     regions = sorted(regions, key=lambda r: r[2] * r[3], reverse=True)[:3]
     best_curves, best_lines = {}, {}
@@ -204,7 +213,7 @@ def extract_call_table(img) -> tuple[dict, dict, PipelineDiagnostics]:
     diag.raw_line_count = len(best_lines)
     diag.raw_curve_count = len(best_curves)
     if not best_curves and not best_lines:
-        diag.warnings.append("table region(s) found but 0 rows OCR'd cleanly")
+        diag.warnings.append("table region(s) scanned but 0 course rows parsed cleanly")
     return best_curves, best_lines, diag
 
 
@@ -338,7 +347,7 @@ def _attempt_repair(pob: Point, courses: list[Course], curves: dict,
 def solve_generic_traverse(pob: Point, courses: list[Course], curves: dict,
                            diag: PipelineDiagnostics,
                            lot_id: str = "Boundary", block_id: str = "1",
-                           lot_number: str = "B") -> LotMapCheckResult:
+                           lot_number: str = "BOUNDARY") -> LotMapCheckResult:
     """Walk `courses` from `pob`, check closure, repair if needed, and
     return a LotMapCheckResult -- the same data shape
     engine/cogo_block.py's BeachwoodBlock9Solver produces, so web/server.py
@@ -417,6 +426,9 @@ def solve_generic_traverse(pob: Point, courses: list[Course], curves: dict,
     else:
         tier = Verdict.PASS
         detail = f"closes {precision_str}"
+    flags = list(diag.warnings)
+    if diag.repairs_applied:
+        flags.extend([f"Repaired: {r}" for r in diag.repairs_applied])
 
     return LotMapCheckResult(
         lot_id=lot_id, block_id=block_id, lot_number=lot_number,
@@ -437,6 +449,7 @@ def solve_generic_traverse(pob: Point, courses: list[Course], curves: dict,
         fac_5j17_passed=fac_passed,
         passed=passed,
         verdict=f"{tier} -- {detail}",
+        flags=flags,
     )
 
 
@@ -535,6 +548,7 @@ def subdivide_uniform_lot_row(boundary: LotMapCheckResult, lot_count: int,
             stated_area_sqft=0.0, area_diff_sqft=0.0, area_diff_pct=0.0,
             fac_5j17_passed=v.passed, passed=v.passed,
             verdict=f"{tier} -- {detail}",
+            flags=[detail],
         ))
     return results
 

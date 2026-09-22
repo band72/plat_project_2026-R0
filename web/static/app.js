@@ -353,12 +353,25 @@ document.addEventListener("DOMContentLoaded", () => {
     svgGeometryGroup.innerHTML = "";
 
     const bbox = data.bbox;
-    // Map surveyor coordinates (East = X, North = Y, where North increases upward)
-    // to SVG screen coordinates (X = right, Y = downward).
     const pad = 40;
     const svgWidth = 760;
     const svgHeight = 440;
 
+    if (!data.parcels || data.parcels.length === 0 || !bbox || bbox.width <= 0 || bbox.height <= 0) {
+      cadastralSvg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
+      const textEl = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      textEl.setAttribute("x", svgWidth / 2);
+      textEl.setAttribute("y", svgHeight / 2);
+      textEl.setAttribute("text-anchor", "middle");
+      textEl.setAttribute("fill", "#94a3b8");
+      textEl.setAttribute("font-size", "14");
+      textEl.textContent = "No parcel linework to display. (Check extraction notes)";
+      svgGeometryGroup.appendChild(textEl);
+      return;
+    }
+
+    // Map surveyor coordinates (East = X, North = Y, where North increases upward)
+    // to SVG screen coordinates (X = right, Y = downward).
     const scaleX = (svgWidth - pad * 2) / bbox.width;
     const scaleY = (svgHeight - pad * 2) / bbox.height;
     const scale = Math.min(scaleX, scaleY);
@@ -526,21 +539,40 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderParcelsCards(parcels) {
     parcelsCardsGrid.innerHTML = "";
 
+    if (!parcels || parcels.length === 0) {
+      parcelsCardsGrid.innerHTML = `
+        <div class="card" style="grid-column: 1 / -1; padding: 28px; text-align: center; color: var(--text-muted);">
+          No parcels extracted from this plat. Review diagnostic note above.
+        </div>
+      `;
+      return;
+    }
+
     parcels.forEach((p) => {
       const card = document.createElement("div");
       card.className = "parcel-card";
       card.id = `card-lot-${p.lot_number}`;
 
+      const tier = (p.verdict ? p.verdict.split(" ")[0] : p.status).toUpperCase();
+      const badgeClass = `badge-${tier.toLowerCase()}`;
+      const badgeLabel = p.verdict ? p.verdict.split(" -- ")[0] : p.status;
+      const miscloseClass = (p.misclose_ft > 0.1 || p.status === "FAIL" || tier === "FAILED") ? "text-danger" : "text-success";
+      const isBoundary = p.lot_number === "BOUNDARY";
+      const lotPrefix = isBoundary ? "Parcel" : "Lot";
+      const flagsHtml = (p.flags && p.flags.length > 0)
+        ? `<div style="font-size: 0.72rem; color: #fb923c; margin-top: 4px;">⚠️ ${p.flags.length} audit note(s)</div>`
+        : "";
+
       card.innerHTML = `
         <div class="card-top-row">
           <div class="lot-badge-large">
-            <span class="lot-prefix">Lot</span>
+            <span class="lot-prefix">${lotPrefix}</span>
             <span class="lot-num-val">${p.lot_number}</span>
           </div>
-          <span class="badge-pass">${p.status}</span>
+          <span class="${badgeClass}">${badgeLabel}</span>
         </div>
 
-        <div class="parcel-frontage">${p.frontage}</div>
+        <div class="parcel-frontage">${p.frontage}${flagsHtml}</div>
 
         <div class="card-stats-grid">
           <div class="stat-item">
@@ -557,7 +589,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
           <div class="stat-item">
             <span class="stat-label">Misclose</span>
-            <span class="stat-val text-success">${p.misclose_ft.toFixed(4)} ft</span>
+            <span class="stat-val ${miscloseClass}">${p.misclose_ft.toFixed(4)} ft</span>
           </div>
         </div>
 
@@ -599,19 +631,36 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderSurveyTable(parcels) {
     cadastralTableBody.innerHTML = "";
 
+    if (!parcels || parcels.length === 0) {
+      cadastralTableBody.innerHTML = `
+        <tr>
+          <td colspan="9" style="text-align: center; color: var(--text-muted); padding: 24px;">
+            No parcels extracted from this plat. Review diagnostic note above.
+          </td>
+        </tr>
+      `;
+      filteredCountBadge.textContent = "0 Parcels";
+      return;
+    }
+
     parcels.forEach((p) => {
       const tr = document.createElement("tr");
       tr.id = `row-lot-${p.lot_number}`;
+
+      const tier = (p.verdict ? p.verdict.split(" ")[0] : p.status).toUpperCase();
+      const badgeTableClass = `badge-table-${tier.toLowerCase()}`;
+      const badgeLabel = p.verdict ? p.verdict.split(" -- ")[0] : `${p.status} (5J-17)`;
+      const miscloseClass = (p.misclose_ft > 0.1 || p.status === "FAIL" || tier === "FAILED") ? "text-danger" : "text-success";
 
       tr.innerHTML = `
         <td class="td-mono td-lot-id">${p.lot_id}</td>
         <td>${p.frontage}</td>
         <td class="td-mono">${p.perimeter_ft} ft</td>
-        <td class="td-mono text-success">${p.misclose_ft.toFixed(5)} ft</td>
+        <td class="td-mono ${miscloseClass}">${p.misclose_ft.toFixed(5)} ft</td>
         <td class="td-mono">${p.precision}</td>
         <td class="td-mono">${Math.round(p.area_sqft).toLocaleString()} SF</td>
         <td class="td-mono">${p.acres} AC</td>
-        <td><span class="badge-table-pass">${p.status} (5J-17)</span></td>
+        <td><span class="${badgeTableClass}">${badgeLabel}</span></td>
         <td>
           <div class="table-actions">
             <a href="/api/lot_dxf/${p.lot_number}" data-download data-filename="Lot_${p.lot_number}_MapCheck.dxf" class="btn-tbl btn-tbl-dxf" download>DXF</a>
@@ -654,8 +703,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // Surveyor Checksheet Modal
   // -------------------------------------------------------------------------
   function openChecksheetModal(parcel) {
-    modalLotTitle.textContent = `${parcel.lot_id} Surveyor Checksheet (Block 9)`;
-    checksheetContent.textContent = parcel.checksheet_text;
+    const blockText = parcel.block_id ? ` (Block ${parcel.block_id})` : "";
+    modalLotTitle.textContent = `${parcel.lot_id} Surveyor Checksheet${blockText}`;
+    let sheetText = "";
+    if (parcel.flags && parcel.flags.length > 0) {
+      sheetText += "=".repeat(80) + "\n";
+      sheetText += "  AUDIT / DIAGNOSTIC WARNINGS & FLAGS:\n";
+      sheetText += "=".repeat(80) + "\n";
+      sheetText += parcel.flags.map(f => `  * ${f}`).join("\n") + "\n\n";
+    }
+    sheetText += parcel.checksheet_text;
+    checksheetContent.textContent = sheetText;
     modalDxfDownloadBtn.href = `/api/lot_dxf/${parcel.lot_number}`;
     modalDxfDownloadBtn.setAttribute("download", `Lot_${parcel.lot_number}_MapCheck.dxf`);
     checksheetModal.classList.remove("hidden");

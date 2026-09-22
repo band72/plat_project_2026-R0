@@ -41,6 +41,12 @@
   const DEFAULT_PRESET = cfg("preset", "block9");
   const CSS_URL = cfg("css-url", scriptRelativeUrl("plat-reader.css"));
   const TITLE = cfg("title", "Cadastral Plat Reader");
+  // P.O.B. has no automatic source (a scanned image has no inherent
+  // real-world coordinate system -- see IMPLEMENTATION_PLAN.md section 8),
+  // so an embedder who knows their typical plat's P.O.B. convention can set
+  // it once here rather than it always defaulting to the demo (5000, 5000).
+  const POB_NORTHING = cfg("pob-northing", "5000.00");
+  const POB_EASTING = cfg("pob-easting", "5000.00");
 
   if (!API_BASE) {
     console.error(
@@ -136,6 +142,11 @@
         <span class="pr-title"></span>
       </div>
       <div class="pr-note hidden" data-role="note"></div>
+      <div class="pr-upload-row">
+        <input type="file" class="pr-file-input" data-role="file-input" accept=".pdf,.png,.jpg,.jpeg,.webp,.tif,.tiff" />
+        <button type="button" class="pr-btn pr-btn-secondary" data-role="choose-file">Upload Plat</button>
+        <span class="pr-upload-status" data-role="upload-status"></span>
+      </div>
       <div class="pr-controls">
         <button type="button" class="pr-btn pr-btn-primary" data-role="run">Run Cadastral MapCheck</button>
         <span class="pr-status" data-role="status"></span>
@@ -157,12 +168,18 @@
     </div>
   `;
 
+  // Fallback names for the native Save-As dialog, shown BEFORE the response
+  // (and its real Content-Disposition filename) arrives -- see
+  // downloadFile()'s picker path. Which one is right depends on which
+  // analysis last ran (block9 reference vs. an uploaded plat), so
+  // renderDownloadButtons() below picks per-click from `uploadedFilename`,
+  // not a single static list.
   const BATCH_DOWNLOADS = [
-    { type: "master_dxf", label: "Production DXF", filename: "PB0030_P0082_Block9_MapCheck.dxf" },
-    { type: "checksheets_dxf", label: "CheckSheets DXF", filename: "PB0030_P0082_Block9_CheckSheets.dxf" },
-    { type: "report_txt", label: "Report", filename: "block9_mapcheck_report.txt" },
-    { type: "geojson", label: "GeoJSON", filename: "block9_parcels.geojson" },
-    { type: "csv", label: "CSV", filename: "block9_parcels_summary.csv" },
+    { type: "master_dxf", label: "Production DXF", block9Filename: "PB0030_P0082_Block9_MapCheck.dxf", customFilename: "custom_plat.dxf" },
+    { type: "checksheets_dxf", label: "CheckSheets DXF", block9Filename: "PB0030_P0082_Block9_CheckSheets.dxf", customFilename: "custom_plat.dxf" },
+    { type: "report_txt", label: "Report", block9Filename: "block9_mapcheck_report.txt", customFilename: "custom_plat_report.txt" },
+    { type: "geojson", label: "GeoJSON", block9Filename: "block9_parcels.geojson", customFilename: "custom_plat.geojson" },
+    { type: "csv", label: "CSV", block9Filename: "block9_parcels_summary.csv", customFilename: "custom_plat_summary.csv" },
   ];
 
   function findTarget() {
@@ -199,6 +216,37 @@
     const metricsEl = $("metrics");
     const tbody = $("tbody");
     const downloadsEl = $("downloads");
+    const fileInput = $("file-input");
+    const chooseFileBtn = $("choose-file");
+    const uploadStatusEl = $("upload-status");
+
+    // Set once a plat is successfully uploaded; drives which preset run()
+    // requests. No upload yet -> DEFAULT_PRESET (normally "block9", the
+    // certified reference plat) -- see README.md's Configuration table.
+    let uploadedFilename = null;
+
+    chooseFileBtn.addEventListener("click", () => fileInput.click());
+    fileInput.addEventListener("change", async () => {
+      const file = fileInput.files && fileInput.files[0];
+      if (!file) return;
+      uploadedFilename = null;
+      uploadStatusEl.textContent = `Uploading ${file.name}...`;
+      try {
+        const fd = new FormData();
+        fd.append("file", file);
+        const resp = await fetch(`${API_BASE}/api/upload`, { method: "POST", body: fd });
+        if (!resp.ok) {
+          const body = await resp.json().catch(() => null);
+          throw new Error((body && body.detail) || `Upload failed (HTTP ${resp.status})`);
+        }
+        const data = await resp.json();
+        uploadedFilename = data.filename;
+        uploadStatusEl.textContent = `${data.filename} (${data.size_kb} KB) -- ready to analyze`;
+      } catch (err) {
+        console.error("[plat-reader] upload failed:", err);
+        uploadStatusEl.textContent = `Upload failed: ${err.message}`;
+      }
+    });
 
     function setStatus(text, isError) {
       statusEl.textContent = text || "";
@@ -225,13 +273,22 @@
 
     function renderTable(parcels) {
       tbody.innerHTML = "";
+      if (!parcels || parcels.length === 0) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td colspan="5" style="text-align: center; color: var(--pr-text-muted); padding: 16px;">No parcels extracted. See notes above.</td>`;
+        tbody.appendChild(tr);
+        return;
+      }
       parcels.forEach((p) => {
         const tr = document.createElement("tr");
+        const tier = (p.verdict ? p.verdict.split(" ")[0] : p.status).toLowerCase();
+        const badgeLabel = p.verdict ? p.verdict.split(" -- ")[0] : p.status;
+        const flagTip = (p.flags && p.flags.length > 0) ? ` title="${p.flags.join('; ')}"` : "";
         tr.innerHTML = `
           <td>${p.lot_id}</td>
           <td>${Math.round(p.area_sqft).toLocaleString()}</td>
           <td>${p.misclose_ft.toFixed(4)} ft</td>
-          <td><span class="pr-badge ${p.status === "PASS" ? "pr-badge-pass" : "pr-badge-fail"}">${p.status}</span></td>
+          <td><span class="pr-badge pr-badge-${tier}"${flagTip}>${badgeLabel}</span></td>
           <td><button type="button" class="pr-link-btn" data-lot="${p.lot_number}">DXF</button></td>
         `;
         tr.querySelector(".pr-link-btn").addEventListener("click", (e) => {
@@ -258,7 +315,8 @@
           const original = btn.textContent;
           btn.disabled = true;
           btn.textContent = "Saving...";
-          downloadFile(`${API_BASE}/api/download/${d.type}`, d.filename, {
+          const suggested = uploadedFilename ? d.customFilename : d.block9Filename;
+          downloadFile(`${API_BASE}/api/download/${d.type}`, suggested, {
             onDone: () => { btn.disabled = false; btn.textContent = original; },
             onError: () => { btn.disabled = false; btn.textContent = "Failed"; setTimeout(() => (btn.textContent = original), 1500); },
           });
@@ -270,10 +328,19 @@
 
     async function run() {
       runBtn.disabled = true;
-      setStatus("Running cadastral MapCheck...", false);
+      setStatus(uploadedFilename ? "Solving uploaded plat..." : "Running cadastral MapCheck...", false);
       try {
         const formData = new FormData();
-        formData.append("preset", DEFAULT_PRESET);
+        // Once a plat is uploaded, solve IT ("custom") -- not the
+        // DEFAULT_PRESET reference plat -- regardless of what DEFAULT_PRESET
+        // is configured to. uploaded_filename is otherwise blank and the
+        // preset falls back to DEFAULT_PRESET (normally "block9").
+        formData.append("preset", uploadedFilename ? "custom" : DEFAULT_PRESET);
+        if (uploadedFilename) {
+          formData.append("uploaded_filename", uploadedFilename);
+        }
+        formData.append("pob_northing", POB_NORTHING);
+        formData.append("pob_easting", POB_EASTING);
         formData.append("pi_rule_enabled", "true");
         formData.append("fac_standard", "5J-17");
 

@@ -179,6 +179,7 @@ class LotMapCheckResult:
     fac_5j17_passed: bool
     passed: bool
     verdict: str
+    flags: list[str] = field(default_factory=list)
 
     def format_surveyor_sheet(self) -> str:
         """Format certified surveyor checksheet output."""

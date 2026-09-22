@@ -142,3 +142,29 @@ def test_lot_subdivision_skips_when_next_course_is_not_orthogonal():
     lots = subdivide_uniform_lot_row(boundary, 4, diag)
     assert lots == []
     assert any("not ~90 deg apart" in w for w in diag.warnings)
+
+
+def test_lot_flags_populated_and_surfaced():
+    diag = PipelineDiagnostics()
+    diag.warnings.append("test diagnostic warning")
+    diag.repairs_applied.append("C1 chord corrected")
+    boundary = solve_generic_traverse(Point(0.0, 0.0), CLOSING_COURSES, {}, diag)
+    assert hasattr(boundary, "flags")
+    assert "test diagnostic warning" in boundary.flags
+    assert any("C1 chord corrected" in f for f in boundary.flags)
+
+    lots = subdivide_uniform_lot_row(boundary, 2, diag)
+    assert len(lots) == 2
+    assert all(hasattr(lot, "flags") and len(lot.flags) > 0 for lot in lots)
+
+
+def test_extract_call_table_borderless_fallback():
+    import numpy as np
+
+    from engine.plat_pipeline import extract_call_table
+    # Blank/borderless 400x400 image has no table borders
+    blank = np.ones((400, 400), dtype=np.uint8) * 255
+    curves, lines, diag = extract_call_table(blank)
+    assert curves == {}
+    assert lines == {}
+    assert any("falling back to full image table scan" in w for w in diag.warnings)
