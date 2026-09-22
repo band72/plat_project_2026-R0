@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 import uvicorn
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -32,6 +33,24 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name
 logger = logging.getLogger("plat_web")
 
 app = FastAPI(title="Cadastral Survey Plat COGO & Vectorization Engine", version="2026-R0")
+
+# CORS: required so this API can be called cross-origin -- both by the
+# standalone plat-reader plugin embedded on a third-party website, and by
+# any browser download helper doing a `fetch()` against download endpoints
+# (see web/static/downloads.js for why: cross-origin `<a download>` links
+# are silently ignored by browsers, so a real fetch+blob download is used
+# instead, which requires CORS to be allowed). Restrict via the
+# PLAT_READER_ALLOWED_ORIGINS env var (comma-separated) in production;
+# defaults to "*" so the plugin works out of the box when embedded anywhere.
+_allowed_origins = os.environ.get("PLAT_READER_ALLOWED_ORIGINS", "*")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"] if _allowed_origins.strip() == "*" else [o.strip() for o in _allowed_origins.split(",")],
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+    expose_headers=["Content-Disposition"],
+)
 
 UPLOAD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "uploads"))
 STATIC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "static"))
@@ -45,11 +64,17 @@ LOT_ORDER = ["27", "28", "29", "30", "31", "26", "25", "24", "23"]
 SUPPORTED_PRESETS = {"block9"}
 
 MAX_UPLOAD_BYTES = 50 * 1024 * 1024  # 50 MB: generous for a scanned plat sheet
-ALLOWED_UPLOAD_EXTENSIONS = {".pdf", ".png", ".jpg", ".jpeg", ".tif", ".tiff"}
+ALLOWED_UPLOAD_EXTENSIONS = {".pdf", ".png", ".jpg", ".jpeg", ".webp", ".tif", ".tiff"}
 
-# Mount static directory
+# Mount static directories. /plat-reader serves the standalone embeddable
+# plugin (see plat-reader/README.md) purely as a local dev/testing
+# convenience -- a real deployment hosts that folder whereever the embedding
+# site's assets live (its own server/CDN), independent of this API.
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.mount("/images", StaticFiles(directory=os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "images"))), name="images")
+_plat_reader_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "plat-reader"))
+if os.path.isdir(_plat_reader_dir):
+    app.mount("/plat-reader", StaticFiles(directory=_plat_reader_dir, html=True), name="plat_reader")
 
 
 def _solve_block9(return_radius: float = 25.0) -> tuple[BeachwoodBlock9Solver, dict]:
@@ -122,6 +147,11 @@ async def upload_plat(file: UploadFile = File(...)):
 async def analyze_plat(
     preset: str = Form("block9"),
     uploaded_filename: str | None = Form(None),
+    job_name: str | None = Form(None),
+    call_table_filename: str | None = Form(None),
+    pob_northing: float = Form(5000.00),
+    pob_easting: float = Form(5000.00),
+    extract_individual_lots: bool = Form(True),
     return_radius: float = Form(25.0),
     pi_rule_enabled: bool = Form(True),
     fac_standard: str = Form("5J-17"),
@@ -132,17 +162,30 @@ async def analyze_plat(
     if not (1.0 <= return_radius <= 100.0):
         raise HTTPException(status_code=400, detail="return_radius must be between 1.0 and 100.0 ft")
 
-    note = None
+    # Only the fixed Beachwood Unit Two, Block 9 dataset has a real solver
+    # wired up. Every other control on the form (preset, custom P.O.B., a
+    # call-table image, disabling per-lot extraction) is accepted so the UI
+    # doesn't break, but has no effect yet -- say so explicitly instead of
+    # quietly ignoring the user's input.
+    ignored_inputs = []
     if preset not in SUPPORTED_PRESETS:
-        # No custom-plat OCR/vectorization pipeline is wired up yet; fall back
-        # to the certified Block 9 reference solve but say so explicitly
-        # rather than silently mislabeling it as the uploaded plat's result.
+        ignored_inputs.append(f"preset '{preset}'")
+    if (round(pob_northing, 2), round(pob_easting, 2)) != (5000.0, 5000.0):
+        ignored_inputs.append(f"custom P.O.B. ({pob_northing:.2f}, {pob_easting:.2f})")
+    if call_table_filename:
+        ignored_inputs.append(f"call table image '{call_table_filename}'")
+    if not extract_individual_lots:
+        ignored_inputs.append("'extract individual lots' disabled")
+
+    note = None
+    if ignored_inputs:
         note = (
-            f"Preset '{preset}' has no solver yet -- showing the certified "
-            "Beachwood Unit Two, Block 9 reference solve instead."
+            "This build only has a solver for the certified Beachwood Unit Two, "
+            "Block 9 reference plat -- " + "; ".join(ignored_inputs) +
+            " were accepted but had no effect on this result."
         )
-        logger.info("Unsupported preset %r requested (uploaded_filename=%r); using block9 fallback",
-                    preset, uploaded_filename)
+        logger.info("Inputs not yet wired to the solver: %s (job_name=%r, uploaded_filename=%r)",
+                    "; ".join(ignored_inputs), job_name, uploaded_filename)
 
     solver, results = _solve_block9(return_radius)
 

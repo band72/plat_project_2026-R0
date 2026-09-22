@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Beachwood Plat AI & Cadastral COGO Engine</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2307090e'/%3E%3Cpolygon points='12 3 4 8 12 13 20 8' fill='none' stroke='%2300f0ff' stroke-width='1.6'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/theme.css">
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
@@ -51,160 +53,207 @@
   </header>
 
   <main class="main-content">
-    <!-- Top Grid: Upload & Controls + Model Pipeline -->
+    <!-- Shown when the backend accepted an input it can't yet act on (e.g. a
+         non-reference preset, custom P.O.B., a call table image) so results
+         are never presented as more than they are. -->
+    <div class="analysis-note-banner hidden" id="analysisNoteBanner" role="status"></div>
+
+    <!-- Top Grid: PLAT IMAGE & PIPELINE Controls -->
     <section class="control-panel-grid">
-      <!-- File Upload Card -->
-      <div class="glass-card upload-card">
+      <!-- Left Card: PLAT IMAGE -->
+      <div class="glass-card plat-card">
         <div class="card-header">
           <div class="card-title-group">
-            <span class="card-step">01</span>
-            <h2>Upload Plat Map</h2>
-          </div>
-          <span class="format-hint">PDF • TIFF • PNG • JPG</span>
-        </div>
-
-        <!-- Drag & Drop Zone -->
-        <div class="dropzone" id="platDropzone">
-          <input type="file" id="platFileInput" accept=".pdf,.png,.jpg,.jpeg,.tif,.tiff" class="file-input-hidden">
-          <div class="dropzone-content">
-            <div class="dropzone-icon-circle">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="17 8 12 3 7 8"></polyline>
-                <line x1="12" y1="3" x2="12" y2="15"></line>
+            <span class="card-title-icon-plat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect width="24" height="24" rx="4" fill="#0284c7" />
+                <circle cx="8" cy="8" r="3" fill="#f59e0b" />
+                <path d="M3 18l6-6 4 4 5-5 3 3v4H3z" fill="#38bdf8" />
               </svg>
-            </div>
-            <p class="dropzone-title">Drag & drop your survey plat image or PDF</p>
-            <p class="dropzone-sub">or <button type="button" class="btn-link" id="browseFileBtn">browse local file</button></p>
-            <div id="fileUploadStatus" class="file-status-badge hidden">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span id="uploadedFileName">PB30_PG82_Beachwood_Block9.png</span>
-              <span id="uploadedFileSize">(3.2 MB)</span>
-            </div>
+            </span>
+            <h2 class="card-title-text">PLAT IMAGE</h2>
           </div>
         </div>
 
-        <!-- Plat Presets Selector -->
-        <div class="preset-group">
-          <label for="platPresetSelect" class="input-label">Select Ground-Truthed Plat Dataset:</label>
-          <div class="select-wrapper">
-            <select id="platPresetSelect" class="custom-select">
-              <option value="block9" selected>Beachwood Unit Two — Block 9 (Lots 23–31, PB 30 PG 82)</option>
-              <option value="custom">Custom Uploaded Plat Drawing</option>
-            </select>
+        <div class="card-body">
+          <!-- Job Name (Optional) -->
+          <div class="control-field">
+            <label class="control-label" for="jobNameInput">JOB NAME (OPTIONAL)</label>
+            <input type="text" id="jobNameInput" class="text-input-field" placeholder="e.g. Lot 12 Block 4" autocomplete="off" />
           </div>
-        </div>
 
-        <!-- Parameters Drawer -->
-        <div class="params-row">
-          <div class="param-item">
-            <label class="param-label" for="paramRadius">Corner Radius (R)</label>
-            <div class="input-with-unit">
-              <input type="number" id="paramRadius" value="25.0" step="0.5" min="1.0" max="100.0" class="num-input">
-              <span class="unit-tag">ft</span>
+          <!-- Drag & Drop Zone -->
+          <div class="plat-dropzone" id="platDropzone">
+            <input type="file" id="platFileInput" accept=".pdf,.png,.jpg,.jpeg,.webp,.tif,.tiff" class="file-input-hidden" />
+            <div class="dropzone-center">
+              <div class="folder-icon-wrap">
+                <svg width="44" height="38" viewBox="0 0 44 38" fill="none">
+                  <path d="M3 6C3 4.89543 3.89543 4 5 4H16.1716C16.702 4 17.2107 4.21071 17.5858 4.58579L20.4142 7.41421C20.7893 7.78929 21.298 8 21.8284 8H39C40.1046 8 41 8.89543 41 10V32C41 33.1046 40.1046 34 39 34H5C3.89543 34 3 33.1046 3 32V6Z" fill="#D97706"/>
+                  <path d="M1 13C1 11.8954 1.89543 11 3 11H41C42.1046 11 43 11.8954 43 13V32C43 33.1046 42.1046 34 41 34H3C1.89543 34 1 33.1046 1 32V13Z" fill="#FBBF24"/>
+                </svg>
+              </div>
+              <p class="dropzone-heading">Drop plat image here</p>
+              <p class="dropzone-subheading">JPG, PNG, WEBP, PDF · Max 50 MB</p>
+              <div id="fileUploadStatus" class="upload-badge-chip hidden">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span id="uploadedFileName">PB30_PG82_Beachwood_Block9.png</span>
+                <span id="uploadedFileSize">(3.2 MB)</span>
+              </div>
             </div>
           </div>
-          <div class="param-item">
-            <label class="param-label" for="paramFac">Closure Standard</label>
-            <div class="input-with-unit">
-              <input type="text" id="paramFac" value="F.A.C. 5J-17" readonly class="num-input disabled">
+
+          <!-- Call Table Image (Optional) -->
+          <div class="control-field">
+            <label class="control-label">CALL TABLE IMAGE (OPTIONAL)</label>
+            <input type="file" id="callTableInput" accept=".pdf,.png,.jpg,.jpeg,.webp" class="file-input-hidden" />
+            <div class="call-table-row">
+              <button type="button" class="btn-attach" id="attachTableBtn">
+                <svg class="attach-clip" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                </svg>
+                <span>Attach Table</span>
+              </button>
+              <span id="callTableBadge" class="attached-file-badge hidden"></span>
             </div>
           </div>
-          <div class="param-item toggle-item">
-            <label class="param-label">P.I. Tangent Rule</label>
-            <label class="toggle-switch">
-              <input type="checkbox" id="paramPiRule" checked>
-              <span class="toggle-slider"></span>
+
+          <!-- POB Coordinates Collapsible -->
+          <div class="pob-collapsible">
+            <button type="button" class="pob-trigger-btn" id="pobToggleBtn">
+              <span class="pob-arrow" id="pobArrow">▶</span>
+              <span class="pob-marker">📍</span>
+              <span class="pob-label-text">POB COORDINATES (DEFAULT: 5000.00, 5000.00)</span>
+            </button>
+            <div class="pob-collapse-body hidden" id="pobBody">
+              <div class="pob-grid">
+                <div class="pob-cell">
+                  <label for="pobNorthing">Northing (Y)</label>
+                  <input type="number" id="pobNorthing" value="5000.00" step="1.0" class="num-field" />
+                </div>
+                <div class="pob-cell">
+                  <label for="pobEasting">Easting (X)</label>
+                  <input type="number" id="pobEasting" value="5000.00" step="1.0" class="num-field" />
+                </div>
+                <div class="pob-cell">
+                  <label for="paramRadius">Corner Radius (R)</label>
+                  <input type="number" id="paramRadius" value="25.0" step="0.5" class="num-field" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Checkbox: Extract Individual Lots -->
+          <div class="checkbox-row">
+            <label class="custom-checkbox-container" for="extractLotsCheckbox">
+              <input type="checkbox" id="extractLotsCheckbox" />
+              <span class="checkbox-box-square"></span>
+              <span class="checkbox-icon-puzzle">🧩</span>
+              <span class="checkbox-text-label">EXTRACT INDIVIDUAL LOTS</span>
             </label>
           </div>
-        </div>
 
-        <!-- Action Button -->
-        <button type="button" class="btn-primary-action" id="runModelBtn">
-          <span class="btn-glow"></span>
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-          </svg>
-          <span class="btn-label">Send to Cadastral AI Model</span>
-        </button>
+          <!-- Primary Extract Button -->
+          <button type="button" class="btn-extract-submit" id="runModelBtn">
+            <svg class="extract-eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span class="btn-extract-text">Extract from Plat</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Execution Progress & Metrics Card -->
-      <div class="glass-card status-card">
+      <!-- Right Card: PIPELINE -->
+      <div class="glass-card pipeline-card">
         <div class="card-header">
           <div class="card-title-group">
-            <span class="card-step">02</span>
-            <h2>Model Inference & Verification</h2>
-          </div>
-          <span class="badge-status-pill" id="modelStatusBadge">Engine Ready</span>
-        </div>
-
-        <!-- Pipeline Execution Stepper -->
-        <div class="pipeline-stepper" id="pipelineStepper">
-          <div class="step-node active" id="step1">
-            <div class="step-indicator">1</div>
-            <div class="step-info">
-              <div class="step-name">Plat OCR & Corridor Recognition</div>
-              <div class="step-detail">Cape Horn Ave & San Salvadore Ave R/W</div>
-            </div>
-            <span class="step-tag tag-done">READY</span>
-          </div>
-
-          <div class="step-node active" id="step2">
-            <div class="step-indicator">2</div>
-            <div class="step-info">
-              <div class="step-name">Corner Return & P.I. Decomposition</div>
-              <div class="step-detail">R=25', Δ=90°00'00", T=25.00', L=39.27'</div>
-            </div>
-            <span class="step-tag tag-done">CALCULATED</span>
-          </div>
-
-          <div class="step-node active" id="step3">
-            <div class="step-indicator">3</div>
-            <div class="step-info">
-              <div class="step-name">Surveyor MapCheck & Gauss Area</div>
-              <div class="step-detail">Latitude/Departure Closure & Net Acreage</div>
-            </div>
-            <span class="step-tag tag-done">PASS (1:∞)</span>
-          </div>
-
-          <div class="step-node active" id="step4">
-            <div class="step-indicator">4</div>
-            <div class="step-info">
-              <div class="step-name">Vector CAD DXF & Report Generation</div>
-              <div class="step-detail">AutoCAD 2000 R15 & Checksheets</div>
-            </div>
-            <span class="step-tag tag-done">COMPILED</span>
+            <span class="card-title-icon-gear">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+            </span>
+            <h2 class="card-title-text">PIPELINE</h2>
           </div>
         </div>
 
-        <!-- Key Real-time Metrics -->
-        <div class="realtime-metrics-grid">
-          <div class="metric-box">
-            <div class="metric-label">Max Linear Error</div>
-            <div class="metric-val highlight-cyan" id="metricMisclose">0.00000 ft</div>
-            <div class="metric-sub">Certified F.A.C. 5J-17</div>
+        <div class="card-body pipeline-body">
+          <div class="pipeline-stack">
+            <!-- 1. Vision Extraction -->
+            <div class="pipeline-item" id="stageVision">
+              <div class="stage-left">
+                <span class="stage-emoji">👁️</span>
+                <span class="stage-title">Vision Extraction</span>
+              </div>
+              <div class="stage-status-chip" id="badgeVision"></div>
+            </div>
+
+            <!-- 2. Traverse Computation -->
+            <div class="pipeline-item" id="stageTraverse">
+              <div class="stage-left">
+                <span class="stage-emoji">📐</span>
+                <span class="stage-title">Traverse Computation</span>
+              </div>
+              <div class="stage-status-chip" id="badgeTraverse"></div>
+            </div>
+
+            <!-- 3. Consensus Voting -->
+            <div class="pipeline-item" id="stageConsensus">
+              <div class="stage-left">
+                <span class="stage-emoji">⚖️</span>
+                <span class="stage-title">Consensus Voting</span>
+              </div>
+              <div class="stage-status-chip" id="badgeConsensus"></div>
+            </div>
+
+            <!-- 4. AI Misclosure Repair -->
+            <div class="pipeline-item" id="stageRepair">
+              <div class="stage-left">
+                <span class="stage-emoji">🔧</span>
+                <span class="stage-title">AI Misclosure Repair</span>
+              </div>
+              <div class="stage-status-chip" id="badgeRepair"></div>
+            </div>
+
+            <!-- 5. DXF Generation -->
+            <div class="pipeline-item" id="stageDxf">
+              <div class="stage-left">
+                <span class="stage-emoji">📋</span>
+                <span class="stage-title">DXF Generation</span>
+              </div>
+              <div class="stage-status-chip" id="badgeDxf"></div>
+            </div>
           </div>
-          <div class="metric-box">
-            <div class="metric-label">Survey Precision</div>
-            <div class="metric-val highlight-emerald" id="metricPrecision">1:∞ (EXACT)</div>
-            <div class="metric-sub">Zero Accumulation</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-label">Total Net Area</div>
-            <div class="metric-val highlight-amber" id="metricArea">119,657.4 SF</div>
-            <div class="metric-sub" id="metricAcres">2.7469 Acres</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-label">Certified Lots</div>
-            <div class="metric-val highlight-purple" id="metricLotsCount">9 / 9 PASS</div>
-            <div class="metric-sub">100% Deterministic</div>
-          </div>
+
         </div>
       </div>
     </section>
+
+    <!-- Real-time metrics overview -->
+    <div class="realtime-metrics-grid" id="pipelineMetrics">
+      <div class="metric-box">
+        <div class="metric-label">Max Linear Error</div>
+        <div class="metric-val highlight-cyan" id="metricMisclose">0.00000 ft</div>
+        <div class="metric-sub">F.A.C. 5J-17 Standard</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-label">Survey Precision</div>
+        <div class="metric-val highlight-emerald" id="metricPrecision">1:∞ (EXACT)</div>
+        <div class="metric-sub">Zero Accumulation</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-label">Total Net Area</div>
+        <div class="metric-val highlight-amber" id="metricArea">119,657.4 SF</div>
+        <div class="metric-sub" id="metricAcres">2.7469 Acres</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-label">Certified Lots</div>
+        <div class="metric-val highlight-purple" id="metricLotsCount">9 / 9 PASS</div>
+        <div class="metric-sub">100% Deterministic</div>
+      </div>
+    </div>
 
     <!-- Cadastral Interactive Canvas & Visualizer -->
     <section class="glass-card visualizer-card">
@@ -267,7 +316,7 @@
       </div>
 
       <div class="download-btn-group">
-        <a href="/api/download/master_dxf" class="btn-download btn-dxf" download>
+        <a href="/api/download/master_dxf" data-download data-filename="PB0030_P0082_Block9_MapCheck.dxf" class="btn-download btn-dxf" download>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
             <polyline points="2 17 12 22 22 17"></polyline>
@@ -275,7 +324,7 @@
           </svg>
           <span>Production DXF</span>
         </a>
-        <a href="/api/download/checksheets_dxf" class="btn-download btn-checksheets" download>
+        <a href="/api/download/checksheets_dxf" data-download data-filename="PB0030_P0082_Block9_CheckSheets.dxf" class="btn-download btn-checksheets" download>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
             <polyline points="14 2 14 8 20 8"></polyline>
@@ -284,14 +333,14 @@
           </svg>
           <span>CheckSheets DXF</span>
         </a>
-        <a href="/api/download/report_txt" class="btn-download btn-report" download>
+        <a href="/api/download/report_txt" data-download data-filename="block9_mapcheck_report.txt" class="btn-download btn-report" download>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
           </svg>
           <span>MapCheck Report</span>
         </a>
-        <a href="/api/download/geojson" class="btn-download btn-geojson" download>
+        <a href="/api/download/geojson" data-download data-filename="block9_parcels.geojson" class="btn-download btn-geojson" download>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="2" y1="12" x2="22" y2="12"></line>
@@ -299,7 +348,7 @@
           </svg>
           <span>GIS GeoJSON</span>
         </a>
-        <a href="/api/download/csv" class="btn-download btn-csv" download>
+        <a href="/api/download/csv" data-download data-filename="block9_parcels_summary.csv" class="btn-download btn-csv" download>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
             <line x1="3" y1="9" x2="21" y2="9"></line>
@@ -387,7 +436,7 @@
           </svg>
           <span>Copy Checksheet</span>
         </button>
-        <a id="modalDxfDownloadBtn" href="#" class="btn-primary-action btn-compact" download>
+        <a id="modalDxfDownloadBtn" href="#" data-download class="btn-primary-action btn-compact" download>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
@@ -411,6 +460,7 @@
     </div>
   </footer>
 
+  <script src="/static/downloads.js"></script>
   <script src="/static/app.js"></script>
 </body>
 </html>

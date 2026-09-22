@@ -1,43 +1,11 @@
 /* ==========================================================================
-   Cadastral Plat AI & COGO Engine -- Modern Dark Professional Design System
+   Cadastral Plat AI & COGO Engine -- Structure & Components
+   ==========================================================================
+   Layout, component and interaction rules only. Design tokens (colors,
+   fonts, radii, shadows) live in theme.css, loaded before this file -- this
+   sheet should only ever reference them via var(--token), not a raw value,
+   so the visual design can be swapped without touching structure.
    ========================================================================== */
-
-:root {
-  --bg-dark: #07090e;
-  --bg-surface: #0e131f;
-  --bg-card: rgba(17, 24, 39, 0.75);
-  --bg-card-hover: rgba(26, 35, 54, 0.85);
-  --bg-input: #131b2e;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-accent: rgba(0, 240, 255, 0.25);
-  --border-emerald: rgba(16, 185, 129, 0.25);
-
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-
-  --accent-cyan: #00f0ff;
-  --accent-cyan-glow: rgba(0, 240, 255, 0.35);
-  --accent-emerald: #10b981;
-  --accent-emerald-glow: rgba(16, 185, 129, 0.35);
-  --accent-amber: #f59e0b;
-  --accent-amber-glow: rgba(245, 158, 11, 0.35);
-  --accent-purple: #a855f7;
-  --accent-purple-glow: rgba(168, 85, 247, 0.35);
-  --accent-rose: #f43f5e;
-
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace;
-
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 22px;
-
-  --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.5), 0 0 1px 1px var(--border-subtle);
-  --shadow-glow: 0 0 25px -3px var(--accent-cyan-glow);
-  --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -54,6 +22,12 @@ html, body {
   line-height: 1.5;
   overflow-x: hidden;
   position: relative;
+}
+
+/* Generic utilities -- one `.hidden` rule for the whole app instead of a
+   separate `.foo.hidden { display: none; }` per component. */
+.hidden {
+  display: none !important;
 }
 
 /* Background Ambient Orbs */
@@ -213,6 +187,27 @@ html, body {
   gap: 28px;
 }
 
+/* Analysis note banner -- surfaces backend `data.note` (e.g. "this input
+   isn't wired to the solver yet") instead of silently dropping it. */
+.analysis-note-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.analysis-note-banner::before {
+  content: "\26A0";
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
 /* Glass Card */
 .glass-card {
   background: var(--bg-card);
@@ -229,11 +224,12 @@ html, body {
   border-color: rgba(255, 255, 255, 0.14);
 }
 
-/* Control Panel Grid (Upload + Pipeline) */
+/* Control Panel Grid (PLAT IMAGE + PIPELINE) */
 .control-panel-grid {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 24px;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
 }
 
 @media (max-width: 1024px) {
@@ -242,9 +238,24 @@ html, body {
   }
 }
 
+.plat-card,
+.pipeline-card {
+  background: #0b1220;
+  border: 1px solid #162238;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.plat-card:hover,
+.pipeline-card:hover {
+  border-color: rgba(56, 189, 248, 0.2);
+}
+
 .card-header {
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--border-subtle);
+  padding: 16px 20px;
+  border-bottom: 1px solid #162238;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -253,9 +264,27 @@ html, body {
 .card-title-group {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
+.card-title-icon-plat,
+.card-title-icon-gear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-title-text {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #f1f5f9;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Numbered step badge used by sections not part of the PLAT IMAGE/PIPELINE
+   redesign (visualizer "03", results grid "04"). */
 .card-step {
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -267,137 +296,430 @@ html, body {
   border: 1px solid rgba(0, 240, 255, 0.3);
 }
 
-.card-title-group h2 {
-  font-size: 1.12rem;
-  font-weight: 600;
-  color: #fff;
-}
-
-.format-hint {
-  font-size: 0.76rem;
-  font-family: var(--font-mono);
-  color: var(--text-muted);
-}
-
-/* Upload Card Body */
-.upload-card {
+.card-body {
+  padding: 20px;
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
-.dropzone {
-  margin: 20px 24px;
-  border: 2px dashed rgba(0, 240, 255, 0.25);
-  border-radius: var(--radius-md);
-  padding: 30px 20px;
-  background: rgba(0, 240, 255, 0.02);
+/* Control Field (Job Name, Call Table, etc.) */
+.control-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: block;
+}
+
+.text-input-field {
+  width: 100%;
+  background: #10192d;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  color: #f8fafc;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.text-input-field:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+}
+
+.text-input-field::placeholder {
+  color: #475569;
+}
+
+/* Plat Image Drag & Drop Zone */
+.plat-dropzone {
+  border: 1px dashed rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  background: rgba(13, 21, 39, 0.45);
+  padding: 34px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   cursor: pointer;
-  transition: var(--transition);
+  transition: all 0.2s;
 }
 
-.dropzone:hover, .dropzone.dragover {
-  border-color: var(--accent-cyan);
-  background: rgba(0, 240, 255, 0.06);
-  box-shadow: 0 0 20px var(--accent-cyan-glow);
+.plat-dropzone:hover,
+.plat-dropzone.dragover {
+  border-color: #3b82f6;
+  background: rgba(37, 99, 235, 0.08);
+  box-shadow: 0 0 16px rgba(37, 99, 235, 0.15);
 }
 
 .file-input-hidden {
   display: none;
 }
 
-.dropzone-icon-circle {
-  width: 50px;
-  height: 50px;
-  margin: 0 auto 12px;
-  background: rgba(0, 240, 255, 0.1);
-  border-radius: 50%;
+.dropzone-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.folder-icon-wrap {
+  margin-bottom: 8px;
+  transition: transform 0.2s;
+}
+
+.plat-dropzone:hover .folder-icon-wrap {
+  transform: translateY(-2px);
+}
+
+.dropzone-heading {
+  font-size: 14px;
+  font-weight: 500;
+  color: #e2e8f0;
+  margin-bottom: 3px;
+}
+
+.dropzone-subheading {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+.upload-badge-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 4px 12px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* Call Table Row */
+.call-table-row {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(0, 240, 255, 0.2);
+  gap: 10px;
 }
 
-.dropzone-icon-circle svg {
-  width: 24px;
-  height: 24px;
-  stroke: var(--accent-cyan);
+.btn-attach {
+  background: #0e172a;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #cbd5e1;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.dropzone-title {
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 4px;
+.btn-attach:hover {
+  background: #14223d;
+  border-color: #3b82f6;
+  color: #ffffff;
 }
 
-.dropzone-sub {
-  color: var(--text-secondary);
-  font-size: 0.85rem;
+.attach-clip {
+  stroke: #38bdf8;
 }
 
-.btn-link {
+.attached-file-badge {
+  font-size: 11.5px;
+  color: #38bdf8;
+  font-family: var(--font-mono);
+}
+
+/* POB Coordinates Collapsible */
+.pob-collapsible {
+  padding: 2px 0;
+}
+
+.pob-trigger-btn {
   background: none;
   border: none;
-  color: var(--accent-cyan);
-  font-weight: 600;
+  padding: 4px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   cursor: pointer;
-  text-decoration: underline;
-  padding: 0;
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+  transition: color 0.18s;
 }
 
-.file-status-badge {
+.pob-trigger-btn:hover {
+  color: #e2e8f0;
+}
+
+.pob-arrow {
+  display: inline-block;
+  font-size: 9px;
+  color: #64748b;
+  transition: transform 0.2s ease;
+}
+
+.pob-arrow.open {
+  transform: rotate(90deg);
+}
+
+.pob-marker {
+  font-size: 12px;
+}
+
+.pob-collapse-body {
+  margin-top: 8px;
+  padding: 12px;
+  background: #0c1424;
+  border: 1px solid #1a2744;
+  border-radius: 6px;
+}
+
+.pob-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.pob-cell label {
+  font-size: 10px;
+  color: #64748b;
+  display: block;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.num-field {
+  width: 100%;
+  background: #111a2e;
+  border: 1px solid #1e293b;
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-size: 12px;
+  color: #f8fafc;
+  font-family: var(--font-mono);
+  outline: none;
+}
+
+.num-field:focus {
+  border-color: #2563eb;
+}
+
+/* Checkbox Row: Extract Individual Lots */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.custom-checkbox-container {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 14px;
-  padding: 6px 14px;
-  background: rgba(16, 185, 129, 0.15);
-  border: 1px solid rgba(16, 185, 129, 0.4);
-  color: #34d399;
-  border-radius: 9999px;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.file-status-badge.hidden {
-  display: none;
-}
-
-/* Preset & Params */
-.preset-group {
-  padding: 0 24px;
-  margin-bottom: 18px;
-}
-
-.input-label {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 6px;
-}
-
-.select-wrapper {
+  cursor: pointer;
+  user-select: none;
   position: relative;
 }
 
-.custom-select {
-  width: 100%;
-  background-color: var(--bg-input);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  color: var(--text-primary);
-  padding: 10px 14px;
-  font-family: var(--font-sans);
-  font-size: 0.88rem;
-  outline: none;
-  cursor: pointer;
-  transition: var(--transition);
+.custom-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-.custom-select:focus {
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 10px var(--accent-cyan-glow);
+.checkbox-box-square {
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid #ffffff;
+  border-radius: 3px;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.custom-checkbox-container input:checked ~ .checkbox-box-square {
+  background: #ffffff;
+}
+
+.custom-checkbox-container input:checked ~ .checkbox-box-square::after {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 8px;
+  border: solid #0b1220;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-top: -2px;
+}
+
+.checkbox-icon-puzzle {
+  font-size: 14px;
+}
+
+.checkbox-text-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Extract Button */
+.btn-extract-submit {
+  width: 100%;
+  background: #2563eb;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  margin-top: 4px;
+}
+
+.btn-extract-submit:hover {
+  background: #3b82f6;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+}
+
+.btn-extract-submit:active {
+  background: #1d4ed8;
+  transform: translateY(1px);
+}
+
+.btn-extract-submit:disabled {
+  background: #1e3a5f;
+  color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.extract-eye-icon {
+  stroke: #ffffff;
+}
+
+.spinning {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Right Card: PIPELINE */
+.pipeline-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.pipeline-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.pipeline-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0f172a;
+  border: 1px solid #1a2744;
+  border-radius: 8px;
+  padding: 13px 18px;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pipeline-item:hover {
+  background: #121e38;
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.pipeline-item.active {
+  background: rgba(14, 165, 233, 0.08);
+  border-color: #38bdf8;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.2);
+}
+
+.pipeline-item.done {
+  background: rgba(16, 185, 129, 0.06);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.stage-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stage-emoji {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stage-title {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+.stage-status-chip {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  display: none;
+}
+
+.pipeline-item.active .stage-status-chip {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.18);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+
+.pipeline-item.done .stage-status-chip {
+  display: inline-block;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .params-row {
@@ -826,8 +1148,22 @@ html, body {
   white-space: nowrap;
 }
 
-.lot-tooltip.hidden {
-  display: none;
+.lot-tooltip-title {
+  font-weight: 700;
+  color: var(--accent-cyan);
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.lot-tooltip-status {
+  color: var(--accent-emerald);
+  font-weight: 700;
+}
+
+.lot-tooltip-hint {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
 }
 
 /* Batch Deliverables Action Banner */
@@ -883,6 +1219,24 @@ html, body {
   text-decoration: none;
   transition: var(--transition);
   border: 1px solid transparent;
+}
+
+/* Download state feedback, set by web/static/downloads.js while a
+   fetch+save (rather than a plain link navigation) is in flight. */
+[data-download].is-downloading {
+  opacity: 0.6;
+  cursor: progress;
+  pointer-events: none;
+}
+
+[data-download].download-ok {
+  border-color: var(--accent-emerald) !important;
+  box-shadow: 0 0 12px var(--accent-emerald-glow);
+}
+
+[data-download].download-failed {
+  border-color: var(--accent-rose) !important;
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.35);
 }
 
 .btn-dxf {
@@ -1044,6 +1398,13 @@ html, body {
 .parcel-card:hover::before {
   opacity: 1;
   box-shadow: 0 0 8px var(--accent-cyan);
+}
+
+/* Synced highlight from hovering the matching SVG lot / table row --
+   toggled via classList in app.js, not inline styles. */
+.parcel-card.highlighted {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
 }
 
 .card-top-row {
@@ -1215,8 +1576,24 @@ html, body {
   background: rgba(0, 240, 255, 0.03);
 }
 
+/* Synced highlight from hovering the matching SVG lot / parcel card. */
+.cadastral-table tr.highlighted td {
+  background: rgba(0, 240, 255, 0.08);
+}
+
 .td-mono {
   font-family: var(--font-mono);
+}
+
+.td-lot-id {
+  font-weight: 700;
+  color: var(--accent-cyan);
+}
+
+/* Reusable success-color text (misclose figures, pass states, etc.) --
+   was previously a hardcoded inline style repeated at each call site. */
+.text-success {
+  color: var(--accent-emerald);
 }
 
 .badge-table-pass {
@@ -1277,10 +1654,6 @@ html, body {
   align-items: center;
   justify-content: center;
   padding: 20px;
-}
-
-.modal-backdrop.hidden {
-  display: none;
 }
 
 .modal-card {
