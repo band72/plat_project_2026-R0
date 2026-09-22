@@ -15,3 +15,4 @@ build/
 dist/
 web/uploads/*
 !web/uploads/.gitkeep
+dxf/custom/
