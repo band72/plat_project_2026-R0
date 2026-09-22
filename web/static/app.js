@@ -25,6 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const paramRadius = document.getElementById("paramRadius");
 
   const extractLotsCheckbox = document.getElementById("extractLotsCheckbox");
+  const lotCountField = document.getElementById("lotCountField");
+  const lotCountInput = document.getElementById("lotCountInput");
   const runModelBtn = document.getElementById("runModelBtn");
   const analysisNoteBanner = document.getElementById("analysisNoteBanner");
 
@@ -86,6 +88,15 @@ document.addEventListener("DOMContentLoaded", () => {
     pobToggleBtn.addEventListener("click", () => {
       const isHidden = pobBody.classList.toggle("hidden");
       pobArrow.classList.toggle("open", !isHidden);
+    });
+  }
+
+  // -------------------------------------------------------------------------
+  // Lot Count Field (only meaningful once "Extract Individual Lots" is on)
+  // -------------------------------------------------------------------------
+  if (extractLotsCheckbox && lotCountField) {
+    extractLotsCheckbox.addEventListener("change", () => {
+      lotCountField.classList.toggle("hidden", !extractLotsCheckbox.checked);
     });
   }
 
@@ -256,6 +267,9 @@ document.addEventListener("DOMContentLoaded", () => {
     formData.append("pob_easting", pobEasting ? pobEasting.value : "5000.00");
     formData.append("return_radius", paramRadius ? paramRadius.value : "25.0");
     formData.append("extract_individual_lots", extractLotsCheckbox && extractLotsCheckbox.checked ? "true" : "false");
+    if (extractLotsCheckbox && extractLotsCheckbox.checked && lotCountInput && lotCountInput.value) {
+      formData.append("lot_count", lotCountInput.value);
+    }
     formData.append("pi_rule_enabled", "true");
     formData.append("fac_standard", "5J-17");
 
