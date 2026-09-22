@@ -39,7 +39,8 @@ page -- the widget reads them synchronously as soon as it loads.
 | --- | --- | --- | --- |
 | `data-api-base` | **yes** | -- | Origin of the Cadastral Plat AI & COGO Engine API, e.g. `https://api.example.com`. No trailing slash. |
 | `data-target` | no | appends a new `<div>` to `<body>` | CSS selector for the element to mount into. |
-| `data-preset` | no | `block9` | Dataset/preset to request from `/api/analyze`. Only `block9` has a real solver today; anything else is accepted and reported back via the note banner (see below) rather than silently ignored. |
+| `data-preset` | no | `block9` | Dataset/preset to request when no plat has been uploaded via the widget's own "Upload Plat" button. `block9` runs the certified Beachwood Unit Two, Block 9 reference solve; once a plat is uploaded, the widget always solves *that* upload instead (`preset=custom`), regardless of this attribute. |
+| `data-pob-northing` / `data-pob-easting` | no | `5000.00` / `5000.00` | Point-of-Beginning coordinates for an uploaded plat's traverse. A scanned image has no inherent real-world coordinate system (see `IMPLEMENTATION_PLAN.md` section 8) -- set these if your plats share a known P.O.B. convention. |
 | `data-title` | no | `Cadastral Plat Reader` | Heading text shown in the widget. |
 | `data-css-url` | no | `plat-reader.css` resolved next to `plat-reader.js` | Override if you rename or relocate the stylesheet. |
 
@@ -106,9 +107,21 @@ python3 -m web.server
 
 ## Scope
 
-This widget intentionally covers the core embeddable workflow -- run a
-MapCheck, see summary metrics and a per-lot table, download every
-deliverable -- not the full interactive SVG canvas, pipeline animation, or
-per-lot checksheet modal from the main app at `/`. Those stay in the main
-app; this plugin is meant to be small enough to drop into someone else's
-page without weighing it down.
+This widget intentionally covers the core embeddable workflow -- upload a
+plat, run a MapCheck (either the uploaded plat, via
+`engine/plat_pipeline.py`'s OCR-driven solver, or the `block9` reference
+dataset), see summary metrics and a per-lot table with honest verdict tiers
+(`PASS`/`PASS_REPAIRED`/`WATCH`/`FLAGGED`/`FAILED` -- hover a status badge
+for its diagnostic notes), download every deliverable -- not the full
+interactive SVG canvas, pipeline animation, per-lot checksheet modal, or
+lot-count/subdivision controls from the main app at `/`. Those stay in the
+main app; this plugin is meant to be small enough to drop into someone
+else's page without weighing it down. Lot subdivision (`lot_count`) is
+supported by the API but not exposed in this widget's UI for that reason --
+pass it yourself via a custom `fetch` to `/api/analyze` if you need it.
+
+An uploaded plat is solved exactly as honestly as the main app: OCR
+reliability varies with source quality, and a difficult scan can legitimately
+come back `FAILED` with the real misclosure rather than a forced success --
+see `IMPLEMENTATION_PLAN.md` for why that's a deliberate design choice, not
+a bug.

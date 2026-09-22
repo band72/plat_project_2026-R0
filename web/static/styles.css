@@ -1459,13 +1459,48 @@ html, body {
   color: #fff;
 }
 
-.badge-pass {
+.badge-pass,
+.badge-pass_repaired {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
   background: rgba(16, 185, 129, 0.15);
   color: #34d399;
   border: 1px solid rgba(16, 185, 129, 0.35);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.badge-watch {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(234, 179, 8, 0.15);
+  color: #facc15;
+  border: 1px solid rgba(234, 179, 8, 0.35);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.badge-flagged {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(249, 115, 22, 0.15);
+  color: #fb923c;
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.badge-fail,
+.badge-failed {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
   padding: 3px 8px;
   border-radius: var(--radius-sm);
 }
@@ -1622,12 +1657,44 @@ html, body {
   color: var(--accent-emerald);
 }
 
-.badge-table-pass {
+.badge-table-pass,
+.badge-table-pass_repaired {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 600;
   color: #34d399;
   background: rgba(16, 185, 129, 0.12);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.badge-table-watch {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #facc15;
+  background: rgba(234, 179, 8, 0.12);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.badge-table-flagged {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #fb923c;
+  background: rgba(249, 115, 22, 0.12);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.badge-table-fail,
+.badge-table-failed {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.12);
   padding: 3px 8px;
   border-radius: 4px;
 }

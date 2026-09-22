@@ -142,6 +142,7 @@ def _parcel_json(res: LotMapCheckResult, frontage: str) -> dict:
         "status": "PASS" if res.passed else "FAIL",
         "fac_5j17": "COMPLIANT (>= 1:10,000)" if res.fac_5j17_passed else "NON-COMPLIANT",
         "verdict": res.verdict,
+        "flags": getattr(res, "flags", []),
         "centroid": {"n": round(cen_n, 2), "e": round(cen_e, 2)},
         "svg_polygon": svg_poly,
         "courses": course_list,
@@ -410,9 +411,14 @@ def _analyze_custom(uploaded_filename: str | None, job_name: str | None,
                 job_name, uploaded_filename, result.boundary.verdict,
                 len(result.boundary.courses), len(result.lots))
 
-    all_results = [result.boundary] + result.lots
-    parcels = [_parcel_json(result.boundary, "Overall Boundary (as OCR'd)")]
-    parcels += [_parcel_json(lot, "Uniform-width lot estimate") for lot in result.lots]
+    all_results = [result.boundary] + result.lots if result.boundary.courses else []
+    if result.boundary.courses:
+        parcels = [_parcel_json(result.boundary, "Overall Boundary (as OCR'd)")]
+        parcels += [_parcel_json(lot, "Uniform-width lot estimate") for lot in result.lots]
+    else:
+        parcels = []
+        if not note:
+            note = "No usable course rows were extracted from the call table. Check table image clarity or supply a cropped call table image."
 
     return {
         "status": "success",
@@ -425,9 +431,9 @@ def _analyze_custom(uploaded_filename: str | None, job_name: str | None,
             "passed_parcels": sum(1 for p in parcels if p["status"] == "PASS"),
             "failed_parcels": sum(1 for p in parcels if p["status"] == "FAIL"),
             "max_linear_misclose": max((p["misclose_ft"] for p in parcels), default=0.0),
-            "average_precision": result.boundary.precision_str,
-            "total_net_area_sf": round(result.boundary.computed_area_sqft, 1),
-            "total_net_acres": round(result.boundary.computed_acres, 4),
+            "average_precision": result.boundary.precision_str if parcels else "N/A",
+            "total_net_area_sf": round(result.boundary.computed_area_sqft, 1) if parcels else 0.0,
+            "total_net_acres": round(result.boundary.computed_acres, 4) if parcels else 0.0,
             "fac_5j17_pass_rate": f"{100.0 * sum(1 for p in parcels if p['fac_5j17'].startswith('COMPLIANT')) / len(parcels):.1f}%" if parcels else "0.0%",
         },
         "bbox": _bbox_json(all_results),
