@@ -61,6 +61,9 @@ class CenterlineSegment:
     is_assumed: bool = False
     is_boundary: bool = False
     notes: str = ""
+    derivation_method: str = "STATED_ON_PLAT"
+    front_lot_bearing: str | None = None
+    summed_lot_frontages: list[dict[str, Any]] | None = None
 
 
 @dataclass
@@ -511,7 +514,68 @@ class BeachwoodRoadCenterlineEngine:
             right_of_way_width=60.0,
             is_assumed=False,
             notes="Surfwood Ave main straight centerline corridor fronting Block 11 and Block 12",
+            derivation_method="FRONT_LOT_SUMMATION_APPROXIMATION",
+            front_lot_bearing=self.brg_surfwood_e,
+            summed_lot_frontages=[
+                {"block": "10", "lot": "13", "frontage_ft": 98.01, "bearing": "N89°18'20\"E"},
+                {"block": "10", "lot": "12", "frontage_ft": 75.00, "bearing": "N89°18'20\"E"},
+                {"block": "10", "lot": "11", "frontage_ft": 75.00, "bearing": "N89°18'20\"E"},
+                {"block": "10", "lot": "10", "frontage_ft": 75.00, "bearing": "N89°18'20\"E"},
+                {"block": "10", "lot": "9", "frontage_ft": 75.00, "bearing": "N89°18'20\"E"},
+                {"component": "West Half-Width & Matchline Tie", "frontage_ft": 46.59, "bearing": "N89°18'20\"E"},
+            ],
         ))
+
+        # ----------------------------------------------------------------------
+        # 4B. BAYOU AVENUE CORRIDOR (60' R/W) -- Inferred from Block 11 Lots 15-17
+        # ----------------------------------------------------------------------
+        # By Rule: "bearings along each edge of right of way generally are the same as
+        # the centerline... if you have no bearing, use a front lot bearing along the road.
+        # If you have no distances, add through the front of each lot to approximate. Just draw in red."
+        # Block 11 North Row (Lots 15, 16, 17) fronts Bayou Avenue (60' R/W) bearing N89°18'20"E.
+        # Front lot distances: Lot 15 = 93.83', Lot 16 = 75.00', Lot 17 = 75.00' -> Sum = 243.83'.
+        # With 30' west half-width and 30.17' tie to matchline (Course 8) -> Total distance = 304.00'.
+        p_bayou_matchline = p_bayou_mangrove.offset(az_sw_e, 304.00)
+        self.intersections["INT_BAYOU_MATCHLINE"] = RoadIntersection(
+            id="INT_BAYOU_MATCHLINE",
+            name="Bayou Ave & Unit One Matchline (Course 8)",
+            point=p_bayou_matchline,
+            street_1="Bayou Avenue Corridor",
+            street_2="Beachwood Unit One Matchline (Course 8)",
+            is_assumed=True,
+            is_boundary_tie=True,
+            notes="RED ASSUMPTION: Inferred Bayou Avenue centerline connecting Mangrove Ave to Unit One matchline.",
+        )
+
+        self.segments.append(CenterlineSegment(
+            id="SEG_ASSUMP_BAYOU_E",
+            street_name="Bayou Avenue Corridor",
+            start_point=p_bayou_mangrove,
+            end_point=p_bayou_matchline,
+            bearing=self.brg_surfwood_e,
+            distance=304.00,
+            right_of_way_width=60.0,
+            is_assumed=True,
+            notes="RED ASSUMPTION: Bayou Ave centerline derived by summing Block 11 Lots 15-17 frontages (93.83' + 75' + 75') and hedged R/W bearing N89°18'20\"E.",
+            derivation_method="FRONT_LOT_SUMMATION_APPROXIMATION",
+            front_lot_bearing=self.brg_surfwood_e,
+            summed_lot_frontages=[
+                {"block": "11", "lot": "15", "frontage_ft": 93.83, "bearing": "N89°18'20\"E"},
+                {"block": "11", "lot": "16", "frontage_ft": 75.00, "bearing": "N89°18'20\"E"},
+                {"block": "11", "lot": "17", "frontage_ft": 75.00, "bearing": "N89°18'20\"E"},
+                {"component": "West R/W Half-Width & Matchline Tie", "frontage_ft": 60.17, "bearing": "N89°18'20\"E"},
+            ],
+        ))
+        self.assumptions.append({
+            "id": "ASSUMP_BAYOU_CORRIDOR",
+            "type": "CORRIDOR_SUMMATION",
+            "street": "Bayou Avenue Corridor",
+            "feature": "Centerline connection from Mangrove Ave East to Unit One Matchline",
+            "color": "RED",
+            "rationale": "Plat Sheet 1 shows 60' Bayou right-of-way corridor north of Block 10. Centerline bearing is hedged from Block 11 front lot bearing (N89°18'20\"E) and distance approximated by summing Lots 15, 16, 17 frontages.",
+            "summed_lots": "Block 11 Lots 15 (93.83'), 16 (75.00'), 17 (75.00') -> Total = 243.83' + 60.17' tie = 304.00'",
+            "field_recommendation": "Locate iron pins at Block 11 Lot 17 NE corner on the matchline to verify exact Bayou right-of-way width and centerline alignment.",
+        })
 
         # ----------------------------------------------------------------------
         # 5. SAN SALVADORE AVENUE (60' R/W, DIAGONAL) -- Parallel Offset from Course 17
@@ -586,6 +650,12 @@ class BeachwoodRoadCenterlineEngine:
             right_of_way_width=60.0,
             is_assumed=False,
             notes="Straight diagonal centerline of San Salvadore Ave fronting Block 9 (Lots 23-26) and Block 13",
+            derivation_method="RIGHT_OF_WAY_EDGE_HEDGE",
+            front_lot_bearing="S54°41'40\"E",
+            summed_lot_frontages=[
+                {"block": "9", "lot": "23-26", "frontage_ft": 300.00, "bearing": "S54°41'40\"E (4 lots x 75.00')"},
+                {"component": "West Approach from Boundary/Block 13", "frontage_ft": 350.00, "bearing": "S54°41'40\"E"},
+            ],
         ))
 
         # RED ASSUMPTION 1: San Salvadore Ave to Surfwood Ave Transition Corridor
@@ -609,6 +679,12 @@ class BeachwoodRoadCenterlineEngine:
             right_of_way_width=60.0,
             is_assumed=True,
             notes="RED ASSUMPTION: Inferred centerline transition across uncertified Block 12 jog zone to Unit One matchline.",
+            derivation_method="FRONT_LOT_SUMMATION_APPROXIMATION",
+            front_lot_bearing="S56°34'00\"E",
+            summed_lot_frontages=[
+                {"block": "12", "lot": "8", "frontage_ft": 25.82, "bearing": "N19°06'16\"E"},
+                {"block": "12", "lot": "9-10", "frontage_ft": 60.34, "bearing": "S56°34'00\"E"},
+            ],
         ))
         self.assumptions.append({
             "id": "ASSUMP_SS_SURFWOOD_TIE",
@@ -616,7 +692,8 @@ class BeachwoodRoadCenterlineEngine:
             "street": "San Salvadore Ave to Surfwood Ave",
             "feature": "Centerline connection across Block 12 Lots 8-10",
             "color": "RED",
-            "rationale": "Plat Sheet 1 has faint, uncertified jog courses at Block 12 Lots 8-10. Centerline alignment must be projected analytically.",
+            "rationale": "Plat Sheet 1 has faint, uncertified jog courses at Block 12 Lots 8-10. Centerline alignment must be projected analytically by summing front lot lines.",
+            "summed_lots": "Block 12 Lot 8 (25.82' N19°06'16\"E) + Lot 9-10 (60.34' S56°34'00\"E) = 86.16' jog sum",
             "field_recommendation": "Surveyors must locate physical monument pins at Block 12 Lot 8 NE corner and Unit One matchline to confirm exact centerline deflection.",
         })
 
@@ -648,6 +725,12 @@ class BeachwoodRoadCenterlineEngine:
             right_of_way_width=60.0,
             is_assumed=False,
             notes="Cape Horn Ave centerline fronting Block 9 (Lots 27-31) and Block 8",
+            derivation_method="RIGHT_OF_WAY_EDGE_HEDGE",
+            front_lot_bearing="S54°41'40\"E",
+            summed_lot_frontages=[
+                {"block": "9", "lot": "27-31", "frontage_ft": 375.00, "bearing": "S54°41'40\"E (5 lots x 75.00')"},
+                {"component": "Approach to Unit 1 Matchline P.R.M.", "frontage_ft": 425.00, "bearing": "S54°41'40\"E"},
+            ],
         ))
 
         # ----------------------------------------------------------------------
@@ -700,6 +783,12 @@ class BeachwoodRoadCenterlineEngine:
             right_of_way_width=60.0,
             is_assumed=False,
             notes="Starfish Ave main corridor (between Block 18 and Block 17 North)",
+            derivation_method="BOUNDARY_OFFSET_AND_TRIM",
+            front_lot_bearing=self.brg_east_e,
+            summed_lot_frontages=[
+                {"block": "18", "lot": "1-14", "frontage_ft": 1050.00, "bearing": "N87°35'30\"E (14 lots x 75.00')"},
+                {"block": "17", "lot": "North Row", "frontage_ft": 403.50, "bearing": "N87°35'30\"E"},
+            ],
         ))
 
         # ----------------------------------------------------------------------
@@ -751,6 +840,12 @@ class BeachwoodRoadCenterlineEngine:
             right_of_way_width=60.0,
             is_assumed=False,
             notes="Sail Ave main corridor (between Block 17 South and Block 16 North)",
+            derivation_method="BOUNDARY_OFFSET_AND_TRIM",
+            front_lot_bearing=self.brg_east_e,
+            summed_lot_frontages=[
+                {"block": "16", "lot": "1-8", "frontage_ft": 618.50, "bearing": "N87°35'30\"E (68.50' straight + 7x75.00')"},
+                {"block": "17", "lot": "South Row", "frontage_ft": 835.00, "bearing": "N87°35'30\"E"},
+            ],
         ))
 
         # ----------------------------------------------------------------------
@@ -803,6 +898,13 @@ class BeachwoodRoadCenterlineEngine:
             right_of_way_width=60.0,
             is_assumed=False,
             notes="South St straight centerline segment (Mangrove Ave to Marina Ave P.C.)",
+            derivation_method="BOUNDARY_OFFSET_AND_TRIM",
+            front_lot_bearing=self.brg_east_e,
+            summed_lot_frontages=[
+                {"block": "16", "lot": "33", "frontage_ft": 93.50, "bearing": "N87°35'30\"E (stated to P.I.)"},
+                {"block": "16", "lot": "32", "frontage_ft": 75.00, "bearing": "N87°35'30\"E"},
+                {"component": "Marina Ave Curve P.C. transition", "frontage_ft": 89.76, "bearing": "N87°35'30\"E"},
+            ],
         ))
 
         # Marina Avenue Centerline Curve:
@@ -1028,6 +1130,13 @@ class BeachwoodRoadCenterlineEngine:
             right_of_way_width=100.0,
             is_assumed=True,
             notes="RED ASSUMPTION: Tangent projection of Beachwood Blvd arterial south across Block 15 frontage.",
+            derivation_method="RIGHT_OF_WAY_EDGE_HEDGE",
+            front_lot_bearing="S08°30'00\"E",
+            summed_lot_frontages=[
+                {"block": "15", "lot": "9", "frontage_ft": 100.04, "bearing": "Curve C2 Arc"},
+                {"block": "15", "lot": "10", "frontage_ft": 100.04, "bearing": "Curve C2 Arc"},
+                {"component": "Block 15 South arterial connection", "frontage_ft": 149.92, "bearing": "S08°30'00\"E"},
+            ],
         ))
         self.assumptions.append({
             "id": "ASSUMP_BEACHWOOD_S",
@@ -1035,7 +1144,8 @@ class BeachwoodRoadCenterlineEngine:
             "street": "Beachwood Boulevard",
             "feature": "South arterial projection across Block 15",
             "color": "RED",
-            "rationale": "Plat Sheet 2 terminates Beachwood Blvd at Block 15 north line. Centerline continuity requires analytical projection.",
+            "rationale": "Plat Sheet 2 terminates Beachwood Blvd at Block 15 north line. Centerline continuity requires analytical projection hedged from East R/W curve C2 and Block 15 lot frontages.",
+            "summed_lots": "Block 15 Lots 9 & 10 East arc frontages (100.04' + 100.04' = 200.08') + 149.92' tie = 350.00'",
             "field_recommendation": "Recover physical P.R.M. monument at Section 32 East line to establish the southern arterial tangent point.",
         })
 
@@ -1061,6 +1171,14 @@ class BeachwoodRoadCenterlineEngine:
             right_of_way_width=60.0,
             is_assumed=True,
             notes="RED ASSUMPTION: Straight centerline approach connecting Beachwood Blvd south projection to Sands Ave curve.",
+            derivation_method="FRONT_LOT_SUMMATION_APPROXIMATION",
+            front_lot_bearing="S87°35'30\"W",
+            summed_lot_frontages=[
+                {"block": "15", "lot": "5", "frontage_ft": 88.48, "bearing": "S87°35'30\"W"},
+                {"block": "15", "lot": "4", "frontage_ft": 88.48, "bearing": "S87°35'30\"W"},
+                {"block": "15", "lot": "3", "frontage_ft": 88.50, "bearing": "S87°35'30\"W"},
+                {"block": "15", "lot": "2", "frontage_ft": 100.00, "bearing": "S87°35'30\"W"},
+            ],
         ))
         self.assumptions.append({
             "id": "ASSUMP_SANDS_APPROACH",
@@ -1068,7 +1186,8 @@ class BeachwoodRoadCenterlineEngine:
             "street": "Sands Avenue",
             "feature": "Curve C11 Corridor & Approach",
             "color": "RED",
-            "rationale": "Sands Avenue centerline curve parameters are given in the plat table but its exact tangent approach is unlettered.",
+            "rationale": "Sands Avenue centerline curve parameters are given in the plat table but its exact tangent approach is unlettered; bearing is hedged from Block 15 lot frontages (S87°35'30\"W) and distance approximated by summing lots 2-5 frontages.",
+            "summed_lots": "Block 15 Lots 5 (88.48'), 4 (88.48'), 3 (88.50'), 2 (100.00') -> Sum = 365.46' frontage",
             "field_recommendation": "Locate block corner monuments at Block 15 Lots 1-4 to establish the straight tangent alignment of Sands Ave.",
         })
 
@@ -1123,6 +1242,11 @@ class BeachwoodRoadCenterlineEngine:
             right_of_way_width=60.0,
             is_assumed=False,
             notes="Shellfish Drive main straight centerline corridor fronting Block 14 and Block 15",
+            derivation_method="BOUNDARY_OFFSET_AND_TRIM",
+            front_lot_bearing=self.brg_east_e,
+            summed_lot_frontages=[
+                {"block": "14", "lot": "24-13", "frontage_ft": 901.34, "bearing": "N87°35'30\"E (Block 14 South Row Lots 13-24)"},
+            ],
         ))
 
         # RED ASSUMPTION 4: Shellfish Drive East Extension to Keel Drive Curve & Matchline
@@ -1136,6 +1260,16 @@ class BeachwoodRoadCenterlineEngine:
             right_of_way_width=60.0,
             is_assumed=True,
             notes="RED ASSUMPTION: Inferred centerline transition connecting Shellfish Drive east into Block 15 and Keel Drive.",
+            derivation_method="FRONT_LOT_SUMMATION_APPROXIMATION",
+            front_lot_bearing=self.brg_east_e,
+            summed_lot_frontages=[
+                {"block": "15", "lot": "1", "frontage_ft": 153.25, "bearing": "R=167.95' Arc"},
+                {"block": "15", "lot": "2", "frontage_ft": 100.00, "bearing": "N87°35'30\"E"},
+                {"block": "15", "lot": "3", "frontage_ft": 88.50, "bearing": "N87°35'30\"E"},
+                {"block": "15", "lot": "4-5", "frontage_ft": 176.96, "bearing": "N87°35'30\"E (2x88.48')"},
+                {"block": "15", "lot": "6-8", "frontage_ft": 225.00, "bearing": "N87°35'30\"E (3x75.00')"},
+                {"block": "15", "lot": "9", "frontage_ft": 95.98, "bearing": "N87°35'30\"E"},
+            ],
         ))
         self.assumptions.append({
             "id": "ASSUMP_SHELLFISH_KEEL",
@@ -1143,7 +1277,8 @@ class BeachwoodRoadCenterlineEngine:
             "street": "Shellfish Drive East Extension",
             "feature": "East connection from Keel Drive junction towards Block 15",
             "color": "RED",
-            "rationale": "Eastern terminus of Shellfish Drive meets Block 15 Lots 1-3 with partial right-of-way transitions.",
+            "rationale": "Eastern terminus of Shellfish Drive meets Block 15 Lots 1-9. Distance approximated by summing Block 15 Lots 1-9 frontages (839.69' total).",
+            "summed_lots": "Block 15 Lots 1-9 frontages: 153.25' (arc) + 100' + 88.5' + 176.96' + 225' + 95.98' = 839.69'",
             "field_recommendation": "Recover lot corner pins along Block 15 North line to determine exact centerline terminus.",
         })
 
@@ -1934,11 +2069,35 @@ class BeachwoodRoadCenterlineEngine:
         lines.append("   " + "-" * 70)
         for i, a in enumerate(self.assumptions, 1):
             lines.append(f"   [{i}] {a['id']} ({a['street']}) -- {a['type']}")
-            lines.append(f"       Rationale:  {a['rationale']}")
+            lines.append(f"       Rationale:    {a['rationale']}")
+            if "summed_lots" in a:
+                lines.append(f"       Summed Front: {a['summed_lots']}")
             lines.append(f"       Field Action: {a['field_recommendation']}")
             lines.append("")
 
-        lines.append("8. 100-AGENT MULTIAGENT CONSENSUS SIGN-OFF")
+        lines.append("8. CADASTRAL RULE: RIGHT-OF-WAY EDGE BEARING HEDGES & LOT FRONTAGE SUMMATIONS")
+        lines.append("   " + "-" * 70)
+        lines.append("   Rule Statement:")
+        lines.append("   - Bearings along each edge of right-of-way generally match the centerline.")
+        lines.append("   - If no centerline bearing exists, use the abutting front lot bearing along the road.")
+        lines.append("   - If no centerline distance exists, add through the front of each lot to approximate.")
+        lines.append("   - All derived corridors are drawn in bold RED (AutoCAD Color 1) as epistemic assumptions.")
+        lines.append("")
+        lines.append(f"   {'Segment ID':<28} {'Street Name':<24} {'Bearing Hedge':<14} {'Dist (ft)':>10} {'Derivation Method'}")
+        lines.append("   " + "-" * 90)
+        for s in self.segments:
+            if s.derivation_method != "STATED_ON_PLAT" or s.is_assumed:
+                brg_disp = s.front_lot_bearing or s.bearing
+                lines.append(f"   {s.id:<28} {s.street_name:<24} {brg_disp:<14} {s.distance:10.2f} {s.derivation_method}")
+                if s.summed_lot_frontages:
+                    for f_item in s.summed_lot_frontages:
+                        if "lot" in f_item:
+                            lines.append(f"      -> Block {f_item['block']} Lot {f_item['lot']}: {f_item['frontage_ft']:.2f}' ({f_item['bearing']})")
+                        else:
+                            lines.append(f"      -> {f_item.get('component', 'Tie')}: {f_item['frontage_ft']:.2f}' ({f_item['bearing']})")
+        lines.append("")
+
+        lines.append("9. 100-AGENT MULTIAGENT CONSENSUS SIGN-OFF")
         lines.append("   " + "-" * 70)
         if self.consensus_results:
             lines.append(f"   Total Agents:       {self.consensus_results.get('total_agents', 100)}")

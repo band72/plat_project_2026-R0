@@ -35,6 +35,10 @@ This document provides a comprehensive coordinate geometry (COGO) specification,
    - Tied to true physical GPS coordinates at **Starfish Ave & Mangrove Ave** (`30.292130° N, -81.530280° W`) with **$0.000000'$ artificial fudging**.
 6. **Rule 6: P.I. Angle Bar Glyphs & Dynamic Tangents (Permanent Rule 2)**:
    - For all 6 circular curves, tangent distances are derived dynamically: $T = R \tan(\Delta/2)$ and projected P.I. rays are drawn in **dashed red**.
+7. **Rule 7: Right-of-Way Edge Bearing Hedges & Lot Frontage Summations**:
+   - *Bearing Hedge*: Bearings along each edge of right-of-way generally are the same as the centerline. If no centerline bearing is explicitly lettered, hedge to the front lot line bearing along the road corridor.
+   - *Distance Approximation via Front Lot Summation*: If no centerline distance is annotated, do not stop or leave a gap! Add through the front of each lot abutting that block face to approximate the total distance.
+   - *Epistemic Red Tagging*: "Remember, not drawing is worse than stopping. Only draw assumptions in red. Manual intervening will correct the missing data." All corridors derived via frontage summation or edge bearing hedge are rendered in **bold RED** (AutoCAD Layer `C-ROAD-ASSUMP`, Color 1).
 
 ---
 
@@ -139,6 +143,7 @@ graph TD
 | `INT_MANGROVE_SOUTH_END` | Mangrove Ave (S) | Course 5 | $(7979.98, 10046.85)$ | Ties to Plat South Limit line |
 | `INT_SURFWOOD_MATCHLINE` | Surfwood Ave (E) | Course 6 | $(8196.88, 10444.60)$ | Ties to Unit One West Matchline |
 | `INT_CAPEHORN_MATCHLINE` | Cape Horn Ave | Course 17 | $(8687.42, 10756.24)$ | Ties to Unit One Matchline (P.R.M. Monument) |
+| `INT_BAYOU_MATCHLINE` | Bayou Ave Corridor | Course 8 | $(8046.88, 10304.00)$ | Ties to Unit One Matchline (Course 8) via Block 11 frontages |
 
 ---
 
@@ -183,26 +188,55 @@ To eliminate individual solver bias and guarantee mathematical rigor, the center
 
 ---
 
-## 8. Red-Lined Assumptions & Epistemic Standards
+---
+
+## 8. Cadastral Rule: Right-of-Way Edge Bearing Hedges & Lot Frontage Summations
+
+In accordance with surveyor field recovery principles:
+1. **Bearing Hedge Principle**:
+   - Bearings along each edge of right-of-way generally are the same as the centerline.
+   - If a road centerline does NOT have an explicit bearing annotated, hedge to the abutting front lot line bearing along that road corridor.
+2. **Missing Distances -> Sum through Front of Each Lot**:
+   - If no centerline distance is annotated between stations or intersections, do NOT stop or leave a gap:
+     $$\text{Estimated Corridor Length} = \sum_{k=1}^m \text{Lot Frontage}_k + \Delta_{\text{corner\_returns/ties}}$$
+   - "Remember, not drawing is worse than stopping. Only draw assumptions in red. Manual intervening will correct the missing data."
+3. **Master Schedule of Hedged Bearings & Summed Lot Frontages**:
+
+| Corridor / Segment | Inferred Bearing | Approx Dist | Hedged Bearing Source & Lot Frontage Summation Breakdown | Epistemic Layer |
+| :--- | :---: | :---: | :--- | :---: |
+| **Bayou Avenue Corridor** (`SEG_ASSUMP_BAYOU_E`) | $N 89^\circ 18' 20" E$ | $304.00'$ | **Hedged**: Block 11 North Row R/W. **Summed**: Block 11 Lots 15 ($93.83'$), 16 ($75.00'$), 17 ($75.00'$) = $243.83'$ + $60.17'$ matchline tie. | `C-ROAD-ASSUMP` (RED) |
+| **Sands Avenue Approach** (`SEG_ASSUMP_SANDS_APPROACH`) | $S 87^\circ 35' 30" W$ | $420.50'$ | **Hedged**: Block 15 Lots 1–5 front lot lines. **Summed**: Block 15 Lots 5 ($88.48'$), 4 ($88.48'$), 3 ($88.50'$), 2 ($100.00'$) = $365.46'$ + approach. | `C-ROAD-ASSUMP` (RED) |
+| **Shellfish Drive East** (`SEG_ASSUMP_SHELLFISH_KEEL`) | $N 87^\circ 35' 30" E$ | $686.44'$ | **Hedged**: Block 15 North R/W. **Summed**: Block 15 Lots 1–9 frontages ($153.25'$ arc + $100' + 88.5' + 176.96' + 225' + 95.98'$ = $839.69'$). | `C-ROAD-ASSUMP` (RED) |
+| **San Salvadore - Surfwood Tie** (`SEG_ASSUMP_SS_SURFWOOD_TIE`) | $S 23^\circ 14' 20" W$ | $217.94'$ | **Hedged**: Block 12 Lots 8–10 jog courses. **Summed**: Block 12 Lot 8 ($25.82'$) + Lots 9–10 ($60.34'$) = $86.16'$ jog sum. | `C-ROAD-ASSUMP` (RED) |
+| **Beachwood Blvd South** (`SEG_ASSUMP_BEACHWOOD_S`) | $S 08^\circ 30' 00" E$ | $350.00'$ | **Hedged**: East R/W Curve C2. **Summed**: Block 15 Lots 9 & 10 East arc frontages ($100.04' + 100.04' = 200.08'$) + arterial tie. | `C-ROAD-ASSUMP` (RED) |
+| **Cape Horn Ave Tangent** (`SEG_CAPEHORN_MAIN`) | $S 54^\circ 41' 40" E$ | $800.00'$ | **Hedged**: Block 9 North R/W ($S 54^\circ 41' 40" E$). **Summed**: Block 9 Lots 27–31 ($5 \times 75.00' = 375.00'$) + matchline tie. | `C-ROAD-CNTR` |
+| **San Salvadore Tangent** (`SEG_SANSALVADORE_TANGENT`) | $S 54^\circ 41' 40" E$ | $650.00'$ | **Hedged**: Block 9 South R/W ($S 54^\circ 41' 40" E$). **Summed**: Block 9 Lots 23–26 ($4 \times 75.00' = 300.00'$) + approach. | `C-ROAD-CNTR` |
+| **Surfwood Ave Main** (`SEG_SURFWOOD_MAIN`) | $N 89^\circ 18' 20" E$ | $444.60'$ | **Hedged**: Block 10 North R/W & Block 11 South R/W. **Summed**: Block 10 Lots 9–13 ($98.01' + 4 \times 75' = 398.01'$) + half-width ties. | `C-ROAD-CNTR` |
+
+---
+
+## 9. Red-Lined Assumptions & Epistemic Standards
 
 In accordance with strict cadastral standards, all unstated, inferred, or open-ended features are drawn in **bold RED** (Color 1):
 
 1. **Red Assumption 1: San Salvadore to Surfwood Transition Tie** (`SEG_ASSUMP_SS_SURFWOOD_TIE`):
-   - Faint, uncertified jog courses at Block 12 Lots 8–10 on Sheet 1; connection projected analytically along $S 23^\circ 14' 20" W$ ($217.94'$).
+   - Faint, uncertified jog courses at Block 12 Lots 8–10 on Sheet 1; connection projected analytically along $S 23^\circ 14' 20" W$ ($217.94'$) using Block 12 jog frontages.
 2. **Red Assumption 2: Beachwood Boulevard South Arterial Projection** (`SEG_ASSUMP_BEACHWOOD_S`):
-   - Tangent projection of Beachwood Blvd arterial south across Block 15 frontage ($S 08^\circ 30' 00" E$, $350.00'$).
+   - Tangent projection of Beachwood Blvd arterial south across Block 15 frontage ($S 08^\circ 30' 00" E$, $350.00'$) hedged from Curve C2 arcs.
 3. **Red Assumption 3: Sands Avenue Straight Approach Corridor** (`SEG_ASSUMP_SANDS_APPROACH`):
-   - Straight approach connecting Beachwood Blvd projection to Sands Ave curve P.C. ($S 87^\circ 35' 30" W$).
+   - Straight approach connecting Beachwood Blvd projection to Sands Ave curve P.C. ($S 87^\circ 35' 30" W$) derived by summing Block 15 Lots 2–5 frontages.
 4. **Red Assumption 4: Shellfish Drive East Extension** (`SEG_ASSUMP_SHELLFISH_KEEL`):
-   - East connection from Keel Drive junction towards Block 15 north frontage ($N 87^\circ 35' 30" E$).
-5. **Red Assumption 5: 12 Projected P.I. Tangents (Rule 2)** (`PI_RAY_*`):
+   - East connection from Keel Drive junction towards Block 15 north frontage ($N 87^\circ 35' 30" E$) derived by summing Block 15 Lots 1–9 frontages.
+5. **Red Assumption 5: Bayou Avenue Corridor** (`SEG_ASSUMP_BAYOU_E`):
+   - Inferred 60' corridor connecting Mangrove Ave East to Unit One matchline ($N 89^\circ 18' 20" E$, $304.00'$) derived by summing Block 11 Lots 15–17 frontages.
+6. **Red Assumption 6: 12 Projected P.I. Tangents (Rule 2)** (`PI_RAY_*`):
    - Projected tangent rays meeting at red diamond P.I. vertices derived via $T = R \tan(\Delta/2)$.
-6. **Red Assumption 6: Keel Drive Open-Ended Cul-de-Sac Bulb** (`CULDESAC_KEEL_DRIVE`):
+7. **Red Assumption 7: Keel Drive Open-Ended Cul-de-Sac Bulb** (`CULDESAC_KEEL_DRIVE`):
    - Circular turnaround bulb ($R = 50.0'$) at Keel Drive southwest dead-end.
 
 ---
 
-## 9. CAD Deliverables & Artifacts
+## 10. CAD Deliverables & Artifacts
 
 All deliverables are generated deterministically and synced to `/home/artwalk/Downloads/`:
 

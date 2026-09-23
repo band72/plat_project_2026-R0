@@ -25,6 +25,7 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
    • INT_MANGROVE_SOUTH_END         | N=  7947.99', E= 10050.08' | Mangrove Ave & Plat South Limit
    • INT_SURFWOOD_WEST_END          | N=  8225.76', E=  9865.07' | Surfwood Ave & West Boundary (Course 2)
    • INT_SURFWOOD_MATCHLINE         | N=  8233.33', E= 10489.62' | Surfwood Ave & Unit One Matchline
+   • INT_BAYOU_MATCHLINE            | N=  8081.65', E= 10351.72' | Bayou Ave & Unit One Matchline (Course 8)
    • INT_CAPEHORN_MATCHLINE         | N=  8475.49', E= 10522.68' | Cape Horn Ave & Unit One Matchline (P.R.M. Monument)
    • INT_STARFISH_WEST_END          | N=  9992.44', E=  9820.16' | Starfish Ave & West Boundary (Course 1)
    • INT_SAIL_WEST_END              | N=  9732.67', E=  9831.08' | Sail Ave & West Boundary (Course 1)
@@ -53,6 +54,7 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
    INT_MANGROVE_SOUTH_END          7947.99   10050.08 BOUNDARY   Mangrove Ave & Plat South Limit
    INT_SURFWOOD_WEST_END           8225.76    9865.07 BOUNDARY   Surfwood Ave & West Boundary (Course 2)
    INT_SURFWOOD_MATCHLINE          8233.33   10489.62 BOUNDARY   Surfwood Ave & Unit One Matchline
+   INT_BAYOU_MATCHLINE             8081.65   10351.72 BOUNDARY   Bayou Ave & Unit One Matchline (Course 8)
    INT_SANSALVADORE_PC             8350.00   10250.00 EXPLICIT   San Salvadore Ave P.C. (Point of Curvature)
    INT_SANSALVADORE_PT             8294.88   10428.74 EXPLICIT   San Salvadore Ave P.T. (Point of Tangency)
    INT_ASSUMP_SS_SURFWOOD_PI       8293.11   10330.33 ASSUMED    Assumed P.I. Tie (San Salvadore to Surfwood)
@@ -95,31 +97,100 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
 
 7. RED-LINED ASSUMPTIONS & FIELD RECOVERY PROTOCOLS
    ----------------------------------------------------------------------
-   [1] ASSUMP_SS_SURFWOOD_TIE (San Salvadore Ave to Surfwood Ave) -- TRANSITION_CORRIDOR
-       Rationale:  Plat Sheet 1 has faint, uncertified jog courses at Block 12 Lots 8-10. Centerline alignment must be projected analytically.
+   [1] ASSUMP_BAYOU_CORRIDOR (Bayou Avenue Corridor) -- CORRIDOR_SUMMATION
+       Rationale:    Plat Sheet 1 shows 60' Bayou right-of-way corridor north of Block 10. Centerline bearing is hedged from Block 11 front lot bearing (N89°18'20"E) and distance approximated by summing Lots 15, 16, 17 frontages.
+       Summed Front: Block 11 Lots 15 (93.83'), 16 (75.00'), 17 (75.00') -> Total = 243.83' + 60.17' tie = 304.00'
+       Field Action: Locate iron pins at Block 11 Lot 17 NE corner on the matchline to verify exact Bayou right-of-way width and centerline alignment.
+
+   [2] ASSUMP_SS_SURFWOOD_TIE (San Salvadore Ave to Surfwood Ave) -- TRANSITION_CORRIDOR
+       Rationale:    Plat Sheet 1 has faint, uncertified jog courses at Block 12 Lots 8-10. Centerline alignment must be projected analytically by summing front lot lines.
+       Summed Front: Block 12 Lot 8 (25.82' N19°06'16"E) + Lot 9-10 (60.34' S56°34'00"E) = 86.16' jog sum
        Field Action: Surveyors must locate physical monument pins at Block 12 Lot 8 NE corner and Unit One matchline to confirm exact centerline deflection.
 
-   [2] ASSUMP_KEEL_CULDESAC (Keel Drive) -- OPEN_ENDED_CULDESAC
-       Rationale:  Keel Drive terminates at an open-ended cul-de-sac turnaround bulb and does NOT close into the outer boundary or another street.
+   [3] ASSUMP_KEEL_CULDESAC (Keel Drive) -- OPEN_ENDED_CULDESAC
+       Rationale:    Keel Drive terminates at an open-ended cul-de-sac turnaround bulb and does NOT close into the outer boundary or another street.
        Field Action: Locate radial iron pins at the cul-de-sac turnaround bulb perimeter to establish exact right-of-way flare.
 
-   [3] ASSUMP_BEACHWOOD_S (Beachwood Boulevard) -- ARTERIAL_PROJECTION
-       Rationale:  Plat Sheet 2 terminates Beachwood Blvd at Block 15 north line. Centerline continuity requires analytical projection.
+   [4] ASSUMP_BEACHWOOD_S (Beachwood Boulevard) -- ARTERIAL_PROJECTION
+       Rationale:    Plat Sheet 2 terminates Beachwood Blvd at Block 15 north line. Centerline continuity requires analytical projection hedged from East R/W curve C2 and Block 15 lot frontages.
+       Summed Front: Block 15 Lots 9 & 10 East arc frontages (100.04' + 100.04' = 200.08') + 149.92' tie = 350.00'
        Field Action: Recover physical P.R.M. monument at Section 32 East line to establish the southern arterial tangent point.
 
-   [4] ASSUMP_SANDS_APPROACH (Sands Avenue) -- CURVE_CORRIDOR
-       Rationale:  Sands Avenue centerline curve parameters are given in the plat table but its exact tangent approach is unlettered.
+   [5] ASSUMP_SANDS_APPROACH (Sands Avenue) -- CURVE_CORRIDOR
+       Rationale:    Sands Avenue centerline curve parameters are given in the plat table but its exact tangent approach is unlettered; bearing is hedged from Block 15 lot frontages (S87°35'30"W) and distance approximated by summing lots 2-5 frontages.
+       Summed Front: Block 15 Lots 5 (88.48'), 4 (88.48'), 3 (88.50'), 2 (100.00') -> Sum = 365.46' frontage
        Field Action: Locate block corner monuments at Block 15 Lots 1-4 to establish the straight tangent alignment of Sands Ave.
 
-   [5] ASSUMP_SHELLFISH_KEEL (Shellfish Drive East Extension) -- TRANSITION_CORRIDOR
-       Rationale:  Eastern terminus of Shellfish Drive meets Block 15 Lots 1-3 with partial right-of-way transitions.
+   [6] ASSUMP_SHELLFISH_KEEL (Shellfish Drive East Extension) -- TRANSITION_CORRIDOR
+       Rationale:    Eastern terminus of Shellfish Drive meets Block 15 Lots 1-9. Distance approximated by summing Block 15 Lots 1-9 frontages (839.69' total).
+       Summed Front: Block 15 Lots 1-9 frontages: 153.25' (arc) + 100' + 88.5' + 176.96' + 225' + 95.98' = 839.69'
        Field Action: Recover lot corner pins along Block 15 North line to determine exact centerline terminus.
 
-   [6] ASSUMP_PI_TANGENT_EXTENSIONS (All 6 Curved Corridors) -- PI_TANGENTS_RULE2
-       Rationale:  Plat block corners carry L-shaped angle bar glyphs indicating boundary extension along tangents to P.I. rather than P.C. / P.T.
+   [7] ASSUMP_PI_TANGENT_EXTENSIONS (All 6 Curved Corridors) -- PI_TANGENTS_RULE2
+       Rationale:    Plat block corners carry L-shaped angle bar glyphs indicating boundary extension along tangents to P.I. rather than P.C. / P.T.
        Field Action: Verify field deflection angle Delta between tangents and confirm surveyor tangent distance T = R * tan(Delta/2).
 
-8. 100-AGENT MULTIAGENT CONSENSUS SIGN-OFF
+8. CADASTRAL RULE: RIGHT-OF-WAY EDGE BEARING HEDGES & LOT FRONTAGE SUMMATIONS
+   ----------------------------------------------------------------------
+   Rule Statement:
+   - Bearings along each edge of right-of-way generally match the centerline.
+   - If no centerline bearing exists, use the abutting front lot bearing along the road.
+   - If no centerline distance exists, add through the front of each lot to approximate.
+   - All derived corridors are drawn in bold RED (AutoCAD Color 1) as epistemic assumptions.
+
+   Segment ID                   Street Name              Bearing Hedge   Dist (ft) Derivation Method
+   ------------------------------------------------------------------------------------------
+   SEG_SURFWOOD_MAIN            Surfwood Avenue          N89°18'20"E        444.60 FRONT_LOT_SUMMATION_APPROXIMATION
+      -> Block 10 Lot 13: 98.01' (N89°18'20"E)
+      -> Block 10 Lot 12: 75.00' (N89°18'20"E)
+      -> Block 10 Lot 11: 75.00' (N89°18'20"E)
+      -> Block 10 Lot 10: 75.00' (N89°18'20"E)
+      -> Block 10 Lot 9: 75.00' (N89°18'20"E)
+      -> West Half-Width & Matchline Tie: 46.59' (N89°18'20"E)
+   SEG_ASSUMP_BAYOU_E           Bayou Avenue Corridor    N89°18'20"E        304.00 FRONT_LOT_SUMMATION_APPROXIMATION
+      -> Block 11 Lot 15: 93.83' (N89°18'20"E)
+      -> Block 11 Lot 16: 75.00' (N89°18'20"E)
+      -> Block 11 Lot 17: 75.00' (N89°18'20"E)
+      -> West R/W Half-Width & Matchline Tie: 60.17' (N89°18'20"E)
+   SEG_SANSALVADORE_TANGENT     San Salvadore Avenue     S54°41'40"E        650.00 RIGHT_OF_WAY_EDGE_HEDGE
+      -> Block 9 Lot 23-26: 300.00' (S54°41'40"E (4 lots x 75.00'))
+      -> West Approach from Boundary/Block 13: 350.00' (S54°41'40"E)
+   SEG_ASSUMP_SS_SURFWOOD_TIE   San Salvadore - Surfwood Transition Tie S56°34'00"E         86.57 FRONT_LOT_SUMMATION_APPROXIMATION
+      -> Block 12 Lot 8: 25.82' (N19°06'16"E)
+      -> Block 12 Lot 9-10: 60.34' (S56°34'00"E)
+   SEG_CAPEHORN_MAIN            Cape Horn Avenue         S54°41'40"E        800.00 RIGHT_OF_WAY_EDGE_HEDGE
+      -> Block 9 Lot 27-31: 375.00' (S54°41'40"E (5 lots x 75.00'))
+      -> Approach to Unit 1 Matchline P.R.M.: 425.00' (S54°41'40"E)
+   SEG_STARFISH_MAIN            Starfish Avenue          N87°35'30"E       1453.50 BOUNDARY_OFFSET_AND_TRIM
+      -> Block 18 Lot 1-14: 1050.00' (N87°35'30"E (14 lots x 75.00'))
+      -> Block 17 Lot North Row: 403.50' (N87°35'30"E)
+   SEG_SAIL_MAIN                Sail Avenue              N87°35'30"E       1453.50 BOUNDARY_OFFSET_AND_TRIM
+      -> Block 16 Lot 1-8: 618.50' (N87°35'30"E (68.50' straight + 7x75.00'))
+      -> Block 17 Lot South Row: 835.00' (N87°35'30"E)
+   SEG_SOUTH_MAIN               South Street             N87°35'30"E        258.26 BOUNDARY_OFFSET_AND_TRIM
+      -> Block 16 Lot 33: 93.50' (N87°35'30"E (stated to P.I.))
+      -> Block 16 Lot 32: 75.00' (N87°35'30"E)
+      -> Marina Ave Curve P.C. transition: 89.76' (N87°35'30"E)
+   SEG_ASSUMP_BEACHWOOD_S       Beachwood Boulevard South Projection S08°30'00"E        350.00 RIGHT_OF_WAY_EDGE_HEDGE
+      -> Block 15 Lot 9: 100.04' (Curve C2 Arc)
+      -> Block 15 Lot 10: 100.04' (Curve C2 Arc)
+      -> Block 15 South arterial connection: 149.92' (S08°30'00"E)
+   SEG_ASSUMP_SANDS_APPROACH    Sands Avenue Approach    S87°35'30"W         60.24 FRONT_LOT_SUMMATION_APPROXIMATION
+      -> Block 15 Lot 5: 88.48' (S87°35'30"W)
+      -> Block 15 Lot 4: 88.48' (S87°35'30"W)
+      -> Block 15 Lot 3: 88.50' (S87°35'30"W)
+      -> Block 15 Lot 2: 100.00' (S87°35'30"W)
+   SEG_SHELLFISH_MAIN           Shellfish Drive          N87°35'30"E        651.49 BOUNDARY_OFFSET_AND_TRIM
+      -> Block 14 Lot 24-13: 901.34' (N87°35'30"E (Block 14 South Row Lots 13-24))
+   SEG_ASSUMP_SHELLFISH_KEEL    Shellfish Drive East Extension N87°35'30"E        498.67 FRONT_LOT_SUMMATION_APPROXIMATION
+      -> Block 15 Lot 1: 153.25' (R=167.95' Arc)
+      -> Block 15 Lot 2: 100.00' (N87°35'30"E)
+      -> Block 15 Lot 3: 88.50' (N87°35'30"E)
+      -> Block 15 Lot 4-5: 176.96' (N87°35'30"E (2x88.48'))
+      -> Block 15 Lot 6-8: 225.00' (N87°35'30"E (3x75.00'))
+      -> Block 15 Lot 9: 95.98' (N87°35'30"E)
+
+9. 100-AGENT MULTIAGENT CONSENSUS SIGN-OFF
    ----------------------------------------------------------------------
    Total Agents:       100
    Total Guilds:       5

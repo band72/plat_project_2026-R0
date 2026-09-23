@@ -215,6 +215,7 @@ def test_boundary_tie_intersections(engine):
         "INT_MANGROVE_SOUTH_END",
         "INT_SURFWOOD_MATCHLINE",
         "INT_CAPEHORN_MATCHLINE",
+        "INT_BAYOU_MATCHLINE",
     ]
     for tk in tie_keys:
         assert tk in engine.intersections, f"Missing boundary tie {tk}"
@@ -232,5 +233,36 @@ def test_open_ended_culdesac_keel_drive(engine):
     # Check that it is also registered in assumptions
     assumption_types = [a["type"] for a in engine.assumptions]
     assert "OPEN_ENDED_CULDESAC" in assumption_types
+
+
+def test_edge_row_bearing_hedge_and_lot_frontage_summations(engine):
+    """Verify user rule: right-of-way edge bearing hedges, front lot bearings, and lot frontage summations."""
+    # 1. Bayou Avenue Corridor
+    bayou_seg = next(s for s in engine.segments if s.id == "SEG_ASSUMP_BAYOU_E")
+    assert bayou_seg.is_assumed is True
+    assert bayou_seg.derivation_method == "FRONT_LOT_SUMMATION_APPROXIMATION"
+    assert bayou_seg.front_lot_bearing == "N89°18'20\"E"
+    assert bayou_seg.summed_lot_frontages is not None
+    assert len(bayou_seg.summed_lot_frontages) >= 3
+
+    # 2. Sands Avenue Approach Corridor
+    sands_seg = next(s for s in engine.segments if s.id == "SEG_ASSUMP_SANDS_APPROACH")
+    assert sands_seg.is_assumed is True
+    assert sands_seg.derivation_method == "FRONT_LOT_SUMMATION_APPROXIMATION"
+    assert sands_seg.front_lot_bearing == "S87°35'30\"W"
+    assert sands_seg.summed_lot_frontages is not None
+
+    # 3. Shellfish Drive East Extension
+    shell_seg = next(s for s in engine.segments if s.id == "SEG_ASSUMP_SHELLFISH_KEEL")
+    assert shell_seg.is_assumed is True
+    assert shell_seg.derivation_method == "FRONT_LOT_SUMMATION_APPROXIMATION"
+    assert shell_seg.summed_lot_frontages is not None
+
+    # 4. Beachwood Boulevard South Projection
+    blvd_seg = next(s for s in engine.segments if s.id == "SEG_ASSUMP_BEACHWOOD_S")
+    assert blvd_seg.is_assumed is True
+    assert blvd_seg.derivation_method == "RIGHT_OF_WAY_EDGE_HEDGE"
+    assert blvd_seg.front_lot_bearing == "S08°30'00\"E"
+
 
 
