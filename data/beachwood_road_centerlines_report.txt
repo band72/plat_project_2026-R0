@@ -254,4 +254,19 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
      1+80.00         180.00' Mangrove Ave (0°20' Skew Junction)       (N= 8227.94', E=10045.06')
      6+24.60         624.60' Unit One Matchline (Course 6)            (N= 8233.33', E=10489.62')
 
+   • Corridor: Shellfish Drive (Total Length = 831.49 ft)
+     Station        Distance Node / Intersection                      Coordinates
+     --------------------------------------------------------------------------------
+     0+00.00           0.00' West Boundary Line (Course 2)            (N= 9222.46', E= 9847.24')
+     1+80.00         180.00' Mangrove Ave (Centerline Intersection)   (N= 9230.02', E=10027.08')
+     8+31.49         831.49' Keel Drive Diagonal Corridor Tie         (N= 9247.91', E=10678.32')
+
+   • Corridor: Beachwood Boulevard (Total Length = 868.79 ft)
+     Station        Distance Node / Intersection                      Coordinates
+     --------------------------------------------------------------------------------
+     0+00.00           0.00' Starfish Ave & Beachwood Blvd            (N=10061.08', E=11452.22')
+     2+60.00         260.00' Sail Ave & Beachwood Blvd                (N= 9801.31', E=11463.14')
+     3+89.66         389.66' Beachwood Blvd Projected P.I.            (N= 9930.85', E=11457.69')
+     8+68.79         868.79' Sands Ave Projected Junction             (N= 9455.15', E=11514.87')
+
 ================================================================================

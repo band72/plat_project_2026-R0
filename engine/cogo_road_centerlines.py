@@ -1980,6 +1980,23 @@ class BeachwoodRoadCenterlineEngine:
         ]
         alignments["SURFWOOD_AVENUE"] = self._build_alignment("Surfwood Avenue", surfwood_keys)
 
+        # 6. Shellfish Drive Corridor
+        shellfish_keys = [
+            ("INT_SHELLFISH_WEST_END", "West Boundary Line (Course 2)"),
+            ("INT_SHELLFISH_MANGROVE", "Mangrove Ave (Centerline Intersection)"),
+            ("INT_SHELLFISH_KEEL", "Keel Drive Diagonal Corridor Tie"),
+        ]
+        alignments["SHELLFISH_DRIVE"] = self._build_alignment("Shellfish Drive", shellfish_keys)
+
+        # 7. Beachwood Boulevard Arterial Corridor
+        blvd_keys = [
+            ("INT_STARFISH_BEACHWOOD", "Starfish Ave & Beachwood Blvd"),
+            ("INT_SAIL_BEACHWOOD", "Sail Ave & Beachwood Blvd"),
+            ("INT_PI_BEACHWOOD_BLVD", "Beachwood Blvd Projected P.I."),
+            ("INT_ASSUMP_SANDS_BEACHWOOD", "Sands Ave Projected Junction"),
+        ]
+        alignments["BEACHWOOD_BOULEVARD"] = self._build_alignment("Beachwood Boulevard", blvd_keys)
+
         return alignments
 
     def export_dxf(self, filepath: str = "dxf/PB0030_P0082_Road_Centerlines.dxf"):
