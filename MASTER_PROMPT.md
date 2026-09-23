@@ -1711,3 +1711,72 @@ Trained and solved Block 16 (Beachwood Unit Two, PB 30, Pages 82 & 82A, Duval Co
      - CheckSheets Grid: `dxf/PB0030_P0082_Block16_CheckSheets.dxf` (Status: PASS).
      - Visual Cadastral Drawing: `images/block16_mapcheck_drawing.png` with embedded Curve Table (C1-C7) and Line Table (L1-L16).
 
+## Iter 45 — BLOCK 13 CORNER-RETURN OFF-BY-ONE FIX & `review-plat-notes` AUDIT SKILL
+Root-caused and fixed a visually-wrong corner-return curve reported on Block 13 Lot 11
+(and, on inspection, Lot 1), plus built a reusable audit to catch this bug class:
+  1. **Root Cause**: `scripts/draw_block13_mapcheck.py` builds a SEPARATE, duplicated
+     `BeachwoodLotAgent` construction for CAD/PNG rendering, independent of
+     `BeachwoodBlock13Solver`'s own (already-correct) `DeterministicLotSolver` geometry.
+     That second construction had an off-by-one `curve_specs` side index (Lot 1: `side_2`
+     should have been `side_3`; Lot 11: `side_3` should have been `side_4`), so the
+     R=25' corner-return curve was computed/drawn on an adjacent STRAIGHT run instead of
+     the true P.C.-to-P.T. edge. Purely a rendering defect -- area/perimeter/misclosure
+     were identical before and after, since those depend on actual point positions, not
+     `curve_specs`.
+  2. **`engine/notes_audit.py`**: new module catching this class of bug going forward --
+     `audit_curve_chord_feasibility()` (a curve's chord can never exceed 2*R -- alone
+     would have caught this bug, since a 74.86' chord against a declared 25' radius is
+     geometrically impossible), `audit_typical_radius()` (flags any corner-return radius
+     that isn't this plat's stated 25'/30'), `audit_curve_bearing_consistency()` (flags a
+     curve table's hand-typed bearing drifting from `solve_corner_return()`'s own
+     computed value -- the OTHER bug class found earlier this session). 10 red/green
+     regression tests in `test_notes_audit.py`, all reproducing real bugs that shipped.
+  3. **`.claude/skills/review-plat-notes`**: project-local Claude Code skill wrapping the
+     audit module with guidance on when/how to run it -- explicitly flags that a
+     drawing script with its own separate `BeachwoodLotAgent` construction needs its own
+     audit pass, since auditing the solver alone would have missed this exact bug.
+
+## Iter 46 — BLOCKS 10, 11 & 12 (WEST OF MATCHLINE): HONEST FLAGGING OF UNREADABLE JOG COURSES
+Solved the remaining Unit Two blocks left of the Beachwood Unit One matchline (Block 9's
+curvilinear lots were already solved in Iter 39-40; everything east of the matchline
+belongs to the already-recorded Unit One, P.B. 29-29/29A/29B/29C, and is drafted for
+reference only with no bearings/distances on this sheet):
+  1. **Block 10** (5 lots, 9-13, fronting Surfwood Ave) and **Block 11** (6 lots, 12-17,
+     fronting Bayou/Surfwood): straightforward, all courses legible. Reproduces the same
+     0°20'00" skew mechanism as Block 13's Lot 11 (west/R/W side on the non-perpendicular
+     S01°01'40"E bearing; every other divider on the plat's standard perpendicular
+     N00°41'40"W) -- Block 10's Lot 13 front 98.01' -> rear 97.43'; Block 11's Bayou
+     243.83' -> mid-line 243.25' -> Surfwood 242.67', each step down by exactly
+     100*tan(0°20'00") = 0.58'.
+  2. **Block 12** (Lots 4-7 CERTIFIED): each lot built from exactly 3 legible sides, 4th
+     side computed by closure (a normal condition, not missing data) -- cross-validated
+     since Lot 5's computed east side (90.70') and Lot 4's independently-read west side
+     (90.69') describe the same physical line and agree to 0.01'.
+  3. **Block 12 Lots 8, 9, 10: NOT CERTIFIED.** These front the San Salvadore Ave curve
+     transition (R=269.96', Delta=36°20'00", same curve as Block 9 Lots 23-26) through
+     several short jog courses too faint on the scan to transcribe with certifiable
+     confidence -- deliberately left OUT of `BeachwoodBlock12Solver.lots` rather than
+     guessed. `flagged_points["Lot8_NE_approx"]` computes the one defensible corner via
+     `intersect_bearings()` (Lot 7/8's known divider extended to the known matchline) and
+     is drawn in RED with a dashed tie line on `images/block10_11_12_mapcheck_drawing.png`
+     and DXF `FLAGGED`/`FLAGGED-TEXT` layers -- an estimate for field/record verification,
+     not a certified boundary. This is Rule 3 applied to plat *reading*, not just
+     closure math: an honest FLAGGED verdict beats a confident wrong guess.
+  4. **Verification**: `test_block10_11_12_cogo.py` (12 tests) covers closure, both skew
+     chains, the Lot5/Lot4 cross-validation, and that Lots 8-10 are excluded from
+     certification. Full suite 76/76 passing; `review-plat-notes` audit clean on all
+     three new solvers (no curve_specs yet, so nothing to misalign).
+
+## Iter 47 — BEVERLY ISLE (ISLAND NO. 5): UNIVERSAL ILLUMINATION, SKELETON GRAPH & RADIAL COGO
+Overhauled the cadastral reconstruction for `Plat/Beverly-Isle.pdf` (Section 24, T1S, R27E, Duval County, FL, surveyed 1959–1960 by John F. Young & Associates):
+  1. **Dual Image Handling (RGB vs Monochrome)**: `PlatImageNormalizer` in `engine/handdrawn_extractor.py` seamlessly detects 24-bit RGB photos vs clean monochrome/grayscale scans. For RGB photographs with amber cellophane tape and non-uniform lighting, flat-field background division ($I / \text{Gaussian} \times 255$) and channel-weighted binarization completely eliminate tape stains and paper discoloration while retaining 100% of pen strokes.
+  2. **Dual-Stream Linework / Text Separation**: `DualStreamSeparator` applies Connected Component Analysis to isolate continuous boundary linework from compact text callouts.
+  3. **Surveyor Geometry Rule (Skeleton != Cadastre)**: Centerline skeletonization (`PlatSkeletonGraph`) provides the topological connectivity graph, while true cadastre geometry is deterministically solved via analytical COGO (`BeverlyIsleCogoSolver` in `engine/cogo_beverly_isle.py`).
+  4. **Road Network & Centerline Curve Table**:
+     - Dirt Road access corridor: $S 02^\circ 11' 20" W - 544.44'$ from Heckscher Dr / Wood Bridge.
+     - Entrance curve a: $R = 97.37', T = 30.00', \Delta = 34^\circ 15' 00"$, deflecting into tangent $S 52^\circ 20' W - 245.00'$.
+     - 20' Road teardrop loop enclosing central Parcel 20 with Curve b ($R = 35.10', T = 59.00', \Delta = 118^\circ 30'$) and Curve c ($R = 50.11', T = 197.32', \Delta = 151^\circ 30'$).
+  5. **100% Mathematical Closure**: All 20 parcels (radial Lots 1–19 and central Parcel 20) solved with 0.0000 ft misclosure (`EXACT`).
+  6. **Deliverables & Verification**: `dxf/Duval_BeverlyIsle_1968.dxf` (PASS, 0 noise circles), `data/beverly_isle_mapcheck_report.txt`, `images/beverly_isle_drawing.png`, and automated unit test suite `test_beverly_isle_cogo.py` (8 tests passing in 0.010s).
+
+

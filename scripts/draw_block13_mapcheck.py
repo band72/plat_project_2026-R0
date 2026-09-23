@@ -33,6 +33,7 @@ from engine.cogo_block import BeachwoodBlock13Solver
 from engine.dxf_writer import DXFWriter
 from engine.lot_agent import BeachwoodLotAgent
 from engine.lotsheets import PAGE_H, PAGE_W, draw_lot_sheet
+from engine.notes_audit import audit_lot_curves, audit_solver_curves, print_audit_report
 
 
 def build_and_draw_block13():
@@ -55,7 +56,15 @@ def build_and_draw_block13():
         agent_id=1301, lot_id="Blk13-Lot1", block_id="13", lot_number="1",
         corners=[pts["p1_sw"], pts["p1_nw"], pts["p1_pc_n"], pts["p1_pc_e"], pts["p1_se"]],
         corner_names=["SW_Cor", "NW_Cor", "PC_North", "PC_East", "SE_Cor(PRM)"],
-        curve_specs={"side_2": {"radius": 25.0, "length": sol1.arc_length, "rot": "CW"}},
+        # side_N = edge from corners[N-1] to corners[N] (engine/lot_agent.py's
+        # side_key = f"side_{i+1}" convention). The curve is PC_North(2) ->
+        # PC_East(3), i.e. side_3 -- was side_2 (NW_Cor -> PC_North, an
+        # actual straight run), which put the drawn arc on the wrong edge
+        # entirely. BeachwoodBlock13Solver._solve_geometry() already had
+        # this right (side_3) for the exact same lot; this was a
+        # copy-paste drift between that solver and this drawing script's
+        # separate, duplicate BeachwoodLotAgent construction.
+        curve_specs={"side_3": {"radius": 25.0, "length": sol1.arc_length, "rot": "CW"}},
         stated_area_sqft=9865.87, stated_dimensions="100.00' x 100.00' (R=25' NE Ret)"
     )
     agents.append(ag1)
@@ -90,13 +99,32 @@ def build_and_draw_block13():
         agent_id=1311, lot_id="Blk13-Lot11", block_id="13", lot_number="11",
         corners=[pts["p11_sw"], pts["p11_nw"], pts["p11_ne"], pts["p11_pc_e"], pts["p11_pc_s"]],
         corner_names=["SW_Cor", "NW_Cor", "NE_Cor(PRM)", "PC_East", "PC_South"],
-        curve_specs={"side_3": {"radius": 25.0, "length": sol11.arc_length, "rot": "CW"}},
+        # Same off-by-one as Lot 1 above: the curve is PC_East(3) ->
+        # PC_South(4), i.e. side_4 -- was side_3 (NE_Cor/PRM -> PC_East, an
+        # actual straight run), which drew the arc immediately after the
+        # P.R.M. instead of after the 74.86' straight run to the true P.C.
+        curve_specs={"side_4": {"radius": 25.0, "length": sol11.arc_length, "rot": "CW"}},
         stated_area_sqft=9835.14, stated_dimensions="100.00' x 99.42' (R=25' SE Ret)"
     )
     agents.append(ag11)
 
     for ag in agents:
         ag.compute_mapcheck()
+
+    # Notes/geometry audit -- see .claude/skills/review-plat-notes and
+    # engine/notes_audit.py. This is exactly the check that would have
+    # caught the side_3/side_4 off-by-one that shipped here: these
+    # `agents` are a SEPARATE, duplicated construction from
+    # BeachwoodBlock13Solver's own (already-correct) lots, built only for
+    # CAD/PNG rendering, so auditing `solver` alone would have missed it.
+    solver_problems = audit_solver_curves(solver)
+    agent_problems = {
+        ag.lot_number: audit_lot_curves(ag.corners, ag.curve_specs, ag.corner_names, label=f"Lot {ag.lot_number}")
+        for ag in agents if ag.curve_specs
+    }
+    agent_problems = {k: v for k, v in agent_problems.items() if v}
+    print_audit_report(solver_problems, header="BLOCK 13 SOLVER CURVE AUDIT")
+    print_audit_report(agent_problems, header="BLOCK 13 DRAWING-AGENT CURVE AUDIT")
 
     # ==========================================================================
     # 1. WRITE MASTER CAD DRAWING (DXF)

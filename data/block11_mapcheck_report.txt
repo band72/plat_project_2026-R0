@@ -1,0 +1,207 @@
+================================================================================
+  BEACHWOOD UNIT TWO -- BLOCK 11 (WEST OF MATCHLINE) SURVEY MAPCHECK REPORT
+  Plat Book 30, Page 82, Public Records of Duval County, Florida
+  Pure Algorithmic Cadastral COGO Engine Output (Offline / Deterministic)
+================================================================================
+
+================================================================================
+  MATCHLINE & SKEW NOTES
+================================================================================
+  Matchline Bearing: N00°41'40"W, Length = 200.00 ft (Lots 17 & 12 East Lines)
+  East of this line is Beachwood Unit One (P.B. 29-29/29A/29B/29C) --
+  drafted for reference only, no bearings/distances on this sheet.
+  Lots 15/14 West Line follows the drainage R/W bearing S01°01'40"E
+  (not perpendicular to Bayou/Surfwood), producing the 0°20'00" skew:
+  Bayou 243.83' -> mid-line 243.25' -> Surfwood 242.67' (each -0.58').
+
+================================================================================
+  LINE TABLE (BLOCK 11)
+================================================================================
+Tag   | Bearing        | Distance (ft)  | Description
+--------------------------------------------------------------------------------
+L1    | S01°01'40"E    | 100.00         | Lot 15 West Line on Drainage R/W
+L2    | N89°18'20"E    | 93.83          | Lot 15 Frontage on Bayou
+L3    | N89°18'20"E    | 75.00          | Lot 16 Frontage on Bayou
+L4    | N89°18'20"E    | 75.00          | Lot 17 Frontage on Bayou
+L5    | N00°41'40"W    | 100.00         | Lot 17 East Line on Matchline
+L6    | S89°18'20"W    | 93.25          | Lot 15/14 Dividing Line
+L7    | S89°18'20"W    | 75.00          | Lot 16/13 Dividing Line
+L8    | S89°18'20"W    | 75.00          | Lot 17/12 Dividing Line
+L9    | S01°01'40"E    | 100.00         | Lot 14 West Line on Drainage R/W
+L10   | N89°18'20"E    | 92.67          | Lot 14 Frontage on Surfwood Ave
+L11   | N89°18'20"E    | 75.00          | Lot 13 Frontage on Surfwood Ave
+L12   | N89°18'20"E    | 75.00          | Lot 12 Frontage on Surfwood Ave
+L13   | N00°41'40"W    | 100.00         | Lot 12 East Line on Matchline
+
+================================================================================
+  INDIVIDUAL LOT MAPCHECK SURVEYOR SHEETS (6 LOTS)
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK AUDIT: Blk11-Lot15 (Block 11, Lot 15)
+================================================================================
+Target Stated Area: 9,353.8 SF (0.2147 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To             | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | SW_Cor -> NW_Cor       | N01°01'40.00"W | 100.00         | LINE    
+2        | NW_Cor -> NE_Cor       | N89°18'20.00"E | 93.83          | LINE    
+3        | NE_Cor -> SE_Cor       | S00°41'43.66"E | 100.00         | LINE    
+4        | SE_Cor -> SW_Cor       | S89°18'20.00"W | 93.25          | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & STATISTICAL PRECISION:
+  Total Perimeter:     387.08 ft
+  Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
+  Linear Misclose:     0.00000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
+  Traverse Status:     CLOSED
+PARCEL AREA AUDIT:
+  Raw Polygon Area:    9,353.8 SF
+  Curve Adjustments:   +0.0 SF
+  Net Computed Area:   9,353.8 SF (0.2147 Acres)
+  Target Stated Area:  9,353.8 SF
+  Area Discrepancy:    +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK AUDIT: Blk11-Lot16 (Block 11, Lot 16)
+================================================================================
+Target Stated Area: 7,499.9 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To             | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | SW_Cor -> NW_Cor       | N00°41'43.66"W | 100.00         | LINE    
+2        | NW_Cor -> NE_Cor       | N89°18'20.00"E | 75.00          | LINE    
+3        | NE_Cor -> SE_Cor       | S00°41'43.66"E | 100.00         | LINE    
+4        | SE_Cor -> SW_Cor       | S89°18'20.00"W | 75.00          | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & STATISTICAL PRECISION:
+  Total Perimeter:     350.00 ft
+  Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
+  Linear Misclose:     0.00000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
+  Traverse Status:     CLOSED
+PARCEL AREA AUDIT:
+  Raw Polygon Area:    7,499.9 SF
+  Curve Adjustments:   +0.0 SF
+  Net Computed Area:   7,499.9 SF (0.1722 Acres)
+  Target Stated Area:  7,499.9 SF
+  Area Discrepancy:    +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK AUDIT: Blk11-Lot17 (Block 11, Lot 17)
+================================================================================
+Target Stated Area: 7,499.9 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To             | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | SW_Cor -> NW_Cor       | N00°41'43.66"W | 100.00         | LINE    
+2        | NW_Cor -> NE_Cor       | N89°18'20.00"E | 75.00          | LINE    
+3        | NE_Cor -> SE_Cor       | S00°41'43.66"E | 100.00         | LINE    
+4        | SE_Cor -> SW_Cor       | S89°18'20.00"W | 75.00          | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & STATISTICAL PRECISION:
+  Total Perimeter:     350.00 ft
+  Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
+  Linear Misclose:     0.00000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
+  Traverse Status:     CLOSED
+PARCEL AREA AUDIT:
+  Raw Polygon Area:    7,499.9 SF
+  Curve Adjustments:   +0.0 SF
+  Net Computed Area:   7,499.9 SF (0.1722 Acres)
+  Target Stated Area:  7,499.9 SF
+  Area Discrepancy:    +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK AUDIT: Blk11-Lot14 (Block 11, Lot 14)
+================================================================================
+Target Stated Area: 9,295.8 SF (0.2134 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To             | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | SW_Cor -> NW_Cor       | N01°01'40.00"W | 100.00         | LINE    
+2        | NW_Cor -> NE_Cor       | N89°18'20.00"E | 93.25          | LINE    
+3        | NE_Cor -> SE_Cor       | S00°41'43.66"E | 100.00         | LINE    
+4        | SE_Cor -> SW_Cor       | S89°18'20.00"W | 92.67          | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & STATISTICAL PRECISION:
+  Total Perimeter:     385.92 ft
+  Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
+  Linear Misclose:     0.00000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
+  Traverse Status:     CLOSED
+PARCEL AREA AUDIT:
+  Raw Polygon Area:    9,295.8 SF
+  Curve Adjustments:   +0.0 SF
+  Net Computed Area:   9,295.8 SF (0.2134 Acres)
+  Target Stated Area:  9,295.8 SF
+  Area Discrepancy:    +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK AUDIT: Blk11-Lot13 (Block 11, Lot 13)
+================================================================================
+Target Stated Area: 7,499.9 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To             | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | SW_Cor -> NW_Cor       | N00°41'43.66"W | 100.00         | LINE    
+2        | NW_Cor -> NE_Cor       | N89°18'20.00"E | 75.00          | LINE    
+3        | NE_Cor -> SE_Cor       | S00°41'43.66"E | 100.00         | LINE    
+4        | SE_Cor -> SW_Cor       | S89°18'20.00"W | 75.00          | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & STATISTICAL PRECISION:
+  Total Perimeter:     350.00 ft
+  Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
+  Linear Misclose:     0.00000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
+  Traverse Status:     CLOSED
+PARCEL AREA AUDIT:
+  Raw Polygon Area:    7,499.9 SF
+  Curve Adjustments:   +0.0 SF
+  Net Computed Area:   7,499.9 SF (0.1722 Acres)
+  Target Stated Area:  7,499.9 SF
+  Area Discrepancy:    +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
+================================================================================
+
+================================================================================
+  SURVEY MAPCHECK AUDIT: Blk11-Lot12 (Block 11, Lot 12)
+================================================================================
+Target Stated Area: 7,499.9 SF (0.1722 Acres)
+--------------------------------------------------------------------------------
+Course   | From -> To             | Bearing        | Distance (ft)  | Type    
+--------------------------------------------------------------------------------
+1        | SW_Cor -> NW_Cor       | N00°41'43.66"W | 100.00         | LINE    
+2        | NW_Cor -> NE_Cor       | N89°18'20.00"E | 75.00          | LINE    
+3        | NE_Cor -> SE_Cor       | S00°41'43.66"E | 100.00         | LINE    
+4        | SE_Cor -> SW_Cor       | S89°18'20.00"W | 75.00          | LINE    
+--------------------------------------------------------------------------------
+TRAVERSE CLOSURE & STATISTICAL PRECISION:
+  Total Perimeter:     350.00 ft
+  Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
+  Linear Misclose:     0.00000 ft
+  Relative Precision:  EXACT (0.000 ft)
+  F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
+  Traverse Status:     CLOSED
+PARCEL AREA AUDIT:
+  Raw Polygon Area:    7,499.9 SF
+  Curve Adjustments:   +0.0 SF
+  Net Computed Area:   7,499.9 SF (0.1722 Acres)
+  Target Stated Area:  7,499.9 SF
+  Area Discrepancy:    +0.0 SF (0.00%)
+FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
+================================================================================
+

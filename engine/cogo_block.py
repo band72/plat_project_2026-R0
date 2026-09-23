@@ -1263,3 +1263,534 @@ class BeachwoodBlock16Solver:
 
         return filepath
 
+
+# ==============================================================================
+# 8. BLOCK 10 DETERMINISTIC COGO SOLVER PIPELINE (5 LOTS, WEST OF MATCHLINE)
+# ==============================================================================
+
+class BeachwoodBlock10Solver:
+    """
+    Deterministic solver for Block 10, Beachwood Unit Two (the only part of
+    Block 10 within this plat -- everything east of the Unit One matchline is
+    drafted with dashed lines and no bearings/distances, since it belongs to
+    the adjoining, already-recorded Beachwood Unit One, P.B. 29-29/29A/29B/29C).
+    Plat Book 30, Page 82, Duval County, FL.
+
+    - 5 Lots (9 through 13), fronting Surfwood Avenue (60' R/W) to the north
+      and the plat's own South boundary line to the south -- both bear
+      N88deg18'20"E... N89deg18'20"E, front total 398.01', rear total 397.43'.
+    - West side (Lot 13, on the 50' drainage/utility R/W's alignment):
+      S01deg01'40"E, 100.00' -- the same bearing used for Mangrove Ave /
+      the R/W in Blocks 13 and 11, NOT perpendicular to Surfwood Ave.
+    - All other side lines (12/13, 11/12, 10/11, 9/10 dividers, and Lot 9's
+      east side on the matchline) are the plat's standard divider bearing,
+      exactly perpendicular to Surfwood Ave: N00deg41'40"W / S00deg41'40"E,
+      100.00' each -- explicitly labeled "N.0deg41'40"W. 100.0'" on the
+      matchline segment.
+    - Because Lot 13 alone uses the non-perpendicular west bearing, its front
+      (98.01') and rear (97.43') widths differ by exactly depth*tan(0d20') =
+      100*tan(0deg20'00") = 0.58' -- the identical skew mechanism documented
+      for Block 13's Lot 11 (see solve_skewed_lot_rear_dimension). Lots
+      9-12 use the perpendicular divider on both sides, so their front and
+      rear widths are identical (75.00' each).
+    - No individual lot areas are printed on this sheet for Block 10 (unlike
+      a legal-description table); stated_area_sqft is set to the computed
+      value once solved, matching this engine's existing convention for
+      blocks without printed per-lot area callouts.
+    """
+    def __init__(self, origin: Point | None = None):
+        self.brg_front = "N89°18'20\"E"
+        self.brg_west = "S01°01'40\"E"
+        self.brg_side = "S00°41'40\"E"
+
+        self.az_front = parse_bearing(self.brg_front)
+        self.az_west = parse_bearing(self.brg_west)
+        self.az_side = parse_bearing(self.brg_side)
+
+        self.origin = origin or Point(1000.0, 1000.0)
+        self.points: dict[str, Point] = {}
+        self.lots: dict[str, DeterministicLotSolver] = {}
+        self._solve_geometry()
+
+    def _solve_geometry(self):
+        # Anchor: NW corner of Lot 13, on Surfwood Ave / drainage R/W corner.
+        p13_nw = self.origin
+        p13_ne = p13_nw.offset(self.az_front, 98.01)
+        p13_sw = p13_nw.offset(self.az_west, 100.0)
+        p13_se = p13_sw.offset(self.az_front, 97.43)
+
+        front_pts = [p13_nw, p13_ne]
+        rear_pts = [p13_sw, p13_se]
+        for w in (75.0, 75.0, 75.0, 75.0):  # Lots 12, 11, 10, 9
+            front_pts.append(front_pts[-1].offset(self.az_front, w))
+            rear_pts.append(rear_pts[-1].offset(self.az_front, w))
+
+        self.points = {
+            "p13_nw": front_pts[0], "p13_ne": front_pts[1], "p13_se": rear_pts[1], "p13_sw": rear_pts[0],
+            "p12_nw": front_pts[1], "p12_ne": front_pts[2], "p12_se": rear_pts[2], "p12_sw": rear_pts[1],
+            "p11_nw": front_pts[2], "p11_ne": front_pts[3], "p11_se": rear_pts[3], "p11_sw": rear_pts[2],
+            "p10_nw": front_pts[3], "p10_ne": front_pts[4], "p10_se": rear_pts[4], "p10_sw": rear_pts[3],
+            "p9_nw": front_pts[4], "p9_ne": front_pts[5], "p9_se": rear_pts[5], "p9_sw": rear_pts[4],
+        }
+
+        for num in ["13", "12", "11", "10", "9"]:
+            nw, ne, se, sw = (self.points[f"p{num}_nw"], self.points[f"p{num}_ne"],
+                              self.points[f"p{num}_se"], self.points[f"p{num}_sw"])
+            self.lots[num] = DeterministicLotSolver(
+                lot_id=f"Blk10-Lot{num}", block_id="10", lot_number=num,
+                vertices=[sw, nw, ne, se],
+                node_names=["SW_Cor", "NW_Cor", "NE_Cor", "SE_Cor"],
+                stated_area_sqft=1.0,
+            )
+        for lot in self.lots.values():
+            res = lot.compute_mapcheck()
+            lot.stated_area_sqft = round(res.computed_area_sqft, 2)
+
+    def solve_all(self) -> dict[str, LotMapCheckResult]:
+        return {num: lot.compute_mapcheck() for num, lot in self.lots.items()}
+
+    def get_line_table_data(self) -> list[dict[str, Any]]:
+        lines = []
+        idx = 1
+        lines.append({"tag": f"L{idx}", "bearing": "S01°01'40\"E", "distance": 100.00, "desc": "Lot 13 West Line on Drainage R/W"})
+        idx += 1
+        for num, w in [("13", 98.01), ("12", 75.00), ("11", 75.00), ("10", 75.00), ("9", 75.00)]:
+            lines.append({"tag": f"L{idx}", "bearing": "N89°18'20\"E", "distance": w, "desc": f"Lot {num} Frontage on Surfwood Ave"})
+            idx += 1
+        lines.append({"tag": f"L{idx}", "bearing": "N00°41'40\"W", "distance": 100.00, "desc": "Lot 9 East Line on Matchline"})
+        idx += 1
+        for num, w in [("13", 97.43), ("12", 75.00), ("11", 75.00), ("10", 75.00), ("9", 75.00)]:
+            lines.append({"tag": f"L{idx}", "bearing": "S89°18'20\"W", "distance": w, "desc": f"Lot {num} Rear Line on South Plat Boundary"})
+            idx += 1
+        return lines
+
+    def generate_report(self, filepath: str = "data/block10_mapcheck_report.txt") -> str:
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        results = self.solve_all()
+        with open(filepath, "w") as f:
+            f.write("=" * 80 + "\n")
+            f.write("  BEACHWOOD UNIT TWO -- BLOCK 10 (WEST OF MATCHLINE) SURVEY MAPCHECK REPORT\n")
+            f.write("  Plat Book 30, Page 82, Public Records of Duval County, Florida\n")
+            f.write("  Pure Algorithmic Cadastral COGO Engine Output (Offline / Deterministic)\n")
+            f.write("=" * 80 + "\n\n")
+
+            f.write("=" * 80 + "\n")
+            f.write("  MATCHLINE & SKEW NOTES\n")
+            f.write("=" * 80 + "\n")
+            f.write("  Matchline Bearing: N00°41'40\"W, Length = 100.00 ft (Lot 9 East Line)\n")
+            f.write("  East of this line is Beachwood Unit One (P.B. 29-29/29A/29B/29C) --\n")
+            f.write("  drafted for reference only, no bearings/distances on this sheet.\n")
+            f.write("  Lot 13 West Line follows the 50' drainage R/W bearing S01°01'40\"E\n")
+            f.write("  (not perpendicular to Surfwood Ave), producing the same 0°20'00\"\n")
+            f.write("  skew documented for Block 13 Lot 11: front 98.01' -> rear 97.43'.\n\n")
+
+            f.write("=" * 80 + "\n")
+            f.write("  LINE TABLE (BLOCK 10)\n")
+            f.write("=" * 80 + "\n")
+            f.write(f"{'Tag':<5} | {'Bearing':<14} | {'Distance (ft)':<14} | {'Description'}\n")
+            f.write("-" * 80 + "\n")
+            for lt in self.get_line_table_data():
+                f.write(f"{lt['tag']:<5} | {lt['bearing']:<14} | {lt['distance']:<14.2f} | {lt['desc']}\n")
+            f.write("\n")
+
+            f.write("=" * 80 + "\n")
+            f.write("  INDIVIDUAL LOT MAPCHECK SURVEYOR SHEETS (5 LOTS)\n")
+            f.write("=" * 80 + "\n\n")
+            for lot_num in ["13", "12", "11", "10", "9"]:
+                res = results[lot_num]
+                f.write(res.format_surveyor_sheet() + "\n\n")
+
+        return filepath
+
+
+# ==============================================================================
+# 9. BLOCK 11 DETERMINISTIC COGO SOLVER PIPELINE (6 LOTS, WEST OF MATCHLINE)
+# ==============================================================================
+
+class BeachwoodBlock11Solver:
+    """
+    Deterministic solver for Block 11, Beachwood Unit Two (the only part of
+    Block 11 within this plat -- everything east of the Unit One matchline,
+    including the dashed-outline parcels also labeled "(11)"/"(12)" near San
+    Salvadore Road, belongs to the adjoining Beachwood Unit One and carries
+    no bearings/distances on this sheet).
+    Plat Book 30, Page 82, Duval County, FL.
+
+    - 6 Lots: 15, 16, 17 (North row, fronting Bayou -- 60' R/W); 14, 13, 12
+      (South row, fronting Surfwood Avenue -- 60' R/W). Both streets bear
+      N89°18'20"E on this sheet.
+    - West side (Lots 15 & 14, on the drainage R/W's alignment shared with
+      Mangrove Ave / Block 13): S01°01'40"E, 100.00' per row (200.00' total)
+      -- same non-perpendicular bearing used in Block 13 and Block 10.
+    - All other side lines (15/16, 16/17, 14/13, 13/12 dividers, and the
+      east side on the matchline for Lots 17 & 12) are the plat's standard
+      perpendicular divider: N00°41'40"W / S00°41'40"E, 100.00' each --
+      matchline explicitly labeled "N.0°41'40"W. - 200.0'" (both rows).
+    - The skew from the west side's non-perpendicular bearing shows up
+      exactly as it did in Block 13/10: Bayou frontage total 243.83' ->
+      Lot15/14 dividing line 243.25' -> Surfwood frontage 242.67', each step
+      down by depth*tan(0°20'00") = 100*tan(0°20'00") = 0.58', entirely
+      attributable to Lots 15 and 14 (Lots 16/17/13/12 stay 75.00' throughout
+      since their sides are the perpendicular divider).
+    - A 10' drainage/utility easement runs along part of the 15/14 and 16/13
+      dividing line (dashed "10' Easement" annotation) -- an encumbrance,
+      not a separate boundary; it does not change the lot closure.
+    - No individual lot areas are printed on this sheet; stated_area_sqft is
+      set to the computed value once solved.
+    """
+    def __init__(self, origin: Point | None = None):
+        self.brg_front = "N89°18'20\"E"
+        self.brg_west = "S01°01'40\"E"
+        self.brg_side = "S00°41'40\"E"
+
+        self.az_front = parse_bearing(self.brg_front)
+        self.az_west = parse_bearing(self.brg_west)
+        self.az_side = parse_bearing(self.brg_side)
+
+        self.origin = origin or Point(1000.0, 1000.0)
+        self.points: dict[str, Point] = {}
+        self.lots: dict[str, DeterministicLotSolver] = {}
+        self._solve_geometry()
+
+    def _solve_geometry(self):
+        # Anchor: NW corner of Lot 15, on Bayou / west R/W corner.
+        p15_nw = self.origin
+        p15_ne = p15_nw.offset(self.az_front, 93.83)
+        p15_sw = p15_nw.offset(self.az_west, 100.0)   # = p14_nw
+        p15_se = p15_sw.offset(self.az_front, 93.25)  # = p14_ne
+
+        north_front = [p15_nw, p15_ne]
+        north_rear = [p15_sw, p15_se]
+        for w in (75.0, 75.0):  # Lots 16, 17
+            north_front.append(north_front[-1].offset(self.az_front, w))
+            north_rear.append(north_rear[-1].offset(self.az_front, w))
+
+        p14_nw, p14_ne = north_rear[0], north_rear[1]
+        p14_sw = p14_nw.offset(self.az_west, 100.0)
+        p14_se = p14_sw.offset(self.az_front, 92.67)
+        south_front = [p14_nw, p14_ne]
+        south_rear = [p14_sw, p14_se]
+        for w in (75.0, 75.0):  # Lots 13, 12
+            south_front.append(south_front[-1].offset(self.az_front, w))
+            south_rear.append(south_rear[-1].offset(self.az_front, w))
+
+        self.points = {
+            "p15_nw": north_front[0], "p15_ne": north_front[1], "p15_se": north_rear[1], "p15_sw": north_rear[0],
+            "p16_nw": north_front[1], "p16_ne": north_front[2], "p16_se": north_rear[2], "p16_sw": north_rear[1],
+            "p17_nw": north_front[2], "p17_ne": north_front[3], "p17_se": north_rear[3], "p17_sw": north_rear[2],
+            "p14_nw": south_front[0], "p14_ne": south_front[1], "p14_se": south_rear[1], "p14_sw": south_rear[0],
+            "p13_nw": south_front[1], "p13_ne": south_front[2], "p13_se": south_rear[2], "p13_sw": south_rear[1],
+            "p12_nw": south_front[2], "p12_ne": south_front[3], "p12_se": south_rear[3], "p12_sw": south_rear[2],
+        }
+
+        for num in ["15", "16", "17", "14", "13", "12"]:
+            nw, ne, se, sw = (self.points[f"p{num}_nw"], self.points[f"p{num}_ne"],
+                              self.points[f"p{num}_se"], self.points[f"p{num}_sw"])
+            self.lots[num] = DeterministicLotSolver(
+                lot_id=f"Blk11-Lot{num}", block_id="11", lot_number=num,
+                vertices=[sw, nw, ne, se],
+                node_names=["SW_Cor", "NW_Cor", "NE_Cor", "SE_Cor"],
+                stated_area_sqft=1.0,
+            )
+        for lot in self.lots.values():
+            res = lot.compute_mapcheck()
+            lot.stated_area_sqft = round(res.computed_area_sqft, 2)
+
+    def solve_all(self) -> dict[str, LotMapCheckResult]:
+        return {num: lot.compute_mapcheck() for num, lot in self.lots.items()}
+
+    def get_line_table_data(self) -> list[dict[str, Any]]:
+        lines = []
+        idx = 1
+        lines.append({"tag": f"L{idx}", "bearing": "S01°01'40\"E", "distance": 100.00, "desc": "Lot 15 West Line on Drainage R/W"})
+        idx += 1
+        for num, w in [("15", 93.83), ("16", 75.00), ("17", 75.00)]:
+            lines.append({"tag": f"L{idx}", "bearing": "N89°18'20\"E", "distance": w, "desc": f"Lot {num} Frontage on Bayou"})
+            idx += 1
+        lines.append({"tag": f"L{idx}", "bearing": "N00°41'40\"W", "distance": 100.00, "desc": "Lot 17 East Line on Matchline"})
+        idx += 1
+        for num, w in [("15", 93.25), ("16", 75.00), ("17", 75.00)]:
+            lines.append({"tag": f"L{idx}", "bearing": "S89°18'20\"W", "distance": w, "desc": f"Lot {num}/{'14' if num=='15' else ('13' if num=='16' else '12')} Dividing Line"})
+            idx += 1
+        lines.append({"tag": f"L{idx}", "bearing": "S01°01'40\"E", "distance": 100.00, "desc": "Lot 14 West Line on Drainage R/W"})
+        idx += 1
+        for num, w in [("14", 92.67), ("13", 75.00), ("12", 75.00)]:
+            lines.append({"tag": f"L{idx}", "bearing": "N89°18'20\"E", "distance": w, "desc": f"Lot {num} Frontage on Surfwood Ave"})
+            idx += 1
+        lines.append({"tag": f"L{idx}", "bearing": "N00°41'40\"W", "distance": 100.00, "desc": "Lot 12 East Line on Matchline"})
+        return lines
+
+    def generate_report(self, filepath: str = "data/block11_mapcheck_report.txt") -> str:
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        results = self.solve_all()
+        with open(filepath, "w") as f:
+            f.write("=" * 80 + "\n")
+            f.write("  BEACHWOOD UNIT TWO -- BLOCK 11 (WEST OF MATCHLINE) SURVEY MAPCHECK REPORT\n")
+            f.write("  Plat Book 30, Page 82, Public Records of Duval County, Florida\n")
+            f.write("  Pure Algorithmic Cadastral COGO Engine Output (Offline / Deterministic)\n")
+            f.write("=" * 80 + "\n\n")
+
+            f.write("=" * 80 + "\n")
+            f.write("  MATCHLINE & SKEW NOTES\n")
+            f.write("=" * 80 + "\n")
+            f.write("  Matchline Bearing: N00°41'40\"W, Length = 200.00 ft (Lots 17 & 12 East Lines)\n")
+            f.write("  East of this line is Beachwood Unit One (P.B. 29-29/29A/29B/29C) --\n")
+            f.write("  drafted for reference only, no bearings/distances on this sheet.\n")
+            f.write("  Lots 15/14 West Line follows the drainage R/W bearing S01°01'40\"E\n")
+            f.write("  (not perpendicular to Bayou/Surfwood), producing the 0°20'00\" skew:\n")
+            f.write("  Bayou 243.83' -> mid-line 243.25' -> Surfwood 242.67' (each -0.58').\n\n")
+
+            f.write("=" * 80 + "\n")
+            f.write("  LINE TABLE (BLOCK 11)\n")
+            f.write("=" * 80 + "\n")
+            f.write(f"{'Tag':<5} | {'Bearing':<14} | {'Distance (ft)':<14} | {'Description'}\n")
+            f.write("-" * 80 + "\n")
+            for lt in self.get_line_table_data():
+                f.write(f"{lt['tag']:<5} | {lt['bearing']:<14} | {lt['distance']:<14.2f} | {lt['desc']}\n")
+            f.write("\n")
+
+            f.write("=" * 80 + "\n")
+            f.write("  INDIVIDUAL LOT MAPCHECK SURVEYOR SHEETS (6 LOTS)\n")
+            f.write("=" * 80 + "\n\n")
+            for lot_num in ["15", "16", "17", "14", "13", "12"]:
+                res = results[lot_num]
+                f.write(res.format_surveyor_sheet() + "\n\n")
+
+        return filepath
+
+
+# ==============================================================================
+# 10. BLOCK 12 DETERMINISTIC COGO SOLVER PIPELINE (7 LOTS, WEST OF MATCHLINE)
+# ==============================================================================
+
+class InsufficientPlatDataError(Exception):
+    """Raised when a lot's boundary cannot be closed from what is legibly
+    stated on the plat sheet, and needs a field check or clearer print
+    before it can be certified -- see BeachwoodBlock12Solver's docstring."""
+
+
+class BeachwoodBlock12Solver:
+    """
+    Deterministic solver for Block 12, Beachwood Unit Two (the only part of
+    Block 12 within this plat -- the dashed-outline "(12)" parcels drawn near
+    San Salvadore Road/Unit One belong to the adjoining Beachwood Unit One and
+    carry no bearings/distances on this sheet).
+    Plat Book 30, Page 82, Duval County, FL.
+
+    Lots 4, 5, 6, 7 (WEST OF MATCHLINE, CERTIFIED):
+    Straight-sided lots stacked along the 50' drainage/utility R/W (the same
+    alignment as Mangrove Ave in Blocks 13/11/10). Each is closed from
+    exactly the sides legibly stated on the plat, with the one remaining
+    side computed by closure (a normal, expected condition -- a
+    quadrilateral only needs 3 independent sides + closure, not 4 printed
+    ones, and every computed 4th side here reproduces its neighbor's
+    independently-stated dimension to within 0.01', confirming the reading):
+      - Lot 7: West 75.00' (R/W, S01°01'40"E), North 100.00' (shared w/
+        Lot 8, N88°58'20"E), South 120.00' (shared w/ Lot 6, N88°58'20"E).
+        East side (shared w/ Lot 8/9 curve transition) computed at 77.62'.
+      - Lot 6: West 71.27' (R/W), North 120.00' (= Lot 7 south),
+        South 120.52' (shared w/ Lot 5). East computed at 71.27' (matches
+        west exactly).
+      - Lot 5: West 90.00' (R/W), North 120.52' (= Lot 6 south), South
+        120.00' (Bayou frontage, N89°18'20"E). East computed at 90.70' --
+        matches Lot 4's independently-stated west side (90.69') to 0.01'.
+      - Lot 4: West 90.69' (shared w/ Lot 5, standard perpendicular divider
+        N00°41'40"W), South 94.20' (Bayou frontage), East 102.20'
+        (matchline, N00°41'40"W). North side (shared w/ Lot 6's curve-side
+        jog) computed at 94.90' -- not independently stated, not needed.
+
+    Lots 8, 9, 10 (FLAGGED -- NOT CERTIFIED, see Rule 3 below):
+    These lots front the San Salvadore Avenue curve transition (centerline
+    curve data on the plat: R=269.96', Delta=36°20'00", T=88.59' -- the
+    same curve documented for Block 9's Lots 23-26 in
+    data/block9_mapcheck_report.txt) via a multi-segment jog off Lot 6/7's
+    east side. The plat prints several short courses in that jog (e.g.
+    "25.82'", "N19°06'16"E", "60.34'", "S56°34'xx"E") that this reading
+    could not transcribe with certifiable confidence -- some of that text is
+    an easement annotation ("Esm't") rather than a boundary line, and the
+    remaining figures are small enough on the scan that a misread digit
+    would silently produce a legally wrong corner. Rather than guess, this
+    solver only fixes the ONE corner that IS unambiguous (Lot 8's SW corner,
+    shared with Lot 7's already-certified NE corner) and leaves Lots 8, 9,
+    10 OUT of self.lots. See BeachwoodBlock12Solver.flagged_points for the
+    corner(s) recovered by straight-line intersection instead of a direct
+    plat reading, and MASTER_PROMPT.md / the drawing script for how these
+    are marked in red on the CAD output -- exactly the "not enough
+    information, compute the intersection, mark it in red" workflow this
+    was built for.
+    """
+    def __init__(self, origin: Point | None = None):
+        self.brg_div = "N88°58'20\"E"     # interior divider (Lots 4-7, matches Block 13's convention)
+        self.brg_west = "S01°01'40\"E"    # 50' drainage/utility R/W (west side of Lots 5, 6, 7)
+        self.brg_bayou = "N89°18'20\"E"   # Bayou frontage (Lot 4 south, Lot 5 south)
+        self.brg_side = "N00°41'40\"W"    # standard perpendicular divider (Lot 4/5, matchline)
+
+        self.az_div = parse_bearing(self.brg_div)
+        self.az_west = parse_bearing(self.brg_west)
+        self.az_bayou = parse_bearing(self.brg_bayou)
+        self.az_side = parse_bearing(self.brg_side)
+
+        self.origin = origin or Point(1000.0, 1000.0)
+        self.points: dict[str, Point] = {}
+        self.flagged_points: dict[str, dict[str, Any]] = {}
+        self.lots: dict[str, DeterministicLotSolver] = {}
+        self._solve_geometry()
+
+    def _solve_geometry(self):
+        # Anchor: NW corner of Lot 7, on the 50' drainage/utility R/W.
+        p7_nw = self.origin
+        p7_ne = p7_nw.offset(self.az_div, 100.00)
+        p7_sw = p7_nw.offset(self.az_west, 75.0)
+        p7_se = p7_sw.offset(self.az_div, 120.00)
+
+        p6_nw, p6_ne = p7_sw, p7_se
+        p6_sw = p6_nw.offset(self.az_west, 71.27)
+        p6_se = p6_sw.offset(self.az_div, 120.52)
+
+        p5_nw, p5_ne = p6_sw, p6_se
+        p5_sw = p5_nw.offset(self.az_west, 90.0)
+        p5_se = p5_sw.offset(self.az_bayou, 120.0)
+
+        p4_sw = p5_se
+        p4_nw = p4_sw.offset(self.az_side, 90.69)
+        p4_se = p4_sw.offset(self.az_bayou, 94.20)
+        p4_ne = p4_se.offset(self.az_side, 102.20)
+
+        self.points = {
+            "p7_nw": p7_nw, "p7_ne": p7_ne, "p7_se": p7_se, "p7_sw": p7_sw,
+            "p6_nw": p6_nw, "p6_ne": p6_ne, "p6_se": p6_se, "p6_sw": p6_sw,
+            "p5_nw": p5_nw, "p5_ne": p5_ne, "p5_se": p5_se, "p5_sw": p5_sw,
+            "p4_nw": p4_nw, "p4_ne": p4_ne, "p4_se": p4_se, "p4_sw": p4_sw,
+        }
+
+        for num in ["7", "6", "5", "4"]:
+            nw, ne, se, sw = (self.points[f"p{num}_nw"], self.points[f"p{num}_ne"],
+                              self.points[f"p{num}_se"], self.points[f"p{num}_sw"])
+            self.lots[num] = DeterministicLotSolver(
+                lot_id=f"Blk12-Lot{num}", block_id="12", lot_number=num,
+                vertices=[sw, nw, ne, se],
+                node_names=["SW_Cor", "NW_Cor", "NE_Cor", "SE_Cor"],
+                stated_area_sqft=1.0,
+            )
+        for lot in self.lots.values():
+            res = lot.compute_mapcheck()
+            lot.stated_area_sqft = round(res.computed_area_sqft, 2)
+
+        # --- Lots 8, 9, 10: flagged, not certified -- see class docstring. ---
+        # The ONE corner this reading can defend outright: Lot 8's SW corner
+        # is simply Lot 7's already-certified NE corner (both ends of the
+        # plat-stated 100.00' N88°58'20"E line) -- no intersection needed.
+        p8_sw = p7_ne
+        self.points["p8_sw"] = p8_sw
+
+        # The matchline IS legible end to end: it runs N00°41'40"W 102.20'
+        # up from Lot 4's NE corner (already fixed above) to a bend point,
+        # then N35°18'20"E 120.00' further up to the P.R.M. at San Salvadore
+        # Ave -- both segments explicitly labeled on the plat. What is NOT
+        # legible is how Lots 8/9/10's own interior dividers step across
+        # from the Lot 6/7 R/W frontage out to that matchline (the plat
+        # prints several short, faint jog courses there this reading could
+        # not certify). Intersecting Lot 7/8's *known* north divider
+        # (N88°58'20"E, extended east) against the *known* matchline gives a
+        # first-pass estimate for Lot 8's NE corner -- a real surveyor's
+        # technique for closing a gap in the record, but only an estimate,
+        # since the true boundary may jog before reaching that line.
+        p_bend = p4_ne  # matchline bend point, already fixed via Lot 4's east side
+        az_matchline_upper = parse_bearing("N35°18'20\"E")
+        p_prm = p_bend.offset(az_matchline_upper, 120.00)
+        try:
+            p8_ne_flag = intersect_bearings(p8_sw, self.az_div, p_bend, az_matchline_upper)
+            self.points["p_matchline_bend"] = p_bend
+            self.points["p_prm_san_salvadore"] = p_prm
+            self.flagged_points["Lot8_NE_approx"] = {
+                "point": p8_ne_flag,
+                "method": (
+                    "intersect_bearings(Lot 7/8 north divider N88°58'20\"E extended "
+                    "east from the certified Lot 7 NE corner, against the matchline "
+                    "N35°18'20\"E through the bend point above Lot 4)"
+                ),
+                "reason": (
+                    "Lots 8, 9, 10 front the San Salvadore Ave curve transition through "
+                    "several short jog courses this reading could not transcribe with "
+                    "certifiable confidence from the scan. This point is a first-pass "
+                    "intersection estimate for Lot 8's NE corner, NOT a substitute for "
+                    "reading the actual plat courses -- draw in red, verify against the "
+                    "recorded plat or field notes before relying on it."
+                ),
+            }
+        except ValueError:
+            pass
+
+    def solve_all(self) -> dict[str, LotMapCheckResult]:
+        return {num: lot.compute_mapcheck() for num, lot in self.lots.items()}
+
+    def get_line_table_data(self) -> list[dict[str, Any]]:
+        lines = []
+        idx = 1
+        lines.append({"tag": f"L{idx}", "bearing": "N88°58'20\"E", "distance": 100.00, "desc": "Lot 7/8 Dividing Line"})
+        idx += 1
+        lines.append({"tag": f"L{idx}", "bearing": "S01°01'40\"E", "distance": 75.00, "desc": "Lot 7 West Line on Drainage R/W"})
+        idx += 1
+        lines.append({"tag": f"L{idx}", "bearing": "N88°58'20\"E", "distance": 120.00, "desc": "Lot 6/7 Dividing Line"})
+        idx += 1
+        lines.append({"tag": f"L{idx}", "bearing": "S01°01'40\"E", "distance": 71.27, "desc": "Lot 6 West Line on Drainage R/W"})
+        idx += 1
+        lines.append({"tag": f"L{idx}", "bearing": "N88°58'20\"E", "distance": 120.52, "desc": "Lot 5/6 Dividing Line"})
+        idx += 1
+        lines.append({"tag": f"L{idx}", "bearing": "S01°01'40\"E", "distance": 90.00, "desc": "Lot 5 West Line on Drainage R/W"})
+        idx += 1
+        lines.append({"tag": f"L{idx}", "bearing": "N89°18'20\"E", "distance": 120.00, "desc": "Lot 5 Frontage on Bayou"})
+        idx += 1
+        lines.append({"tag": f"L{idx}", "bearing": "N00°41'40\"W", "distance": 90.69, "desc": "Lot 4/5 Dividing Line"})
+        idx += 1
+        lines.append({"tag": f"L{idx}", "bearing": "N89°18'20\"E", "distance": 94.20, "desc": "Lot 4 Frontage on Bayou"})
+        idx += 1
+        lines.append({"tag": f"L{idx}", "bearing": "N00°41'40\"W", "distance": 102.20, "desc": "Lot 4 East Line on Matchline"})
+        return lines
+
+    def generate_report(self, filepath: str = "data/block12_mapcheck_report.txt") -> str:
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        results = self.solve_all()
+        with open(filepath, "w") as f:
+            f.write("=" * 80 + "\n")
+            f.write("  BEACHWOOD UNIT TWO -- BLOCK 12 (WEST OF MATCHLINE) SURVEY MAPCHECK REPORT\n")
+            f.write("  Plat Book 30, Page 82, Public Records of Duval County, Florida\n")
+            f.write("  Pure Algorithmic Cadastral COGO Engine Output (Offline / Deterministic)\n")
+            f.write("=" * 80 + "\n\n")
+
+            f.write("=" * 80 + "\n")
+            f.write("  RULE 3: FLAGGED LOTS -- INSUFFICIENT LEGIBLE PLAT DATA\n")
+            f.write("=" * 80 + "\n")
+            f.write("  Lots 8, 9, and 10 are NOT included in this certification. They front\n")
+            f.write("  the San Salvadore Ave curve transition (R=269.96', Delta=36°20'00',\n")
+            f.write("  same curve as Block 9's Lots 23-26) through several short jog courses\n")
+            f.write("  this reading could not transcribe with confidence from the scan.\n")
+            f.write("  See BeachwoodBlock12Solver.flagged_points for the one approximate\n")
+            f.write("  corner recovered by line intersection (drawn in red on the CAD\n")
+            f.write("  output) -- NOT a certified boundary. Field verification or a clearer\n")
+            f.write("  print of Plat Book 30, Page 82 is needed before Lots 8-10 can be\n")
+            f.write("  certified the same way Lots 4-7 are below.\n\n")
+            for name, info in self.flagged_points.items():
+                p = info["point"]
+                f.write(f"  {name}: N={p.n:.2f}, E={p.e:.2f} (approximate)\n")
+                f.write(f"    Method: {info['method']}\n")
+                f.write(f"    Reason: {info['reason']}\n\n")
+
+            f.write("=" * 80 + "\n")
+            f.write("  LINE TABLE (BLOCK 12, LOTS 4-7)\n")
+            f.write("=" * 80 + "\n")
+            f.write(f"{'Tag':<5} | {'Bearing':<14} | {'Distance (ft)':<14} | {'Description'}\n")
+            f.write("-" * 80 + "\n")
+            for lt in self.get_line_table_data():
+                f.write(f"{lt['tag']:<5} | {lt['bearing']:<14} | {lt['distance']:<14.2f} | {lt['desc']}\n")
+            f.write("\n")
+
+            f.write("=" * 80 + "\n")
+            f.write("  INDIVIDUAL LOT MAPCHECK SURVEYOR SHEETS (4 CERTIFIED LOTS)\n")
+            f.write("=" * 80 + "\n\n")
+            for lot_num in ["7", "6", "5", "4"]:
+                res = results[lot_num]
+                f.write(res.format_surveyor_sheet() + "\n\n")
+
+        return filepath
+

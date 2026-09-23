@@ -32,6 +32,7 @@ from engine.cogo import Point, parse_bearing
 from engine.cogo_block import BeachwoodBlock16Solver
 from engine.dxf_writer import DXFWriter
 from engine.lotsheets import PAGE_H, PAGE_W, draw_lot_sheet
+from engine.notes_audit import audit_solver_curves, print_audit_report
 
 
 def build_and_draw_block16():
@@ -43,6 +44,12 @@ def build_and_draw_block16():
     solver = BeachwoodBlock16Solver()
     results = solver.solve_all()
     pts = solver.points
+
+    # Notes/geometry audit -- see .claude/skills/review-plat-notes. Unlike
+    # Block 13's script, this one draws straight from `solver.lots` with no
+    # separate duplicated agent construction, so a single solver-level
+    # audit covers everything this script actually renders.
+    print_audit_report(audit_solver_curves(solver), header="BLOCK 16 SOLVER CURVE AUDIT")
 
     lot_order = ["1", "2", "3", "4", "5", "6", "7", "8", "33", "32", "31", "30", "29", "28"]
 
