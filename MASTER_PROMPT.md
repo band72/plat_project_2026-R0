@@ -52,6 +52,11 @@ every time a new plat teaches us something the code didn't already handle.
    $$\text{Length}_{\text{line to P.C.}} = \text{Dimension}_{\text{stated to P.I.}} - T$$
 4. **Fillet Area Adjustment**: Compute net parcel area by subtracting the circular corner fillet area ($A_{\text{fillet}} = R \cdot T - \frac{1}{2} R^2 \Delta_{\text{rad}}$) from the gross rectangular bounding area.
 
+### Rule 3: Continuous Cadastral Learning & Iterative Drawing Reiteration (Code First, Re-draw Always)
+1. **Immediate Code Codification**: Anytime a new geometric principle, surveyor glyph, skew deflection, or plat drafting nuance is learned, immediately codify it into the core coordinate geometry engine (`engine/`).
+2. **Reiterate the Drawing**: Immediately after updating the engine, re-execute the CAD drawing pipeline (`scripts/draw_*.py`) and regenerate DXF / graphic artifacts. Verify that the visual drawing, curve tables, line tables, and checksheets visually reflect the updated code.
+3. **No Stale Geometry**: Visual drawings, reports, checksheets, and DXF models must always remain strictly synchronized with the latest engine state.
+
 ## Per-plat rules / gotchas log
 
 ### 2026-09-09 — Trail Ridge Estates, PB 82 Pg 35-40, Clay Co. FL
@@ -1642,3 +1647,67 @@ Discovered and codified the universal survey drafting rule for block corner retu
      - Updated `compute_user_mapchecks.py` and `draw_user_mapchecks.py` with `solve_corner_curve()`.
      - Rendered P.I. angle bar glyphs `┌`, `┐`, `┘`, `└`, dashed tangent lines T, and radial rays R=25.00' across DXF and PNG artifacts.
      - 100% mathematical closure verified: all misclose vectors <= 0.0000 ft, relative precision EXACT.
+
+## Iter 42 — BLOCK 13 BEACHWOOD UNIT TWO: SKEWED STREET DEFLECTIONS, TANGENTS & REAR LINE TRIGONOMETRY
+Trained and solved Block 13 (Beachwood Unit Two, PB 30, Pages 82 & 82A, Duval County, FL) for all 11 lots (Lots 1–11):
+  1. **Non-Orthogonal Street Skew Geometry (Surfwood Avenue)**:
+     - Frontage: Mangrove Avenue (60' R/W) bearing S 01°01'40" E.
+     - South Cross Street: Surfwood Avenue (60' R/W) bearing N 89°18'20" E.
+     - Standard lot side line: N 88°58'20" E.
+     - Street Skew Deflection: |89°18'20" - 88°58'20"| = 0°20'00" (0.333333°).
+  2. **Lot 11 SE Corner Return & Tangent Cutback**:
+     - Central turn Delta = |269°18'20" - 178°58'20"| = 90°20'00".
+     - Tangent T = R * tan(Delta / 2) = 25.0 * tan(45°10'00") = 25.1459'.
+     - Mangrove Ave cutback: 100.00' - 25.1459' = 74.8541' straight line to P.C.
+     - Surfwood Ave cutback: 100.00' - 25.1459' = 74.8541' straight line to P.T.
+     - Fillet Area: R * T - 0.5 * R^2 * Delta_rad = 135.95 SF. Net Area = 9,835.14 SF.
+  3. **Analytical Rear Line Skew Formula**:
+     - Stated rear line dimension 99.42' derived trigonometrically:
+       Rear = Front - Depth * tan(skew_angle) = 100.00 - 100.00 * tan(0°20'00") = 99.4182' -> 99.42'.
+     - Frontage cumulative sum: 100.00' (Lot 1) + 8 * 77.25' (Lots 2–9) + 76.92' (Lot 10) + 100.00' (Lot 11) = 894.92'.
+     - Rear cumulative sum: 894.34' (difference = 0.58' exact).
+  4. **MapCheck & DXF Verification**:
+     - 11/11 lots closed with 0.00000 ft linear misclose (EXACT).
+     - Generated `dxf/PB0030_P0082_Block13_MapCheck.dxf` and `dxf/PB0030_P0082_Block13_CheckSheets.dxf`.
+
+## Iter 43 — CONTINUOUS CADASTRAL LEARNING & CODE-DRAWING REITERATION LOOP
+Codified the user operational directive into core workflow and engine:
+  1. **Continuous Code Updating**:
+     - Whenever a geometric principle or plat nuance is learned, immediately add analytical functions to `engine/cogo_block.py` (`solve_skew_angle`, `solve_skewed_lot_rear_dimension`).
+     - Integrate new methods directly into solver classes (`BeachwoodBlock13Solver`).
+     - Expand automated test suites (`test_block13_cogo.py`) to verify newly codified logic.
+  2. **Iterative Drawing Reiteration**:
+     - Re-execute CAD drawing scripts (`scripts/draw_block13_mapcheck.py`) upon code updates.
+     - Regenerate all visual plots and DXF checksheets so the visual artifact continuously mirrors the live code.
+
+## Iter 44 — BLOCK 16 BEACHWOOD UNIT TWO: WEST CURVILINEAR TRANSITION PANEL & WEDGE LOT GEOMETRY
+Trained and solved Block 16 (Beachwood Unit Two, PB 30, Pages 82 & 82A, Duval County, FL) across all 14 lots (Lots 1–8 North, Lots 33–28 South):
+  1. **Block Axis Balance & Centerline Alignment**:
+     - Block centerline extends along N 87°35'30" E for 618.50 ft.
+     - North Row Frontage: Lot 1 (93.50') + Lots 2–8 (7 x 75.00' = 525.00') = 618.50' exact.
+     - South Row Rear Line: Lot 33 (93.50') + Lot 32 (89.76') + Lot 31 (110.00') + Lot 30 (110.00') + Lot 29 (0.00' apex) + Lot 28 (110.00') + Lot 27 partial (105.24') = 618.50' exact balance.
+  2. **Marina Avenue Subdivided Curvilinear Frontage**:
+     - Total Curve: R = 389.27', Delta = 37°42'50" (37.713889°), Tangent T = 133.04', Arc = 256.34'.
+     - Subdivided evenly across Lots 31, 30, and 29: Delta_sub = 12°34'17" (12.571296°) per lot.
+     - Each lot has identical chord length 85.24' at chord bearings:
+       * Lot 31: S 86°07'22" E (Delta = 12°34'17")
+       * Lot 30: S 73°33'06" E (Delta = 12°34'17")
+       * Lot 29: S 60°58'49" E (Delta = 12°34'17")
+  3. **Wedge Lot 29 & Tangent-to-Tangent SE Corner Return**:
+     - Single-point centerline apex convergence at coordinate x = 403.26' (E = 1402.89, N = 1016.94).
+     - West line: S 19°20'32" W 147.37'; East line: S 35°01'42" E 166.73'.
+     - Marina Ave P.T. tangent-out is S 54°41'40" E (azimuth 125.3056°).
+     - Keel Drive P.C. tangent-in is N 35°18'20" E (azimuth 35.3056°).
+     - Deflection turn: |125.3056° - 35.3056°| = 90°00'00" exact.
+     - Corner return Curve C6 (Angle bar '┘'): R = 25.0', T = 25.00', Arc = 39.27', Chord = 35.36' @ N 35°18'20" E.
+     - Straight course from return P.T. to Lot 29/28 corner: 51.68' @ N 42°48'20" E.
+  4. **Corner Returns & P.I. Angle Bar Glyphs**:
+     - Lot 1 NW: Angle bar '┌', R = 25.0', T = 25.00', Delta = 90°00'00" (Sail Ave & West St).
+     - Lot 33 SW: Angle bar '└', R = 25.0', T = 25.00', Delta = 90°00'00" (South St & West St).
+     - Lot 29 SE: Angle bar '┘', R = 25.0', T = 25.00', Delta = 90°00'00" (Marina Ave PT to Keel Dr).
+  5. **MapCheck & CAD Deliverables**:
+     - 14/14 lots closed with 0.00000 ft linear misclosure (EXACT), 100% F.A.C. 5J-17 compliance.
+     - Master CAD: `dxf/PB0030_P0082_Block16_MapCheck.dxf` (Status: PASS).
+     - CheckSheets Grid: `dxf/PB0030_P0082_Block16_CheckSheets.dxf` (Status: PASS).
+     - Visual Cadastral Drawing: `images/block16_mapcheck_drawing.png` with embedded Curve Table (C1-C7) and Line Table (L1-L16).
+
