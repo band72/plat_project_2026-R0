@@ -270,12 +270,14 @@ Per standard municipal surveying and civil engineering practice, **road centerli
 - **Engineering Datum**: These baseline polylines serve as the primary reference lines for stationing, horizontal curve geometry, storm/sewer utility corridors, and right-of-way setbacks.
 
 ### Major Reference Baselines
-1. **Mangrove Avenue Alignment** (`ALIGN_MANGROVE_AVE`): Extends from Section 32 North Line across Starfish Ave, Sail Ave, South St, deflection point ($1^\circ 22' 50"$), Shellfish Dr, Surfwood Ave, Bayou Ave, to Course 5 (Length $> 1200'$).
-2. **Starfish Avenue Alignment** (`ALIGN_STARFISH_AVENUE`): Continuous east-west spine connecting Course 1 West Boundary to Beachwood Blvd East Arterial Boundary (Length $> 1400'$).
-3. **Sail Avenue Alignment** (`ALIGN_SAIL_AVENUE`): Continuous east-west spine connecting Course 1 to Beachwood Blvd (Length $> 1400'$).
-4. **South Street & Marina Avenue Alignment** (`ALIGN_SOUTH_MARINA`): Composite linear-curvilinear baseline integrating South St straight tangent, Marina Ave curve ($R=419.27'$), and outgoing tangent to Keel Drive.
-5. **Surfwood Avenue Alignment** (`ALIGN_SURFWOOD_AVENUE`): Connects Course 2 West Boundary across Mangrove Ave to Unit One matchline (Course 6).
-6. **Beachwood Boulevard Northeast Arterial Alignment** (`ALIGN_BEACHWOOD_BLVD`): Arterial corridor running along Course 26 ($1247.95'$), intersecting Starfish Ave, Sail Ave, Shellfish Dr, and Keel Dr.
+1. **Mangrove Avenue Alignment** (`ALIGN_MANGROVE_AVE`): Extends from Section 32 North Line across Starfish Ave, Sail Ave, South St, deflection point ($1^\circ 22' 50"$), Shellfish Dr, Surfwood Ave, Bayou Ave, to Course 5 (Length $= 2,232.74'$, STA $0+00.00 \to 22+32.74$).
+2. **Starfish Avenue Alignment** (`ALIGN_STARFISH_AVENUE`): Continuous east-west spine connecting Course 1 West Boundary to Beachwood Blvd East Arterial Boundary (Length $= 1,633.50'$, STA $0+00.00 \to 16+33.50$).
+3. **Sail Avenue Alignment** (`ALIGN_SAIL_AVENUE`): Continuous east-west spine connecting Course 1 to Beachwood Blvd (Length $= 1,633.50'$, STA $0+00.00 \to 16+33.50$).
+4. **South Street & Marina Avenue Alignment** (`ALIGN_SOUTH_MARINA`): Composite linear-curvilinear baseline integrating South St straight tangent, Marina Ave curve ($R=419.27'$), and outgoing tangent to Keel Drive (Length $= 924.24'$, STA $0+00.00 \to 9+24.24$).
+5. **Surfwood Avenue Alignment** (`ALIGN_SURFWOOD_AVENUE`): Connects Course 2 West Boundary across Mangrove Ave to Unit One matchline (Course 6, Length $= 624.60'$, STA $0+00.00 \to 6+24.60$).
+6. **Shellfish Drive Alignment** (`ALIGN_SHELLFISH_DRIVE`): Connects Course 2 West Boundary across Mangrove Ave to Keel Drive diagonal tie (Length $= 831.49'$, STA $0+00.00 \to 8+31.49$).
+7. **Beachwood Boulevard Northeast Arterial Alignment** (`ALIGN_BEACHWOOD_BLVD`): Arterial corridor running along Course 26 ($1247.95'$), intersecting Starfish Ave, Sail Ave, and Sands Ave junction (Length $= 868.79'$, STA $0+00.00 \to 8+68.79$).
+8. **Keel Drive Alignment** (`ALIGN_KEEL_DRIVE`): Southwest access corridor from cul-de-sac turnaround bulb through Curve C14 ($R=143.93'$) to Marina Avenue (Length $= 403.34'$, STA $0+00.00 \to 4+03.34$).
 
 ---
 
