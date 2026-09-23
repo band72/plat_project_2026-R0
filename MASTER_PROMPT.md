@@ -1857,3 +1857,17 @@ boundary geometry of the Keel Drive open-ended residential cul-de-sac:
   3. **Verification**:
      - Added test_culdesac_analytical_geometry_and_fillets() in test_beachwood_road_centerlines.py (19/19 passing).
      - Full repository test suite: 95/95 tests passing in 13.9s.
+
+## Iter 51 — DUAL-EDGE RIGHT-OF-WAY CURVE BOUNDARIES & DXF CORRIDOR HARMONIZATION
+Executed Iteration 3 of the 10-minute recurring refinement cadence, harmonizing curved right-of-way corridor edges:
+  1. **Dual-Edge Right-of-Way Curves (Inner & Outer)**:
+     - Exported inner and outer right-of-way curve boundaries for all 6 curves on layer C-ROAD-ROW-EDGE.
+     - Inner/outer radii match stated plat curve tables (e.g. Marina Ave R_inner = 389.27', R_outer = 449.27';
+       San Salvadore R_inner = 269.96', R_outer = 329.96'; Beachwood Blvd R_inner = 1909.86', R_outer = 2009.86').
+     - Polylines in DXF increased to exactly 19 (1 parent boundary + 6 centerlines + 12 R/W edges) with 0 false noise circles.
+  2. **Technical Report & Visualization**:
+     - Expanded ASCII report with comprehensive cul-de-sac throat metrics and curve right-of-way boundaries.
+     - Enhanced dark-mode visual plates with continuous right-of-way corridor edge linework.
+  3. **Verification**:
+     - Updated test_cad_dxf_export_and_audit() to assert exact 120 lines and 19 polylines.
+     - Full test suite: 95/95 tests passing in 14.4s.

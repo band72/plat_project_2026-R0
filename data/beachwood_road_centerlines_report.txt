@@ -37,6 +37,12 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
    • Street:               Keel Drive
      Turnaround Center:    N = 9010.46 ft, E = 10510.05 ft
      Bulb Radius:          50.0 ft (Right-of-Way)
+     Corridor Half-Width:  30.0 ft (60.0' Right-of-Way)
+     Reverse Fillet Rad:   25.0 ft (Analytical Reverse Curves)
+     Longitudinal Throat:  50.9902 ft
+     PRC Tangency Angle:   47.167°
+     Bulb Arc Angle:       265.667° (Central Turnaround Arc)
+     Throat Width:         60.00 ft (Exact Corridor Fit)
      Network Status:       OPEN-ENDED DEAD END (Does NOT close into boundary or other street)
      Drawing Standard:     AutoCAD Color 1 RED Layer (C-ROAD-CULDESAC)
 

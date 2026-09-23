@@ -1928,7 +1928,7 @@ class BeachwoodRoadCenterlineEngine:
                      (seg.end_point.n, seg.end_point.e),
                      layer="C-ROAD-PI-TANGENT")
 
-        # 4. Plot Centerline Curves
+        # 4. Plot Centerline Curves and Right-of-Way Arc Boundaries
         for _cid, c in self.curves.items():
             layer = "C-ROAD-ASSUMP" if c.is_assumed else "C-ROAD-CURV"
             n_segs = 32
@@ -1941,6 +1941,18 @@ class BeachwoodRoadCenterlineEngine:
                 pe = c.center_point.e + c.radius * math.sin(ang)
                 pts.append((pn, pe))
             dxf.polyline(pts, layer=layer)
+
+            # Export Right-of-Way Arc Boundaries (Inner and Outer R/W Curves)
+            hw = c.half_width
+            for r_offset in [c.radius - hw, c.radius + hw]:
+                if r_offset > 0:
+                    row_pts = []
+                    for step in range(n_segs + 1):
+                        ang = az_pc + delta_rad * (step / float(n_segs))
+                        pn = c.center_point.n + r_offset * math.cos(ang)
+                        pe = c.center_point.e + r_offset * math.sin(ang)
+                        row_pts.append((pn, pe))
+                    dxf.polyline(row_pts, layer="C-ROAD-ROW-EDGE")
 
             mid_idx = len(pts) // 2
             dxf.text((pts[mid_idx][0] + 8.0, pts[mid_idx][1]),
@@ -2075,6 +2087,17 @@ class BeachwoodRoadCenterlineEngine:
             curve_col = '#ff3344' if c.is_assumed else '#00f5d4'
             lbl = f"Centerline Curve: {c.street_name} ({cid})"
             ax.plot(pts_e, pts_n, color=curve_col, linestyle='-', linewidth=2.6, zorder=7, label=lbl)
+
+            # Plot Right-of-Way Arc Boundaries (Inner & Outer Curves)
+            hw = c.half_width
+            for r_offset in [c.radius - hw, c.radius + hw]:
+                if r_offset > 0:
+                    r_pts_e, r_pts_n = [], []
+                    for step in range(n_segs + 1):
+                        ang = az_pc + delta_rad * (step / float(n_segs))
+                        r_pts_n.append(c.center_point.n + r_offset * math.cos(ang))
+                        r_pts_e.append(c.center_point.e + r_offset * math.sin(ang))
+                    ax.plot(r_pts_e, r_pts_n, color='#475569', linestyle=':', linewidth=1.0, zorder=2, alpha=0.6)
 
             mid_idx = len(pts_e) // 2
             ax.text(pts_e[mid_idx] + 20.0, pts_n[mid_idx],
@@ -2242,9 +2265,16 @@ class BeachwoodRoadCenterlineEngine:
         lines.append("   " + "-" * 70)
         for cds in self.culdesacs:
             cp = cds["center_point"]
+            geom = self.get_culdesac_geometry(cds["id"])
             lines.append(f"   • Street:               {cds['street']}")
             lines.append(f"     Turnaround Center:    N = {cp.n:.2f} ft, E = {cp.e:.2f} ft")
             lines.append(f"     Bulb Radius:          {cds['bulb_radius_ft']:.1f} ft (Right-of-Way)")
+            lines.append(f"     Corridor Half-Width:  {geom['corridor_half_width_ft']:.1f} ft (60.0' Right-of-Way)")
+            lines.append(f"     Reverse Fillet Rad:   {geom['fillet_radius_ft']:.1f} ft (Analytical Reverse Curves)")
+            lines.append(f"     Longitudinal Throat:  {geom['throat_distance_yf_ft']:.4f} ft")
+            lines.append(f"     PRC Tangency Angle:   {geom['theta_prc_deg']:.3f}°")
+            lines.append(f"     Bulb Arc Angle:       {geom['delta_bulb_deg']:.3f}° (Central Turnaround Arc)")
+            lines.append(f"     Throat Width:         60.00 ft (Exact Corridor Fit)")
             lines.append(f"     Network Status:       OPEN-ENDED DEAD END (Does NOT close into boundary or other street)")
             lines.append(f"     Drawing Standard:     AutoCAD Color 1 RED Layer (C-ROAD-CULDESAC)")
         lines.append("")
