@@ -180,6 +180,11 @@ def test_pi_tangents_rule2_derivation(engine):
         assert pk in engine.intersections
         assert engine.intersections[pk].is_assumed is True
 
+    # Rule 2 analytical formula verification: T = R * tan(Delta / 2)
+    for cid, c in engine.curves.items():
+        t_calc = c.radius * math.tan(math.radians(c.delta_deg / 2.0))
+        assert pytest.approx(c.tangent, abs=0.05) == t_calc
+
 
 def test_visual_centerlines_drawing_generation(engine, tmp_path):
     """Verify that render_cad_centerlines_drawing generates a high-res plate."""
