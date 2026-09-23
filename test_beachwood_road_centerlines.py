@@ -353,6 +353,7 @@ def test_centerline_reference_alignments_preserved(engine):
     assert "SURFWOOD_AVENUE" in alignments
     assert "SHELLFISH_DRIVE" in alignments
     assert "BEACHWOOD_BOULEVARD" in alignments
+    assert "KEEL_DRIVE" in alignments
 
     # Mangrove Avenue primary reference baseline
     mangrove = alignments["MANGROVE_AVENUE"]

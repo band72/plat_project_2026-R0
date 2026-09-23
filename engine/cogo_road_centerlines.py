@@ -1997,6 +1997,15 @@ class BeachwoodRoadCenterlineEngine:
         ]
         alignments["BEACHWOOD_BOULEVARD"] = self._build_alignment("Beachwood Boulevard", blvd_keys)
 
+        # 8. Keel Drive Corridor
+        keel_keys = [
+            ("INT_KEEL_SOUTH_END", "Southwest Terminus / Cul-de-Sac Access"),
+            ("INT_KEEL_PC", "Curve C14 P.C. (R=143.93')"),
+            ("INT_KEEL_PT", "Curve C14 P.T."),
+            ("INT_MARINA_KEEL", "Marina Ave Intersection"),
+        ]
+        alignments["KEEL_DRIVE"] = self._build_alignment("Keel Drive", keel_keys)
+
         return alignments
 
     def export_dxf(self, filepath: str = "dxf/PB0030_P0082_Road_Centerlines.dxf"):

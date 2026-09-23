@@ -269,4 +269,12 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
      3+89.66         389.66' Beachwood Blvd Projected P.I.            (N= 9930.85', E=11457.69')
      8+68.79         868.79' Sands Ave Projected Junction             (N= 9455.15', E=11514.87')
 
+   • Corridor: Keel Drive (Total Length = 403.34 ft)
+     Station        Distance Node / Intersection                      Coordinates
+     --------------------------------------------------------------------------------
+     0+00.00           0.00' Southwest Terminus / Cul-de-Sac Access   (N= 8969.13', E=10480.78')
+     1+20.64         120.64' Curve C14 P.C. (R=143.93')               (N= 9067.59', E=10550.50')
+     2+47.48         247.48' Curve C14 P.T.                           (N= 9128.21', E=10661.91')
+     4+03.34         403.34' Marina Ave Intersection                  (N= 9279.24', E=10700.39')
+
 ================================================================================
