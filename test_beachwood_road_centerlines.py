@@ -374,6 +374,24 @@ def test_centerline_reference_alignments_preserved(engine):
     assert len(marina["polyline_points"]) >= 15
     assert len(marina["stations"]) == 5
 
+    # Shellfish Drive reference baseline
+    shellfish = alignments["SHELLFISH_DRIVE"]
+    assert shellfish["total_length_ft"] > 800.0
+    assert len(shellfish["polyline_points"]) >= 3
+    assert shellfish["stations"][0]["station"] == "0+00.00"
+
+    # Beachwood Boulevard reference baseline
+    blvd = alignments["BEACHWOOD_BOULEVARD"]
+    assert blvd["total_length_ft"] > 800.0
+    assert len(blvd["polyline_points"]) >= 4
+    assert blvd["stations"][0]["station"] == "0+00.00"
+
+    # Keel Drive reference baseline
+    keel = alignments["KEEL_DRIVE"]
+    assert keel["total_length_ft"] > 400.0
+    assert len(keel["polyline_points"]) >= 4
+    assert keel["stations"][0]["station"] == "0+00.00"
+
 
 def test_northeast_corridor_convergence_and_convergence_rate(engine):
     """
