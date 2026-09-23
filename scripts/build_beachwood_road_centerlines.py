@@ -70,11 +70,12 @@ def main():
     print(f"Visual plot generated: {plot_file}")
 
     # 7. Copy deliverables to Brain Artifacts, Downloads, and Plat Artifacts Archive
-    art_dir = '/home/artwalk/.gemini/antigravity-ide/brain/eec2adec-7072-4297-86b9-e81f005f55cf'
+    art_dir = '/home/artwalk/.gemini/antigravity-ide/brain/d7616d1f-70d8-48a8-ab10-a452483aaec2'
     dl_dir = '/home/artwalk/Downloads'
     dl_plat = '/home/artwalk/Downloads/plat_artifacts'
 
     for dest in [art_dir, dl_dir]:
+        os.makedirs(dest, exist_ok=True)
         os.system(f"cp {plot_file} {dest}/beachwood_road_centerlines_drawing.png")
         os.system(f"cp {dxf_file} {dest}/PB0030_P0082_Road_Centerlines.dxf")
         os.system(f"cp {report_file} {dest}/beachwood_road_centerlines_report.txt")

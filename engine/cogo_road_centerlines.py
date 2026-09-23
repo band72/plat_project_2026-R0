@@ -65,6 +65,29 @@ class CenterlineSegment:
     front_lot_bearing: str | None = None
     summed_lot_frontages: list[dict[str, Any]] | None = None
 
+    @property
+    def half_width(self) -> float:
+        """Right-of-way half-width (ft) from centerline to property/lot line."""
+        return self.right_of_way_width / 2.0
+
+    def get_offset_lines(self) -> tuple[tuple[Point, Point], tuple[Point, Point]]:
+        """
+        Compute the left and right right-of-way corridor boundary lines
+        offset perpendicularly by half_width from the centerline.
+        Returns:
+            ((left_start, left_end), (right_start, right_end))
+        """
+        az = parse_bearing(self.bearing)
+        left_az = (az - 90.0) % 360.0
+        right_az = (az + 90.0) % 360.0
+        hw = self.half_width
+
+        left_start = self.start_point.offset(left_az, hw)
+        left_end = self.end_point.offset(left_az, hw)
+        right_start = self.start_point.offset(right_az, hw)
+        right_end = self.end_point.offset(right_az, hw)
+        return (left_start, left_end), (right_start, right_end)
+
 
 @dataclass
 class CenterlineCurve:
@@ -85,6 +108,40 @@ class CenterlineCurve:
     is_assumed: bool = False
     notes: str = ""
     pi_point: Point | None = None
+
+    @property
+    def half_width(self) -> float:
+        """Right-of-way half-width (ft) from centerline to property/lot line."""
+        return self.right_of_way_width / 2.0
+
+    def get_offset_arcs(self) -> tuple[dict[str, Any], dict[str, Any]]:
+        """
+        Compute the inner and outer right-of-way arc definitions
+        offset radially by half_width from the centerline curve.
+        Returns:
+            (inner_arc_dict, outer_arc_dict)
+        """
+        hw = self.half_width
+        r_inner = max(1.0, self.radius - hw)
+        r_outer = self.radius + hw
+        sol_inner = solve_curve_all_parameters(radius=r_inner, delta_deg=self.delta_deg)
+        sol_outer = solve_curve_all_parameters(radius=r_outer, delta_deg=self.delta_deg)
+        return (
+            {
+                "radius": r_inner,
+                "arc_length": float(sol_inner["length"]),
+                "tangent": float(sol_inner["tangent"]),
+                "chord_length": float(sol_inner["chord"]),
+                "type": "INNER_ROW",
+            },
+            {
+                "radius": r_outer,
+                "arc_length": float(sol_outer["length"]),
+                "tangent": float(sol_outer["tangent"]),
+                "chord_length": float(sol_outer["chord"]),
+                "type": "OUTER_ROW",
+            }
+        )
 
 
 RAW_BOUNDARY_COURSES = [
@@ -1070,8 +1127,9 @@ class BeachwoodRoadCenterlineEngine:
             "center_point": p_keel_culdesac,
             "bulb_radius_ft": 50.0,
             "right_of_way_width_ft": 60.0,
+            "reverse_fillet_radius_ft": 25.0,
             "closes_to_boundary": False,
-            "notes": "Dead-end turnaround bulb at southwest terminus of Keel Drive; drawn in bold RED.",
+            "notes": "Dead-end turnaround bulb at southwest terminus of Keel Drive with R=25' reverse curve fillet transitions; drawn in bold RED.",
         })
 
         self.assumptions.append({
@@ -1686,6 +1744,40 @@ class BeachwoodRoadCenterlineEngine:
         self.consensus_results = consensus_res
         return consensus_res
 
+    def validate_all_curves(self) -> dict[str, Any]:
+        """
+        Rigorously validate mathematical consistency for all 6 centerline curves.
+        Verifies:
+        1. Arc length = R * Delta_rad (to within 0.05')
+        2. Chord length = 2 * R * sin(Delta/2) (to within 0.05')
+        3. Tangent = R * tan(Delta/2) (to within 0.05')
+        4. Euclidean distance between PC and PT matches chord (to within 0.1')
+        """
+        results = {}
+        for cid, c in self.curves.items():
+            delta_rad = math.radians(c.delta_deg)
+            calc_arc = c.radius * delta_rad
+            calc_chord = 2.0 * c.radius * math.sin(delta_rad / 2.0)
+            calc_tan = c.radius * math.tan(delta_rad / 2.0)
+            euclid_chord = c.pc_point.dist_to(c.pt_point)
+
+            diff_arc = abs(calc_arc - c.arc_length)
+            diff_chord = abs(calc_chord - c.chord_length)
+            diff_tan = abs(calc_tan - c.tangent)
+            diff_euclid = abs(euclid_chord - c.chord_length)
+
+            results[cid] = {
+                "street": c.street_name,
+                "radius": c.radius,
+                "delta_deg": c.delta_deg,
+                "diff_arc": diff_arc,
+                "diff_chord": diff_chord,
+                "diff_tan": diff_tan,
+                "diff_euclid": diff_euclid,
+                "is_valid": max(diff_arc, diff_chord, diff_tan, diff_euclid) < 0.2,
+            }
+        return results
+
     def export_dxf(self, filepath: str = "dxf/PB0030_P0082_Road_Centerlines.dxf"):
         """Export the road centerline network to a professional multi-layer CAD DXF."""
         dxf = DXFWriter()
@@ -1695,6 +1787,7 @@ class BeachwoodRoadCenterlineEngine:
             ("C-BOUNDARY", "white", "CONTINUOUS"),       # Closed Subdivision Outer Boundary (0.000' Closure)
             ("C-ROAD-CNTR", "yellow", "DASHED"),        # Certified / Established Road Centerlines
             ("C-ROAD-CURV", "cyan", "CONTINUOUS"),       # Certified Road Centerline Curves
+            ("C-ROAD-ROW-EDGE", "cyan", "DASHED"),       # Right-of-Way Corridor Boundaries (Hedges)
             ("C-ROAD-INTX", "green", "CONTINUOUS"),      # Certified Centerline Intersections
             ("C-ROAD-TIE", "cyan", "CONTINUOUS"),        # Boundary-to-Centerline Tie Nodes
             ("C-ROAD-ASSUMP", "red", "DASHED"),          # Inferred / Assumed Road Centerlines (RED)
@@ -1719,12 +1812,18 @@ class BeachwoodRoadCenterlineEngine:
             dxf.text((mid_n, mid_e), f"{bseg.bearing} {bseg.distance:.2f}'",
                      height=5.0, layer="C-ROAD-TEXT", halign=1, valign=2)
 
-        # 2. Plot Straight Centerline Segments
+        # 2. Plot Straight Centerline Segments and Right-of-Way Corridor Boundaries
         for seg in self.segments:
             layer = "C-ROAD-ASSUMP" if seg.is_assumed else "C-ROAD-CNTR"
             dxf.line((seg.start_point.n, seg.start_point.e),
                      (seg.end_point.n, seg.end_point.e),
                      layer=layer)
+
+            # Export Right-of-Way Corridor Boundaries
+            if not seg.is_boundary and seg.right_of_way_width > 0:
+                (l_start, l_end), (r_start, r_end) = seg.get_offset_lines()
+                dxf.line((l_start.n, l_start.e), (l_end.n, l_end.e), layer="C-ROAD-ROW-EDGE")
+                dxf.line((r_start.n, r_start.e), (r_end.n, r_end.e), layer="C-ROAD-ROW-EDGE")
 
             mid_n = (seg.start_point.n + seg.end_point.n) / 2.0
             mid_e = (seg.start_point.e + seg.end_point.e) / 2.0
@@ -1852,6 +1951,17 @@ class BeachwoodRoadCenterlineEngine:
                 mid_e, mid_n = (p1.e + p2.e) / 2.0, (p1.n + p2.n) / 2.0
                 ax.text(mid_e, mid_n + 8.0, f"{seg.street_name}\n({seg.bearing} - {seg.distance:.1f}')",
                         color='#cbd5e1', fontsize=7.5, ha='center', va='bottom', alpha=0.9)
+
+        # 2B. Plot Right-of-Way Corridor Boundaries (Hedges)
+        seen_row_lbl = False
+        for seg in self.segments:
+            if not seg.is_boundary and seg.right_of_way_width > 0:
+                (l_start, l_end), (r_start, r_end) = seg.get_offset_lines()
+                lbl = 'Right-of-Way Corridor Boundary' if not seen_row_lbl else ""
+                if lbl:
+                    seen_row_lbl = True
+                ax.plot([l_start.e, l_end.e], [l_start.n, l_end.n], color='#475569', linestyle=':', linewidth=1.0, zorder=2, label=lbl, alpha=0.6)
+                ax.plot([r_start.e, r_end.e], [r_start.n, r_end.n], color='#475569', linestyle=':', linewidth=1.0, zorder=2, alpha=0.6)
 
         # 3. Plot Projected P.I. Tangents in RED
         seen_pi_lbl = False

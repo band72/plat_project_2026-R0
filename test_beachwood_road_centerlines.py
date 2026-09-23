@@ -265,4 +265,48 @@ def test_edge_row_bearing_hedge_and_lot_frontage_summations(engine):
     assert blvd_seg.front_lot_bearing == "S08°30'00\"E"
 
 
+def test_right_of_way_offset_corridor_boundaries(engine):
+    """Verify offset lines for straight segments and offset arcs for curves."""
+    # 1. Straight segment offset
+    starfish = next(s for s in engine.segments if s.id == "SEG_STARFISH_MAIN")
+    assert starfish.half_width == 30.0
+    (l_start, l_end), (r_start, r_end) = starfish.get_offset_lines()
+    assert pytest.approx(l_start.dist_to(l_end), abs=0.01) == starfish.distance
+    assert pytest.approx(r_start.dist_to(r_end), abs=0.01) == starfish.distance
+    assert pytest.approx(l_start.dist_to(r_start), abs=0.01) == 60.0
+
+    # 2. Arterial 100' R/W segment offset
+    blvd_proj = next(s for s in engine.segments if s.id == "SEG_ASSUMP_BEACHWOOD_S")
+    assert blvd_proj.half_width == 50.0
+    (l_start, l_end), (r_start, r_end) = blvd_proj.get_offset_lines()
+    assert pytest.approx(l_start.dist_to(r_start), abs=0.01) == 100.0
+
+    # 3. Curve offset arcs (San Salvadore: CL R=299.96' -> Inner R=269.96', Outer R=329.96')
+    c_ss = engine.curves["C_SANSALVADORE_CL"]
+    assert c_ss.half_width == 30.0
+    inner_arc, outer_arc = c_ss.get_offset_arcs()
+    assert pytest.approx(inner_arc["radius"], abs=0.01) == 269.96  # Matches stated North R/W curve
+    assert pytest.approx(outer_arc["radius"], abs=0.01) == 329.96
+
+
+def test_validate_all_curves_consistency(engine):
+    """Verify analytical mathematical consistency of all 6 centerline curves."""
+    valid_res = engine.validate_all_curves()
+    assert len(valid_res) == 6
+    for cid, res in valid_res.items():
+        assert res["is_valid"] is True, f"Curve {cid} failed mathematical consistency audit: {res}"
+        assert res["diff_arc"] < 0.1
+        assert res["diff_chord"] < 0.1
+        assert res["diff_tan"] < 0.1
+        assert res["diff_euclid"] < 0.1
+
+
+def test_culdesac_fillet_parameters(engine):
+    """Verify Keel Drive open-ended cul-de-sac includes reverse curve fillet transitions."""
+    cds = engine.culdesacs[0]
+    assert cds["reverse_fillet_radius_ft"] == 25.0
+    assert cds["bulb_radius_ft"] == 50.0
+    assert cds["right_of_way_width_ft"] == 60.0
+
+
 
