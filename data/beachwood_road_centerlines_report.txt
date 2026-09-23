@@ -204,4 +204,54 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
    Rounds Executed:    10
    Param Variance:     0.00e+00
    Certification:      UNANIMOUS CONSENSUS ACHIEVED
+
+10. PERMANENT ENGINEERING PRINCIPLE: CENTERLINE AS REFERENCE BASELINE & STATIONING
+   ----------------------------------------------------------------------
+   RULE: Always preserve the road centerline polyline as an engineering reference baseline.
+   It is the fundamental datum for roadway stationing, pavement cross-sections, utility
+   routing, drainage profiles, and right-of-way setbacks. Never discard or replace with boundaries.
+
+   • Corridor: Mangrove Avenue (Total Length = 2232.74 ft)
+     Station        Distance Node / Intersection                      Coordinates
+     --------------------------------------------------------------------------------
+     0+00.00           0.00' Section 32 North Line (Subdivision Limit) (N=10179.84', E= 9992.44')
+     1+80.00         180.00' Starfish Ave (Ground GPS Control Anchor) (N=10000.00', E=10000.00')
+     4+40.00         440.00' Sail Ave                                 (N= 9740.23', E=10010.93')
+     7+00.00         700.00' South St                                 (N= 9480.46', E=10021.85')
+     7+30.50         730.50' Bearing Deflection Point (1°22'50" Turn) (N= 9449.99', E=10023.13')
+     9+50.50         950.50' Shellfish Dr                             (N= 9230.02', E=10027.08')
+     19+52.74       1952.74' Surfwood Ave                             (N= 8227.94', E=10045.06')
+     21+02.74       2102.74' Bayou Ave Drainage Corridor              (N= 8077.97', E=10047.75')
+     22+32.74       2232.74' Plat South Limit (Course 5)              (N= 7947.99', E=10050.08')
+
+   • Corridor: Starfish Avenue (Total Length = 1633.50 ft)
+     Station        Distance Node / Intersection                      Coordinates
+     --------------------------------------------------------------------------------
+     0+00.00           0.00' West Boundary Line (Course 1)            (N= 9992.44', E= 9820.16')
+     1+80.00         180.00' Mangrove Ave (Centerline Intersection)   (N=10000.00', E=10000.00')
+     16+33.50       1633.50' Beachwood Blvd (East Arterial Boundary)  (N=10061.08', E=11452.22')
+
+   • Corridor: Sail Avenue (Total Length = 1633.50 ft)
+     Station        Distance Node / Intersection                      Coordinates
+     --------------------------------------------------------------------------------
+     0+00.00           0.00' West Boundary Line (Course 1)            (N= 9732.67', E= 9831.08')
+     1+80.00         180.00' Mangrove Ave (Centerline Intersection)   (N= 9740.23', E=10010.93')
+     16+33.50       1633.50' Beachwood Blvd (East Arterial Boundary)  (N= 9801.31', E=11463.14')
+
+   • Corridor: South Street & Marina Avenue (Total Length = 924.24 ft)
+     Station        Distance Node / Intersection                      Coordinates
+     --------------------------------------------------------------------------------
+     0+00.00           0.00' West Boundary Line (Course 1)            (N= 9472.90', E= 9842.01')
+     1+80.00         180.00' Mangrove Ave                             (N= 9480.46', E=10021.85')
+     4+38.26         438.26' Marina Ave Curve P.C.                    (N= 9491.31', E=10279.88')
+     7+14.24         714.24' Marina Ave Curve P.T.                    (N= 9414.57', E=10539.81')
+     9+24.24         924.24' Keel Drive Intersection                  (N= 9279.24', E=10700.39')
+
+   • Corridor: Surfwood Avenue (Total Length = 624.60 ft)
+     Station        Distance Node / Intersection                      Coordinates
+     --------------------------------------------------------------------------------
+     0+00.00           0.00' West Boundary Line (Course 2)            (N= 8225.76', E= 9865.07')
+     1+80.00         180.00' Mangrove Ave (0°20' Skew Junction)       (N= 8227.94', E=10045.06')
+     6+24.60         624.60' Unit One Matchline (Course 6)            (N= 8233.33', E=10489.62')
+
 ================================================================================

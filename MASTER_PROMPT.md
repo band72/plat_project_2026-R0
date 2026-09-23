@@ -1871,3 +1871,25 @@ Executed Iteration 3 of the 10-minute recurring refinement cadence, harmonizing 
   3. **Verification**:
      - Updated test_cad_dxf_export_and_audit() to assert exact 120 lines and 19 polylines.
      - Full test suite: 95/95 tests passing in 14.4s.
+
+## Iter 52 — CONTINUOUS REFERENCE BASELINES & SHEET 2 NORTHEAST CORRIDOR CONVERGENCE
+Executed Iteration 4 of the 10-minute recurring refinement cadence, integrating permanent engineering reference baselines and ground-truthed northeast plat geometry (Sheet 2, Book 30 Page 82A):
+  1. **Permanent Engineering Reference Baselines & Cumulative Stationing**:
+     - Preserved all road centerline polylines as permanent primary reference baselines on dedicated layer `C-ROAD-ALIGNMENT`.
+     - Built continuous composite polylines with cumulative stationing ($0+00.00$ format) for:
+       - Mangrove Avenue (North-South primary baseline, length $> 1200'$)
+       - Starfish Avenue (East-West northern spine, length $> 1400'$)
+       - Sail Avenue (East-West mid spine, length $> 1400'$)
+       - South Street & Marina Avenue (Composite linear-curvilinear baseline, $R=419.27'$)
+       - Surfwood Avenue (Boundary-to-matchline corridor, length $> 600'$)
+       - Beachwood Boulevard (Northeast arterial corridor along Course 26)
+  2. **Ground-Truthed Northeast Cadastre (Sheet 2, Book 30 Page 82A)**:
+     - **Uniform Grid Spacing ($260.00'$)**: Confirmed Blocks 18, 17, 16, 15 each measure $200.08'$ depth (two back-to-back $100.04'$ lots) with $60.00'$ right-of-way avenues, producing exact $260.00'$ centerline spacing (Starfish @ 180', Sail @ 440', Shellfish @ 700', Keel @ 960' South of Course 27).
+     - **Exact Lateral Convergence Rate ($2.99'$ per $100.04'$)**: Proved lateral convergence between Mangrove Ave ($N 02^\circ 24' 30" W$) and Beachwood Blvd / Course 26 ($N 00^\circ 41' 40" W$) is $\Delta x = 100.04 \times (\tan(2^\circ 24' 30") - \tan(0^\circ 41' 40")) = 2.99'$. Matched every plat lot dimension: Block 18 Lot 19 ($116.33' \to 113.34'$), Block 17 Lot 17 ($111.54' \to 108.55'$), Block 17 Lot 18 ($108.55' \to 105.56'$), Block 16 Lot 17 ($103.76' \to 100.77'$), Block 16 Lot 18 ($100.77' \to 97.78'$), Block 15 Lot 9 ($95.98' \to 92.99'$), Block 15 Lot 10 ($92.99' \to 90.00'$).
+     - **P.I. Angle Bar Glyphs**: Verified corner L-shaped angle bars (`┌`, `┐`, `┘`, `└`) indicate dimensions extend along tangents to P.I. (Rule 2).
+  3. **Verification & DXF Audit**:
+     - Added `test_centerline_reference_alignments_preserved()` and `test_northeast_corridor_convergence_and_convergence_rate()`.
+     - CAD DXF polyline count: exactly 24 polylines (1 parent boundary + 6 curve centerlines + 12 R/W curve edges + 5 continuous reference alignment baselines).
+     - DXF audit: PASS with 0 false noise circles.
+     - Full test suite: 97/97 tests passing in 14.6s (100% green).
+

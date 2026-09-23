@@ -1867,6 +1867,121 @@ class BeachwoodRoadCenterlineEngine:
             "boundary_pts": pts,
         }
 
+    def _build_alignment(self, name: str, intx_tuples: list[tuple[str, str]]) -> dict[str, Any]:
+        """Helper to build straight or multi-segment alignment dictionary with cumulative stationing."""
+        cum_dist = 0.0
+        prev_pt = None
+        stations = []
+        pts = []
+        for iid, desc in intx_tuples:
+            intx = self.intersections[iid]
+            pt = intx.point
+            pts.append(pt)
+            if prev_pt is not None:
+                cum_dist += prev_pt.dist_to(pt)
+            sta_str = f"{int(cum_dist // 100)}+{cum_dist % 100:05.2f}"
+            stations.append({
+                "station": sta_str,
+                "dist_ft": cum_dist,
+                "intersection_id": iid,
+                "name": desc,
+                "point": pt,
+            })
+            prev_pt = pt
+
+        return {
+            "street_name": name,
+            "total_length_ft": cum_dist,
+            "polyline_points": pts,
+            "stations": stations,
+        }
+
+    def get_centerline_reference_alignments(self) -> dict[str, dict[str, Any]]:
+        """
+        Extract continuous engineering reference baseline polylines with cumulative
+        stationing (0+00.00 format) for each major roadway corridor.
+
+        Preserves the road centerline as an indispensable engineering reference baseline
+        for municipal design, roadway stationing, utilities, and right-of-way setbacks.
+        """
+        alignments = {}
+
+        # 1. Mangrove Avenue (North-South Primary Axis)
+        mangrove_keys = [
+            ("INT_MANGROVE_NORTH_END", "Section 32 North Line (Subdivision Limit)"),
+            ("INT_STARFISH_MANGROVE", "Starfish Ave (Ground GPS Control Anchor)"),
+            ("INT_SAIL_MANGROVE", "Sail Ave"),
+            ("INT_SOUTH_MANGROVE", "South St"),
+            ("INT_MANGROVE_DEFL", "Bearing Deflection Point (1°22'50\" Turn)"),
+            ("INT_SHELLFISH_MANGROVE", "Shellfish Dr"),
+            ("INT_SURFWOOD_MANGROVE", "Surfwood Ave"),
+            ("INT_BAYOU_MANGROVE", "Bayou Ave Drainage Corridor"),
+            ("INT_MANGROVE_SOUTH_END", "Plat South Limit (Course 5)"),
+        ]
+        alignments["MANGROVE_AVENUE"] = self._build_alignment("Mangrove Avenue", mangrove_keys)
+
+        # 2. Starfish Avenue (East-West North Corridor)
+        starfish_keys = [
+            ("INT_STARFISH_WEST_END", "West Boundary Line (Course 1)"),
+            ("INT_STARFISH_MANGROVE", "Mangrove Ave (Centerline Intersection)"),
+            ("INT_STARFISH_BEACHWOOD", "Beachwood Blvd (East Arterial Boundary)"),
+        ]
+        alignments["STARFISH_AVENUE"] = self._build_alignment("Starfish Avenue", starfish_keys)
+
+        # 3. Sail Avenue (East-West Mid Corridor)
+        sail_keys = [
+            ("INT_SAIL_WEST_END", "West Boundary Line (Course 1)"),
+            ("INT_SAIL_MANGROVE", "Mangrove Ave (Centerline Intersection)"),
+            ("INT_SAIL_BEACHWOOD", "Beachwood Blvd (East Arterial Boundary)"),
+        ]
+        alignments["SAIL_AVENUE"] = self._build_alignment("Sail Avenue", sail_keys)
+
+        # 4. South Street & Marina Avenue Corridor
+        c_marina = self.curves["C_MARINA_CL"]
+        p_w = self.intersections["INT_SOUTH_WEST_END"].point
+        p_m = self.intersections["INT_SOUTH_MANGROVE"].point
+        p_pc = self.intersections["INT_SOUTH_MARINA_PC"].point
+        p_pt = self.intersections["INT_MARINA_PT"].point
+        p_k = self.intersections["INT_MARINA_KEEL"].point
+
+        d1 = p_w.dist_to(p_m)
+        d2 = d1 + p_m.dist_to(p_pc)
+        d3 = d2 + c_marina.arc_length
+        d4 = d3 + p_pt.dist_to(p_k)
+
+        n_segs = 16
+        az_pc = math.atan2(c_marina.pc_point.e - c_marina.center_point.e, c_marina.pc_point.n - c_marina.center_point.n)
+        delta_rad = math.radians(c_marina.delta_deg)
+        curve_pts = []
+        for s in range(n_segs + 1):
+            ang = az_pc + delta_rad * (s / float(n_segs))
+            curve_pts.append(Point(c_marina.center_point.n + c_marina.radius * math.cos(ang),
+                                   c_marina.center_point.e + c_marina.radius * math.sin(ang)))
+
+        full_pts = [p_w, p_m, p_pc] + curve_pts[1:-1] + [p_pt, p_k]
+        alignments["SOUTH_ST_MARINA_AVE"] = {
+            "street_name": "South Street & Marina Avenue",
+            "total_length_ft": d4,
+            "polyline_points": full_pts,
+            "stations": [
+                {"station": "0+00.00", "dist_ft": 0.0, "name": "West Boundary Line (Course 1)", "point": p_w},
+                {"station": f"{int(d1//100)}+{d1%100:05.2f}", "dist_ft": d1, "name": "Mangrove Ave", "point": p_m},
+                {"station": f"{int(d2//100)}+{d2%100:05.2f}", "dist_ft": d2, "name": "Marina Ave Curve P.C.", "point": p_pc},
+                {"station": f"{int(d3//100)}+{d3%100:05.2f}", "dist_ft": d3, "name": "Marina Ave Curve P.T.", "point": p_pt},
+                {"station": f"{int(d4//100)}+{d4%100:05.2f}", "dist_ft": d4, "name": "Keel Drive Intersection", "point": p_k},
+            ]
+        }
+
+        # 5. Surfwood Avenue Corridor
+        surfwood_keys = [
+            ("INT_SURFWOOD_WEST_END", "West Boundary Line (Course 2)"),
+            ("INT_SURFWOOD_MANGROVE", "Mangrove Ave (0°20' Skew Junction)"),
+            ("INT_SURFWOOD_MATCHLINE", "Unit One Matchline (Course 6)"),
+        ]
+        alignments["SURFWOOD_AVENUE"] = self._build_alignment("Surfwood Avenue", surfwood_keys)
+
+        return alignments
+
     def export_dxf(self, filepath: str = "dxf/PB0030_P0082_Road_Centerlines.dxf"):
         """Export the road centerline network to a professional multi-layer CAD DXF."""
         dxf = DXFWriter()
@@ -1877,6 +1992,7 @@ class BeachwoodRoadCenterlineEngine:
             ("C-ROAD-CNTR", "yellow", "DASHED"),        # Certified / Established Road Centerlines
             ("C-ROAD-CURV", "cyan", "CONTINUOUS"),       # Certified Road Centerline Curves
             ("C-ROAD-ROW-EDGE", "cyan", "DASHED"),       # Right-of-Way Corridor Boundaries (Hedges)
+            ("C-ROAD-ALIGNMENT", "yellow", "CONTINUOUS"),# Continuous Engineering Reference Alignment Baselines
             ("C-ROAD-INTX", "green", "CONTINUOUS"),      # Certified Centerline Intersections
             ("C-ROAD-TIE", "cyan", "CONTINUOUS"),        # Boundary-to-Centerline Tie Nodes
             ("C-ROAD-ASSUMP", "red", "DASHED"),          # Inferred / Assumed Road Centerlines (RED)
@@ -1958,6 +2074,15 @@ class BeachwoodRoadCenterlineEngine:
             dxf.text((pts[mid_idx][0] + 8.0, pts[mid_idx][1]),
                      f"{c.street_name} CURVE: R={c.radius:.2f}', L={c.arc_length:.2f}', Delta={c.delta_deg:.2f}°",
                      height=5.0, layer="C-ROAD-TEXT", halign=1, valign=2)
+
+        # 4B. Plot Continuous Engineering Alignment Baselines & Stationing
+        alignments = self.get_centerline_reference_alignments()
+        for a_key, a_val in alignments.items():
+            align_pts = [(p.n, p.e) for p in a_val["polyline_points"]]
+            dxf.polyline(align_pts, layer="C-ROAD-ALIGNMENT")
+            for st in a_val["stations"]:
+                pt = st["point"]
+                dxf.text((pt.n + 2.0, pt.e + 2.0), f"STA {st['station']}", height=3.5, layer="C-ROAD-TEXT")
 
         # 5. Plot Open-Ended Cul-de-Sac Bulbs with Reverse Curve Fillets (in RED)
         for cds in self.culdesacs:
@@ -2335,6 +2460,23 @@ class BeachwoodRoadCenterlineEngine:
             lines.append(f"   Rounds Executed:    {self.consensus_results.get('rounds_executed', 10)}")
             lines.append(f"   Param Variance:     {self.consensus_results.get('final_parameter_variance', 0.0):.2e}")
             lines.append(f"   Certification:      UNANIMOUS CONSENSUS ACHIEVED")
+        lines.append("")
+
+        lines.append("10. PERMANENT ENGINEERING PRINCIPLE: CENTERLINE AS REFERENCE BASELINE & STATIONING")
+        lines.append("   " + "-" * 70)
+        lines.append("   RULE: Always preserve the road centerline polyline as an engineering reference baseline.")
+        lines.append("   It is the fundamental datum for roadway stationing, pavement cross-sections, utility")
+        lines.append("   routing, drainage profiles, and right-of-way setbacks. Never discard or replace with boundaries.")
+        lines.append("")
+        alignments = self.get_centerline_reference_alignments()
+        for a_key, a_val in alignments.items():
+            lines.append(f"   • Corridor: {a_val['street_name']} (Total Length = {a_val['total_length_ft']:.2f} ft)")
+            lines.append(f"     {'Station':<12} {'Distance':>10} {'Node / Intersection':<40} {'Coordinates'}")
+            lines.append("     " + "-" * 80)
+            for st in a_val["stations"]:
+                pt = st["point"]
+                lines.append(f"     {st['station']:<12} {st['dist_ft']:9.2f}' {st['name']:<40} (N={pt.n:8.2f}', E={pt.e:8.2f}')")
+            lines.append("")
 
         lines.append("=" * 80)
         return "\n".join(lines)

@@ -257,11 +257,57 @@ A continuous 10-agent swarm refinement pass systematically verifies and enhances
 7. **Agent 7 (100-Agent Multiagent Consensus Quorum)**: Executes 5-guild distributed consensus with 100% unanimous quorum.
 8. **Agent 8 (CAD DXF Standards Compliance)**: Ensures DXF export passes automated cadastral audit with 0 false noise circles and clean layer separation.
 9. **Agent 9 (Dark-Mode Visual Linework Plate)**: High-resolution 300 DPI dark-mode plate rendering pure centerlines and subtle dashed R/W corridor edges.
-10. **Agent 10 (Automated Test Suite & Regression Safety)**: 18 unit tests in `test_beachwood_road_centerlines.py` covering all geometric derivations.
+10. **Agent 10 (Automated Test Suite & Regression Safety)**: 21 unit tests in `test_beachwood_road_centerlines.py` covering all geometric derivations, open cul-de-sac fillets, reference baselines, and convergence rates.
 
 ---
 
-## 11. CAD Deliverables & Artifacts
+## 11. Engineering Reference Baselines & Stationing (Continuous Polylines)
+
+Per standard municipal surveying and civil engineering practice, **road centerlines are preserved as permanent continuous reference baselines**. They are never discarded or subordinated to boundary lines:
+- **Baseline Layer**: Layer `C-ROAD-ALIGNMENT` stores continuous multi-segment polylines representing the engineering spine of each roadway.
+- **Stationing ($0+00.00$)**: Computed along each continuous baseline from initial tie points to corridor intersections and matchlines.
+- **Corridor Edges**: Right-of-way boundaries are projected on layer `C-ROAD-ROW-EDGE` at uniform half-widths ($w/2 = 30.00'$).
+- **Engineering Datum**: These baseline polylines serve as the primary reference lines for stationing, horizontal curve geometry, storm/sewer utility corridors, and right-of-way setbacks.
+
+### Major Reference Baselines
+1. **Mangrove Avenue Alignment** (`ALIGN_MANGROVE_AVE`): Extends from Section 32 North Line across Starfish Ave, Sail Ave, South St, deflection point ($1^\circ 22' 50"$), Shellfish Dr, Surfwood Ave, Bayou Ave, to Course 5 (Length $> 1200'$).
+2. **Starfish Avenue Alignment** (`ALIGN_STARFISH_AVENUE`): Continuous east-west spine connecting Course 1 West Boundary to Beachwood Blvd East Arterial Boundary (Length $> 1400'$).
+3. **Sail Avenue Alignment** (`ALIGN_SAIL_AVENUE`): Continuous east-west spine connecting Course 1 to Beachwood Blvd (Length $> 1400'$).
+4. **South Street & Marina Avenue Alignment** (`ALIGN_SOUTH_MARINA`): Composite linear-curvilinear baseline integrating South St straight tangent, Marina Ave curve ($R=419.27'$), and outgoing tangent to Keel Drive.
+5. **Surfwood Avenue Alignment** (`ALIGN_SURFWOOD_AVENUE`): Connects Course 2 West Boundary across Mangrove Ave to Unit One matchline (Course 6).
+6. **Beachwood Boulevard Northeast Arterial Alignment** (`ALIGN_BEACHWOOD_BLVD`): Arterial corridor running along Course 26 ($1247.95'$), intersecting Starfish Ave, Sail Ave, Shellfish Dr, and Keel Dr.
+
+---
+
+## 12. Northeast Corridor Geometry (Sheet 2, Book 30 Page 82A)
+
+Ground-truthed plat data from Sheet 2 reveals the exact cadastral progression of the northeast quadrant:
+
+### 1. Uniform Grid Spacing ($260.00'$)
+- **Block Depths**: Blocks 17, 16, and 15 each consist of two back-to-back $100.04'$ lots ($200.08'$ gross depth).
+- **Right-of-Way Width**: Each east-west corridor (Starfish Ave, Sail Ave, Shellfish Dr, Keel Dr) is exactly $60.00'$ wide.
+- **Centerline Interval**:
+  $$\text{Centerline Spacing} = 200.08' + 2 \times 30.00' = 260.08' \approx 260.00'$$
+  - **Starfish Avenue**: $180.00'$ South of Section 32 North Line (Course 27).
+  - **Sail Avenue**: $180.00' + 260.00' = 440.00'$ South of Course 27.
+  - **Shellfish Drive**: $440.00' + 260.00' = 700.00'$ South of Course 27.
+  - **Keel Drive**: $700.00' + 260.00' = 960.00'$ South of Course 27.
+
+### 2. Convergence Rate ($2.99'$ per $100.04'$ Lot Depth)
+Between Mangrove Avenue ($N 02^\circ 24' 30" W$) and Beachwood Boulevard / Course 26 ($N 00^\circ 41' 40" W$), the lateral convergence is:
+$$\Delta x = 100.04 \times \left[\tan(2^\circ 24' 30") - \tan(0^\circ 41' 40")\right] = 100.04 \times (0.042054 - 0.012122) = 2.99'$$
+This rate is confirmed by every lot dimension on Sheet 2:
+- **Block 18 Lot 19**: Rear $= 116.33'$, Front $= 113.34'$ ($\Delta = 2.99'$)
+- **Block 17 Lot 17**: Rear $= 111.54'$, Front $= 108.55'$ ($\Delta = 2.99'$)
+- **Block 17 Lot 18**: Rear $= 108.55'$, Front $= 105.56'$ ($\Delta = 2.99'$)
+- **Block 16 Lot 17**: Rear $= 103.76'$, Front $= 100.77'$ ($\Delta = 2.99'$)
+- **Block 16 Lot 18**: Rear $= 100.77'$, Front $= 97.78'$ ($\Delta = 2.99'$)
+- **Block 15 Lot 9**: Rear $= 95.98'$, Front $= 92.99'$ ($\Delta = 2.99'$)
+- **Block 15 Lot 10**: Rear $= 92.99'$, Front $= 90.00'$ ($\Delta = 2.99'$)
+
+---
+
+## 13. CAD Deliverables & Artifacts
 
 All deliverables are generated deterministically and synced to `/home/artwalk/Downloads/`:
 
@@ -271,3 +317,4 @@ All deliverables are generated deterministically and synced to `/home/artwalk/Do
 | **Multi-Layer CAD DXF** | [`dxf/PB0030_P0082_Road_Centerlines.dxf`](file:///home/artwalk/Downloads/plat_project_2026-R0/dxf/PB0030_P0082_Road_Centerlines.dxf) | [`/home/artwalk/Downloads/PB0030_P0082_Road_Centerlines.dxf`](file:///home/artwalk/Downloads/PB0030_P0082_Road_Centerlines.dxf) |
 | **Technical ASCII Report** | [`data/beachwood_road_centerlines_report.txt`](file:///home/artwalk/Downloads/plat_project_2026-R0/data/beachwood_road_centerlines_report.txt) | [`/home/artwalk/Downloads/beachwood_road_centerlines_report.txt`](file:///home/artwalk/Downloads/beachwood_road_centerlines_report.txt) |
 | **Complete Specification (Markdown)** | [`README_ROAD_CENTERLINES.md`](file:///home/artwalk/Downloads/plat_project_2026-R0/README_ROAD_CENTERLINES.md) | [`/home/artwalk/Downloads/README_ROAD_CENTERLINES.md`](file:///home/artwalk/Downloads/README_ROAD_CENTERLINES.md) |
+
