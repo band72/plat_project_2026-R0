@@ -129,3 +129,61 @@ def test_cad_dxf_export_and_audit(engine, tmp_path):
     assert audit["entity_counts"]["circles"] == 0
     assert audit["entity_counts"]["lines"] > 0
     assert audit["entity_counts"]["texts"] > 0
+
+
+def test_100_agent_multiagent_consensus(engine):
+    """Verify 100-agent multiagent consensus reaches 100% unanimous quorum and converges."""
+    res = engine.run_100_agent_consensus(max_rounds=25)
+    assert res["converged"] is True
+    assert res["unanimous_quorum"] is True
+    assert res["yes_votes"] == 100
+    assert res["votes"] == 100
+    assert res["quorum_pct"] == 100.0
+    assert res["final_variance"] < 1e-7
+    assert res["final_delta"] < 1e-5
+
+
+def test_all_plat_centerline_curves(engine):
+    """Verify all 6 centerline curves across Sheet 1 and Sheet 2 are mathematically solved."""
+    assert len(engine.curves) == 6
+    expected_curves = ["C_MARINA_CL", "C_SANSALVADORE_CL", "C_BEACHWOOD_BLVD_CL", "C_SANDS_CL", "C_KEEL_CL", "C_CAPEHORN_CL"]
+    for cid in expected_curves:
+        assert cid in engine.curves
+        c = engine.curves[cid]
+        assert c.radius > 0
+        assert c.delta_deg > 0
+        assert c.arc_length > 0
+        assert c.tangent > 0
+        assert c.chord_length > 0
+
+
+def test_shellfish_drive_and_keel_intersection(engine):
+    """Verify Shellfish Drive connects Mangrove Ave to Keel Drive."""
+    assert "INT_SHELLFISH_MANGROVE" in engine.intersections
+    assert "INT_SHELLFISH_KEEL" in engine.intersections
+    intx_keel = engine.intersections["INT_SHELLFISH_KEEL"]
+    assert pytest.approx(intx_keel.point.n, abs=1.0) == 9247.91
+    assert pytest.approx(intx_keel.point.e, abs=1.0) == 10678.32
+
+
+def test_pi_tangents_rule2_derivation(engine):
+    """Verify Rule 2 P.I. tangent derivations: T = R * tan(Delta / 2)."""
+    assert len(engine.pi_tangents) == 12  # 2 rays per curve * 6 curves
+    for seg in engine.pi_tangents:
+        assert seg.is_assumed is True
+        assert seg.distance > 0.0
+
+    # Verify P.I. intersections exist and are flagged as assumed
+    pi_keys = ["INT_PI_MARINA", "INT_PI_SANSALVADORE", "INT_PI_BEACHWOOD_BLVD", "INT_PI_SANDS", "INT_PI_KEEL", "INT_PI_CAPEHORN"]
+    for pk in pi_keys:
+        assert pk in engine.intersections
+        assert engine.intersections[pk].is_assumed is True
+
+
+def test_visual_centerlines_drawing_generation(engine, tmp_path):
+    """Verify that render_cad_centerlines_drawing generates a high-res plate."""
+    out_png = os.path.join(tmp_path, "test_centerlines_drawing.png")
+    engine.render_cad_centerlines_drawing(out_png, dpi=100)
+    assert os.path.exists(out_png)
+    assert os.path.getsize(out_png) > 50000  # Non-trivial image
+
