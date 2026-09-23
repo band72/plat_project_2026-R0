@@ -187,3 +187,50 @@ def test_visual_centerlines_drawing_generation(engine, tmp_path):
     assert os.path.exists(out_png)
     assert os.path.getsize(out_png) > 50000  # Non-trivial image
 
+
+def test_closed_outer_boundary(engine):
+    """Verify parent outer boundary (Sheet 1 Caption) forms a closed figure with 0.000' closure."""
+    assert len(engine.boundary_segments) == 27
+    assert len(engine.boundary_points) == 28
+    # Exact closure
+    p_start = engine.boundary_points[0]
+    p_end = engine.boundary_points[-1]
+    assert p_start.dist_to(p_end) == 0.0
+    # Perimeter
+    assert pytest.approx(engine.boundary_metrics["perimeter_ft"], abs=0.1) == 8226.67
+    # Area
+    assert engine.boundary_metrics["parent_area_sqft"] > 2790000.0
+    assert pytest.approx(engine.boundary_metrics["parent_acres"], abs=0.5) == 64.15
+
+
+def test_boundary_tie_intersections(engine):
+    """Verify centerline-to-boundary connection nodes exist for all boundary streets."""
+    tie_keys = [
+        "INT_MANGROVE_NORTH_END",
+        "INT_STARFISH_WEST_END",
+        "INT_SAIL_WEST_END",
+        "INT_SOUTH_WEST_END",
+        "INT_SHELLFISH_WEST_END",
+        "INT_SURFWOOD_WEST_END",
+        "INT_MANGROVE_SOUTH_END",
+        "INT_SURFWOOD_MATCHLINE",
+        "INT_CAPEHORN_MATCHLINE",
+    ]
+    for tk in tie_keys:
+        assert tk in engine.intersections, f"Missing boundary tie {tk}"
+        assert engine.intersections[tk].is_boundary_tie is True
+
+
+def test_open_ended_culdesac_keel_drive(engine):
+    """Verify Keel Drive terminates at an open-ended cul-de-sac that does NOT close."""
+    assert len(engine.culdesacs) == 1
+    cds = engine.culdesacs[0]
+    assert cds["street"] == "Keel Drive"
+    assert cds["bulb_radius_ft"] == 50.0
+    assert cds["closes_to_boundary"] is False
+
+    # Check that it is also registered in assumptions
+    assumption_types = [a["type"] for a in engine.assumptions]
+    assert "OPEN_ENDED_CULDESAC" in assumption_types
+
+
