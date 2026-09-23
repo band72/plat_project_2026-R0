@@ -147,14 +147,23 @@ graph TD
 
 ---
 
-## 5. Open-Ended Cul-de-Sac: Keel Drive Terminus
+## 5. Open-Ended Cul-de-Sac: Keel Drive Terminus & Reverse Curve Fillet Geometry
 
-In subdivision planning, centerlines do not always form throughways or close into boundaries. **Keel Drive** terminates southwest of curve C14 at an **open-ended residential cul-de-sac turnaround bulb**:
-- **Turnaround Centerpoint**: `Northing = 8,988.66 ft`, `Easting = 10,636.93 ft`
-- **Right-of-Way Bulb Radius**: $R = 50.00\text{ ft}$
-- **Corridor Width**: $60.00\text{ ft}$
+In subdivision planning, centerlines do not always form throughways or close into boundaries. **Keel Drive** terminates southwest of curve C14 at an **open-ended residential cul-de-sac turnaround bulb with analytical reverse curve fillets**:
+- **Turnaround Centerpoint**: `Northing = 9,010.46 ft`, `Easting = 10,510.05 ft`
+- **Right-of-Way Bulb Radius**: $R_b = 50.00\text{ ft}$
+- **Corridor Width**: $W = 60.00\text{ ft}$ (Half-width $w = 30.00\text{ ft}$)
+- **Reverse Curve Fillet Radius**: $R_f = 25.00\text{ ft}$
+- **Analytical Tangency Derivations**:
+  - Distance from bulb center to fillet centers: $d(C_{\text{bulb}}, C_f) = R_b + R_f = 50.00 + 25.00 = 75.00\text{ ft}$
+  - Lateral offset of fillet centers: $x_f = w + R_f = 30.00 + 25.00 = 55.00\text{ ft}$
+  - Longitudinal throat distance: $y_f = \sqrt{75^2 - 55^2} = \sqrt{2600} \approx 50.9902\text{ ft}$
+  - Point of Reverse Curvature (P.R.C.) angle: $\theta_{\text{PRC}} = \arcsin(55/75) \approx 47.167^\circ$
+  - Bulb circular arc central angle: $\Delta_{\text{bulb}} = 360^\circ - 2(47.167^\circ) = 265.667^\circ$ ($L_{\text{bulb}} = 231.84\text{ ft}$)
+  - Fillet arc turn angle: $\Delta_{\text{fillet}} = 47.167^\circ$ ($L_{\text{fillet}} = 20.58\text{ ft}$)
+  - Exact throat width between fillet P.C. points: **$60.00\text{ ft}$** (exact match to $60'$ R/W corridor)
 - **Closure Status**: **OPEN-ENDED DEAD END (DOES NOT CLOSE)**.
-- **CAD Representation**: Exported on layer `C-ROAD-CULDESAC` (Color 1 RED) with red diamond center marker and radial turnaround arc.
+- **CAD Representation**: Exported on layer `C-ROAD-CULDESAC` (Color 1 RED) with red diamond center marker, reverse curve fillets, and turnaround arc.
 
 ---
 

@@ -1778,6 +1778,95 @@ class BeachwoodRoadCenterlineEngine:
             }
         return results
 
+    def get_culdesac_geometry(self, cds_id: str = "CULDESAC_KEEL_DRIVE") -> dict[str, Any]:
+        """
+        Compute the exact analytical right-of-way boundary geometry of the open-ended
+        cul-de-sac turnaround bulb with reverse curve fillet transitions.
+        """
+        cds = next(c for c in self.culdesacs if c["id"] == cds_id)
+        cp = cds["center_point"]
+        rb = cds["bulb_radius_ft"]
+        rw = cds["right_of_way_width_ft"]
+        rf = cds.get("reverse_fillet_radius_ft", 25.0)
+        w = rw / 2.0
+
+        # Keel Drive centerline azimuth approaching the cul-de-sac
+        az_in = parse_bearing("S35°18'20\"W")
+        az_back = (az_in + 180.0) % 360.0
+        az_left = (az_in - 90.0) % 360.0
+        az_right = (az_in + 90.0) % 360.0
+
+        xf = w + rf
+        dist_cf = rb + rf
+        yf = math.sqrt(dist_cf**2 - xf**2)
+        theta_prc_rad = math.asin(xf / dist_cf)
+        theta_prc_deg = math.degrees(theta_prc_rad)
+
+        # Throat reference point along corridor centerline
+        p_throat = cp.offset(az_back, yf)
+
+        # Left fillet: PC on corridor edge, center, and PRC on bulb
+        pc_left = p_throat.offset(az_left, w)
+        c_left = p_throat.offset(az_left, xf)
+        ang_left_deg = math.degrees(math.atan2(c_left.e - cp.e, c_left.n - cp.n)) % 360.0
+        prc_left = cp.offset(ang_left_deg, rb)
+
+        # Right fillet: PT on corridor edge, center, and PRC on bulb
+        pt_right = p_throat.offset(az_right, w)
+        c_right = p_throat.offset(az_right, xf)
+        ang_right_deg = math.degrees(math.atan2(c_right.e - cp.e, c_right.n - cp.n)) % 360.0
+        prc_right = cp.offset(ang_right_deg, rb)
+
+        # Bulb arc central angle
+        delta_bulb_deg = 360.0 - 2.0 * theta_prc_deg
+
+        # Generate boundary points along the open-ended cul-de-sac right-of-way
+        pts = [pc_left]
+        n_fillet_steps = 12
+        ang_pc_left = math.atan2(pc_left.e - c_left.e, pc_left.n - c_left.n)
+        ang_prc_left = math.atan2(prc_left.e - c_left.e, prc_left.n - c_left.n)
+        d_ang_left = (ang_prc_left - ang_pc_left + math.pi) % (2.0 * math.pi) - math.pi
+        for s in range(1, n_fillet_steps):
+            a = ang_pc_left + d_ang_left * (s / float(n_fillet_steps))
+            pts.append(Point(c_left.n + rf * math.cos(a), c_left.e + rf * math.sin(a)))
+        pts.append(prc_left)
+
+        ang_b_start = math.atan2(prc_left.e - cp.e, prc_left.n - cp.n)
+        ang_b_end = math.atan2(prc_right.e - cp.e, prc_right.n - cp.n)
+        d_ang_bulb = (ang_b_end - ang_b_start) % (2.0 * math.pi)
+        if d_ang_bulb < math.pi:
+            d_ang_bulb += 2.0 * math.pi
+        n_bulb_steps = 36
+        for s in range(1, n_bulb_steps):
+            a = ang_b_start + d_ang_bulb * (s / float(n_bulb_steps))
+            pts.append(Point(cp.n + rb * math.cos(a), cp.e + rb * math.sin(a)))
+        pts.append(prc_right)
+
+        ang_prc_r = math.atan2(prc_right.e - c_right.e, prc_right.n - c_right.n)
+        ang_pt_r = math.atan2(pt_right.e - c_right.e, pt_right.n - c_right.n)
+        d_ang_r = (ang_pt_r - ang_prc_r + math.pi) % (2.0 * math.pi) - math.pi
+        for s in range(1, n_fillet_steps):
+            a = ang_prc_r + d_ang_r * (s / float(n_fillet_steps))
+            pts.append(Point(c_right.n + rf * math.cos(a), c_right.e + rf * math.sin(a)))
+        pts.append(pt_right)
+
+        return {
+            "center_point": cp,
+            "bulb_radius_ft": rb,
+            "corridor_half_width_ft": w,
+            "fillet_radius_ft": rf,
+            "throat_distance_yf_ft": yf,
+            "theta_prc_deg": theta_prc_deg,
+            "delta_bulb_deg": delta_bulb_deg,
+            "pc_left": pc_left,
+            "prc_left": prc_left,
+            "center_left_fillet": c_left,
+            "prc_right": prc_right,
+            "pt_right": pt_right,
+            "center_right_fillet": c_right,
+            "boundary_pts": pts,
+        }
+
     def export_dxf(self, filepath: str = "dxf/PB0030_P0082_Road_Centerlines.dxf"):
         """Export the road centerline network to a professional multi-layer CAD DXF."""
         dxf = DXFWriter()
@@ -1858,18 +1947,16 @@ class BeachwoodRoadCenterlineEngine:
                      f"{c.street_name} CURVE: R={c.radius:.2f}', L={c.arc_length:.2f}', Delta={c.delta_deg:.2f}°",
                      height=5.0, layer="C-ROAD-TEXT", halign=1, valign=2)
 
-        # 5. Plot Open-Ended Cul-de-Sac Bulbs (in RED)
+        # 5. Plot Open-Ended Cul-de-Sac Bulbs with Reverse Curve Fillets (in RED)
         for cds in self.culdesacs:
+            geom = self.get_culdesac_geometry(cds["id"])
+            b_pts = [(p.n, p.e) for p in geom["boundary_pts"]]
+            dxf.polyline(b_pts, layer="C-ROAD-CULDESAC")
             cp = cds["center_point"]
             rb = cds["bulb_radius_ft"]
-            n_segs = 36
-            circle_pts = []
-            for s in range(n_segs + 1):
-                th = 2.0 * math.pi * (s / float(n_segs))
-                circle_pts.append((cp.n + rb * math.cos(th), cp.e + rb * math.sin(th)))
-            dxf.polyline(circle_pts, layer="C-ROAD-CULDESAC")
+            rf = cds.get("reverse_fillet_radius_ft", 25.0)
             dxf.text((cp.n - rb - 8.0, cp.e),
-                     f"OPEN CUL-DE-SAC: {cds['street']} (R={rb:.1f}')",
+                     f"OPEN CUL-DE-SAC: {cds['street']} (R={rb:.1f}', Fillet R={rf:.1f}')",
                      height=5.5, layer="C-ROAD-ASSUMP-TEXT", halign=1, valign=2)
 
         # 6. Plot Intersections & P.I. Vertices
@@ -1997,21 +2084,23 @@ class BeachwoodRoadCenterlineEngine:
                      bbox={"boxstyle": "round,pad=0.2", "facecolor": "#062820" if not c.is_assumed else "#2a0808",
                            "edgecolor": curve_col, "alpha": 0.8})
 
-        # 5. Plot Open-Ended Cul-de-Sac Bulbs (in RED)
+        # 5. Plot Open-Ended Cul-de-Sac Bulbs with Reverse Curve Fillets (in RED)
         seen_cds_lbl = False
         for cds in self.culdesacs:
             cp = cds["center_point"]
             rb = cds["bulb_radius_ft"]
-            th = [2.0 * math.pi * (s / 48.0) for s in range(49)]
-            ce = [cp.e + rb * math.sin(t) for t in th]
-            cn = [cp.n + rb * math.cos(t) for t in th]
-            lbl = "Open-Ended Cul-de-Sac Bulb (RED, Does Not Close)" if not seen_cds_lbl else ""
+            rf = cds.get("reverse_fillet_radius_ft", 25.0)
+            geom = self.get_culdesac_geometry(cds["id"])
+            b_pts = geom["boundary_pts"]
+            ce = [p.e for p in b_pts]
+            cn = [p.n for p in b_pts]
+            lbl = "Open-Ended Cul-de-Sac Bulb with Fillets (RED, Does Not Close)" if not seen_cds_lbl else ""
             if lbl:
                 seen_cds_lbl = True
             ax.plot(ce, cn, color='#ff3344', linestyle='-', linewidth=2.8, zorder=8, label=lbl)
             ax.plot(cp.e, cp.n, marker='D', color='#ff3344', markersize=9, zorder=9)
             ax.text(cp.e + 25.0, cp.n - 15.0,
-                    f"OPEN-ENDED CUL-DE-SAC (DOES NOT CLOSE)\nKeel Drive Terminus | R={rb:.1f}' Bulb",
+                    f"OPEN-ENDED CUL-DE-SAC (DOES NOT CLOSE)\nKeel Drive Terminus | R={rb:.1f}' Bulb (Fillet R={rf:.1f}')",
                     color='#ff5555', fontsize=8, weight='bold', va='top',
                     bbox={"boxstyle": "round,pad=0.3", "facecolor": "#2a0808", "edgecolor": "#ff3344", "alpha": 0.9})
 

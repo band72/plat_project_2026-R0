@@ -309,4 +309,34 @@ def test_culdesac_fillet_parameters(engine):
     assert cds["right_of_way_width_ft"] == 60.0
 
 
+def test_culdesac_analytical_geometry_and_fillets(engine):
+    """Verify exact analytical coordinates and fillet tangencies for Keel Drive cul-de-sac."""
+    geom = engine.get_culdesac_geometry("CULDESAC_KEEL_DRIVE")
+    assert geom["bulb_radius_ft"] == 50.0
+    assert geom["corridor_half_width_ft"] == 30.0
+    assert geom["fillet_radius_ft"] == 25.0
+    assert pytest.approx(geom["throat_distance_yf_ft"], abs=0.01) == 50.99
+    assert pytest.approx(geom["theta_prc_deg"], abs=0.01) == 47.17
+    assert pytest.approx(geom["delta_bulb_deg"], abs=0.01) == 265.67
+
+    # Tangency verifications:
+    # 1. pc_left to c_left = fillet radius 25.0'
+    assert pytest.approx(geom["pc_left"].dist_to(geom["center_left_fillet"]), abs=0.001) == 25.0
+    # 2. prc_left to c_left = fillet radius 25.0'
+    assert pytest.approx(geom["prc_left"].dist_to(geom["center_left_fillet"]), abs=0.001) == 25.0
+    # 3. prc_left to bulb center = bulb radius 50.0'
+    assert pytest.approx(geom["prc_left"].dist_to(geom["center_point"]), abs=0.001) == 50.0
+    # 4. pt_right to c_right = fillet radius 25.0'
+    assert pytest.approx(geom["pt_right"].dist_to(geom["center_right_fillet"]), abs=0.001) == 25.0
+    # 5. prc_right to c_right = fillet radius 25.0'
+    assert pytest.approx(geom["prc_right"].dist_to(geom["center_right_fillet"]), abs=0.001) == 25.0
+    # 6. prc_right to bulb center = bulb radius 50.0'
+    assert pytest.approx(geom["prc_right"].dist_to(geom["center_point"]), abs=0.001) == 50.0
+    # 7. Throat width between pc_left and pt_right = exactly 60.00'
+    assert pytest.approx(geom["pc_left"].dist_to(geom["pt_right"]), abs=0.001) == 60.0
+
+    # Continuous boundary polyline has vertices
+    assert len(geom["boundary_pts"]) >= 50
+
+
 
