@@ -1779,4 +1779,38 @@ Overhauled the cadastral reconstruction for `Plat/Beverly-Isle.pdf` (Section 24,
   5. **100% Mathematical Closure**: All 20 parcels (radial Lots 1–19 and central Parcel 20) solved with 0.0000 ft misclosure (`EXACT`).
   6. **Deliverables & Verification**: `dxf/Duval_BeverlyIsle_1968.dxf` (PASS, 0 noise circles), `data/beverly_isle_mapcheck_report.txt`, `images/beverly_isle_drawing.png`, and automated unit test suite `test_beverly_isle_cogo.py` (8 tests passing in 0.010s).
 
+## Iter 48 — COMPLETE ROAD CENTERLINE NETWORK & RED-LINED ASSUMPTIONS (PB 30, PG 82-2)
+Focused exclusively on the complete road centerline network of Beachwood Unit Two
+across both Sheet 1 (Page 82) and Sheet 2 (Page 82A) (`Plat/Duval_Plat_Book_30_Page_82-2.pdf`):
+  1. **Ground-Truthed GPS Control Anchor (F.A.C. 5J-17 Rule 1)**:
+     Anchored to the true physical ground GPS intersection at Starfish Avenue & Mangrove Avenue
+     (30.292130° N, -81.530280° W) with zero artificial offset fudging (`Local (10000.00, 10000.00)`).
+  2. **Complete 21-Node Intersection Network**:
+     - Mangrove Avenue North Leg: Section 32 North line terminus (180.00'), Starfish Ave (0.00'),
+       Sail Ave (260.00'), South St (520.00'), and Deflection Point (730.50' total from North line,
+       matching Course 1 of the parent boundary traverse).
+     - Mangrove Avenue South Leg: S01°01'40"E corridor connecting Bayou Ave (1142.24' south),
+       Surfwood Ave (1372.24' south), and Plat South Boundary limit (1502.24' total).
+     - East-West Corridors: Starfish Ave (1453.50'), Sail Ave (1453.50'), South St (258.26' straight
+       to Marina Ave P.C.), Surfwood Ave (398.01' to Unit One matchline).
+     - Diagonal Streets: Cape Horn Ave (tied to P.R.M. monument at matchline), San Salvadore Ave
+       (S54°41'40"E tangent, R=299.96' curve with Delta=36°20'00" matching Surfwood Avenue tangency),
+       and Keel Drive (S35°18'20"W access corridor).
+  3. **Three Red-Lined Assumptions (Drawn in Bold RED)**:
+     - `SEG_ASSUMP_SS_SURFWOOD_TIE`: Centerline connection between San Salvadore Ave P.T. and
+       Surfwood Ave across the uncertified Block 12 Lots 8-10 jog zone.
+     - `SEG_ASSUMP_BLVD_SOUTH_EXT`: Beachwood Boulevard arterial curve extension south of Sail Ave
+       fronting Block 15.
+     - `SEG_ASSUMP_SANDS_MAIN`: Sands Avenue centerline curve corridor (R=429.36') south of Block 15.
+     All three are tagged in RED (`C-ROAD-ASSUMP`, `C-ROAD-ASSUMP-INTX`) on CAD and visual drawings.
+  4. **Deliverables & Test Verification**:
+     - Engine: `engine/cogo_road_centerlines.py` (`BeachwoodRoadCenterlineEngine`).
+     - Script: `scripts/build_beachwood_road_centerlines.py`.
+     - CAD DXF: `dxf/PB0030_P0082_Road_Centerlines.dxf` (PASS, 0 noise circles, 66 lines, 3 curve polylines, 50 text entities).
+     - Report: `data/beachwood_road_centerlines_report.txt` with complete intersection & curve schedules.
+     - Drawing: `images/beachwood_road_centerlines_drawing.png` (high-res dark mode CAD render with vibrant red highlights).
+     - Documentation & Recommendations: `README_ROAD_CENTERLINES.md`.
+     - Test Suite: `test_beachwood_road_centerlines.py` (6/6 passing; full suite 82/82 passing).
+
+
 
