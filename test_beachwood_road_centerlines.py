@@ -128,7 +128,7 @@ def test_cad_dxf_export_and_audit(engine, tmp_path):
     assert audit["status"] == "PASS"
     assert audit["entity_counts"]["circles"] == 0
     assert audit["entity_counts"]["lines"] == 120
-    assert audit["entity_counts"]["polylines"] >= 19
+    assert audit["entity_counts"]["polylines"] == 27
     assert audit["entity_counts"]["texts"] > 0
 
 
