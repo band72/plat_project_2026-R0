@@ -1,0 +1,205 @@
+{
+ "image": "east_24_detail.png",
+ "kind": "scan",
+ "size": [
+  220,
+  420
+ ],
+ "stroke_w": 5.73,
+ "char_h": 27.0,
+ "n_monuments": 1,
+ "n_lines": 5,
+ "n_dashed": 0,
+ "n_arcs": 0,
+ "n_labels": 11,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 2,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 0,
+  "area": 0,
+  "table": 0,
+  "text": 7,
+  "empty": 2
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 2,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0,
+  "verified": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 0.9606,
+  "line_precision": 1.0,
+  "line_f1": 0.9799,
+  "label_assoc": 1.0,
+  "label_classified": 0.1818,
+  "scale_consistency": null,
+  "score": 0.7571
+ },
+ "seconds": 2.0,
+ "labels": [
+  {
+   "id": 0,
+   "text": "a-",
+   "kind": "text",
+   "conf": 82.0,
+   "center": [
+    184.0,
+    65.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "Eb\"",
+   "kind": "text",
+   "conf": 67.0,
+   "center": [
+    36.0,
+    86.6
+   ],
+   "angle": 181.0,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "\u201d Ww OERECEN",
+   "kind": "text",
+   "conf": 36.7,
+   "center": [
+    145.7,
+    212.5
+   ],
+   "angle": 90.2,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "\u201c2 oa",
+   "kind": "text",
+   "conf": 61.5,
+   "center": [
+    198.5,
+    110.0
+   ],
+   "angle": 0.2,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "103.17",
+   "kind": "distance",
+   "conf": 29.0,
+   "center": [
+    188.1,
+    208.0
+   ],
+   "angle": 270.2,
+   "assoc": {
+    "geom": [
+     "L",
+     1
+    ],
+    "t": 0.5682251939997891,
+    "offset": 21.7948025275396,
+    "score": 0.8072149084273925
+   }
+  },
+  {
+   "id": 5,
+   "text": "x",
+   "kind": "text",
+   "conf": 89.0,
+   "center": [
+    18.1,
+    210.1
+   ],
+   "angle": 98.7,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "NN",
+   "kind": "text",
+   "conf": 28.0,
+   "center": [
+    64.5,
+    304.7
+   ],
+   "angle": 181.3,
+   "assoc": null
+  },
+  {
+   "id": 7,
+   "text": "38",
+   "kind": "distance",
+   "conf": 5.0,
+   "center": [
+    51.5,
+    348.6
+   ],
+   "angle": 1.3,
+   "assoc": {
+    "geom": [
+     "L",
+     3
+    ],
+    "t": 0.2991198907739757,
+    "offset": -21.04956847870625,
+    "score": 0.7796136473594907
+   }
+  },
+  {
+   "id": 8,
+   "text": "\u2014",
+   "kind": "empty",
+   "conf": 21.0,
+   "center": [
+    143.2,
+    399.4
+   ],
+   "angle": 1.3,
+   "assoc": null
+  },
+  {
+   "id": 9,
+   "text": "\u2014\u2014",
+   "kind": "empty",
+   "conf": 62.0,
+   "center": [
+    30.0,
+    386.4
+   ],
+   "angle": 181.3,
+   "assoc": null
+  },
+  {
+   "id": 10,
+   "text": "e we",
+   "kind": "text",
+   "conf": 76.0,
+   "center": [
+    144.5,
+    411.7
+   ],
+   "angle": 271.3,
+   "assoc": null
+  }
+ ]
+}

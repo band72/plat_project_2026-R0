@@ -1,0 +1,257 @@
+{
+ "image": "media383_right_23.png",
+ "kind": "scan",
+ "size": [
+  65,
+  100
+ ],
+ "stroke_w": 1.91,
+ "char_h": 9.0,
+ "n_monuments": 0,
+ "n_lines": 2,
+ "n_dashed": 0,
+ "n_arcs": 0,
+ "n_labels": 16,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 2,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 2,
+  "area": 0,
+  "table": 0,
+  "text": 8,
+  "empty": 4
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 1,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0,
+  "verified": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 1.0,
+  "line_precision": 1.0,
+  "line_f1": 1.0,
+  "label_assoc": 0.5,
+  "label_classified": 0.25,
+  "scale_consistency": null,
+  "score": 0.675
+ },
+ "seconds": 1.8,
+ "labels": [
+  {
+   "id": 0,
+   "text": "Ye",
+   "kind": "text",
+   "conf": 80.0,
+   "center": [
+    30.0,
+    2.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "tyeor a",
+   "kind": "text",
+   "conf": 43.0,
+   "center": [
+    41.4,
+    29.5
+   ],
+   "angle": 90.2,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "\u00ab|",
+   "kind": "empty",
+   "conf": 80.0,
+   "center": [
+    55.0,
+    5.5
+   ],
+   "angle": 180.2,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "\"20",
+   "kind": "lot",
+   "conf": 67.0,
+   "center": [
+    22.5,
+    9.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "Ze.",
+   "kind": "text",
+   "conf": 72.0,
+   "center": [
+    26.5,
+    29.1
+   ],
+   "angle": 231.1,
+   "assoc": null
+  },
+  {
+   "id": 5,
+   "text": "\u00e9",
+   "kind": "empty",
+   "conf": 69.0,
+   "center": [
+    1.5,
+    25.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "700..",
+   "kind": "distance",
+   "conf": 41.0,
+   "center": [
+    52.5,
+    36.0
+   ],
+   "angle": 270.2,
+   "assoc": {
+    "geom": [
+     "L",
+     0
+    ],
+    "t": 0.25345200372297105,
+    "offset": -8.16266925228239,
+    "score": 0.9069632502536037
+   }
+  },
+  {
+   "id": 7,
+   "text": "Te",
+   "kind": "text",
+   "conf": 82.0,
+   "center": [
+    19.5,
+    36.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 8,
+   "text": "61",
+   "kind": "distance",
+   "conf": 78.0,
+   "center": [
+    21.0,
+    43.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 9,
+   "text": "\u20188s",
+   "kind": "text",
+   "conf": 56.0,
+   "center": [
+    21.0,
+    50.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 10,
+   "text": "Pot",
+   "kind": "text",
+   "conf": 70.0,
+   "center": [
+    23.5,
+    57.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 11,
+   "text": "&",
+   "kind": "empty",
+   "conf": 51.0,
+   "center": [
+    52.8,
+    61.7
+   ],
+   "angle": 253.9,
+   "assoc": null
+  },
+  {
+   "id": 12,
+   "text": "\u2018St",
+   "kind": "text",
+   "conf": 73.0,
+   "center": [
+    29.0,
+    70.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 13,
+   "text": "\u00e9",
+   "kind": "empty",
+   "conf": 86.0,
+   "center": [
+    62.0,
+    62.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 14,
+   "text": "[ne",
+   "kind": "text",
+   "conf": 46.0,
+   "center": [
+    55.5,
+    82.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 15,
+   "text": "3",
+   "kind": "lot",
+   "conf": 79.0,
+   "center": [
+    27.5,
+    86.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  }
+ ]
+}

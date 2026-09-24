@@ -1,0 +1,141 @@
+{
+ "image": "corner_ne9.png",
+ "kind": "scan",
+ "size": [
+  250,
+  250
+ ],
+ "stroke_w": 7.39,
+ "char_h": 36.0,
+ "n_monuments": 0,
+ "n_lines": 1,
+ "n_dashed": 0,
+ "n_arcs": 1,
+ "n_labels": 7,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 2,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 2,
+  "area": 0,
+  "table": 0,
+  "text": 1,
+  "empty": 2
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 0,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0,
+  "verified": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 1.0,
+  "line_precision": 1.0,
+  "line_f1": 1.0,
+  "label_assoc": 0.0,
+  "label_classified": 0.5714,
+  "scale_consistency": null,
+  "score": 0.6071
+ },
+ "seconds": 1.4,
+ "labels": [
+  {
+   "id": 0,
+   "text": "_",
+   "kind": "empty",
+   "conf": 10.0,
+   "center": [
+    17.1,
+    7.1
+   ],
+   "angle": 172.8,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "_",
+   "kind": "empty",
+   "conf": 54.0,
+   "center": [
+    122.0,
+    7.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "x",
+   "kind": "text",
+   "conf": 78.0,
+   "center": [
+    24.5,
+    72.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "30\u00b0",
+   "kind": "distance",
+   "conf": 78.0,
+   "center": [
+    38.5,
+    96.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "19",
+   "kind": "distance",
+   "conf": 65.0,
+   "center": [
+    39.0,
+    122.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 5,
+   "text": "2",
+   "kind": "lot",
+   "conf": 83.0,
+   "center": [
+    23.9,
+    194.7
+   ],
+   "angle": 177.1,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "4",
+   "kind": "lot",
+   "conf": 77.0,
+   "center": [
+    114.0,
+    192.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  }
+ ]
+}

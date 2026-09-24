@@ -1,0 +1,129 @@
+{
+ "image": "circle1.png",
+ "kind": "scan",
+ "size": [
+  250,
+  250
+ ],
+ "stroke_w": 5.73,
+ "char_h": 34.5,
+ "n_monuments": 0,
+ "n_lines": 3,
+ "n_dashed": 0,
+ "n_arcs": 1,
+ "n_labels": 6,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 0,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 1,
+  "area": 0,
+  "table": 0,
+  "text": 5,
+  "empty": 0
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 0,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0,
+  "verified": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 1.0,
+  "line_precision": 1.0,
+  "line_f1": 1.0,
+  "label_assoc": null,
+  "label_classified": 0.1667,
+  "scale_consistency": null,
+  "score": 0.8417
+ },
+ "seconds": 1.3,
+ "labels": [
+  {
+   "id": 0,
+   "text": "Bese \u2014",
+   "kind": "text",
+   "conf": 56.5,
+   "center": [
+    30.5,
+    100.0
+   ],
+   "angle": 91.0,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "Vaasa 20\",",
+   "kind": "text",
+   "conf": 44.0,
+   "center": [
+    149.4,
+    23.9
+   ],
+   "angle": 1.8,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "Sz",
+   "kind": "text",
+   "conf": 63.0,
+   "center": [
+    104.8,
+    111.4
+   ],
+   "angle": 331.0,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "7",
+   "kind": "lot",
+   "conf": 95.0,
+   "center": [
+    193.5,
+    135.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "a8",
+   "kind": "text",
+   "conf": 75.0,
+   "center": [
+    98.4,
+    197.0
+   ],
+   "angle": 6.7,
+   "assoc": null
+  },
+  {
+   "id": 5,
+   "text": "wes",
+   "kind": "text",
+   "conf": 45.0,
+   "center": [
+    55.1,
+    225.9
+   ],
+   "angle": 1.5,
+   "assoc": null
+  }
+ ]
+}

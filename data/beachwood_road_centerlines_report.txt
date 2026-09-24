@@ -22,29 +22,24 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
 3. BOUNDARY-TO-CENTERLINE TIE NODES (PARALLEL OFFSETS & TRIMS)
    ----------------------------------------------------------------------
    • INT_MANGROVE_NORTH_END         | N= 10179.84', E=  9992.44' | Mangrove Ave & Sec 32 North Line (Subdivision Limit)
-   • INT_MANGROVE_SOUTH_END         | N=  7947.99', E= 10050.08' | Mangrove Ave & Plat South Limit
-   • INT_SURFWOOD_WEST_END          | N=  8225.76', E=  9865.07' | Surfwood Ave & West Boundary (Course 2)
-   • INT_SURFWOOD_MATCHLINE         | N=  8233.33', E= 10489.62' | Surfwood Ave & Unit One Matchline
-   • INT_BAYOU_MATCHLINE            | N=  8081.65', E= 10351.72' | Bayou Ave & Unit One Matchline (Course 8)
-   • INT_CAPEHORN_MATCHLINE         | N=  8475.49', E= 10522.68' | Cape Horn Ave & Unit One Matchline (P.R.M. Monument)
+   • INT_MANGROVE_SOUTH_END         | N=  7945.82', E= 10050.17' | Mangrove Ave & Plat South Limit
+   • INT_SURFWOOD_WEST_END          | N=  8223.59', E=  9865.16' | Surfwood Ave & West Boundary (Course 2)
+   • INT_SURFWOOD_MATCHLINE         | N=  8231.16', E= 10489.71' | Surfwood Ave & Unit One Matchline
+   • INT_BAYOU_MATCHLINE            | N=  8079.48', E= 10351.82' | Bayou Ave & Unit One Matchline (Course 8)
+   • INT_SANSALVADORE_BOUNDARY      | N=  8500.51', E= 10342.30' | San Salvadore Ave & Unit One Line (Course 13)
    • INT_STARFISH_WEST_END          | N=  9992.44', E=  9820.16' | Starfish Ave & West Boundary (Course 1)
-   • INT_SAIL_WEST_END              | N=  9732.67', E=  9831.08' | Sail Ave & West Boundary (Course 1)
-   • INT_SOUTH_WEST_END             | N=  9472.90', E=  9842.01' | South St & West Boundary (Course 1)
-   • INT_SHELLFISH_WEST_END         | N=  9222.46', E=  9847.24' | Shellfish Dr & West Boundary (Course 2)
+   • INT_MARINA_BOUNDARY            | N=  8998.26', E= 11058.34' | Marina Dr & Unit One Line (Course 20)
+   • INT_BLVD_NORTH_END             | N= 10238.98', E= 11397.53' | Beachwood Blvd & Section 32 North Line (Course 27)
+   • INT_BLVD_SOUTH_END             | N=  8977.50', E= 11412.82' | Beachwood Blvd & Unit One Line (Course 25)
+   • INT_SANDS_BOUNDARY             | N=  8787.20', E= 10906.45' | Sands Ave & Unit One Line (Course 19)
+   • INT_CAPEHORN_BOUNDARY          | N=  8721.98', E= 10479.48' | Cape Horn Ave & Unit One Line (Course 15)
+   • INT_CAPEHORN_WEST_END          | N=  8917.33', E=  9852.71' | Cape Horn Ave & West Boundary (Course 2)
+   • INT_CAPEHORN_MATCHLINE         | N=  8721.98', E= 10479.48' | Cape Horn Ave & Unit One Line (Course 15)
 
-4. OPEN-ENDED CUL-DE-SAC GEOMETRY (DOES NOT CLOSE)
+4. CUL-DE-SAC GEOMETRY
    ----------------------------------------------------------------------
-   • Street:               Keel Drive
-     Turnaround Center:    N = 9010.46 ft, E = 10510.05 ft
-     Bulb Radius:          50.0 ft (Right-of-Way)
-     Corridor Half-Width:  30.0 ft (60.0' Right-of-Way)
-     Reverse Fillet Rad:   25.0 ft (Analytical Reverse Curves)
-     Longitudinal Throat:  50.9902 ft
-     PRC Tangency Angle:   47.167°
-     Bulb Arc Angle:       265.667° (Central Turnaround Arc)
-     Throat Width:         60.00 ft (Exact Corridor Fit)
-     Network Status:       OPEN-ENDED DEAD END (Does NOT close into boundary or other street)
-     Drawing Standard:     AutoCAD Color 1 RED Layer (C-ROAD-CULDESAC)
+   None on the plat: Keel Drive ends at Marina Drive (Sheet 2 Block 7 Lots 30-37 are continuous;
+   no turnaround bulb on either sheet). The former Keel SW corridor + bulb were removed.
 
 5. ROAD CENTERLINE INTERSECTION SCHEDULE
    ----------------------------------------------------------------------
@@ -52,54 +47,179 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
    INT_STARFISH_MANGROVE          10000.00   10000.00 EXPLICIT   Starfish Ave & Mangrove Ave
    INT_MANGROVE_NORTH_END         10179.84    9992.44 BOUNDARY   Mangrove Ave & Sec 32 North Line (Subdivision Limit)
    INT_SAIL_MANGROVE               9740.23   10010.93 EXPLICIT   Sail Ave & Mangrove Ave
-   INT_SOUTH_MANGROVE              9480.46   10021.85 EXPLICIT   South St & Mangrove Ave
-   INT_MANGROVE_DEFL               9449.99   10023.13 EXPLICIT   Mangrove Ave Deflection Point (N-Leg to S-Leg)
-   INT_SHELLFISH_MANGROVE          9230.02   10027.08 EXPLICIT   Shellfish Dr & Mangrove Ave
-   INT_SURFWOOD_MANGROVE           8227.94   10045.06 EXPLICIT   Surfwood Ave & Mangrove Ave
-   INT_BAYOU_MANGROVE              8077.97   10047.75 EXPLICIT   Bayou Ave & Mangrove Ave
-   INT_MANGROVE_SOUTH_END          7947.99   10050.08 BOUNDARY   Mangrove Ave & Plat South Limit
-   INT_SURFWOOD_WEST_END           8225.76    9865.07 BOUNDARY   Surfwood Ave & West Boundary (Course 2)
-   INT_SURFWOOD_MATCHLINE          8233.33   10489.62 BOUNDARY   Surfwood Ave & Unit One Matchline
-   INT_BAYOU_MATCHLINE             8081.65   10351.72 BOUNDARY   Bayou Ave & Unit One Matchline (Course 8)
-   INT_SANSALVADORE_PC             8350.00   10250.00 EXPLICIT   San Salvadore Ave P.C. (Point of Curvature)
-   INT_SANSALVADORE_PT             8294.88   10428.74 EXPLICIT   San Salvadore Ave P.T. (Point of Tangency)
-   INT_ASSUMP_SS_SURFWOOD_PI       8293.11   10330.33 ASSUMED    Assumed P.I. Tie (San Salvadore to Surfwood)
-   INT_CAPEHORN_MATCHLINE          8475.49   10522.68 BOUNDARY   Cape Horn Ave & Unit One Matchline (P.R.M. Monument)
+   INT_SOUTH_MANGROVE              9480.46   10021.85 EXPLICIT   Marina Dr (west leg) & Mangrove Ave
+   INT_MANGROVE_DEFL               9447.82   10023.22 EXPLICIT   Mangrove Ave Deflection Point (N-Leg to S-Leg)
+   INT_SANDS_MANGROVE              9220.51   10027.30 EXPLICIT   Sands Ave & Mangrove Ave
+   INT_DRAIN40_MANGROVE            9070.53   10029.99 EXPLICIT   40' Drainage R/W & Mangrove Ave
+   INT_CAPEHORN_MANGROVE           8920.56   10032.68 EXPLICIT   Cape Horn Ave & Mangrove Ave
+   INT_SANSALVADORE_MANGROVE       8611.61   10038.23 EXPLICIT   San Salvadore Ave & Mangrove Ave
+   INT_SURFWOOD_MANGROVE           8225.78   10045.15 EXPLICIT   Surfwood Ave & Mangrove Ave
+   INT_BAYOU_MANGROVE              8075.80   10047.84 EXPLICIT   Bayou Ave & Mangrove Ave
+   INT_MANGROVE_SOUTH_END          7945.82   10050.17 BOUNDARY   Mangrove Ave & Plat South Limit
+   INT_SURFWOOD_WEST_END           8223.59    9865.16 BOUNDARY   Surfwood Ave & West Boundary (Course 2)
+   INT_SURFWOOD_MATCHLINE          8231.16   10489.71 BOUNDARY   Surfwood Ave & Unit One Matchline
+   INT_BAYOU_MATCHLINE             8079.48   10351.82 BOUNDARY   Bayou Ave & Unit One Matchline (Course 8)
+   INT_SANSALVADORE_PC             8612.59   10093.22 EXPLICIT   San Salvadore Avenue ℄ Curve P.C.
+   INT_SANSALVADORE_PT             8562.99   10254.08 EXPLICIT   San Salvadore Avenue ℄ Curve P.T.
+   INT_SANSALVADORE_BOUNDARY       8500.51   10342.30 BOUNDARY   San Salvadore Ave & Unit One Line (Course 13)
+   INT_PI_SANSALVADORE             8614.18   10181.79 ASSUMED    San Salvadore Avenue Projected P.I. (T=88.58')
    INT_STARFISH_WEST_END           9992.44    9820.16 BOUNDARY   Starfish Ave & West Boundary (Course 1)
-   INT_STARFISH_BEACHWOOD         10061.08   11452.22 EXPLICIT   Starfish Ave & Beachwood Blvd
-   INT_SAIL_WEST_END               9732.67    9831.08 BOUNDARY   Sail Ave & West Boundary (Course 1)
-   INT_SAIL_BEACHWOOD              9801.31   11463.14 EXPLICIT   Sail Ave & Beachwood Blvd
-   INT_SOUTH_WEST_END              9472.90    9842.01 BOUNDARY   South St & West Boundary (Course 1)
-   INT_SOUTH_MARINA_PC             9491.31   10279.88 EXPLICIT   South St & Marina Ave P.C.
-   INT_MARINA_PT                   9414.57   10539.81 EXPLICIT   Marina Ave P.T. (Point of Tangency)
-   INT_MARINA_KEEL                 9279.24   10700.39 EXPLICIT   Marina Ave & Keel Drive
-   INT_KEEL_SOUTH_END              8969.13   10480.78 EXPLICIT   Keel Drive Southwest Terminus
-   INT_KEEL_PC                     9067.59   10550.50 EXPLICIT   Keel Drive Curve P.C.
-   INT_KEEL_PT                     9128.21   10661.91 EXPLICIT   Keel Drive Curve P.T.
-   INT_KEEL_CULDESAC               9010.46   10510.05 ASSUMED    Keel Drive Open-Ended Cul-de-Sac Terminus
-   INT_ASSUMP_SANDS_BEACHWOOD      9455.15   11514.87 ASSUMED    Assumed Beachwood Blvd & Sands Ave Intersection
-   INT_ASSUMP_SANDS_PC             9480.00   11460.00 ASSUMED    Assumed Sands Ave Curve P.C.
-   INT_SHELLFISH_WEST_END          9222.46    9847.24 BOUNDARY   Shellfish Dr & West Boundary (Course 2)
-   INT_SHELLFISH_KEEL              9247.91   10678.32 EXPLICIT   Shellfish Dr & Keel Drive Intersection
-   INT_ASSUMP_SANDS_PT             9574.70   11189.67 ASSUMED    Assumed Sands Ave Curve P.T.
-   INT_CAPEHORN_PC                 8619.97   10318.66 EXPLICIT   Cape Horn Ave Curve P.C.
-   INT_CAPEHORN_PT                 8565.01   10515.02 EXPLICIT   Cape Horn Ave Curve P.T.
-   INT_PI_MARINA                   9497.33   10422.95 ASSUMED    Marina Avenue Projected P.I. (T=143.20')
-   INT_PI_SANSALVADORE             8293.11   10330.33 ASSUMED    San Salvadore Projected P.I. (T=98.42')
-   INT_PI_BEACHWOOD_BLVD           9930.85   11457.69 ASSUMED    Beachwood Blvd Projected P.I. (T=130.34')
-   INT_PI_SANDS                    9473.67   11309.40 ASSUMED    Sands Avenue Projected P.I. (T=150.73')
-   INT_PI_KEEL                     9125.24   10591.33 ASSUMED    Keel Drive Projected P.I. (T=70.64')
-   INT_PI_CAPEHORN                 8557.96   10406.22 ASSUMED    Cape Horn Projected P.I. (T=107.30')
+   INT_STARFISH_BEACHWOOD         10058.87   11399.72 EXPLICIT   Starfish Ave & Beachwood Blvd
+   INT_SAIL_BEACHWOOD              9798.77   11402.87 EXPLICIT   Sail Ave & Beachwood Blvd
+   INT_SOUTH_MARINA_PC             9489.42   10234.92 EXPLICIT   Marina Dr ℄ Curve P.C.
+   INT_MARINA_PT                   9423.66   10457.65 EXPLICIT   Marina Ave P.T. (Point of Tangency)
+   INT_MARINA_KEEL                 9154.91   10837.15 EXPLICIT   Marina Ave & Keel Drive
+   INT_MARINA_BOUNDARY             8998.26   11058.34 BOUNDARY   Marina Dr & Unit One Line (Course 20)
+   INT_KEEL_PC                     9199.93   10869.02 EXPLICIT   Keel Drive Curve P.C.
+   INT_KEEL_PT                     9260.55   10980.43 EXPLICIT   Keel Drive Curve P.T.
+   INT_BLVD_NORTH_END             10238.98   11397.53 BOUNDARY   Beachwood Blvd & Section 32 North Line (Course 27)
+   INT_SHELLFISH_BEACHWOOD         9538.67   11406.02 EXPLICIT   Shellfish Dr & Beachwood Blvd
+   INT_KEEL_BEACHWOOD              9278.58   11409.18 EXPLICIT   Keel Dr & Beachwood Blvd
+   INT_BLVD_SOUTH_END              8977.50   11412.82 BOUNDARY   Beachwood Blvd & Unit One Line (Course 25)
+   INT_MARINA_SHELLFISH            9391.87   10502.55 EXPLICIT   Shellfish Dr & Marina Dr
+   INT_SHELLFISH_PC                9436.74   10534.32 EXPLICIT   Shellfish Dr ℄ Curve P.C.
+   INT_SHELLFISH_PT                9507.48   10664.33 EXPLICIT   Shellfish Dr ℄ Curve P.T.
+   INT_SANDS_PC                    9222.48   10137.28 EXPLICIT   Sands Avenue ℄ Curve P.C.
+   INT_SANDS_PT                    9138.07   10411.00 EXPLICIT   Sands Avenue ℄ Curve P.T.
+   INT_SANDS_BOUNDARY              8787.20   10906.45 BOUNDARY   Sands Ave & Unit One Line (Course 19)
+   INT_PI_SANDS                    9225.19   10287.99 ASSUMED    Sands Avenue Projected P.I. (T=150.73')
+   INT_CAPEHORN_PC                 8921.54   10087.67 EXPLICIT   Cape Horn Avenue ℄ Curve P.C.
+   INT_CAPEHORN_PT                 8861.45   10282.53 EXPLICIT   Cape Horn Avenue ℄ Curve P.T.
+   INT_CAPEHORN_BOUNDARY           8721.98   10479.48 BOUNDARY   Cape Horn Ave & Unit One Line (Course 15)
+   INT_CAPEHORN_WEST_END           8917.33    9852.71 BOUNDARY   Cape Horn Ave & West Boundary (Course 2)
+   INT_PI_CAPEHORN                 8923.47   10194.96 ASSUMED    Cape Horn Avenue Projected P.I. (T=107.30')
+   INT_CAPEHORN_MATCHLINE          8721.98   10479.48 BOUNDARY   Cape Horn Ave & Unit One Line (Course 15)
+   INT_PI_MARINA                   9494.58   10357.52 ASSUMED    Marina Avenue Projected P.I. (T=122.70')
+   INT_PI_KEEL                     9257.58   10909.85 ASSUMED    Keel Drive Projected P.I. (T=70.64')
+   INT_PI_SHELLFISH                9504.02   10581.97 ASSUMED    Shellfish Drive Projected P.I. (T=82.43'; plat prints 82.35')
 
 6. CENTERLINE CURVE SCHEDULE
    ----------------------------------------------------------------------
    Curve ID               Radius        Delta  Arc Length   Tangent  Chord Dist Direction
-   C_SANSALVADORE_CL      299.96'     36.3333°     190.22'    98.43'     187.04'        CW
-   C_MARINA_CL            419.27'     37.7139°     275.98'   143.20'     271.02'        CW
+   C_SANSALVADORE_CL      269.96'     36.3333°     171.19'    88.58'     168.34'        CW
+   C_MARINA_CL            359.27'     37.7139°     236.48'   122.70'     232.24'        CW
    C_KEEL_CL              143.93'     52.2861°     131.35'    70.64'     126.84'        CW
-   C_BEACHWOOD_BLVD_CL   1959.86'      7.6083°     260.19'   130.34'     260.00'        CW
-   C_SANDS_CL             459.36'     36.3333°     291.30'   150.73'     286.44'       CCW
-   C_CAPEHORN_CL          327.01'     36.3333°     207.37'   107.30'     203.91'       CCW
+   C_SHELLFISH_CL         167.95'     52.2861°     153.27'    82.43'     148.00'        CW
+   C_SANDS_CL             459.36'     36.3333°     291.30'   150.73'     286.44'        CW
+   C_CAPEHORN_CL          327.01'     36.3333°     207.37'   107.30'     203.91'        CW
+
+6b. R/W CORNER FILLET SCHEDULE (R = 25' at every street corner; derived)
+   ----------------------------------------------------------------------
+   Fillet ID                            Delta       T       L   Chord Chord Brg     PI (street-line corner) N / E
+   F_STARFISH_MANGROVE_SW           90°00'00"  25.000  39.270  35.355 S47°24'30"E   9968.766 / 9971.287  (SW: drainage-strip block Lot 1 NE)
+   F_STARFISH_MANGROVE_SE           90°00'00"  25.000  39.270  35.355 N42°35'30"E   9971.287 / 10031.234  (SE: Block 17 Lot 1 NW)
+   F_SAIL_MANGROVE_NE               90°00'00"  25.000  39.270  35.355 N47°24'30"W   9771.464 / 10039.638  (NE: Block 17 Lot 34 SW)
+   F_SAIL_MANGROVE_SE               90°00'00"  25.000  39.270  35.355 N42°35'30"E   9711.517 / 10042.160  (SE: Block 16 Lot 1 NW)
+   F_STARFISH_BEACHWOOD_NW          88°17'10"  24.263  38.522  34.823 N43°26'55"E   10087.199 / 11359.371  (NW: Block 18 Lot 19 SE)
+   F_STARFISH_BEACHWOOD_SW          91°42'50"  25.759  40.018  35.880 S46°33'05"E   10027.177 / 11360.099  (SW: Block 17 Lot 17 NE)
+   F_SAIL_BEACHWOOD_NW              88°17'10"  24.263  38.522  34.823 N43°26'55"E   9827.102 / 11362.524  (NW: Block 17 Lot 18 SE)
+   F_SAIL_BEACHWOOD_SW              91°42'50"  25.759  40.018  35.880 S46°33'05"E   9767.079 / 11363.251  (SW: Block 16 Lot 17 NE)
+   F_SHELLFISH_BEACHWOOD_NW         88°17'10"  24.263  38.522  34.823 N43°26'55"E   9567.005 / 11365.676  (NW: Block 16 Lot 18 SE)
+   F_SHELLFISH_BEACHWOOD_SW         91°42'50"  25.759  40.018  35.880 S46°33'05"E   9506.982 / 11366.404  (SW: Block 15 Lot 9 NE)
+   F_KEEL_BEACHWOOD_NW              88°17'10"  24.263  38.522  34.823 N43°26'55"E   9306.907 / 11368.829  (NW: Block 15 Lot 10 SE)
+   F_KEEL_BEACHWOOD_SW              91°42'50"  25.759  40.018  35.880 S46°33'05"E   9246.885 / 11369.557  (SW: Block 6 Lot 10 NE)
+   F_MARINA_MANGROVE_NE             90°00'00"  25.000  39.270  35.355 N47°24'30"W   9511.693 / 10050.564  (NE: Block 16 Lot 33 SW)
+   F_MARINA_MANGROVE_SE             88°37'10"  24.405  38.668  34.927 N43°16'55"E   9451.749 / 10053.158  (SE: Block 7 Lot 24 NW)
+   F_SANDS_MANGROVE_NE              90°00'00"  25.000  39.270  35.355 N46°01'40"W   9251.042 / 10056.759  (NE: Block 7 Lot 23 SW)
+   F_SANDS_MANGROVE_SE              90°00'00"  25.000  39.270  35.355 N43°58'20"E   9191.051 / 10057.835  (SE: Block 8 Lot 23 NW)
+   F_DRAIN40_MANGROVE_NE            90°00'00"  25.000  39.270  35.355 N46°01'40"W   9091.068 / 10059.629  (NE: Block 8 Lot 23 SW)
+   F_DRAIN40_MANGROVE_SE            90°00'00"  25.000  39.270  35.355 N43°58'20"E   9051.074 / 10060.346  (SE: Block 8 Lot 22 NW)
+   F_DRAIN40_MANGROVE_NW            90°00'00"  25.000  39.270  35.355 S43°58'20"W   9089.991 / 9999.638  (NW: Block 14 Tract 'A' SE)
+   F_DRAIN40_MANGROVE_SW            90°00'00"  25.000  39.270  35.355 S46°01'40"E   9049.998 / 10000.356  (SW: Block 14 Lot 11 NE)
+   F_CAPEHORN_MANGROVE_NE           90°00'00"  25.000  39.270  35.355 N46°01'40"W   8951.090 / 10062.140  (NE: Block 8 Lot 22 SW)
+   F_CAPEHORN_MANGROVE_SE           90°00'00"  25.000  39.270  35.355 N43°58'20"E   8891.100 / 10063.216  (SE: Block 9 Lot 27 NW (Sheet 1))
+   F_CAPEHORN_MANGROVE_NW           90°00'00"  25.000  39.270  35.355 S43°58'20"W   8950.014 / 10002.149  (NW: Block 14 Lot 11 SE)
+   F_CAPEHORN_MANGROVE_SW           90°00'00"  25.000  39.270  35.355 S46°01'40"E   8890.023 / 10003.226  (SW: west block NE (Sheet 1))
+   F_MARINA_SHELLFISH_N             90°00'00"  25.000  39.270  35.355 S80°18'20"W   9433.691 / 10495.402  (N: Block 16 Lot 29 S)
+   F_MARINA_SHELLFISH_S             90°00'00"  25.000  39.270  35.355 N9°41'40"W    9399.015 / 10544.367  (S: Block 15 Lot 1 W)
+   F_MARINA_KEEL_N                  90°00'00"  25.000  39.270  35.355 S80°18'20"W   9196.732 / 10830.001  (N: Block 15 Lot 17 S)
+   F_MARINA_KEEL_S                  90°00'00"  25.000  39.270  35.355 N9°41'40"W    9162.056 / 10878.966  (S: Block 6 Lot 6 W)
+   F_SANSALVADORE_MANGROVE_NE       90°00'00"  25.000  39.270  35.355 N46°01'40"W   8642.140 / 10067.682  (NE: Block 9 Lot 26 SW)
+   F_SANSALVADORE_MANGROVE_SE       90°00'00"  25.000  39.270  35.355 N43°58'20"E   8582.149 / 10068.759  (SE: Block 12 Lot 8 NW)
+
+6c. INDEPENDENT PLAT CHECKS ON THE DERIVED GEOMETRY (engine/centerline_geometry.py)
+   ----------------------------------------------------------------------
+   [PASS] Mangrove W R/W deflection below Starfish S R/W (Blk 14 Lots 1-5 + Lot 6 east 60.45') resid -0.023'  (Block 14: 100 + 91.88 + 90 + 90 + 90 + 60.45)
+   [PASS] Block 14 west line deflection below Starfish S R/W (Lots 1-5 + Lot 6 west 59.22') resid +0.002'  (Block 14 west side, 50' inside c1/c2)
+   [PASS] Cape Horn N R/W: Block 14 west-side sum vs Blocks 7/8 east-side sum (offset between them) resid +0.004'  (W: 461.88+77.44+300+40+40+100 | E: 100.74+100+60+100+40+100)
+   [PASS] 40' drainage R/W N line: west side (Tract 'A') vs east side (Blk 8 Lot 23) resid +0.004'  (both sides of Mangrove)
+   [PASS] Block 14 Lot 6/7 line width (lot west line to Mangrove W R/W)      resid +0.000'  (Sheet 2 Lot 6/7 '100'')
+   [PASS] Block 17 north row (Starfish S R/W, Mangrove E R/W to Blvd W R/W)  resid -0.001'  (Sheet 2 Block 17 Lots 1-17 frontages)
+   [PASS] Block 17 south row (Sail N R/W)                                    resid -0.005'  (Block 17 Lots 34-18 frontages)
+   [PASS] Block 16 north row (Sail S R/W)                                    resid -0.000'  (Block 16 Lots 1-17 frontages)
+   [PASS] Block 18 south row (Starfish N R/W, boundary c1 to Blvd W R/W)     resid -0.005'  (Block 18 Lots 1-19 + 50' drainage R/W)
+   [PASS] Beachwood Blvd width on north line c27                             resid -0.004'  (Sheet 2 '80.04'' at the NE corner)
+   [PASS] Beachwood Blvd width on south line c25                             resid +0.006'  (c25 85.32' vs 80' R/W crossed at 20°19'48")
+   [PASS] Block 17 Lot 17 east line (Starfish S R/W to lot 17/18 line)       resid +0.005'  (Sheet 2 '100.04'')
+   [PASS] Blvd ℄ INT_STARFISH_BEACHWOOD -> INT_SAIL_BEACHWOOD                resid +0.000'  (260' street spacing / cos 1°42'50")
+   [PASS] Blvd ℄ INT_SAIL_BEACHWOOD -> INT_SHELLFISH_BEACHWOOD               resid +0.000'  (260' street spacing / cos 1°42'50")
+   [PASS] Blvd ℄ INT_SHELLFISH_BEACHWOOD -> INT_KEEL_BEACHWOOD               resid -0.000'  (260' street spacing / cos 1°42'50")
+   [PASS] F_MARINA_MANGROVE_SE: Mangrove-side tangent point south of the E R/W deflection (ft past it) resid -0.000'  (T (R=25', Δ=88°37'10") from the corner minus the corner-to-vertex distance)
+   [PASS] Marina S R/W corner is north of Mangrove E R/W deflection (ft)     resid +0.001'  (must be < T = 25' for the fillet to be valid)
+   [PASS] Block 17 Lot 17 north frontage to fillet PI                        resid -0.001'  (Sheet 2 '111.54'')
+   [PASS] Block 18 Lot 19 south frontage to fillet PI                        resid -0.005'  (Sheet 2 '113.34'')
+   [PASS] Block 15 Lot 9 north frontage (Shellfish S R/W) end at Blvd W R/W  resid -0.000'  (Block 15 east lines 100.04' + 100.04')
+   [PASS] Marina ℄ PC: NE-side lots (93.50+89.76) vs SW-side lots (99.93+83.26) resid +0.003'  (Block 16 Lots 33/32 | Lots 24/25)
+   [PASS] Marina forward tangent = S54°41'40" E (printed on the diagonal)    resid +0.000'  (arc-seconds)
+   [PASS] Marina NE edge chord 1 (85.24' on R=389.27) bearing                resid +0.677'  (printed S86°07'22"E, arc-seconds)
+   [PASS] Marina NE edge chord 2 (85.24' on R=389.27) bearing                resid +2.030'  (printed S73°33'06"E, arc-seconds)
+   [PASS] Marina NE edge chord 3 (85.24' on R=389.27) bearing                resid +2.384'  (printed S60°58'49"E, arc-seconds)
+   [PASS] Marina NE edge chords sum to ℄ Δ (arc-seconds)                     resid +2.061'  (Σ chord Δ = 37°42'50")
+   [PASS] Marina SW edge chord 1 (99.37' on R=329.27) bearing                resid -1.457'  (printed N83°43'45"W, arc-seconds)
+   [PASS] Marina SW edge chord 2 (99.36' on R=329.27) bearing                resid -2.538'  (printed N66°22'20"W, arc-seconds)
+   [PASS] Marina SW edge chord 3 (17.24' on R=329.27) bearing                resid -1.714'  (printed N56°11'40"W, arc-seconds)
+   [PASS] Marina SW edge chords sum to ℄ Δ (arc-seconds)                     resid -1.266'  (Σ chord Δ = 37°42'50")
+   [PASS] Boundary c20 end lies on Marina NE R/W (offset from ℄)             resid +0.013'  (caption c20/c21)
+   [PASS] Shellfish NW edge: Marina NE R/W corner to edge P.C. (printed tangent leg) resid -0.014'  (Sheet 2 '25.0' N35°18'20"E)
+   [PASS] Shellfish SE edge: Marina NE R/W corner to edge P.C. (printed tangent leg) resid -0.014'  (Sheet 2 '25.0' N35°18'20"E)
+   [PASS] Keel NW edge: Marina NE R/W corner to edge P.C. (printed tangent leg) resid -0.022'  (Sheet 2 '25.18' N35°18'20"E)
+   [PASS] Keel SE edge: Marina NE R/W corner to edge P.C. (printed tangent leg) resid -0.022'  (Sheet 2 '25.18' N35°18'20"E)
+   [PASS] Shellfish SE edge chord (R=137.95, full Δ)                         resid +0.005'  (Sheet 2 '121.56' N61°26'55"E')
+   [PASS] Shellfish SE edge chord bearing (arc-seconds)                      resid +0.000'  (printed)
+   [PASS] Shellfish NW edge chords 51.68+68.75+59.50 on R=197.95 sum to ℄ Δ (arc-seconds) resid +12.837'  (Blk 16 Lots 29/28/27; tol = 3 chords x 0.005' rounding on R=197.95 (~5" each))
+   [PASS] Keel SE edge chord (R=113.93, full Δ)                              resid -0.002'  (Sheet 2 '100.40' N61°26'55"E')
+   [PASS] Keel NW edge chord Lot 15 bearing (75.29' on R=173.93, ends at P.T.) (arc-seconds) resid +0.415'  (printed N75°05'30"E)
+   [PASS] Shellfish-to-Keel mouth spacing on Marina ℄ (Blk 15 Lots 1+18+17 = 115+110+125, + 2x30) resid +0.008'  (Sheet 2 Marina NE R/W frontages)
+   [PASS] Shellfish mouth lies on Marina's SE tangent (ft past Marina P.T.)  resid +0.000'  (mouth corners are line x line)
+   [PASS] Shellfish N mouth return starts at Marina NE edge P.T. (Blk 16 Lot 29 corner), ft along NE R/W resid +0.008'  (Marina NE chord 3 ends where the 25' return begins)
+   [PASS] Sands Avenue N edge chord 17.08' S89°58'20"W (R=489.36)            resid +0.001'  (chord from the printed bearing pattern)
+   [PASS] Sands Avenue N edge chord 76.78' N84°31'40"W (R=489.36)            resid +0.009'  (chord from the printed bearing pattern)
+   [PASS] Sands Avenue N edge chord 76.78' N75°31'40"W (R=489.36)            resid +0.009'  (chord from the printed bearing pattern)
+   [PASS] Sands Avenue N edge chord 76.78' N66°31'40"W (R=489.36)            resid +0.009'  (chord from the printed bearing pattern)
+   [PASS] Sands Avenue N edge chord 62.59' N58°21'40"W (R=489.36)            resid +0.001'  (chord from the printed bearing pattern)
+   [PASS] Sands Avenue N edge: printed chord bearings close on ℄ Δ (arc-seconds) resid +0.000'  (Δ = 36°20'00")
+   [PASS] Sands Avenue S edge chord 17.48' N89°51'40"W (R=429.36)            resid +0.004'  (chord from the printed bearing pattern)
+   [PASS] Sands Avenue S edge chord 89.76' N82°41'40"W (R=429.36)            resid +0.001'  (chord from the printed bearing pattern)
+   [PASS] Sands Avenue S edge chord 89.76' N70°41'40"W (R=429.36)            resid +0.001'  (chord from the printed bearing pattern)
+   [PASS] Sands Avenue S edge chord 74.84' N59°41'40"W (R=429.36)            resid +0.002'  (chord from the printed bearing pattern)
+   [PASS] Sands Avenue S edge: printed chord bearings close on ℄ Δ (arc-seconds) resid -0.000'  (Δ = 36°20'00")
+   [PASS] Sands Avenue ℄ passes through the midpoint of its boundary crossing c19 (60.14') resid -0.034'  (caption course)
+   [PASS] Cape Horn Avenue N edge chord 70.5' N85°21'40"W (R=357.01)         resid +0.003'  (chord from the printed bearing pattern)
+   [PASS] Cape Horn Avenue N edge chord 80.83' N73°11'40"W (R=357.01)        resid -0.001'  (chord from the printed bearing pattern)
+   [PASS] Cape Horn Avenue N edge chord 74.64' N60°41'40"W (R=357.01)        resid -0.005'  (chord from the printed bearing pattern)
+   [PASS] Cape Horn Avenue N edge: printed chord bearings close on ℄ Δ (arc-seconds) resid +0.000'  (Δ = 36°20'00")
+   [PASS] Cape Horn Avenue S edge chord 72.39' S84°01'40"E (R=297.01)        resid +0.003'  (chord from the printed bearing pattern)
+   [PASS] Cape Horn Avenue S edge chord 108.25' S66°31'40"E (R=297.01)       resid +0.002'  (chord from the printed bearing pattern)
+   [PASS] Cape Horn Avenue S edge chord 6.91' S55°21'40"E (R=297.01)         resid +0.002'  (chord from the printed bearing pattern)
+   [PASS] Cape Horn Avenue S edge: printed chord bearings close on ℄ Δ (arc-seconds) resid -0.000'  (Δ = 36°20'00")
+   [PASS] Cape Horn Avenue ℄ passes through the midpoint of its boundary crossing c15 (62.53') resid -0.014'  (caption course)
+   [PASS] San Salvadore Avenue N edge chord 67.91' N84°31'40"W (R=299.96)    resid +0.003'  (chord from the printed bearing pattern)
+   [PASS] San Salvadore Avenue N edge chord 66.18' N71°41'40"W (R=299.96)    resid -0.001'  (chord from the printed bearing pattern)
+   [PASS] San Salvadore Avenue N edge chord 55.76' N60°01'40"W (R=299.96)    resid +0.002'  (chord from the printed bearing pattern)
+   [PASS] San Salvadore Avenue N edge: printed chord bearings close on ℄ Δ (arc-seconds) resid +0.000'  (Δ = 36°20'00")
+   [PASS] San Salvadore Avenue S edge chord 106.6' N78°11'40"W (R=239.96)    resid -0.002'  (chord from the printed bearing pattern)
+   [PASS] San Salvadore Avenue S edge chord 44.61' N60°01'40"W (R=239.96)    resid -0.002'  (chord from the printed bearing pattern)
+   [PASS] San Salvadore Avenue S edge: printed chord bearings close on ℄ Δ (arc-seconds) resid +0.000'  (Δ = 36°20'00")
+   [PASS] San Salvadore Avenue ℄ passes through the midpoint of its boundary crossing c13 (77.88') resid -0.012'  (caption course)
+   [PASS] San Salvadore diagonal ℄ is 260' SW of Cape Horn diagonal ℄ (Blk 9: 100 + 100 + 2x30) resid +0.017'  (Sheet 1 Block 9 lot depths)
+   [PASS] Sands diagonal ℄ is 260' SW of Marina diagonal ℄ (Blk 7: 100 + 100 + 2x30) resid +0.026'  (Sheet 2 Block 7 lot depths (SW = right of SE travel = +))
+   [PASS] Every 25' fillet joins trimmed R/W edges at both tangent points (unjoined: []) resid +0.000'  (R/W linework topology)
+   [PASS] San Salvadore Ave ℄ T = R tan(Δ/2)                                 resid -0.006'  (℄ Curve Data block)
+   [PASS] Cape Horn Ave ℄ T = R tan(Δ/2)                                     resid -0.005'  (℄ Curve Data block)
+   [PASS] Marina Drive ℄ T = R tan(Δ/2)                                      resid +0.004'  (℄ Curve Data block)
+   [PASS] Sands Ave ℄ T = R tan(Δ/2)                                         resid +0.004'  (℄ Curve Data block)
+   [PASS] Shellfish Drive ℄ T = R tan(Δ/2)                                   resid +0.084'  (℄ Curve Data block)
+   [PASS] Keel Drive ℄ T = R tan(Δ/2)                                        resid -0.005'  (℄ Curve Data block)
 
 7. RED-LINED ASSUMPTIONS & FIELD RECOVERY PROTOCOLS
    ----------------------------------------------------------------------
@@ -108,31 +228,7 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
        Summed Front: Block 11 Lots 15 (93.83'), 16 (75.00'), 17 (75.00') -> Total = 243.83' + 60.17' tie = 304.00'
        Field Action: Locate iron pins at Block 11 Lot 17 NE corner on the matchline to verify exact Bayou right-of-way width and centerline alignment.
 
-   [2] ASSUMP_SS_SURFWOOD_TIE (San Salvadore Ave to Surfwood Ave) -- TRANSITION_CORRIDOR
-       Rationale:    Plat Sheet 1 has faint, uncertified jog courses at Block 12 Lots 8-10. Centerline alignment must be projected analytically by summing front lot lines.
-       Summed Front: Block 12 Lot 8 (25.82' N19°06'16"E) + Lot 9-10 (60.34' S56°34'00"E) = 86.16' jog sum
-       Field Action: Surveyors must locate physical monument pins at Block 12 Lot 8 NE corner and Unit One matchline to confirm exact centerline deflection.
-
-   [3] ASSUMP_KEEL_CULDESAC (Keel Drive) -- OPEN_ENDED_CULDESAC
-       Rationale:    Keel Drive terminates at an open-ended cul-de-sac turnaround bulb and does NOT close into the outer boundary or another street.
-       Field Action: Locate radial iron pins at the cul-de-sac turnaround bulb perimeter to establish exact right-of-way flare.
-
-   [4] ASSUMP_BEACHWOOD_S (Beachwood Boulevard) -- ARTERIAL_PROJECTION
-       Rationale:    Plat Sheet 2 terminates Beachwood Blvd at Block 15 north line. Centerline continuity requires analytical projection hedged from East R/W curve C2 and Block 15 lot frontages.
-       Summed Front: Block 15 Lots 9 & 10 East arc frontages (100.04' + 100.04' = 200.08') + 149.92' tie = 350.00'
-       Field Action: Recover physical P.R.M. monument at Section 32 East line to establish the southern arterial tangent point.
-
-   [5] ASSUMP_SANDS_APPROACH (Sands Avenue) -- CURVE_CORRIDOR
-       Rationale:    Sands Avenue centerline curve parameters are given in the plat table but its exact tangent approach is unlettered; bearing is hedged from Block 15 lot frontages (S87°35'30"W) and distance approximated by summing lots 2-5 frontages.
-       Summed Front: Block 15 Lots 5 (88.48'), 4 (88.48'), 3 (88.50'), 2 (100.00') -> Sum = 365.46' frontage
-       Field Action: Locate block corner monuments at Block 15 Lots 1-4 to establish the straight tangent alignment of Sands Ave.
-
-   [6] ASSUMP_SHELLFISH_KEEL (Shellfish Drive East Extension) -- TRANSITION_CORRIDOR
-       Rationale:    Eastern terminus of Shellfish Drive meets Block 15 Lots 1-9. Distance approximated by summing Block 15 Lots 1-9 frontages (839.69' total).
-       Summed Front: Block 15 Lots 1-9 frontages: 153.25' (arc) + 100' + 88.5' + 176.96' + 225' + 95.98' = 839.69'
-       Field Action: Recover lot corner pins along Block 15 North line to determine exact centerline terminus.
-
-   [7] ASSUMP_PI_TANGENT_EXTENSIONS (All 6 Curved Corridors) -- PI_TANGENTS_RULE2
+   [2] ASSUMP_PI_TANGENT_EXTENSIONS (All 6 Curved Corridors) -- PI_TANGENTS_RULE2
        Rationale:    Plat block corners carry L-shaped angle bar glyphs indicating boundary extension along tangents to P.I. rather than P.C. / P.T.
        Field Action: Verify field deflection angle Delta between tangents and confirm surveyor tangent distance T = R * tan(Delta/2).
 
@@ -158,43 +254,34 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
       -> Block 11 Lot 16: 75.00' (N89°18'20"E)
       -> Block 11 Lot 17: 75.00' (N89°18'20"E)
       -> West R/W Half-Width & Matchline Tie: 60.17' (N89°18'20"E)
-   SEG_SANSALVADORE_TANGENT     San Salvadore Avenue     S54°41'40"E        650.00 RIGHT_OF_WAY_EDGE_HEDGE
-      -> Block 9 Lot 23-26: 300.00' (S54°41'40"E (4 lots x 75.00'))
-      -> West Approach from Boundary/Block 13: 350.00' (S54°41'40"E)
-   SEG_ASSUMP_SS_SURFWOOD_TIE   San Salvadore - Surfwood Transition Tie S56°34'00"E         86.57 FRONT_LOT_SUMMATION_APPROXIMATION
-      -> Block 12 Lot 8: 25.82' (N19°06'16"E)
-      -> Block 12 Lot 9-10: 60.34' (S56°34'00"E)
-   SEG_CAPEHORN_MAIN            Cape Horn Avenue         S54°41'40"E        800.00 RIGHT_OF_WAY_EDGE_HEDGE
-      -> Block 9 Lot 27-31: 375.00' (S54°41'40"E (5 lots x 75.00'))
-      -> Approach to Unit 1 Matchline P.R.M.: 425.00' (S54°41'40"E)
-   SEG_STARFISH_MAIN            Starfish Avenue          N87°35'30"E       1453.50 BOUNDARY_OFFSET_AND_TRIM
-      -> Block 18 Lot 1-14: 1050.00' (N87°35'30"E (14 lots x 75.00'))
-      -> Block 17 Lot North Row: 403.50' (N87°35'30"E)
-   SEG_SAIL_MAIN                Sail Avenue              N87°35'30"E       1453.50 BOUNDARY_OFFSET_AND_TRIM
-      -> Block 16 Lot 1-8: 618.50' (N87°35'30"E (68.50' straight + 7x75.00'))
-      -> Block 17 Lot South Row: 835.00' (N87°35'30"E)
-   SEG_SOUTH_MAIN               South Street             N87°35'30"E        258.26 BOUNDARY_OFFSET_AND_TRIM
-      -> Block 16 Lot 33: 93.50' (N87°35'30"E (stated to P.I.))
-      -> Block 16 Lot 32: 75.00' (N87°35'30"E)
-      -> Marina Ave Curve P.C. transition: 89.76' (N87°35'30"E)
-   SEG_ASSUMP_BEACHWOOD_S       Beachwood Boulevard South Projection S08°30'00"E        350.00 RIGHT_OF_WAY_EDGE_HEDGE
-      -> Block 15 Lot 9: 100.04' (Curve C2 Arc)
-      -> Block 15 Lot 10: 100.04' (Curve C2 Arc)
-      -> Block 15 South arterial connection: 149.92' (S08°30'00"E)
-   SEG_ASSUMP_SANDS_APPROACH    Sands Avenue Approach    S87°35'30"W         60.24 FRONT_LOT_SUMMATION_APPROXIMATION
-      -> Block 15 Lot 5: 88.48' (S87°35'30"W)
-      -> Block 15 Lot 4: 88.48' (S87°35'30"W)
-      -> Block 15 Lot 3: 88.50' (S87°35'30"W)
-      -> Block 15 Lot 2: 100.00' (S87°35'30"W)
-   SEG_SHELLFISH_MAIN           Shellfish Drive          N87°35'30"E        651.49 BOUNDARY_OFFSET_AND_TRIM
-      -> Block 14 Lot 24-13: 901.34' (N87°35'30"E (Block 14 South Row Lots 13-24))
-   SEG_ASSUMP_SHELLFISH_KEEL    Shellfish Drive East Extension N87°35'30"E        498.67 FRONT_LOT_SUMMATION_APPROXIMATION
-      -> Block 15 Lot 1: 153.25' (R=167.95' Arc)
-      -> Block 15 Lot 2: 100.00' (N87°35'30"E)
-      -> Block 15 Lot 3: 88.50' (N87°35'30"E)
-      -> Block 15 Lot 4-5: 176.96' (N87°35'30"E (2x88.48'))
-      -> Block 15 Lot 6-8: 225.00' (N87°35'30"E (3x75.00'))
-      -> Block 15 Lot 9: 95.98' (N87°35'30"E)
+   SEG_SANSALVADORE_1           San Salvadore Avenue     N88°58'20"E         55.00 BOUNDARY_OFFSET_AND_TRIM
+   SEG_SANSALVADORE_2           San Salvadore Avenue     S54°41'40"E        108.11 BOUNDARY_OFFSET_AND_TRIM
+   SEG_STARFISH_MAIN            Starfish Avenue          N87°35'30"E       1400.95 BOUNDARY_OFFSET_AND_TRIM
+      -> Mangrove Ave half R/W: 30.00' (N87°35'30"E)
+      -> Block 17 Lot 1-17: 1330.04' (N87°35'30"E (93.50' + 15x75.00' + 111.54'))
+      -> Blvd W R/W to ℄ (0.90' skew over 30' + 40.02'): 40.92' (N87°35'30"E)
+   SEG_SAIL_MAIN                Sail Avenue              N87°35'30"E       1393.18 BOUNDARY_OFFSET_AND_TRIM
+      -> Mangrove Ave half R/W: 30.00' (N87°35'30"E)
+      -> Block 16 Lot 1-17: 1322.26' (N87°35'30"E (93.50' + 15x75.00' + 103.76'))
+      -> Blvd W R/W to ℄ (0.90' skew over 30' + 40.02'): 40.92' (N87°35'30"E)
+   SEG_SOUTH_MAIN               Marina Drive (west leg)  N87°35'30"E        213.26 BOUNDARY_OFFSET_AND_TRIM
+      -> Mangrove Ave half R/W: 30.00' (N87°35'30"E)
+      -> Block 16 Lot 33: 93.50' (N87°35'30"E (to street-line corner))
+      -> Block 16 Lot 32: 89.76' (N87°35'30"E (to radial Lot 31/32 line))
+   SEG_KEEL_MOUTH               Keel Drive               N35°18'20"E         55.16 BOUNDARY_OFFSET_AND_TRIM
+   SEG_KEEL_EW                  Keel Drive               N87°35'30"E        429.12 BOUNDARY_OFFSET_AND_TRIM
+   SEG_BLVD_BLVD_NORTH_END_TO_STARFISH_BEACHWOOD Beachwood Boulevard      S00°41'40"E        180.12 BOUNDARY_OFFSET_AND_TRIM
+   SEG_BLVD_STARFISH_BEACHWOOD_TO_SAIL_BEACHWOOD Beachwood Boulevard      S00°41'40"E        260.12 BOUNDARY_OFFSET_AND_TRIM
+   SEG_BLVD_SAIL_BEACHWOOD_TO_SHELLFISH_BEACHWOOD Beachwood Boulevard      S00°41'40"E        260.12 BOUNDARY_OFFSET_AND_TRIM
+   SEG_BLVD_SHELLFISH_BEACHWOOD_TO_KEEL_BEACHWOOD Beachwood Boulevard      S00°41'40"E        260.12 BOUNDARY_OFFSET_AND_TRIM
+   SEG_BLVD_KEEL_BEACHWOOD_TO_BLVD_SOUTH_END Beachwood Boulevard      S00°41'40"E        301.10 BOUNDARY_OFFSET_AND_TRIM
+   SEG_SHELLFISH_MOUTH          Shellfish Drive          N35°18'20"E         54.99 BOUNDARY_OFFSET_AND_TRIM
+   SEG_SHELLFISH_MAIN           Shellfish Drive          N87°35'30"E        742.35 BOUNDARY_OFFSET_AND_TRIM
+   SEG_SANDS_1                  Sands Avenue             N88°58'20"E        110.00 BOUNDARY_OFFSET_AND_TRIM
+   SEG_SANDS_2                  Sands Avenue             S54°41'40"E        607.11 BOUNDARY_OFFSET_AND_TRIM
+   SEG_CAPEHORN_1               Cape Horn Avenue         N88°58'20"E        180.00 BOUNDARY_OFFSET_AND_TRIM
+   SEG_CAPEHORN_2               Cape Horn Avenue         N88°58'20"E         55.00 BOUNDARY_OFFSET_AND_TRIM
+   SEG_CAPEHORN_3               Cape Horn Avenue         S54°41'40"E        241.33 BOUNDARY_OFFSET_AND_TRIM
 
 9. 100-AGENT MULTIAGENT CONSENSUS SIGN-OFF
    ----------------------------------------------------------------------
@@ -211,70 +298,74 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
    It is the fundamental datum for roadway stationing, pavement cross-sections, utility
    routing, drainage profiles, and right-of-way setbacks. Never discard or replace with boundaries.
 
-   • Corridor: Mangrove Avenue (Total Length = 2232.74 ft)
+   • Corridor: Mangrove Avenue (Total Length = 2234.91 ft)
      Station        Distance Node / Intersection                      Coordinates
      --------------------------------------------------------------------------------
      0+00.00           0.00' Section 32 North Line (Subdivision Limit) (N=10179.84', E= 9992.44')
      1+80.00         180.00' Starfish Ave (Ground GPS Control Anchor) (N=10000.00', E=10000.00')
      4+40.00         440.00' Sail Ave                                 (N= 9740.23', E=10010.93')
      7+00.00         700.00' South St                                 (N= 9480.46', E=10021.85')
-     7+30.50         730.50' Bearing Deflection Point (1°22'50" Turn) (N= 9449.99', E=10023.13')
-     9+50.50         950.50' Shellfish Dr                             (N= 9230.02', E=10027.08')
-     19+52.74       1952.74' Surfwood Ave                             (N= 8227.94', E=10045.06')
-     21+02.74       2102.74' Bayou Ave Drainage Corridor              (N= 8077.97', E=10047.75')
-     22+32.74       2232.74' Plat South Limit (Course 5)              (N= 7947.99', E=10050.08')
+     7+32.67         732.67' Bearing Deflection Point (1°22'50" Turn) (N= 9447.82', E=10023.22')
+     9+60.02         960.02' Sands Ave                                (N= 9220.51', E=10027.30')
+     11+10.02       1110.02' 40' Drainage R/W                         (N= 9070.53', E=10029.99')
+     12+60.02       1260.02' Cape Horn Ave                            (N= 8920.56', E=10032.68')
+     19+54.91       1954.91' Surfwood Ave                             (N= 8225.78', E=10045.15')
+     21+04.91       2104.91' Bayou Ave Drainage Corridor              (N= 8075.80', E=10047.84')
+     22+34.91       2234.91' Plat South Limit (Course 5)              (N= 7945.82', E=10050.17')
 
-   • Corridor: Starfish Avenue (Total Length = 1633.50 ft)
+   • Corridor: Starfish Avenue (Total Length = 1580.95 ft)
      Station        Distance Node / Intersection                      Coordinates
      --------------------------------------------------------------------------------
      0+00.00           0.00' West Boundary Line (Course 1)            (N= 9992.44', E= 9820.16')
      1+80.00         180.00' Mangrove Ave (Centerline Intersection)   (N=10000.00', E=10000.00')
-     16+33.50       1633.50' Beachwood Blvd (East Arterial Boundary)  (N=10061.08', E=11452.22')
+     15+80.95       1580.95' Beachwood Blvd (East Arterial Boundary)  (N=10058.87', E=11399.72')
 
-   • Corridor: Sail Avenue (Total Length = 1633.50 ft)
+   • Corridor: Sail Avenue (Total Length = 1393.18 ft)
      Station        Distance Node / Intersection                      Coordinates
      --------------------------------------------------------------------------------
-     0+00.00           0.00' West Boundary Line (Course 1)            (N= 9732.67', E= 9831.08')
-     1+80.00         180.00' Mangrove Ave (Centerline Intersection)   (N= 9740.23', E=10010.93')
-     16+33.50       1633.50' Beachwood Blvd (East Arterial Boundary)  (N= 9801.31', E=11463.14')
+     0+00.00           0.00' Mangrove Ave (T-intersection; Block 14 is continuous west of it) (N= 9740.23', E=10010.93')
+     13+93.18       1393.18' Beachwood Blvd (East Arterial Boundary)  (N= 9798.77', E=11402.87')
 
-   • Corridor: South Street & Marina Avenue (Total Length = 924.24 ft)
+   • Corridor: Marina Drive (Total Length = 1185.81 ft)
      Station        Distance Node / Intersection                      Coordinates
      --------------------------------------------------------------------------------
-     0+00.00           0.00' West Boundary Line (Course 1)            (N= 9472.90', E= 9842.01')
-     1+80.00         180.00' Mangrove Ave                             (N= 9480.46', E=10021.85')
-     4+38.26         438.26' Marina Ave Curve P.C.                    (N= 9491.31', E=10279.88')
-     7+14.24         714.24' Marina Ave Curve P.T.                    (N= 9414.57', E=10539.81')
-     9+24.24         924.24' Keel Drive Intersection                  (N= 9279.24', E=10700.39')
+     0+00.00           0.00' Mangrove Ave                             (N= 9480.46', E=10021.85')
+     2+13.26         213.26' Marina ℄ Curve P.C.                      (N= 9489.42', E=10234.92')
+     4+49.74         449.74' Marina ℄ Curve P.T.                      (N= 9423.66', E=10457.65')
+     9+14.76         914.76' Keel Drive Intersection (pending item 3) (N= 9154.91', E=10837.15')
+     11+85.81       1185.81' Unit One Line (Course 20)                (N= 8998.26', E=11058.34')
 
    • Corridor: Surfwood Avenue (Total Length = 624.60 ft)
      Station        Distance Node / Intersection                      Coordinates
      --------------------------------------------------------------------------------
-     0+00.00           0.00' West Boundary Line (Course 2)            (N= 8225.76', E= 9865.07')
-     1+80.00         180.00' Mangrove Ave (0°20' Skew Junction)       (N= 8227.94', E=10045.06')
-     6+24.60         624.60' Unit One Matchline (Course 6)            (N= 8233.33', E=10489.62')
+     0+00.00           0.00' West Boundary Line (Course 2)            (N= 8223.59', E= 9865.16')
+     1+80.00         180.00' Mangrove Ave (0°20' Skew Junction)       (N= 8225.78', E=10045.15')
+     6+24.60         624.60' Unit One Matchline (Course 6)            (N= 8231.16', E=10489.71')
 
-   • Corridor: Shellfish Drive (Total Length = 831.49 ft)
+   • Corridor: Shellfish Drive (Total Length = 945.34 ft)
      Station        Distance Node / Intersection                      Coordinates
      --------------------------------------------------------------------------------
-     0+00.00           0.00' West Boundary Line (Course 2)            (N= 9222.46', E= 9847.24')
-     1+80.00         180.00' Mangrove Ave (Centerline Intersection)   (N= 9230.02', E=10027.08')
-     8+31.49         831.49' Keel Drive Diagonal Corridor Tie         (N= 9247.91', E=10678.32')
+     0+00.00           0.00' Marina Dr (T-intersection)               (N= 9391.87', E=10502.55')
+     0+54.99          54.99' ℄ Curve P.C. (R=167.95')                 (N= 9436.74', E=10534.32')
+     2+02.99         202.99' ℄ Curve P.T.                             (N= 9507.48', E=10664.33')
+     9+45.34         945.34' Beachwood Blvd                           (N= 9538.67', E=11406.02')
 
-   • Corridor: Beachwood Boulevard (Total Length = 868.79 ft)
+   • Corridor: Beachwood Boulevard (Total Length = 1261.57 ft)
      Station        Distance Node / Intersection                      Coordinates
      --------------------------------------------------------------------------------
-     0+00.00           0.00' Starfish Ave & Beachwood Blvd            (N=10061.08', E=11452.22')
-     2+60.00         260.00' Sail Ave & Beachwood Blvd                (N= 9801.31', E=11463.14')
-     3+89.66         389.66' Beachwood Blvd Projected P.I.            (N= 9930.85', E=11457.69')
-     8+68.79         868.79' Sands Ave Projected Junction             (N= 9455.15', E=11514.87')
+     0+00.00           0.00' Section 32 North Line (Course 27)        (N=10238.98', E=11397.53')
+     1+80.12         180.12' Starfish Ave & Beachwood Blvd            (N=10058.87', E=11399.72')
+     4+40.24         440.24' Sail Ave & Beachwood Blvd                (N= 9798.77', E=11402.87')
+     7+00.35         700.35' Shellfish Dr & Beachwood Blvd            (N= 9538.67', E=11406.02')
+     9+60.47         960.47' Keel Dr & Beachwood Blvd                 (N= 9278.58', E=11409.18')
+     12+61.57       1261.57' Unit One Line (Course 25)                (N= 8977.50', E=11412.82')
 
-   • Corridor: Keel Drive (Total Length = 403.34 ft)
+   • Corridor: Keel Drive (Total Length = 611.11 ft)
      Station        Distance Node / Intersection                      Coordinates
      --------------------------------------------------------------------------------
-     0+00.00           0.00' Southwest Terminus / Cul-de-Sac Access   (N= 8969.13', E=10480.78')
-     1+20.64         120.64' Curve C14 P.C. (R=143.93')               (N= 9067.59', E=10550.50')
-     2+47.48         247.48' Curve C14 P.T.                           (N= 9128.21', E=10661.91')
-     4+03.34         403.34' Marina Ave Intersection                  (N= 9279.24', E=10700.39')
+     0+00.00           0.00' Marina Dr (T-intersection)               (N= 9154.91', E=10837.15')
+     0+55.16          55.16' Curve P.C. (R=143.93')                   (N= 9199.93', E=10869.02')
+     1+81.99         181.99' Curve P.T.                               (N= 9260.55', E=10980.43')
+     6+11.11         611.11' Beachwood Blvd                           (N= 9278.58', E=11409.18')
 
 ================================================================================

@@ -1,0 +1,273 @@
+{
+ "image": "west_24_detail.png",
+ "kind": "scan",
+ "size": [
+  220,
+  420
+ ],
+ "stroke_w": 5.73,
+ "char_h": 27.0,
+ "n_monuments": 0,
+ "n_lines": 3,
+ "n_dashed": 0,
+ "n_arcs": 1,
+ "n_labels": 16,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 4,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 3,
+  "area": 0,
+  "table": 0,
+  "text": 5,
+  "empty": 4
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 3,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0,
+  "verified": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 1.0,
+  "line_precision": 1.0,
+  "line_f1": 1.0,
+  "label_assoc": 0.75,
+  "label_classified": 0.4667,
+  "scale_consistency": null,
+  "score": 0.7467
+ },
+ "seconds": 1.8,
+ "labels": [
+  {
+   "id": 0,
+   "text": "em",
+   "kind": "text",
+   "conf": 38.0,
+   "center": [
+    139.5,
+    6.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "4",
+   "kind": "lot",
+   "conf": 91.0,
+   "center": [
+    100.0,
+    74.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "",
+   "kind": "empty",
+   "conf": -1.0,
+   "center": [
+    201.5,
+    64.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "bb",
+   "kind": "text",
+   "conf": 94.0,
+   "center": [
+    199.2,
+    86.1
+   ],
+   "angle": 193.0,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "18",
+   "kind": "distance",
+   "conf": 67.0,
+   "center": [
+    134.5,
+    120.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 5,
+   "text": "100.74!",
+   "kind": "distance",
+   "conf": 77.0,
+   "center": [
+    106.9,
+    183.9
+   ],
+   "angle": 266.2,
+   "assoc": {
+    "geom": [
+     "L",
+     0
+    ],
+    "t": 0.11895723043267459,
+    "offset": -21.062610641692228,
+    "score": 1.7388480372149688
+   }
+  },
+  {
+   "id": 6,
+   "text": "\u20183",
+   "kind": "lot",
+   "conf": 72.0,
+   "center": [
+    176.0,
+    151.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 7,
+   "text": "Wool Tt",
+   "kind": "text",
+   "conf": 24.5,
+   "center": [
+    141.9,
+    193.6
+   ],
+   "angle": 96.9,
+   "assoc": null
+  },
+  {
+   "id": 8,
+   "text": "=",
+   "kind": "empty",
+   "conf": 78.0,
+   "center": [
+    161.5,
+    182.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 9,
+   "text": "\u20189",
+   "kind": "lot",
+   "conf": 69.0,
+   "center": [
+    172.5,
+    202.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 10,
+   "text": "WN",
+   "kind": "text",
+   "conf": 86.0,
+   "center": [
+    208.5,
+    216.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 11,
+   "text": "\u00a5.",
+   "kind": "empty",
+   "conf": 65.0,
+   "center": [
+    171.0,
+    232.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 12,
+   "text": "&",
+   "kind": "empty",
+   "conf": 84.0,
+   "center": [
+    112.8,
+    304.1
+   ],
+   "angle": 243.8,
+   "assoc": null
+  },
+  {
+   "id": 13,
+   "text": "$008",
+   "kind": "distance",
+   "conf": 43.0,
+   "center": [
+    177.0,
+    301.0
+   ],
+   "angle": 179.7,
+   "assoc": {
+    "geom": [
+     "L",
+     2
+    ],
+    "t": 0.5316694207287659,
+    "offset": -84.40751700864357,
+    "score": 3.3032712193871028
+   }
+  },
+  {
+   "id": 14,
+   "text": "-\u2014/02",
+   "kind": "distance",
+   "conf": 68.0,
+   "center": [
+    153.1,
+    346.8
+   ],
+   "angle": 1.2,
+   "assoc": {
+    "geom": [
+     "L",
+     1
+    ],
+    "t": 0.5319845806412673,
+    "offset": -20.025278667795263,
+    "score": 0.7416769876961209
+   }
+  },
+  {
+   "id": 15,
+   "text": "L",
+   "kind": "text",
+   "conf": 82.0,
+   "center": [
+    98.5,
+    395.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  }
+ ]
+}

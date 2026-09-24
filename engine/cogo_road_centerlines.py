@@ -22,15 +22,45 @@ Focuses exclusively on the road centerline network across the entire subdivision
 from __future__ import annotations
 
 import math
+import os
+import sys
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
-from engine.cogo import Point, parse_bearing
+from engine.cogo import Point, azimuth_to_bearing, parse_bearing
 from engine.consensus import MultiAgentConsensusSolver
 from engine.curves import solve_curve_all_parameters
 from engine.dxf_writer import DXFWriter
 from engine.georeference import get_intersection_gps
 from engine.lots import shoelace_area
+from engine.centerline_geometry import solve_network as solve_derived_network
+from plat_curves.core import deg_to_dms
+
+# Bridge horizontal curves toolkit from plugins/curves
+_CURVES_PLUGIN_DIR = Path(__file__).resolve().parents[1] / "plugins" / "curves"
+if str(_CURVES_PLUGIN_DIR) not in sys.path:
+    sys.path.insert(0, str(_CURVES_PLUGIN_DIR))
+
+try:
+    from plat_curves.core import Curve as PlatCurve, PlacedCurve as PlatPlacedCurve
+    from plat_curves.compound import (
+        concentric as plat_concentric,
+        corner_return as plat_corner_return,
+        cul_de_sac as plat_cul_de_sac,
+        row_edges as plat_row_edges,
+    )
+    from plat_curves.engine_adapter import (
+        STATED_PLAT_CURVES,
+        build_placed_curve_from_plat,
+        compute_concentric_row_edges,
+        compute_corner_return,
+        compute_open_cul_de_sac,
+        placed_to_engine_curve_dict,
+    )
+    HAS_PLAT_CURVES = True
+except ImportError:
+    HAS_PLAT_CURVES = False
 
 
 @dataclass
@@ -142,6 +172,98 @@ class CenterlineCurve:
                 "type": "OUTER_ROW",
             }
         )
+
+    def to_placed_curve(self) -> Any:
+        """Convert this CenterlineCurve to a plat_curves.core.PlacedCurve."""
+        if not HAS_PLAT_CURVES:
+            return None
+        curve = PlatCurve.from_params(
+            direction=self.direction,
+            radius=self.radius,
+            delta_deg=self.delta_deg,
+        )
+        if self.pi_point is not None:
+            dn = self.pi_point.n - self.pc_point.n
+            de = self.pi_point.e - self.pc_point.e
+            back_az = (math.degrees(math.atan2(de, dn))) % 360.0
+        else:
+            dn = self.pc_point.n - self.center_point.n
+            de = self.pc_point.e - self.center_point.e
+            rad_az = (math.degrees(math.atan2(de, dn))) % 360.0
+            sgn = 1.0 if self.direction == "CW" else -1.0
+            back_az = (rad_az + 90.0 * sgn) % 360.0
+        return PlatPlacedCurve(curve=curve, pc=(self.pc_point.n, self.pc_point.e), back_az=back_az)
+
+    @classmethod
+    def from_placed_curve(
+        cls,
+        id: str,
+        street_name: str,
+        placed: Any,
+        right_of_way_width: float = 60.0,
+        is_assumed: bool = False,
+        notes: str = "",
+    ) -> CenterlineCurve:
+        """Construct a CenterlineCurve directly from a PlacedCurve."""
+        return cls(
+            id=id,
+            street_name=street_name,
+            center_point=Point(n=placed.rp[0], e=placed.rp[1]),
+            pc_point=Point(n=placed.pc[0], e=placed.pc[1]),
+            pt_point=Point(n=placed.pt[0], e=placed.pt[1]),
+            radius=placed.curve.radius,
+            delta_deg=placed.curve.delta_deg,
+            arc_length=placed.curve.arc_length,
+            tangent=placed.curve.tangent,
+            chord_length=placed.curve.chord,
+            chord_bearing=placed.chord_bearing,
+            direction=placed.direction,
+            right_of_way_width=right_of_way_width,
+            is_assumed=is_assumed,
+            notes=notes,
+            pi_point=Point(n=placed.pi[0], e=placed.pi[1]),
+        )
+
+    def arc_points(self, n_segments: int = 24) -> list[Point]:
+        """
+        Generate n_segments + 1 points along the circular arc from PC to PT.
+        Uses radial sweep to guarantee continuous sweep from pc_point to end.
+        """
+        az_pc = math.atan2(self.pc_point.e - self.center_point.e, self.pc_point.n - self.center_point.n)
+        delta_rad = math.radians(self.delta_deg) * (1.0 if self.direction == "CW" else -1.0)
+        pts = []
+        for step in range(n_segments + 1):
+            ang = az_pc + delta_rad * (step / float(n_segments))
+            pts.append(Point(
+                self.center_point.n + self.radius * math.cos(ang),
+                self.center_point.e + self.radius * math.sin(ang),
+            ))
+        return pts
+
+    def offset_arc_points(self, n_segments: int = 24) -> tuple[list[Point], list[Point]]:
+        """
+        Generate inner and outer right-of-way arc polylines offset radially by half_width.
+        Returns:
+            (inner_pts, outer_pts)
+        """
+        hw = self.half_width
+        r_inner = max(1.0, self.radius - hw)
+        r_outer = self.radius + hw
+        az_pc = math.atan2(self.pc_point.e - self.center_point.e, self.pc_point.n - self.center_point.n)
+        delta_rad = math.radians(self.delta_deg) * (1.0 if self.direction == "CW" else -1.0)
+        inner_pts = []
+        outer_pts = []
+        for step in range(n_segments + 1):
+            ang = az_pc + delta_rad * (step / float(n_segments))
+            inner_pts.append(Point(
+                self.center_point.n + r_inner * math.cos(ang),
+                self.center_point.e + r_inner * math.sin(ang),
+            ))
+            outer_pts.append(Point(
+                self.center_point.n + r_outer * math.cos(ang),
+                self.center_point.e + r_outer * math.sin(ang),
+            ))
+        return inner_pts, outer_pts
 
 
 RAW_BOUNDARY_COURSES = [
@@ -287,6 +409,14 @@ class BeachwoodRoadCenterlineEngine:
         # 0. Solve the closed parent boundary first
         self._solve_parent_boundary()
 
+        # Derived geometry (engine/centerline_geometry.py): every point from plat values, cross-checked.
+        derived = solve_derived_network(origin=(self.origin.n, self.origin.e))
+        self.derived_network = derived
+
+        def _dpt(iid: str) -> Point:
+            q = derived.intersections[iid].point
+            return Point(q[0], q[1])
+
         # ----------------------------------------------------------------------
         # 1. GROUND GPS ANCHOR: STARFISH AVENUE & MANGROVE AVENUE
         # ----------------------------------------------------------------------
@@ -368,7 +498,7 @@ class BeachwoodRoadCenterlineEngine:
         p_south_mangrove = p_sail_mangrove.offset(norm_s, 260.00)
         self.intersections["INT_SOUTH_MANGROVE"] = RoadIntersection(
             id="INT_SOUTH_MANGROVE",
-            name="South St & Mangrove Ave",
+            name="Marina Dr (west leg) & Mangrove Ave",
             point=p_south_mangrove,
             street_1="South Street",
             street_2="Mangrove Avenue",
@@ -388,8 +518,10 @@ class BeachwoodRoadCenterlineEngine:
             notes="Mangrove Ave North leg (between Sail Ave & South St)",
         ))
 
-        # Mangrove Avenue Deflection Point: 30.50' south of South St (730.50' from Section 32 North line)
-        p_mangrove_defl = p_south_mangrove.offset(norm_s, 30.50)
+        # Mangrove Avenue Deflection Point (derived): where the ℄ offsets 180' inside c1 and c2 meet,
+        # 552.67' south of Starfish ℄ (not 550.50': the c1/c2 vertex moves 180 x tan(0°41'25") = 2.17' along an
+        # outside offset). Block 14 Lot 6 split dimensions (60.45'/16.99', 59.22'/15.78') confirm it to 0.023'.
+        p_mangrove_defl = _dpt("INT_MANGROVE_DEFL")
         self.intersections["INT_MANGROVE_DEFL"] = RoadIntersection(
             id="INT_MANGROVE_DEFL",
             name="Mangrove Ave Deflection Point (N-Leg to S-Leg)",
@@ -397,7 +529,7 @@ class BeachwoodRoadCenterlineEngine:
             street_1="Mangrove Avenue (North Leg)",
             street_2="Mangrove Avenue (South Leg)",
             is_assumed=False,
-            notes="Centerline deflection point where bearing shifts from S02°24'30\"E to S01°01'40\"E (1°22'50\" turn).",
+            notes="Derived: c1/c2 180' offsets meet; bearing shifts S02°24'30\"E -> S01°01'40\"E (1°22'50\" right turn).",
         )
 
         self.segments.append(CenterlineSegment(
@@ -406,7 +538,7 @@ class BeachwoodRoadCenterlineEngine:
             start_point=p_south_mangrove,
             end_point=p_mangrove_defl,
             bearing=self.brg_north_leg_s,
-            distance=30.50,
+            distance=p_south_mangrove.dist_to(p_mangrove_defl),
             right_of_way_width=60.0,
             is_assumed=False,
             notes="Mangrove Ave North leg approach to bearing deflection point",
@@ -419,32 +551,44 @@ class BeachwoodRoadCenterlineEngine:
         az_s_s = parse_bearing(self.brg_south_leg_s)
         az_s_n = parse_bearing(self.brg_south_leg_n)
 
-        # Shellfish Drive intersection: 220.00' south along S01°01'40"E
-        p_shellfish_mangrove = p_mangrove_defl.offset(az_s_s, 220.00)
-        self.intersections["INT_SHELLFISH_MANGROVE"] = RoadIntersection(
-            id="INT_SHELLFISH_MANGROVE",
-            name="Shellfish Dr & Mangrove Ave",
-            point=p_shellfish_mangrove,
-            street_1="Shellfish Drive",
-            street_2="Mangrove Avenue",
-            is_assumed=False,
-            notes="Centerline intersection at Block 14/15 NW corner.",
-        )
-
-        self.segments.append(CenterlineSegment(
-            id="SEG_MANGROVE_S1",
-            street_name="Mangrove Avenue",
-            start_point=p_mangrove_defl,
-            end_point=p_shellfish_mangrove,
-            bearing=self.brg_south_leg_s,
-            distance=220.00,
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Mangrove Ave South leg (between Deflection point & Shellfish Dr)",
-        ))
+        # Mangrove south-leg crossings (derived): Sands Ave, 40' drainage R/W, Cape Horn Ave, San Salvadore Ave -- square to
+        # the south leg from the Blocks 7/8 lots on the east side and confirmed by Block 14 on the west (0.004').
+        # (There is no Shellfish Dr at Mangrove: Shellfish's west end curves into Marina Dr.)
+        prev = p_mangrove_defl
+        for iid, nm, street in (
+            ("INT_SANDS_MANGROVE", "Sands Ave & Mangrove Ave", "Sands Avenue"),
+            ("INT_DRAIN40_MANGROVE", "40' Drainage R/W & Mangrove Ave", "40' Drainage R/W"),
+            ("INT_CAPEHORN_MANGROVE", "Cape Horn Ave & Mangrove Ave", "Cape Horn Avenue"),
+            ("INT_SANSALVADORE_MANGROVE", "San Salvadore Ave & Mangrove Ave", "San Salvadore Avenue"),
+        ):
+            q = _dpt(iid)
+            self.intersections[iid] = RoadIntersection(
+                id=iid,
+                name=nm,
+                point=q,
+                street_1=street,
+                street_2="Mangrove Avenue",
+                is_assumed=False,
+                notes=f"Derived: {derived.intersections[iid].source}.",
+            )
+            self.segments.append(CenterlineSegment(
+                id=f"SEG_MANGROVE_{iid.replace('INT_', '').replace('_MANGROVE', '')}",
+                street_name="Mangrove Avenue",
+                start_point=prev,
+                end_point=q,
+                bearing=self.brg_south_leg_s,
+                distance=prev.dist_to(q),
+                right_of_way_width=60.0,
+                is_assumed=False,
+                notes=f"Mangrove Ave south leg to {street}",
+            ))
+            prev = q
+        p_last_s_leg_node = prev
+        # Legacy Surfwood station (defl + 1222.24') kept until the Surfwood item re-derives it.
+        p_legacy_s = p_mangrove_defl.offset(az_s_s, 220.00)
 
         # Surfwood Avenue intersection: 1002.24' south along S01°01'40"E from Shellfish Dr
-        p_surfwood_mangrove = p_shellfish_mangrove.offset(az_s_s, 1002.24)
+        p_surfwood_mangrove = p_legacy_s.offset(az_s_s, 1002.24)
         self.intersections["INT_SURFWOOD_MANGROVE"] = RoadIntersection(
             id="INT_SURFWOOD_MANGROVE",
             name="Surfwood Ave & Mangrove Ave",
@@ -458,13 +602,13 @@ class BeachwoodRoadCenterlineEngine:
         self.segments.append(CenterlineSegment(
             id="SEG_MANGROVE_S2",
             street_name="Mangrove Avenue",
-            start_point=p_shellfish_mangrove,
+            start_point=p_last_s_leg_node,
             end_point=p_surfwood_mangrove,
             bearing=self.brg_south_leg_s,
-            distance=1002.24,
+            distance=p_last_s_leg_node.dist_to(p_surfwood_mangrove),
             right_of_way_width=60.0,
             is_assumed=False,
-            notes="Mangrove Ave South leg main reach (Shellfish Dr to Surfwood Ave)",
+            notes="Mangrove Ave South leg (San Salvadore Ave to Surfwood Ave; Surfwood station pending re-derivation)",
         ))
 
         # Bayou Avenue / Drainage corridor intersection: 150.00' south of Surfwood Ave
@@ -635,160 +779,18 @@ class BeachwoodRoadCenterlineEngine:
         })
 
         # ----------------------------------------------------------------------
-        # 5. SAN SALVADORE AVENUE (60' R/W, DIAGONAL) -- Parallel Offset from Course 17
+        # 5. SAN SALVADORE AVENUE (derived): W->E from Mangrove on N88°58'20"E, ℄ R=269.96' CW onto S54°41'40"E
         # ----------------------------------------------------------------------
-        # Stated curve C17 on North R/W: R = 269.96', Delta = 36°20'00", L = 171.19', Tangent T = 88.59'.
-        # Centerline curve has R_CL = 269.96' + 30.00' = 299.96'.
-        r_ss_cl = 299.96
-        delta_ss_deg = 36.0 + 20.0 / 60.0  # 36.333333°
-        c_ss = solve_curve_all_parameters(radius=r_ss_cl, delta_deg=delta_ss_deg)
-        l_ss_cl = float(c_ss["length"])
-        t_ss_cl = float(c_ss["tangent"])
-        c_ss_cl = float(c_ss["chord"])
-
-        # P.C. position on San Salvadore Ave
-        p_ss_pc = Point(8350.00, 10250.00)
-        self.intersections["INT_SANSALVADORE_PC"] = RoadIntersection(
-            id="INT_SANSALVADORE_PC",
-            name="San Salvadore Ave P.C. (Point of Curvature)",
-            point=p_ss_pc,
-            street_1="San Salvadore Avenue (Incoming Tangent)",
-            street_2="San Salvadore Avenue Curve (C17)",
-            is_assumed=False,
-            notes="Centerline P.C. of San Salvadore Ave curve (R=299.96', Delta=36°20'00\").",
-        )
-
-        # Dynamic Tangent derivation via Rule 2
-        az_ss_in = parse_bearing("S54°41'40\"E")
-        p_ss_pi = p_ss_pc.offset(az_ss_in, t_ss_cl)
-
-        # Center and P.T. of San Salvadore curve
-        az_ss_radial = parse_bearing("S35°18'20\"W")
-        p_ss_center = p_ss_pc.offset(az_ss_radial, r_ss_cl)
-        p_ss_pt = p_ss_pc.offset(parse_bearing("S72°51'40\"E"), c_ss_cl)
-
-        self.intersections["INT_SANSALVADORE_PT"] = RoadIntersection(
-            id="INT_SANSALVADORE_PT",
-            name="San Salvadore Ave P.T. (Point of Tangency)",
-            point=p_ss_pt,
-            street_1="San Salvadore Avenue Curve (C17)",
-            street_2="San Salvadore Avenue (Outgoing Tangent)",
-            is_assumed=False,
-            notes="P.T. of centerline curve; transitions towards Surfwood Ave corridor.",
-        )
-
-        self.curves["C_SANSALVADORE_CL"] = CenterlineCurve(
-            id="C_SANSALVADORE_CL",
-            street_name="San Salvadore Avenue",
-            center_point=p_ss_center,
-            pc_point=p_ss_pc,
-            pt_point=p_ss_pt,
-            radius=r_ss_cl,
-            delta_deg=delta_ss_deg,
-            arc_length=l_ss_cl,
-            tangent=t_ss_cl,
-            chord_length=c_ss_cl,
-            chord_bearing="S72°51'40\"E",
-            direction="CW",
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Centerline curve R=299.96' derived from North R/W R=269.96' + 30' half-width.",
-        )
-
-        # San Salvadore Avenue straight tangent run
-        p_ss_nw = p_ss_pc.offset(parse_bearing("N54°41'40\"W"), 650.00)
-        self.segments.append(CenterlineSegment(
-            id="SEG_SANSALVADORE_TANGENT",
-            street_name="San Salvadore Avenue",
-            start_point=p_ss_nw,
-            end_point=p_ss_pc,
-            bearing="S54°41'40\"E",
-            distance=650.00,
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Straight diagonal centerline of San Salvadore Ave fronting Block 9 (Lots 23-26) and Block 13",
-            derivation_method="RIGHT_OF_WAY_EDGE_HEDGE",
-            front_lot_bearing="S54°41'40\"E",
-            summed_lot_frontages=[
-                {"block": "9", "lot": "23-26", "frontage_ft": 300.00, "bearing": "S54°41'40\"E (4 lots x 75.00')"},
-                {"component": "West Approach from Boundary/Block 13", "frontage_ft": 350.00, "bearing": "S54°41'40\"E"},
-            ],
-        ))
-
-        # RED ASSUMPTION 1: San Salvadore Ave to Surfwood Ave Transition Corridor
-        self.intersections["INT_ASSUMP_SS_SURFWOOD_PI"] = RoadIntersection(
-            id="INT_ASSUMP_SS_SURFWOOD_PI",
-            name="Assumed P.I. Tie (San Salvadore to Surfwood)",
-            point=p_ss_pi,
-            street_1="San Salvadore Ave (Projected Tangent)",
-            street_2="Surfwood Ave (Projected Tangent)",
-            is_assumed=True,
-            notes="Projected P.I. connecting San Salvadore tangent to Surfwood Avenue skew; drawn in RED.",
-        )
-
-        self.segments.append(CenterlineSegment(
-            id="SEG_ASSUMP_SS_SURFWOOD_TIE",
-            street_name="San Salvadore - Surfwood Transition Tie",
-            start_point=p_ss_pt,
-            end_point=p_surfwood_matchline,
-            bearing="S23°14'20\"W",
-            distance=p_ss_pt.dist_to(p_surfwood_matchline),
-            right_of_way_width=60.0,
-            is_assumed=True,
-            notes="RED ASSUMPTION: Inferred centerline transition across uncertified Block 12 jog zone to Unit One matchline.",
-            derivation_method="FRONT_LOT_SUMMATION_APPROXIMATION",
-            front_lot_bearing="S56°34'00\"E",
-            summed_lot_frontages=[
-                {"block": "12", "lot": "8", "frontage_ft": 25.82, "bearing": "N19°06'16\"E"},
-                {"block": "12", "lot": "9-10", "frontage_ft": 60.34, "bearing": "S56°34'00\"E"},
-            ],
-        ))
-        self.assumptions.append({
-            "id": "ASSUMP_SS_SURFWOOD_TIE",
-            "type": "TRANSITION_CORRIDOR",
-            "street": "San Salvadore Ave to Surfwood Ave",
-            "feature": "Centerline connection across Block 12 Lots 8-10",
-            "color": "RED",
-            "rationale": "Plat Sheet 1 has faint, uncertified jog courses at Block 12 Lots 8-10. Centerline alignment must be projected analytically by summing front lot lines.",
-            "summed_lots": "Block 12 Lot 8 (25.82' N19°06'16\"E) + Lot 9-10 (60.34' S56°34'00\"E) = 86.16' jog sum",
-            "field_recommendation": "Surveyors must locate physical monument pins at Block 12 Lot 8 NE corner and Unit One matchline to confirm exact centerline deflection.",
-        })
-
-        # ----------------------------------------------------------------------
-        # 6. CAPE HORN AVENUE (60' R/W, DIAGONAL S54°41'40"E) -- Parallel Offset
-        # ----------------------------------------------------------------------
-        az_perp_n = parse_bearing("N35°18'20\"E")
-        p_ch_matchline = p_ss_pc.offset(az_perp_n, 260.00).offset(parse_bearing("S54°41'40\"E"), 150.00)
-        p_ch_nw = p_ch_matchline.offset(parse_bearing("N54°41'40\"W"), 800.00)
-
-        self.intersections["INT_CAPEHORN_MATCHLINE"] = RoadIntersection(
-            id="INT_CAPEHORN_MATCHLINE",
-            name="Cape Horn Ave & Unit One Matchline (P.R.M. Monument)",
-            point=p_ch_matchline,
-            street_1="Cape Horn Avenue",
-            street_2="Beachwood Unit One Matchline (Course 17)",
-            is_assumed=False,
-            is_boundary_tie=True,
-            notes="Tied directly to the ground P.R.M. monument at Cape Horn Ave South R/W.",
-        )
-
-        self.segments.append(CenterlineSegment(
-            id="SEG_CAPEHORN_MAIN",
-            street_name="Cape Horn Avenue",
-            start_point=p_ch_nw,
-            end_point=p_ch_matchline,
-            bearing="S54°41'40\"E",
-            distance=800.00,
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Cape Horn Ave centerline fronting Block 9 (Lots 27-31) and Block 8",
-            derivation_method="RIGHT_OF_WAY_EDGE_HEDGE",
-            front_lot_bearing="S54°41'40\"E",
-            summed_lot_frontages=[
-                {"block": "9", "lot": "27-31", "frontage_ft": 375.00, "bearing": "S54°41'40\"E (5 lots x 75.00')"},
-                {"component": "Approach to Unit 1 Matchline P.R.M.", "frontage_ft": 425.00, "bearing": "S54°41'40\"E"},
-            ],
-        ))
+        # Plat ℄ block R=269.96' T=88.59' (299.96' is the N edge). N R/W 140' + 109' (Blk 9 Lots 27/26) below Cape
+        # Horn's S R/W; P.C. 25.0' past the corner; exits through c13. All 5 printed edge chords check (≤0.003'),
+        # ℄ passes 0.012' from c13's midpoint, 260.017' SW of Cape Horn ℄. The former typed P.C. (8350, 10250),
+        # mirrored construction and "San Salvadore-Surfwood tie" across Block 12 were not on the plat.
+        self._add_derived_curved_street(
+            derived, "C_SANSALVADORE_CL", "San Salvadore Avenue", "SANSALVADORE",
+            [("INT_SANSALVADORE_MANGROVE", "INT_SANSALVADORE_PC", "N88°58'20\"E"),
+             ("INT_SANSALVADORE_PT", "INT_SANSALVADORE_BOUNDARY", "S54°41'40\"E")],
+            boundary_iid="INT_SANSALVADORE_BOUNDARY",
+            boundary_name="San Salvadore Ave & Unit One Line (Course 13)")
 
         # ----------------------------------------------------------------------
         # 7. STARFISH AVENUE (60' R/W, E-W) -- Parallel Offset from Course 27 (180' S)
@@ -818,8 +820,10 @@ class BeachwoodRoadCenterlineEngine:
             notes="Starfish Ave west stub connecting to Course 1 of outer boundary",
         ))
 
-        # East run across Block 18 / Block 17 to Beachwood Boulevard
-        p_starfish_beachwood = p_starfish_mangrove.offset(norm_e, 1453.50)
+        # East run across Block 18 / Block 17 to Beachwood Boulevard.
+        # Derived (engine/centerline_geometry.py): Blvd ℄ is 40' west of and parallel to course c26; the
+        # Block 17/18 frontage sums reproduce it to 0.005'.
+        p_starfish_beachwood = _dpt("INT_STARFISH_BEACHWOOD")
         self.intersections["INT_STARFISH_BEACHWOOD"] = RoadIntersection(
             id="INT_STARFISH_BEACHWOOD",
             name="Starfish Ave & Beachwood Blvd",
@@ -827,7 +831,7 @@ class BeachwoodRoadCenterlineEngine:
             street_1="Starfish Avenue",
             street_2="Beachwood Boulevard",
             is_assumed=False,
-            notes="Centerline intersection at the east subdivision arterial boundary.",
+            notes="Starfish ℄ x Beachwood Blvd ℄ (80' R/W, ℄ 40' west of east boundary c26).",
         )
 
         self.segments.append(CenterlineSegment(
@@ -836,47 +840,24 @@ class BeachwoodRoadCenterlineEngine:
             start_point=p_starfish_mangrove,
             end_point=p_starfish_beachwood,
             bearing=self.brg_east_e,
-            distance=1453.50,
+            distance=p_starfish_mangrove.dist_to(p_starfish_beachwood),
             right_of_way_width=60.0,
             is_assumed=False,
             notes="Starfish Ave main corridor (between Block 18 and Block 17 North)",
             derivation_method="BOUNDARY_OFFSET_AND_TRIM",
             front_lot_bearing=self.brg_east_e,
             summed_lot_frontages=[
-                {"block": "18", "lot": "1-14", "frontage_ft": 1050.00, "bearing": "N87°35'30\"E (14 lots x 75.00')"},
-                {"block": "17", "lot": "North Row", "frontage_ft": 403.50, "bearing": "N87°35'30\"E"},
+                {"component": "Mangrove Ave half R/W", "frontage_ft": 30.00, "bearing": "N87°35'30\"E"},
+                {"block": "17", "lot": "1-17", "frontage_ft": 1330.04, "bearing": "N87°35'30\"E (93.50' + 15x75.00' + 111.54')"},
+                {"component": "Blvd W R/W to ℄ (0.90' skew over 30' + 40.02')", "frontage_ft": 40.92, "bearing": "N87°35'30\"E"},
             ],
         ))
 
         # ----------------------------------------------------------------------
         # 8. SAIL AVENUE (60' R/W, E-W) -- Parallel Offset from Course 27 (440' S)
         # ----------------------------------------------------------------------
-        # West stub to Course 1 (West Boundary Line Leg 1, offset 180.00' West)
-        p_sail_west_end = p_sail_mangrove.offset(norm_w, 180.00)
-        self.intersections["INT_SAIL_WEST_END"] = RoadIntersection(
-            id="INT_SAIL_WEST_END",
-            name="Sail Ave & West Boundary (Course 1)",
-            point=p_sail_west_end,
-            street_1="Sail Avenue",
-            street_2="West Boundary Line (Course 1)",
-            is_assumed=False,
-            is_boundary_tie=True,
-            notes="West boundary tie to Course 1.",
-        )
 
-        self.segments.append(CenterlineSegment(
-            id="SEG_SAIL_W",
-            street_name="Sail Avenue",
-            start_point=p_sail_west_end,
-            end_point=p_sail_mangrove,
-            bearing=self.brg_east_e,
-            distance=180.00,
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Sail Ave west stub connecting to Course 1 of outer boundary",
-        ))
-
-        p_sail_beachwood = p_sail_mangrove.offset(norm_e, 1453.50)
+        p_sail_beachwood = _dpt("INT_SAIL_BEACHWOOD")
         self.intersections["INT_SAIL_BEACHWOOD"] = RoadIntersection(
             id="INT_SAIL_BEACHWOOD",
             name="Sail Ave & Beachwood Blvd",
@@ -893,93 +874,68 @@ class BeachwoodRoadCenterlineEngine:
             start_point=p_sail_mangrove,
             end_point=p_sail_beachwood,
             bearing=self.brg_east_e,
-            distance=1453.50,
+            distance=p_sail_mangrove.dist_to(p_sail_beachwood),
             right_of_way_width=60.0,
             is_assumed=False,
             notes="Sail Ave main corridor (between Block 17 South and Block 16 North)",
             derivation_method="BOUNDARY_OFFSET_AND_TRIM",
             front_lot_bearing=self.brg_east_e,
             summed_lot_frontages=[
-                {"block": "16", "lot": "1-8", "frontage_ft": 618.50, "bearing": "N87°35'30\"E (68.50' straight + 7x75.00')"},
-                {"block": "17", "lot": "South Row", "frontage_ft": 835.00, "bearing": "N87°35'30\"E"},
+                {"component": "Mangrove Ave half R/W", "frontage_ft": 30.00, "bearing": "N87°35'30\"E"},
+                {"block": "16", "lot": "1-17", "frontage_ft": 1322.26, "bearing": "N87°35'30\"E (93.50' + 15x75.00' + 103.76')"},
+                {"component": "Blvd W R/W to ℄ (0.90' skew over 30' + 40.02')", "frontage_ft": 40.92, "bearing": "N87°35'30\"E"},
             ],
         ))
 
         # ----------------------------------------------------------------------
         # 9. SOUTH STREET & MARINA AVENUE CURVE (60' R/W) -- Parallel Offset (700' S)
         # ----------------------------------------------------------------------
-        # West stub to Course 1 (West Boundary Line Leg 1, offset 180.00' West)
-        p_south_west_end = p_south_mangrove.offset(norm_w, 180.00)
-        self.intersections["INT_SOUTH_WEST_END"] = RoadIntersection(
-            id="INT_SOUTH_WEST_END",
-            name="South St & West Boundary (Course 1)",
-            point=p_south_west_end,
-            street_1="South Street",
-            street_2="West Boundary Line (Course 1)",
-            is_assumed=False,
-            is_boundary_tie=True,
-            notes="West boundary tie to Course 1.",
-        )
 
-        self.segments.append(CenterlineSegment(
-            id="SEG_SOUTH_W",
-            street_name="South Street",
-            start_point=p_south_west_end,
-            end_point=p_south_mangrove,
-            bearing=self.brg_east_e,
-            distance=180.00,
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="South St west stub connecting to Course 1 of outer boundary",
-        ))
-
-        # South Street straight run East to Marina Ave Curve P.C.:
-        p_marina_pc = p_south_mangrove.offset(norm_e, 258.26)
+        # Marina Drive west leg to the ℄ curve P.C. (derived): Block 16 Lots 33/32 (93.50' + 89.76') to the radial
+        # Lot 31/32 line; the SW-side lots (99.93' + 83.26') give the same P.C. to 0.003'.
+        p_marina_pc = _dpt("INT_MARINA_PC")
         self.intersections["INT_SOUTH_MARINA_PC"] = RoadIntersection(
             id="INT_SOUTH_MARINA_PC",
-            name="South St & Marina Ave P.C.",
+            name="Marina Dr ℄ Curve P.C.",
             point=p_marina_pc,
-            street_1="South Street",
-            street_2="Marina Avenue (Centerline Curve)",
+            street_1="Marina Drive (west leg)",
+            street_2="Marina Drive (Centerline Curve)",
             is_assumed=False,
-            notes="Point of Curvature where South St transitions into curved Marina Avenue.",
+            notes="Derived: Mangrove E R/W + 93.50' + 89.76' to radial Lot 31/32 line, 30' to ℄.",
         )
 
         self.segments.append(CenterlineSegment(
             id="SEG_SOUTH_MAIN",
-            street_name="South Street",
+            street_name="Marina Drive (west leg)",
             start_point=p_south_mangrove,
             end_point=p_marina_pc,
             bearing=self.brg_east_e,
-            distance=258.26,
+            distance=p_south_mangrove.dist_to(p_marina_pc),
             right_of_way_width=60.0,
             is_assumed=False,
-            notes="South St straight centerline segment (Mangrove Ave to Marina Ave P.C.)",
+            notes="Marina Dr west leg ℄ (Mangrove Ave to ℄ curve P.C.)",
             derivation_method="BOUNDARY_OFFSET_AND_TRIM",
             front_lot_bearing=self.brg_east_e,
             summed_lot_frontages=[
-                {"block": "16", "lot": "33", "frontage_ft": 93.50, "bearing": "N87°35'30\"E (stated to P.I.)"},
-                {"block": "16", "lot": "32", "frontage_ft": 75.00, "bearing": "N87°35'30\"E"},
-                {"component": "Marina Ave Curve P.C. transition", "frontage_ft": 89.76, "bearing": "N87°35'30\"E"},
+                {"component": "Mangrove Ave half R/W", "frontage_ft": 30.00, "bearing": "N87°35'30\"E"},
+                {"block": "16", "lot": "33", "frontage_ft": 93.50, "bearing": "N87°35'30\"E (to street-line corner)"},
+                {"block": "16", "lot": "32", "frontage_ft": 89.76, "bearing": "N87°35'30\"E (to radial Lot 31/32 line)"},
             ],
         ))
 
-        # Marina Avenue Centerline Curve:
-        r_marina_cl = 419.27
-        delta_marina_deg = 37.0 + 42.0 / 60.0 + 50.0 / 3600.0  # 37.713889°
-        c_marina = solve_curve_all_parameters(radius=r_marina_cl, delta_deg=delta_marina_deg)
-        l_marina_cl = float(c_marina["length"])
-        t_marina_cl = float(c_marina["tangent"])
-        c_marina_cl = float(c_marina["chord"])
-
-        # Curve deflects CW to the south:
-        az_radial_marina = parse_bearing(self.brg_north_leg_s)  # S02°24'30"E
-        p_marina_center = p_marina_pc.offset(az_radial_marina, r_marina_cl)
-
-        # Marina Avenue P.T.:
-        az_marina_chord = parse_bearing("S73°33'06\"E")
-        p_marina_pt = p_marina_pc.offset(az_marina_chord, c_marina_cl)
-
+        # Marina Drive ℄ curve: plat ℄ Curve Data R=359.27', T=122.70', Δ=37°42'50" (placed with plat_curves).
+        # R/W edges are 329.27' (SW) / 389.27' (NE); every printed edge chord bearing checks to <3".
+        marina_placed = derived.placed_curves["C_MARINA_CL"]
+        c_marina_curve = CenterlineCurve.from_placed_curve(
+            id="C_MARINA_CL",
+            street_name="Marina Avenue",
+            placed=marina_placed,
+            right_of_way_width=60.0,
+            notes="Plat ℄ Curve Data R=359.27' T=122.70' Δ=37°42'50\"; edges 329.27'/389.27'.",
+        )
+        self.curves["C_MARINA_CL"] = c_marina_curve
+        p_marina_pt = c_marina_curve.pt_point
+        t_marina_cl = c_marina_curve.tangent
         self.intersections["INT_MARINA_PT"] = RoadIntersection(
             id="INT_MARINA_PT",
             name="Marina Ave P.T. (Point of Tangency)",
@@ -987,29 +943,12 @@ class BeachwoodRoadCenterlineEngine:
             street_1="Marina Avenue (Centerline Curve)",
             street_2="Marina Avenue (Southeast Tangent)",
             is_assumed=False,
-            notes="Point of Tangency for Marina Avenue centerline curve.",
+            notes="Derived P.T.; forward tangent S54°41'40\"E.",
         )
 
-        self.curves["C_MARINA_CL"] = CenterlineCurve(
-            id="C_MARINA_CL",
-            street_name="Marina Avenue",
-            center_point=p_marina_center,
-            pc_point=p_marina_pc,
-            pt_point=p_marina_pt,
-            radius=r_marina_cl,
-            delta_deg=delta_marina_deg,
-            arc_length=l_marina_cl,
-            tangent=t_marina_cl,
-            chord_length=c_marina_cl,
-            chord_bearing="S73°33'06\"E",
-            direction="CW",
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Centerline curve R=419.27' derived from North R/W R=389.27' + 30' half-width.",
-        )
-
-        # Marina Avenue Outgoing Tangent: S49°52'40"E
-        p_marina_keel = p_marina_pt.offset(parse_bearing("S49°52'40\"E"), 210.00)
+        # Marina x Keel (derived): Keel's mouth tangent N35°18'20"E meets Marina ℄ square; its position comes from
+        # the Block 15 Keel N R/W lot row and is confirmed by the 25.18' legs and Lots 1/18/17 (410.008' vs 410').
+        p_marina_keel = _dpt("INT_MARINA_KEEL")
         self.intersections["INT_MARINA_KEEL"] = RoadIntersection(
             id="INT_MARINA_KEEL",
             name="Marina Ave & Keel Drive",
@@ -1017,7 +956,7 @@ class BeachwoodRoadCenterlineEngine:
             street_1="Marina Avenue",
             street_2="Keel Drive",
             is_assumed=False,
-            notes="Intersection connecting Marina Ave to Keel Drive and Block 13/14.",
+            notes="Derived: Keel mouth tangent x Marina ℄.",
         )
 
         self.segments.append(CenterlineSegment(
@@ -1025,425 +964,197 @@ class BeachwoodRoadCenterlineEngine:
             street_name="Marina Avenue",
             start_point=p_marina_pt,
             end_point=p_marina_keel,
-            bearing="S49°52'40\"E",
-            distance=210.00,
+            bearing="S54°41'40\"E",
+            distance=p_marina_pt.dist_to(p_marina_keel),
             right_of_way_width=60.0,
             is_assumed=False,
-            notes="Marina Ave southeasterly tangent segment from P.T. to Keel Drive",
+            notes="Marina Ave southeasterly tangent from P.T.",
         ))
-
-        # ----------------------------------------------------------------------
-        # 10. KEEL DRIVE (60' R/W) & OPEN-ENDED CUL-DE-SAC (DOES NOT CLOSE)
-        # ----------------------------------------------------------------------
-        # Keel Drive runs southwest along S35°18'20"W parallel to boundary courses 12, 14, 16, 18.
-        # It connects Marina Ave, goes through Curve C14, and terminates in an open-ended cul-de-sac.
-        p_keel_south = p_marina_keel.offset(parse_bearing("S35°18'20\"W"), 380.00)
-        self.intersections["INT_KEEL_SOUTH_END"] = RoadIntersection(
-            id="INT_KEEL_SOUTH_END",
-            name="Keel Drive Southwest Terminus",
-            point=p_keel_south,
-            street_1="Keel Drive",
-            street_2="San Salvadore Avenue Access",
-            is_assumed=False,
-            notes="Keel Drive access corridor along Block 13 and Block 14.",
-        )
-
-        self.segments.append(CenterlineSegment(
-            id="SEG_KEEL_MAIN",
-            street_name="Keel Drive",
-            start_point=p_marina_keel,
-            end_point=p_keel_south,
-            bearing="S35°18'20\"W",
-            distance=380.00,
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Keel Drive centerline connecting Marina Ave towards Block 13/14",
-        ))
-
-        # Keel Drive Centerline Curve C14: R=143.93', Delta=52°17'10"
-        r_keel_cl = 143.93
-        delta_keel_deg = 52.0 + 17.0 / 60.0 + 10.0 / 3600.0
-        c_keel_sol = solve_curve_all_parameters(radius=r_keel_cl, delta_deg=delta_keel_deg)
-        l_keel_cl = float(c_keel_sol["length"])
-        t_keel_cl = float(c_keel_sol["tangent"])
-        c_keel_cl = float(c_keel_sol["chord"])
-
-        p_keel_pc = p_keel_south.offset(parse_bearing("N35°18'20\"E"), t_keel_cl + 50.0)
-        p_keel_pt = p_keel_pc.offset(parse_bearing("N61°26'55\"E"), c_keel_cl)
-        p_keel_center = p_keel_pc.offset(parse_bearing("N54°41'40\"W"), r_keel_cl)
-
-        self.intersections["INT_KEEL_PC"] = RoadIntersection(
-            id="INT_KEEL_PC",
-            name="Keel Drive Curve P.C.",
-            point=p_keel_pc,
-            street_1="Keel Drive (Tangent)",
-            street_2="Keel Drive Curve (C14)",
-            is_assumed=False,
-            notes="Point of Curvature for Keel Drive centerline curve R=143.93'.",
-        )
-        self.intersections["INT_KEEL_PT"] = RoadIntersection(
-            id="INT_KEEL_PT",
-            name="Keel Drive Curve P.T.",
-            point=p_keel_pt,
-            street_1="Keel Drive Curve (C14)",
-            street_2="Keel Drive (Tangent)",
-            is_assumed=False,
-            notes="Point of Tangency for Keel Drive centerline curve.",
-        )
-
-        self.curves["C_KEEL_CL"] = CenterlineCurve(
-            id="C_KEEL_CL",
-            street_name="Keel Drive",
-            center_point=p_keel_center,
-            pc_point=p_keel_pc,
-            pt_point=p_keel_pt,
-            radius=r_keel_cl,
-            delta_deg=delta_keel_deg,
-            arc_length=l_keel_cl,
-            tangent=t_keel_cl,
-            chord_length=c_keel_cl,
-            chord_bearing="N61°26'55\"E",
-            direction="CW",
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Keel Drive centerline curve C14 (R=143.93', Delta=52°17'10\").",
-        )
-
-        # OPEN-ENDED CUL-DE-SAC: Keel Drive southwest dead-end turnaround bulb
-        p_keel_culdesac = p_keel_pc.offset(parse_bearing("S35°18'20\"W"), 70.00)
-        self.intersections["INT_KEEL_CULDESAC"] = RoadIntersection(
-            id="INT_KEEL_CULDESAC",
-            name="Keel Drive Open-Ended Cul-de-Sac Terminus",
-            point=p_keel_culdesac,
-            street_1="Keel Drive Centerline",
-            street_2="Residential Cul-de-Sac Bulb (R=50.0')",
-            is_assumed=True,
-            notes="OPEN-ENDED CUL-DE-SAC: Does NOT close into outer boundary or another street.",
-        )
-
-        self.culdesacs.append({
-            "id": "CULDESAC_KEEL_DRIVE",
-            "street": "Keel Drive",
-            "center_point": p_keel_culdesac,
-            "bulb_radius_ft": 50.0,
-            "right_of_way_width_ft": 60.0,
-            "reverse_fillet_radius_ft": 25.0,
-            "closes_to_boundary": False,
-            "notes": "Dead-end turnaround bulb at southwest terminus of Keel Drive with R=25' reverse curve fillet transitions; drawn in bold RED.",
-        })
-
-        self.assumptions.append({
-            "id": "ASSUMP_KEEL_CULDESAC",
-            "type": "OPEN_ENDED_CULDESAC",
-            "street": "Keel Drive",
-            "feature": "Dead-end turnaround bulb (R=50.0')",
-            "color": "RED",
-            "rationale": "Keel Drive terminates at an open-ended cul-de-sac turnaround bulb and does NOT close into the outer boundary or another street.",
-            "field_recommendation": "Locate radial iron pins at the cul-de-sac turnaround bulb perimeter to establish exact right-of-way flare.",
-        })
-
-        # ----------------------------------------------------------------------
-        # 11. BEACHWOOD BOULEVARD (MAJOR ARTERIAL CURVE, R=1959.86')
-        # ----------------------------------------------------------------------
-        r_blvd = 1959.86
-        p_blvd_center = p_starfish_beachwood.offset(norm_w, r_blvd)
-
-        self.curves["C_BEACHWOOD_BLVD_CL"] = CenterlineCurve(
-            id="C_BEACHWOOD_BLVD_CL",
-            street_name="Beachwood Boulevard",
-            center_point=p_blvd_center,
-            pc_point=p_starfish_beachwood,
-            pt_point=p_sail_beachwood,
-            radius=r_blvd,
-            delta_deg=7.608333,
-            arc_length=260.19,
-            tangent=130.34,
-            chord_length=260.00,
-            chord_bearing="S02°24'30\"E",
-            direction="CW",
-            right_of_way_width=100.0,
-            is_assumed=False,
-            notes="Beachwood Boulevard arterial centerline curve (R=1959.86').",
-        )
-
-        # RED ASSUMPTION 2: Beachwood Boulevard South Arterial Projection
-        p_blvd_south = p_sail_beachwood.offset(parse_bearing("S08°30'00\"E"), 350.00)
-        self.intersections["INT_ASSUMP_SANDS_BEACHWOOD"] = RoadIntersection(
-            id="INT_ASSUMP_SANDS_BEACHWOOD",
-            name="Assumed Beachwood Blvd & Sands Ave Intersection",
-            point=p_blvd_south,
-            street_1="Beachwood Boulevard (Projected Arterial)",
-            street_2="Sands Avenue (Projected Corridor)",
-            is_assumed=True,
-            notes="RED ASSUMPTION: Projected junction of Beachwood Blvd and Sands Ave.",
-        )
-
-        self.segments.append(CenterlineSegment(
-            id="SEG_ASSUMP_BEACHWOOD_S",
-            street_name="Beachwood Boulevard South Projection",
-            start_point=p_sail_beachwood,
-            end_point=p_blvd_south,
-            bearing="S08°30'00\"E",
-            distance=350.00,
-            right_of_way_width=100.0,
-            is_assumed=True,
-            notes="RED ASSUMPTION: Tangent projection of Beachwood Blvd arterial south across Block 15 frontage.",
-            derivation_method="RIGHT_OF_WAY_EDGE_HEDGE",
-            front_lot_bearing="S08°30'00\"E",
-            summed_lot_frontages=[
-                {"block": "15", "lot": "9", "frontage_ft": 100.04, "bearing": "Curve C2 Arc"},
-                {"block": "15", "lot": "10", "frontage_ft": 100.04, "bearing": "Curve C2 Arc"},
-                {"component": "Block 15 South arterial connection", "frontage_ft": 149.92, "bearing": "S08°30'00\"E"},
-            ],
-        ))
-        self.assumptions.append({
-            "id": "ASSUMP_BEACHWOOD_S",
-            "type": "ARTERIAL_PROJECTION",
-            "street": "Beachwood Boulevard",
-            "feature": "South arterial projection across Block 15",
-            "color": "RED",
-            "rationale": "Plat Sheet 2 terminates Beachwood Blvd at Block 15 north line. Centerline continuity requires analytical projection hedged from East R/W curve C2 and Block 15 lot frontages.",
-            "summed_lots": "Block 15 Lots 9 & 10 East arc frontages (100.04' + 100.04' = 200.08') + 149.92' tie = 350.00'",
-            "field_recommendation": "Recover physical P.R.M. monument at Section 32 East line to establish the southern arterial tangent point.",
-        })
-
-        # RED ASSUMPTION 3: Sands Avenue Straight Approach Corridor
-        p_sands_pc = Point(9480.00, 11460.00)
-        self.intersections["INT_ASSUMP_SANDS_PC"] = RoadIntersection(
-            id="INT_ASSUMP_SANDS_PC",
-            name="Assumed Sands Ave Curve P.C.",
-            point=p_sands_pc,
-            street_1="Sands Avenue (Straight Approach)",
-            street_2="Sands Avenue Curve (C11)",
-            is_assumed=True,
-            notes="RED ASSUMPTION: Point of Curvature for Sands Avenue curve R=459.36'.",
-        )
-
-        self.segments.append(CenterlineSegment(
-            id="SEG_ASSUMP_SANDS_APPROACH",
-            street_name="Sands Avenue Approach",
-            start_point=p_blvd_south,
-            end_point=p_sands_pc,
-            bearing="S87°35'30\"W",
-            distance=p_blvd_south.dist_to(p_sands_pc),
-            right_of_way_width=60.0,
-            is_assumed=True,
-            notes="RED ASSUMPTION: Straight centerline approach connecting Beachwood Blvd south projection to Sands Ave curve.",
-            derivation_method="FRONT_LOT_SUMMATION_APPROXIMATION",
-            front_lot_bearing="S87°35'30\"W",
-            summed_lot_frontages=[
-                {"block": "15", "lot": "5", "frontage_ft": 88.48, "bearing": "S87°35'30\"W"},
-                {"block": "15", "lot": "4", "frontage_ft": 88.48, "bearing": "S87°35'30\"W"},
-                {"block": "15", "lot": "3", "frontage_ft": 88.50, "bearing": "S87°35'30\"W"},
-                {"block": "15", "lot": "2", "frontage_ft": 100.00, "bearing": "S87°35'30\"W"},
-            ],
-        ))
-        self.assumptions.append({
-            "id": "ASSUMP_SANDS_APPROACH",
-            "type": "CURVE_CORRIDOR",
-            "street": "Sands Avenue",
-            "feature": "Curve C11 Corridor & Approach",
-            "color": "RED",
-            "rationale": "Sands Avenue centerline curve parameters are given in the plat table but its exact tangent approach is unlettered; bearing is hedged from Block 15 lot frontages (S87°35'30\"W) and distance approximated by summing lots 2-5 frontages.",
-            "summed_lots": "Block 15 Lots 5 (88.48'), 4 (88.48'), 3 (88.50'), 2 (100.00') -> Sum = 365.46' frontage",
-            "field_recommendation": "Locate block corner monuments at Block 15 Lots 1-4 to establish the straight tangent alignment of Sands Ave.",
-        })
-
-        # ----------------------------------------------------------------------
-        # 12. SHELLFISH DRIVE (60' R/W) -- Parallel Offset from Course 27 (960' S)
-        # ----------------------------------------------------------------------
-        # West stub to Course 2 (West Boundary Line Leg 2, offset 180.00' West)
-        p_shellfish_west_end = p_shellfish_mangrove.offset(norm_w, 180.00)
-        self.intersections["INT_SHELLFISH_WEST_END"] = RoadIntersection(
-            id="INT_SHELLFISH_WEST_END",
-            name="Shellfish Dr & West Boundary (Course 2)",
-            point=p_shellfish_west_end,
-            street_1="Shellfish Drive",
-            street_2="West Boundary Line (Course 2)",
+        p_marina_bnd = _dpt("INT_MARINA_BOUNDARY")
+        self.intersections["INT_MARINA_BOUNDARY"] = RoadIntersection(
+            id="INT_MARINA_BOUNDARY",
+            name="Marina Dr & Unit One Line (Course 20)",
+            point=p_marina_bnd,
+            street_1="Marina Drive",
+            street_2="Unit One Line (Course 20)",
             is_assumed=False,
             is_boundary_tie=True,
-            notes="West boundary tie to Course 2.",
+            notes="Derived: ℄ x c20; c20 ends on the NE R/W (0.013') and c21 runs along it.",
         )
-
         self.segments.append(CenterlineSegment(
-            id="SEG_SHELLFISH_W",
-            street_name="Shellfish Drive",
-            start_point=p_shellfish_west_end,
-            end_point=p_shellfish_mangrove,
-            bearing=self.brg_east_e,
-            distance=180.00,
+            id="SEG_MARINA_SE_TO_BOUNDARY",
+            street_name="Marina Avenue",
+            start_point=p_marina_keel,
+            end_point=p_marina_bnd,
+            bearing="S54°41'40\"E",
+            distance=p_marina_keel.dist_to(p_marina_bnd),
             right_of_way_width=60.0,
             is_assumed=False,
-            notes="Shellfish Dr west stub connecting to Course 2 of outer boundary",
+            notes="Marina Ave SE tangent to the Unit One line (course c20).",
         ))
-
-        # Main East run of Shellfish Drive towards Keel Drive
-        p_shellfish_east = p_shellfish_mangrove.offset(norm_e, 1150.00)
-        p_shellfish_keel = Point(9247.91, 10678.32)
-        self.intersections["INT_SHELLFISH_KEEL"] = RoadIntersection(
-            id="INT_SHELLFISH_KEEL",
-            name="Shellfish Dr & Keel Drive Intersection",
-            point=p_shellfish_keel,
-            street_1="Shellfish Drive",
-            street_2="Keel Drive",
-            is_assumed=False,
-            notes="Centerline intersection connecting Shellfish Drive to Keel Drive diagonal corridor.",
-        )
-
-        self.segments.append(CenterlineSegment(
-            id="SEG_SHELLFISH_MAIN",
-            street_name="Shellfish Drive",
-            start_point=p_shellfish_mangrove,
-            end_point=p_shellfish_keel,
-            bearing=self.brg_east_e,
-            distance=p_shellfish_mangrove.dist_to(p_shellfish_keel),
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Shellfish Drive main straight centerline corridor fronting Block 14 and Block 15",
-            derivation_method="BOUNDARY_OFFSET_AND_TRIM",
-            front_lot_bearing=self.brg_east_e,
-            summed_lot_frontages=[
-                {"block": "14", "lot": "24-13", "frontage_ft": 901.34, "bearing": "N87°35'30\"E (Block 14 South Row Lots 13-24)"},
-            ],
-        ))
-
-        # RED ASSUMPTION 4: Shellfish Drive East Extension to Keel Drive Curve & Matchline
-        self.segments.append(CenterlineSegment(
-            id="SEG_ASSUMP_SHELLFISH_KEEL",
-            street_name="Shellfish Drive East Extension",
-            start_point=p_shellfish_keel,
-            end_point=p_shellfish_east,
-            bearing=self.brg_east_e,
-            distance=p_shellfish_keel.dist_to(p_shellfish_east),
-            right_of_way_width=60.0,
-            is_assumed=True,
-            notes="RED ASSUMPTION: Inferred centerline transition connecting Shellfish Drive east into Block 15 and Keel Drive.",
-            derivation_method="FRONT_LOT_SUMMATION_APPROXIMATION",
-            front_lot_bearing=self.brg_east_e,
-            summed_lot_frontages=[
-                {"block": "15", "lot": "1", "frontage_ft": 153.25, "bearing": "R=167.95' Arc"},
-                {"block": "15", "lot": "2", "frontage_ft": 100.00, "bearing": "N87°35'30\"E"},
-                {"block": "15", "lot": "3", "frontage_ft": 88.50, "bearing": "N87°35'30\"E"},
-                {"block": "15", "lot": "4-5", "frontage_ft": 176.96, "bearing": "N87°35'30\"E (2x88.48')"},
-                {"block": "15", "lot": "6-8", "frontage_ft": 225.00, "bearing": "N87°35'30\"E (3x75.00')"},
-                {"block": "15", "lot": "9", "frontage_ft": 95.98, "bearing": "N87°35'30\"E"},
-            ],
-        ))
-        self.assumptions.append({
-            "id": "ASSUMP_SHELLFISH_KEEL",
-            "type": "TRANSITION_CORRIDOR",
-            "street": "Shellfish Drive East Extension",
-            "feature": "East connection from Keel Drive junction towards Block 15",
-            "color": "RED",
-            "rationale": "Eastern terminus of Shellfish Drive meets Block 15 Lots 1-9. Distance approximated by summing Block 15 Lots 1-9 frontages (839.69' total).",
-            "summed_lots": "Block 15 Lots 1-9 frontages: 153.25' (arc) + 100' + 88.5' + 176.96' + 225' + 95.98' = 839.69'",
-            "field_recommendation": "Recover lot corner pins along Block 15 North line to determine exact centerline terminus.",
-        })
 
         # ----------------------------------------------------------------------
-        # 13. ADDITIONAL CENTERLINE CURVES (SANDS, CAPE HORN)
+        # 10. KEEL DRIVE (60' R/W) -- derived; ends at Marina Dr (no cul-de-sac on the plat)
         # ----------------------------------------------------------------------
-        # Sands Avenue Centerline Curve C11: R=459.36', Delta=36°20'00"
-        r_sands_cl = 459.36
-        delta_sands_deg = 36.0 + 20.0 / 60.0
-        c_sands_sol = solve_curve_all_parameters(radius=r_sands_cl, delta_deg=delta_sands_deg)
-        l_sands_cl = float(c_sands_sol["length"])
-        t_sands_cl = float(c_sands_sol["tangent"])
-        c_sands_cl = float(c_sands_sol["chord"])
-
-        p_sands_pt = p_sands_pc.offset(parse_bearing("N70°41'40\"W"), c_sands_cl)
-        p_sands_center = p_sands_pc.offset(parse_bearing("N02°24'30\"W"), r_sands_cl)
-        self.intersections["INT_ASSUMP_SANDS_PT"] = RoadIntersection(
-            id="INT_ASSUMP_SANDS_PT",
-            name="Assumed Sands Ave Curve P.T.",
-            point=p_sands_pt,
-            street_1="Sands Avenue (Curve C11)",
-            street_2="Sands Avenue (Outgoing Tangent)",
-            is_assumed=True,
-            notes="RED ASSUMPTION: Point of Tangency for Sands Avenue curve R=459.36'.",
-        )
-
-        self.curves["C_SANDS_CL"] = CenterlineCurve(
-            id="C_SANDS_CL",
-            street_name="Sands Avenue",
-            center_point=p_sands_center,
-            pc_point=p_sands_pc,
-            pt_point=p_sands_pt,
-            radius=r_sands_cl,
-            delta_deg=delta_sands_deg,
-            arc_length=l_sands_cl,
-            tangent=t_sands_cl,
-            chord_length=c_sands_cl,
-            chord_bearing="N70°41'40\"W",
-            direction="CCW",
+        # Keel Drive (derived): E-W leg 780' S of Starfish from Beachwood Blvd west to the ℄ curve P.T. (Blk 15
+        # Lot 10 90' + 4x75' to the radial Lot 14/15 line), ℄ curve R=143.93' Δ=52°17'10" left onto
+        # S35°18'20"W, mouth tangent to Marina ℄. Checks: 25.18' legs (25.158'), SE edge chord 100.40'.
+        keel_placed = derived.placed_curves["C_KEEL_CL"]
+        c_keel = CenterlineCurve.from_placed_curve(
+            id="C_KEEL_CL",
+            street_name="Keel Drive",
+            placed=keel_placed,
             right_of_way_width=60.0,
-            is_assumed=True,
-            notes="Sands Avenue centerline curve C11 (R=459.36', Delta=36°20'00\").",
+            notes="Plat ℄ Curve Data R=143.93' T=70.65' Δ=52°17'10\"; edges 113.93'/173.93'.",
         )
+        self.curves["C_KEEL_CL"] = c_keel
+        p_keel_pc, p_keel_pt = c_keel.pc_point, c_keel.pt_point
+        t_keel_cl = c_keel.tangent
+        for iid, nm, q in (("INT_KEEL_PC", "Keel Drive Curve P.C.", p_keel_pc),
+                           ("INT_KEEL_PT", "Keel Drive Curve P.T.", p_keel_pt)):
+            self.intersections[iid] = RoadIntersection(
+                id=iid, name=nm, point=q, street_1="Keel Drive", street_2="Keel Drive Curve",
+                is_assumed=False, notes="Derived from the placed ℄ curve.",
+            )
+        p_keel_blvd = _dpt("INT_KEEL_BEACHWOOD")
+        for sid, pa, pb, brg in (("SEG_KEEL_MOUTH", p_marina_keel, p_keel_pc, "N35°18'20\"E"),
+                                 ("SEG_KEEL_EW", p_keel_pt, p_keel_blvd, self.brg_east_e)):
+            self.segments.append(CenterlineSegment(
+                id=sid, street_name="Keel Drive", start_point=pa, end_point=pb, bearing=brg,
+                distance=pa.dist_to(pb), right_of_way_width=60.0, is_assumed=False,
+                notes="Derived Keel Dr ℄ (engine/centerline_geometry.py)",
+                derivation_method="BOUNDARY_OFFSET_AND_TRIM", front_lot_bearing=brg,
+            ))
 
-        # Cape Horn Avenue Centerline Curve C16: R=327.01', Delta=36°20'00"
-        r_ch_cl = 327.01
-        delta_ch_deg = 36.0 + 20.0 / 60.0
-        c_ch_sol = solve_curve_all_parameters(radius=r_ch_cl, delta_deg=delta_ch_deg)
-        l_ch_cl = float(c_ch_sol["length"])
-        t_ch_cl = float(c_ch_sol["tangent"])
-        c_ch_cl = float(c_ch_sol["chord"])
+        # Keel Drive ends at Marina Dr. The legacy 380' SW corridor and cul-de-sac bulb were removed 2026-09-24
+        # (user-reviewed): Sheet 2 shows Block 7 Lots 30-37 continuous SW of Marina at Keel and no bulb anywhere.
 
-        p_ch_pc = p_ch_matchline.offset(parse_bearing("N54°41'40\"W"), 250.00)
-        p_ch_pt = p_ch_pc.offset(parse_bearing("S74°21'40\"E"), c_ch_cl)
-        p_ch_center = p_ch_pc.offset(parse_bearing("N35°18'20\"E"), r_ch_cl)
+        # ----------------------------------------------------------------------
+        # 11. BEACHWOOD BOULEVARD (80' R/W, straight, N00°41'40"W) -- derived
+        # ----------------------------------------------------------------------
+        # The Blvd lies wholly inside the plat between the block east lines and the east boundary c26
+        # (N00°41'40"W 1247.95'); its ℄ is 40' west of c26. Evidence: north line 80.04' (= 80/cos 1°42'50"),
+        # '80'' at Block 6, south line c25 N68°58'32"E 85.32' (= 80/cos 20°19'48"), block east lines 100.04'.
+        # There is no Blvd curve on either sheet (reader NEG_beachwood_blvd_arterial_curve).
+        blvd_seq = [
+            ("INT_BLVD_NORTH_END", "Beachwood Blvd & Section 32 North Line (Course 27)", True),
+            ("INT_STARFISH_BEACHWOOD", None, False),
+            ("INT_SAIL_BEACHWOOD", None, False),
+            ("INT_SHELLFISH_BEACHWOOD", "Shellfish Dr & Beachwood Blvd", False),
+            ("INT_KEEL_BEACHWOOD", "Keel Dr & Beachwood Blvd", False),
+            ("INT_BLVD_SOUTH_END", "Beachwood Blvd & Unit One Line (Course 25)", True),
+        ]
+        for iid, name, is_tie in blvd_seq:
+            if name is None:
+                continue
+            d_int = derived.intersections[iid]
+            self.intersections[iid] = RoadIntersection(
+                id=iid,
+                name=name,
+                point=_dpt(iid),
+                street_1="Beachwood Boulevard",
+                street_2=d_int.streets[1],
+                is_assumed=False,
+                is_boundary_tie=is_tie,
+                notes=f"Derived: {d_int.source}.",
+            )
+        for (a, _na, _ta), (b, _nb, _tb) in zip(blvd_seq, blvd_seq[1:]):
+            pa, pb = _dpt(a), _dpt(b)
+            self.segments.append(CenterlineSegment(
+                id=f"SEG_BLVD_{a.replace('INT_', '')}_TO_{b.replace('INT_', '')}",
+                street_name="Beachwood Boulevard",
+                start_point=pa,
+                end_point=pb,
+                bearing="S00°41'40\"E",
+                distance=pa.dist_to(pb),
+                right_of_way_width=80.0,
+                is_assumed=False,
+                notes="Beachwood Blvd ℄, 40' west of and parallel to east boundary c26.",
+                derivation_method="BOUNDARY_OFFSET_AND_TRIM",
+                front_lot_bearing="S00°41'40\"E",
+            ))
 
-        self.intersections["INT_CAPEHORN_PC"] = RoadIntersection(
-            id="INT_CAPEHORN_PC",
-            name="Cape Horn Ave Curve P.C.",
-            point=p_ch_pc,
-            street_1="Cape Horn Avenue (Tangent)",
-            street_2="Cape Horn Avenue Curve (C16)",
-            is_assumed=False,
-            notes="Point of Curvature for Cape Horn Ave centerline curve R=327.01'.",
-        )
-        self.intersections["INT_CAPEHORN_PT"] = RoadIntersection(
-            id="INT_CAPEHORN_PT",
-            name="Cape Horn Ave Curve P.T.",
-            point=p_ch_pt,
-            street_1="Cape Horn Avenue Curve (C16)",
-            street_2="Cape Horn Avenue (Tangent)",
-            is_assumed=False,
-            notes="Point of Tangency for Cape Horn Ave centerline curve.",
-        )
+        # 25' corner fillets (Note 4) at every street R/W corner of the derived grid.
+        self.corner_fillets = list(derived.fillets)
 
-        self.curves["C_CAPEHORN_CL"] = CenterlineCurve(
-            id="C_CAPEHORN_CL",
-            street_name="Cape Horn Avenue",
-            center_point=p_ch_center,
-            pc_point=p_ch_pc,
-            pt_point=p_ch_pt,
-            radius=r_ch_cl,
-            delta_deg=delta_ch_deg,
-            arc_length=l_ch_cl,
-            tangent=t_ch_cl,
-            chord_length=c_ch_cl,
-            chord_bearing="S74°21'40\"E",
-            direction="CCW",
+        # ----------------------------------------------------------------------
+        # 12. SHELLFISH DRIVE (60' R/W) -- derived: E-W leg 520' S of Starfish, ℄ curve R=167.95' into Marina
+        # ----------------------------------------------------------------------
+        # The E-W leg runs from Beachwood Blvd west to the ℄ curve P.T. (Blk 16 Lot 18 97.78' + 8x75' + 5.45'
+        # stub), curves left onto S35°18'20"W and meets Marina Dr square. Checks: printed 25.0' tangent legs at
+        # both mouth corners (24.986'), SE edge chord 121.56' N61°26'55"E, NW edge chords sum to Δ.
+        # (The old west stub, Mangrove junction and "Shellfish-Keel tie" are not on the plat -- removed.)
+        shell_placed = derived.placed_curves["C_SHELLFISH_CL"]
+        self.curves["C_SHELLFISH_CL"] = CenterlineCurve.from_placed_curve(
+            id="C_SHELLFISH_CL",
+            street_name="Shellfish Drive",
+            placed=shell_placed,
             right_of_way_width=60.0,
+            notes="Plat ℄ Curve Data R=167.95' T=82.35' (formula 82.43') Δ=52°17'10\"; edges 137.95'/197.95'.",
+        )
+        for iid, nm in (("INT_MARINA_SHELLFISH", "Shellfish Dr & Marina Dr"),
+                        ("INT_SHELLFISH_PC", "Shellfish Dr ℄ Curve P.C."),
+                        ("INT_SHELLFISH_PT", "Shellfish Dr ℄ Curve P.T.")):
+            self.intersections[iid] = RoadIntersection(
+                id=iid, name=nm, point=_dpt(iid), street_1="Shellfish Drive",
+                street_2="Marina Drive" if "MARINA" in iid else "Shellfish Drive (℄ Curve)",
+                is_assumed=False, notes=f"Derived: {derived.intersections[iid].source}.",
+            )
+        for sid, a_, b_, brg in (("SEG_SHELLFISH_MOUTH", "INT_MARINA_SHELLFISH", "INT_SHELLFISH_PC", "N35°18'20\"E"),
+                                 ("SEG_SHELLFISH_MAIN", "INT_SHELLFISH_PT", "INT_SHELLFISH_BEACHWOOD", self.brg_east_e)):
+            pa, pb = self.intersections[a_].point, self.intersections[b_].point
+            self.segments.append(CenterlineSegment(
+                id=sid, street_name="Shellfish Drive", start_point=pa, end_point=pb, bearing=brg,
+                distance=pa.dist_to(pb), right_of_way_width=60.0, is_assumed=False,
+                notes="Derived Shellfish Dr ℄ (engine/centerline_geometry.py)",
+                derivation_method="BOUNDARY_OFFSET_AND_TRIM", front_lot_bearing=brg,
+            ))
+
+        # ----------------------------------------------------------------------
+        # 13. SANDS AVE & CAPE HORN AVE (derived): W->E on N88°58'20"E from Mangrove, ℄ curve CW onto S54°41'40"E
+        # ----------------------------------------------------------------------
+        # Sands: ℄ R=459.36' P.C. 80' past the Mangrove E R/W corner; exits the plat through c19 (its 60.14' jog).
+        # Cape Horn: ℄ R=327.01' P.C. 25.0' past the corner (printed tangent leg); runs west to c2 and exits through
+        # c15. Every printed edge chord checks from the bearing pattern (≤0.01'); both ℄s pass through the middle of
+        # their boundary jogs (0.034' / 0.014'). The old Sands chain off Beachwood Blvd and the mirrored Cape Horn
+        # (chained to San Salvadore) were not on the plat and are gone.
+        self._add_derived_curved_street(
+            derived, "C_SANDS_CL", "Sands Avenue", "SANDS",
+            [("INT_SANDS_MANGROVE", "INT_SANDS_PC", "N88°58'20\"E"),
+             ("INT_SANDS_PT", "INT_SANDS_BOUNDARY", "S54°41'40\"E")],
+            boundary_iid="INT_SANDS_BOUNDARY", boundary_name="Sands Ave & Unit One Line (Course 19)")
+        self._add_derived_curved_street(
+            derived, "C_CAPEHORN_CL", "Cape Horn Avenue", "CAPEHORN",
+            [("INT_CAPEHORN_WEST_END", "INT_CAPEHORN_MANGROVE", "N88°58'20\"E"),
+             ("INT_CAPEHORN_MANGROVE", "INT_CAPEHORN_PC", "N88°58'20\"E"),
+             ("INT_CAPEHORN_PT", "INT_CAPEHORN_BOUNDARY", "S54°41'40\"E")],
+            boundary_iid="INT_CAPEHORN_BOUNDARY", boundary_name="Cape Horn Ave & Unit One Line (Course 15)",
+            extra_ties={"INT_CAPEHORN_WEST_END": "Cape Horn Ave & West Boundary (Course 2)"})
+        # Legacy id kept for callers: the Cape Horn tie to the Unit One line is the c15 crossing.
+        self.intersections["INT_CAPEHORN_MATCHLINE"] = RoadIntersection(
+            id="INT_CAPEHORN_MATCHLINE",
+            name="Cape Horn Ave & Unit One Line (Course 15)",
+            point=_dpt("INT_CAPEHORN_BOUNDARY"),
+            street_1="Cape Horn Avenue",
+            street_2="Unit One Line (Course 15)",
             is_assumed=False,
-            notes="Cape Horn Avenue centerline curve C16 (R=327.01', Delta=36°20'00\").",
+            is_boundary_tie=True,
+            notes="Derived: Cape Horn ℄ x c15 (℄ passes 0.014' from the c15 midpoint).",
         )
 
         # ----------------------------------------------------------------------
         # 14. RULE 2: PROJECTED P.I. TANGENTS FOR ALL CURVES (DRAWN IN RED)
         # ----------------------------------------------------------------------
-        # 1. Marina Avenue Curve C3 (R=419.27', Delta=37°42'50")
-        p_pi_marina = p_marina_pc.offset(parse_bearing("N87°35'30\"E"), t_marina_cl)
-        self.curves["C_MARINA_CL"].pi_point = p_pi_marina
+        # 1. Marina Avenue ℄ Curve (R=359.27', Delta=37°42'50") -- P.I. from the placed curve
+        p_pi_marina = self.curves["C_MARINA_CL"].pi_point
         self.intersections["INT_PI_MARINA"] = RoadIntersection(
             id="INT_PI_MARINA",
-            name="Marina Avenue Projected P.I. (T=143.20')",
+            name="Marina Avenue Projected P.I. (T=122.70')",
             point=p_pi_marina,
             street_1="Marina Ave (Incoming Tangent)",
             street_2="Marina Ave (Outgoing Tangent)",
             is_assumed=True,
-            notes="Projected P.I. derived via Rule 2: T = R * tan(Delta/2) = 143.20'; drawn in RED.",
+            notes="Projected P.I. derived via Rule 2: T = R * tan(Delta/2) = 122.70'; drawn in RED.",
         )
         self.pi_tangents.append(CenterlineSegment(
             id="PI_RAY_MARINA_IN",
@@ -1460,107 +1171,8 @@ class BeachwoodRoadCenterlineEngine:
             street_name="Marina Ave Projected Tangent (Out)",
             start_point=p_pi_marina,
             end_point=p_marina_pt,
-            bearing="S49°52'40\"E",
-            distance=t_marina_cl,
-            is_assumed=True,
-            notes="Rule 2 Tangent Ray to P.I. (RED)",
-        ))
-
-        # 2. San Salvadore Curve C17 (R=299.96', Delta=36°20'00")
-        self.curves["C_SANSALVADORE_CL"].pi_point = p_ss_pi
-        self.intersections["INT_PI_SANSALVADORE"] = RoadIntersection(
-            id="INT_PI_SANSALVADORE",
-            name="San Salvadore Projected P.I. (T=98.42')",
-            point=p_ss_pi,
-            street_1="San Salvadore (Incoming Tangent)",
-            street_2="San Salvadore (Outgoing Tangent)",
-            is_assumed=True,
-            notes="Projected P.I. derived via Rule 2: T = R * tan(Delta/2) = 98.42'; drawn in RED.",
-        )
-        self.pi_tangents.append(CenterlineSegment(
-            id="PI_RAY_SS_IN",
-            street_name="San Salvadore Projected Tangent (In)",
-            start_point=p_ss_pc,
-            end_point=p_ss_pi,
             bearing="S54°41'40\"E",
-            distance=t_ss_cl,
-            is_assumed=True,
-            notes="Rule 2 Tangent Ray to P.I. (RED)",
-        ))
-        self.pi_tangents.append(CenterlineSegment(
-            id="PI_RAY_SS_OUT",
-            street_name="San Salvadore Projected Tangent (Out)",
-            start_point=p_ss_pi,
-            end_point=p_ss_pt,
-            bearing="S91°01'40\"E",
-            distance=t_ss_cl,
-            is_assumed=True,
-            notes="Rule 2 Tangent Ray to P.I. (RED)",
-        ))
-
-        # 3. Beachwood Blvd Arterial Curve C2 (R=1959.86', Delta=7°36'30")
-        t_blvd = float(self.curves["C_BEACHWOOD_BLVD_CL"].tangent)
-        p_pi_blvd = p_starfish_beachwood.offset(parse_bearing("S02°24'30\"E"), t_blvd)
-        self.curves["C_BEACHWOOD_BLVD_CL"].pi_point = p_pi_blvd
-        self.intersections["INT_PI_BEACHWOOD_BLVD"] = RoadIntersection(
-            id="INT_PI_BEACHWOOD_BLVD",
-            name="Beachwood Blvd Projected P.I. (T=130.34')",
-            point=p_pi_blvd,
-            street_1="Beachwood Blvd (Incoming Tangent)",
-            street_2="Beachwood Blvd (Outgoing Tangent)",
-            is_assumed=True,
-            notes="Projected P.I. derived via Rule 2: T = R * tan(Delta/2) = 130.34'; drawn in RED.",
-        )
-        self.pi_tangents.append(CenterlineSegment(
-            id="PI_RAY_BLVD_IN",
-            street_name="Beachwood Blvd Projected Tangent (In)",
-            start_point=p_starfish_beachwood,
-            end_point=p_pi_blvd,
-            bearing="S02°24'30\"E",
-            distance=t_blvd,
-            is_assumed=True,
-            notes="Rule 2 Tangent Ray to P.I. (RED)",
-        ))
-        self.pi_tangents.append(CenterlineSegment(
-            id="PI_RAY_BLVD_OUT",
-            street_name="Beachwood Blvd Projected Tangent (Out)",
-            start_point=p_pi_blvd,
-            end_point=p_sail_beachwood,
-            bearing="S10°01'00\"E",
-            distance=t_blvd,
-            is_assumed=True,
-            notes="Rule 2 Tangent Ray to P.I. (RED)",
-        ))
-
-        # 4. Sands Avenue Curve C11 (R=459.36', Delta=36°20'00")
-        p_pi_sands = p_sands_pc.offset(parse_bearing("S87°35'30\"W"), t_sands_cl)
-        self.curves["C_SANDS_CL"].pi_point = p_pi_sands
-        self.intersections["INT_PI_SANDS"] = RoadIntersection(
-            id="INT_PI_SANDS",
-            name="Sands Avenue Projected P.I. (T=150.73')",
-            point=p_pi_sands,
-            street_1="Sands Ave (Incoming Tangent)",
-            street_2="Sands Ave (Outgoing Tangent)",
-            is_assumed=True,
-            notes="Projected P.I. derived via Rule 2: T = R * tan(Delta/2) = 150.73'; drawn in RED.",
-        )
-        self.pi_tangents.append(CenterlineSegment(
-            id="PI_RAY_SANDS_IN",
-            street_name="Sands Ave Projected Tangent (In)",
-            start_point=p_sands_pc,
-            end_point=p_pi_sands,
-            bearing="S87°35'30\"W",
-            distance=t_sands_cl,
-            is_assumed=True,
-            notes="Rule 2 Tangent Ray to P.I. (RED)",
-        ))
-        self.pi_tangents.append(CenterlineSegment(
-            id="PI_RAY_SANDS_OUT",
-            street_name="Sands Ave Projected Tangent (Out)",
-            start_point=p_pi_sands,
-            end_point=p_sands_pt,
-            bearing="N53°55'30\"W",
-            distance=t_sands_cl,
+            distance=t_marina_cl,
             is_assumed=True,
             notes="Rule 2 Tangent Ray to P.I. (RED)",
         ))
@@ -1598,38 +1210,24 @@ class BeachwoodRoadCenterlineEngine:
             notes="Rule 2 Tangent Ray to P.I. (RED)",
         ))
 
-        # 6. Cape Horn Avenue Curve C16 (R=327.01', Delta=36°20'00")
-        p_pi_ch = p_ch_pc.offset(parse_bearing("S54°41'40\"E"), t_ch_cl)
-        self.curves["C_CAPEHORN_CL"].pi_point = p_pi_ch
-        self.intersections["INT_PI_CAPEHORN"] = RoadIntersection(
-            id="INT_PI_CAPEHORN",
-            name="Cape Horn Projected P.I. (T=107.30')",
-            point=p_pi_ch,
-            street_1="Cape Horn (Incoming Tangent)",
-            street_2="Cape Horn (Outgoing Tangent)",
+        # 5b. Shellfish Drive ℄ Curve (R=167.95', Delta=52°17'10")
+        c_sh = self.curves["C_SHELLFISH_CL"]
+        p_pi_sh = c_sh.pi_point
+        self.intersections["INT_PI_SHELLFISH"] = RoadIntersection(
+            id="INT_PI_SHELLFISH",
+            name="Shellfish Drive Projected P.I. (T=82.43'; plat prints 82.35')",
+            point=p_pi_sh,
+            street_1="Shellfish Drive (Incoming Tangent)",
+            street_2="Shellfish Drive (Outgoing Tangent)",
             is_assumed=True,
-            notes="Projected P.I. derived via Rule 2: T = R * tan(Delta/2) = 107.30'; drawn in RED.",
+            notes="Projected P.I. via Rule 2: T = R * tan(Delta/2) = 82.43'; drawn in RED.",
         )
-        self.pi_tangents.append(CenterlineSegment(
-            id="PI_RAY_CH_IN",
-            street_name="Cape Horn Projected Tangent (In)",
-            start_point=p_ch_pc,
-            end_point=p_pi_ch,
-            bearing="S54°41'40\"E",
-            distance=t_ch_cl,
-            is_assumed=True,
-            notes="Rule 2 Tangent Ray to P.I. (RED)",
-        ))
-        self.pi_tangents.append(CenterlineSegment(
-            id="PI_RAY_CH_OUT",
-            street_name="Cape Horn Projected Tangent (Out)",
-            start_point=p_pi_ch,
-            end_point=p_ch_pt,
-            bearing="S91°01'40\"E",
-            distance=t_ch_cl,
-            is_assumed=True,
-            notes="Rule 2 Tangent Ray to P.I. (RED)",
-        ))
+        for rid, pa, pb, brg in (("PI_RAY_SHELLFISH_IN", c_sh.pc_point, p_pi_sh, "N35°18'20\"E"),
+                                 ("PI_RAY_SHELLFISH_OUT", p_pi_sh, c_sh.pt_point, "N87°35'30\"E")):
+            self.pi_tangents.append(CenterlineSegment(
+                id=rid, street_name="Shellfish Drive Projected Tangent", start_point=pa, end_point=pb,
+                bearing=brg, distance=pa.dist_to(pb), is_assumed=True, notes="Rule 2 Tangent Ray to P.I. (RED)",
+            ))
 
         self.assumptions.append({
             "id": "ASSUMP_PI_TANGENT_EXTENSIONS",
@@ -1640,6 +1238,55 @@ class BeachwoodRoadCenterlineEngine:
             "rationale": "Plat block corners carry L-shaped angle bar glyphs indicating boundary extension along tangents to P.I. rather than P.C. / P.T.",
             "field_recommendation": "Verify field deflection angle Delta between tangents and confirm surveyor tangent distance T = R * tan(Delta/2).",
         })
+
+    def _row_is_derived(self, item: Any) -> bool:
+        """True when a segment's / curve's ℄ midpoint lies on a derived corridor (its R/W is drawn trimmed)."""
+        if isinstance(item, CenterlineCurve):
+            mids = item.arc_points(n_segments=2)
+            q = (mids[1].n, mids[1].e)
+        else:
+            q = ((item.start_point.n + item.end_point.n) / 2.0, (item.start_point.e + item.end_point.e) / 2.0)
+        return any(c.contains(q) for c in self.derived_network.corridors)
+
+    def _add_derived_curved_street(self, derived, cid: str, street: str, key: str,
+                                   runs: list[tuple[str, str, str]], boundary_iid: str, boundary_name: str,
+                                   extra_ties: dict[str, str] | None = None) -> None:
+        """Add a street whose ℄ curve and straight runs come from engine/centerline_geometry.py."""
+        def pt(iid: str) -> Point:
+            q = derived.intersections[iid].point
+            return Point(q[0], q[1])
+
+        placed = derived.placed_curves[cid]
+        c = CenterlineCurve.from_placed_curve(id=cid, street_name=street, placed=placed, right_of_way_width=60.0,
+                                              notes=f"Plat ℄ Curve Data R={placed.curve.radius}' (placed, derived).")
+        self.curves[cid] = c
+        names = {f"INT_{key}_PC": f"{street} ℄ Curve P.C.", f"INT_{key}_PT": f"{street} ℄ Curve P.T.",
+                 boundary_iid: boundary_name, **(extra_ties or {})}
+        for iid, nm in names.items():
+            self.intersections[iid] = RoadIntersection(
+                id=iid, name=nm, point=pt(iid), street_1=street, street_2=nm.split(" & ")[-1],
+                is_assumed=False, is_boundary_tie=(iid == boundary_iid or iid in (extra_ties or {})),
+                notes=f"Derived: {derived.intersections[iid].source}.",
+            )
+        for i, (a, b, brg) in enumerate(runs, 1):
+            pa, pb = pt(a), pt(b)
+            self.segments.append(CenterlineSegment(
+                id=f"SEG_{key}_{i}", street_name=street, start_point=pa, end_point=pb, bearing=brg,
+                distance=pa.dist_to(pb), right_of_way_width=60.0, is_assumed=False,
+                notes=f"Derived {street} ℄ (engine/centerline_geometry.py)",
+                derivation_method="BOUNDARY_OFFSET_AND_TRIM", front_lot_bearing=brg,
+            ))
+        self.intersections[f"INT_PI_{key}"] = RoadIntersection(
+            id=f"INT_PI_{key}", name=f"{street} Projected P.I. (T={c.tangent:.2f}')", point=c.pi_point,
+            street_1=f"{street} (Incoming Tangent)", street_2=f"{street} (Outgoing Tangent)", is_assumed=True,
+            notes=f"Projected P.I. via Rule 2: T = R * tan(Delta/2) = {c.tangent:.2f}'; drawn in RED.",
+        )
+        for rid, pa, pb in ((f"PI_RAY_{key}_IN", c.pc_point, c.pi_point), (f"PI_RAY_{key}_OUT", c.pi_point, c.pt_point)):
+            self.pi_tangents.append(CenterlineSegment(
+                id=rid, street_name=f"{street} Projected Tangent", start_point=pa, end_point=pb,
+                bearing=azimuth_to_bearing(math.degrees(math.atan2(pb.e - pa.e, pb.n - pa.n)) % 360.0),
+                distance=pa.dist_to(pb), is_assumed=True, notes="Rule 2 Tangent Ray to P.I. (RED)",
+            ))
 
     def run_100_agent_consensus(self, max_rounds: int = 25) -> dict[str, Any]:
         """
@@ -1744,15 +1391,25 @@ class BeachwoodRoadCenterlineEngine:
         self.consensus_results = consensus_res
         return consensus_res
 
-    def validate_all_curves(self) -> dict[str, Any]:
+    def validate_all_curves(self, tol: float = 0.02) -> dict[str, Any]:
         """
-        Rigorously validate mathematical consistency for all 6 centerline curves.
-        Verifies:
-        1. Arc length = R * Delta_rad (to within 0.05')
-        2. Chord length = 2 * R * sin(Delta/2) (to within 0.05')
-        3. Tangent = R * tan(Delta/2) (to within 0.05')
-        4. Euclidean distance between PC and PT matches chord (to within 0.1')
+        Validate every ℄ curve against geometry it must satisfy and the plat's ℄ Curve Data -- not against itself.
+
+        Independent checks (tolerance ``tol`` ft / 1"):
+        1. RP-PC = R and RP-PT = R (both tangent points on the circle)
+        2. PI-PC = PI-PT = T (tangent lengths) and the deflection at the PI = Delta
+        3. turn sense at the PI and the RP side at the PC agree with the CW/CCW flag
+        4. R and T equal the plat ℄ Curve Data block (engine/centerline_geometry.py; Shellfish's printed T=82.35
+           is a known plat discrepancy -- formula 82.43 -- so its T is compared to R*tan(Delta/2) instead)
+        The legacy formula differences (diff_arc / diff_chord / diff_tan / diff_euclid) are still reported.
         """
+        def az(a: Point, b: Point) -> float:
+            return math.degrees(math.atan2(b.e - a.e, b.n - a.n)) % 360.0
+
+        def wrap(x: float) -> float:
+            return (x + 180.0) % 360.0 - 180.0
+
+        plat = {f"C_{d['id'][3:]}_CL": d for d in self.derived_network.curve_data}
         results = {}
         for cid, c in self.curves.items():
             delta_rad = math.radians(c.delta_deg)
@@ -1760,21 +1417,39 @@ class BeachwoodRoadCenterlineEngine:
             calc_chord = 2.0 * c.radius * math.sin(delta_rad / 2.0)
             calc_tan = c.radius * math.tan(delta_rad / 2.0)
             euclid_chord = c.pc_point.dist_to(c.pt_point)
-
-            diff_arc = abs(calc_arc - c.arc_length)
-            diff_chord = abs(calc_chord - c.chord_length)
-            diff_tan = abs(calc_tan - c.tangent)
-            diff_euclid = abs(euclid_chord - c.chord_length)
-
+            sign = 1.0 if c.direction == "CW" else -1.0
+            checks: dict[str, float] = {
+                "rp_pc_minus_R": c.center_point.dist_to(c.pc_point) - c.radius,
+                "rp_pt_minus_R": c.center_point.dist_to(c.pt_point) - c.radius,
+            }
+            if c.pi_point is not None:
+                back, fwd = az(c.pc_point, c.pi_point), az(c.pi_point, c.pt_point)
+                checks["pi_pc_minus_T"] = c.pi_point.dist_to(c.pc_point) - calc_tan
+                checks["pi_pt_minus_T"] = c.pi_point.dist_to(c.pt_point) - calc_tan
+                # signed deflection at the PI (right = +) must be +Delta for CW, -Delta for CCW (in ft-equivalent:
+                # arc-seconds / 3600 * R_rad so it shares the tolerance scale)
+                checks["pi_turn_minus_delta_ft"] = math.radians(wrap(fwd - back) - sign * c.delta_deg) * c.radius
+                # RP must lie on the turning side of the back tangent, square to it
+                checks["rp_side_minus_90_ft"] = math.radians(wrap(az(c.pc_point, c.center_point) - back)
+                                                              - sign * 90.0) * c.radius
+            stated = plat.get(cid)
+            if stated is not None:
+                checks["R_minus_plat"] = c.radius - stated["radius"]
+                t_ref = calc_tan if cid == "C_SHELLFISH_CL" else stated["tangent_printed"]
+                checks["T_minus_plat"] = c.tangent - t_ref
             results[cid] = {
                 "street": c.street_name,
                 "radius": c.radius,
                 "delta_deg": c.delta_deg,
-                "diff_arc": diff_arc,
-                "diff_chord": diff_chord,
-                "diff_tan": diff_tan,
-                "diff_euclid": diff_euclid,
-                "is_valid": max(diff_arc, diff_chord, diff_tan, diff_euclid) < 0.2,
+                "diff_arc": abs(calc_arc - c.arc_length),
+                "diff_chord": abs(calc_chord - c.chord_length),
+                "diff_tan": abs(calc_tan - c.tangent),
+                "diff_euclid": abs(euclid_chord - c.chord_length),
+                "checks": checks,
+                "failed": [k for k, v in checks.items() if abs(v) > tol],
+                "is_valid": all(abs(v) <= tol for v in checks.values())
+                and max(abs(calc_arc - c.arc_length), abs(calc_chord - c.chord_length),
+                        abs(calc_tan - c.tangent), abs(euclid_chord - c.chord_length)) <= tol,
             }
         return results
 
@@ -1913,7 +1588,9 @@ class BeachwoodRoadCenterlineEngine:
             ("INT_SAIL_MANGROVE", "Sail Ave"),
             ("INT_SOUTH_MANGROVE", "South St"),
             ("INT_MANGROVE_DEFL", "Bearing Deflection Point (1°22'50\" Turn)"),
-            ("INT_SHELLFISH_MANGROVE", "Shellfish Dr"),
+            ("INT_SANDS_MANGROVE", "Sands Ave"),
+            ("INT_DRAIN40_MANGROVE", "40' Drainage R/W"),
+            ("INT_CAPEHORN_MANGROVE", "Cape Horn Ave"),
             ("INT_SURFWOOD_MANGROVE", "Surfwood Ave"),
             ("INT_BAYOU_MANGROVE", "Bayou Ave Drainage Corridor"),
             ("INT_MANGROVE_SOUTH_END", "Plat South Limit (Course 5)"),
@@ -1930,45 +1607,39 @@ class BeachwoodRoadCenterlineEngine:
 
         # 3. Sail Avenue (East-West Mid Corridor)
         sail_keys = [
-            ("INT_SAIL_WEST_END", "West Boundary Line (Course 1)"),
-            ("INT_SAIL_MANGROVE", "Mangrove Ave (Centerline Intersection)"),
+            ("INT_SAIL_MANGROVE", "Mangrove Ave (T-intersection; Block 14 is continuous west of it)"),
             ("INT_SAIL_BEACHWOOD", "Beachwood Blvd (East Arterial Boundary)"),
         ]
         alignments["SAIL_AVENUE"] = self._build_alignment("Sail Avenue", sail_keys)
 
-        # 4. South Street & Marina Avenue Corridor
+        # 4. Marina Drive (west leg + ℄ curve + SE tangent to the Unit One line)
         c_marina = self.curves["C_MARINA_CL"]
-        p_w = self.intersections["INT_SOUTH_WEST_END"].point
         p_m = self.intersections["INT_SOUTH_MANGROVE"].point
         p_pc = self.intersections["INT_SOUTH_MARINA_PC"].point
         p_pt = self.intersections["INT_MARINA_PT"].point
         p_k = self.intersections["INT_MARINA_KEEL"].point
+        p_b = self.intersections["INT_MARINA_BOUNDARY"].point
 
-        d1 = p_w.dist_to(p_m)
-        d2 = d1 + p_m.dist_to(p_pc)
-        d3 = d2 + c_marina.arc_length
-        d4 = d3 + p_pt.dist_to(p_k)
+        d1 = p_m.dist_to(p_pc)
+        d2 = d1 + c_marina.arc_length
+        d3 = d2 + p_pt.dist_to(p_k)
+        d4 = d3 + p_k.dist_to(p_b)
 
-        n_segs = 16
-        az_pc = math.atan2(c_marina.pc_point.e - c_marina.center_point.e, c_marina.pc_point.n - c_marina.center_point.n)
-        delta_rad = math.radians(c_marina.delta_deg)
-        curve_pts = []
-        for s in range(n_segs + 1):
-            ang = az_pc + delta_rad * (s / float(n_segs))
-            curve_pts.append(Point(c_marina.center_point.n + c_marina.radius * math.cos(ang),
-                                   c_marina.center_point.e + c_marina.radius * math.sin(ang)))
+        def _sta(d: float) -> str:
+            return f"{int(d // 100)}+{d % 100:05.2f}"
 
-        full_pts = [p_w, p_m, p_pc] + curve_pts[1:-1] + [p_pt, p_k]
+        curve_pts = c_marina.arc_points(n_segments=16)
+        full_pts = [p_m, p_pc] + curve_pts[1:-1] + [p_pt, p_k, p_b]
         alignments["SOUTH_ST_MARINA_AVE"] = {
-            "street_name": "South Street & Marina Avenue",
+            "street_name": "Marina Drive",
             "total_length_ft": d4,
             "polyline_points": full_pts,
             "stations": [
-                {"station": "0+00.00", "dist_ft": 0.0, "name": "West Boundary Line (Course 1)", "point": p_w},
-                {"station": f"{int(d1//100)}+{d1%100:05.2f}", "dist_ft": d1, "name": "Mangrove Ave", "point": p_m},
-                {"station": f"{int(d2//100)}+{d2%100:05.2f}", "dist_ft": d2, "name": "Marina Ave Curve P.C.", "point": p_pc},
-                {"station": f"{int(d3//100)}+{d3%100:05.2f}", "dist_ft": d3, "name": "Marina Ave Curve P.T.", "point": p_pt},
-                {"station": f"{int(d4//100)}+{d4%100:05.2f}", "dist_ft": d4, "name": "Keel Drive Intersection", "point": p_k},
+                {"station": "0+00.00", "dist_ft": 0.0, "name": "Mangrove Ave", "point": p_m},
+                {"station": _sta(d1), "dist_ft": d1, "name": "Marina ℄ Curve P.C.", "point": p_pc},
+                {"station": _sta(d2), "dist_ft": d2, "name": "Marina ℄ Curve P.T.", "point": p_pt},
+                {"station": _sta(d3), "dist_ft": d3, "name": "Keel Drive Intersection (pending item 3)", "point": p_k},
+                {"station": _sta(d4), "dist_ft": d4, "name": "Unit One Line (Course 20)", "point": p_b},
             ]
         }
 
@@ -1982,27 +1653,30 @@ class BeachwoodRoadCenterlineEngine:
 
         # 6. Shellfish Drive Corridor
         shellfish_keys = [
-            ("INT_SHELLFISH_WEST_END", "West Boundary Line (Course 2)"),
-            ("INT_SHELLFISH_MANGROVE", "Mangrove Ave (Centerline Intersection)"),
-            ("INT_SHELLFISH_KEEL", "Keel Drive Diagonal Corridor Tie"),
+            ("INT_MARINA_SHELLFISH", "Marina Dr (T-intersection)"),
+            ("INT_SHELLFISH_PC", "℄ Curve P.C. (R=167.95')"),
+            ("INT_SHELLFISH_PT", "℄ Curve P.T."),
+            ("INT_SHELLFISH_BEACHWOOD", "Beachwood Blvd"),
         ]
         alignments["SHELLFISH_DRIVE"] = self._build_alignment("Shellfish Drive", shellfish_keys)
 
         # 7. Beachwood Boulevard Arterial Corridor
         blvd_keys = [
+            ("INT_BLVD_NORTH_END", "Section 32 North Line (Course 27)"),
             ("INT_STARFISH_BEACHWOOD", "Starfish Ave & Beachwood Blvd"),
             ("INT_SAIL_BEACHWOOD", "Sail Ave & Beachwood Blvd"),
-            ("INT_PI_BEACHWOOD_BLVD", "Beachwood Blvd Projected P.I."),
-            ("INT_ASSUMP_SANDS_BEACHWOOD", "Sands Ave Projected Junction"),
+            ("INT_SHELLFISH_BEACHWOOD", "Shellfish Dr & Beachwood Blvd"),
+            ("INT_KEEL_BEACHWOOD", "Keel Dr & Beachwood Blvd"),
+            ("INT_BLVD_SOUTH_END", "Unit One Line (Course 25)"),
         ]
         alignments["BEACHWOOD_BOULEVARD"] = self._build_alignment("Beachwood Boulevard", blvd_keys)
 
         # 8. Keel Drive Corridor
         keel_keys = [
-            ("INT_KEEL_SOUTH_END", "Southwest Terminus / Cul-de-Sac Access"),
-            ("INT_KEEL_PC", "Curve C14 P.C. (R=143.93')"),
-            ("INT_KEEL_PT", "Curve C14 P.T."),
-            ("INT_MARINA_KEEL", "Marina Ave Intersection"),
+            ("INT_MARINA_KEEL", "Marina Dr (T-intersection)"),
+            ("INT_KEEL_PC", "Curve P.C. (R=143.93')"),
+            ("INT_KEEL_PT", "Curve P.T."),
+            ("INT_KEEL_BEACHWOOD", "Beachwood Blvd"),
         ]
         alignments["KEEL_DRIVE"] = self._build_alignment("Keel Drive", keel_keys)
 
@@ -2025,6 +1699,7 @@ class BeachwoodRoadCenterlineEngine:
             ("C-ROAD-ASSUMP-INTX", "red", "CONTINUOUS"), # Assumed Intersections / P.I.s (RED)
             ("C-ROAD-PI-TANGENT", "red", "DASHED"),      # Projected P.I. Tangents (RED)
             ("C-ROAD-CULDESAC", "red", "CONTINUOUS"),    # Open-Ended Cul-de-Sac Turnaround Bulb (RED)
+            ("C-ROAD-FILLET", "green", "CONTINUOUS"),    # 25' R/W corner fillets (Note 4)
             ("C-ROAD-TEXT", "white", "CONTINUOUS"),      # Standard Text & Bearing Labels
             ("C-ROAD-ASSUMP-TEXT", "red", "CONTINUOUS"), # Red-Line Assumption Text Notes
             ("CONTROL", "red", "CONTINUOUS"),            # Ground GPS Monument Tie
@@ -2050,8 +1725,8 @@ class BeachwoodRoadCenterlineEngine:
                      (seg.end_point.n, seg.end_point.e),
                      layer=layer)
 
-            # Export Right-of-Way Corridor Boundaries
-            if not seg.is_boundary and seg.right_of_way_width > 0:
+            # Export Right-of-Way Corridor Boundaries (derived streets use the trimmed linework below)
+            if not seg.is_boundary and seg.right_of_way_width > 0 and not self._row_is_derived(seg):
                 (l_start, l_end), (r_start, r_end) = seg.get_offset_lines()
                 dxf.line((l_start.n, l_start.e), (l_end.n, l_end.e), layer="C-ROAD-ROW-EDGE")
                 dxf.line((r_start.n, r_start.e), (r_end.n, r_end.e), layer="C-ROAD-ROW-EDGE")
@@ -2070,34 +1745,28 @@ class BeachwoodRoadCenterlineEngine:
                      (seg.end_point.n, seg.end_point.e),
                      layer="C-ROAD-PI-TANGENT")
 
+        # 3a. Trimmed R/W linework of the derived streets: edges cut at every opening and 25' return
+        for _street, pts in self.derived_network.row_linework:
+            dxf.polyline(list(pts), layer="C-ROAD-ROW-EDGE")
+
+        # 3b. 25' R/W corner fillets (derived; engine/centerline_geometry.py)
+        for f in self.corner_fillets:
+            dxf.polyline(list(f.arc_pts), layer="C-ROAD-FILLET")
+
         # 4. Plot Centerline Curves and Right-of-Way Arc Boundaries
         for _cid, c in self.curves.items():
             layer = "C-ROAD-ASSUMP" if c.is_assumed else "C-ROAD-CURV"
-            n_segs = 32
-            pts = []
-            az_pc = math.atan2(c.pc_point.e - c.center_point.e, c.pc_point.n - c.center_point.n)
-            delta_rad = math.radians(c.delta_deg) * (1.0 if c.direction == "CW" else -1.0)
-            for step in range(n_segs + 1):
-                ang = az_pc + delta_rad * (step / float(n_segs))
-                pn = c.center_point.n + c.radius * math.cos(ang)
-                pe = c.center_point.e + c.radius * math.sin(ang)
-                pts.append((pn, pe))
-            dxf.polyline(pts, layer=layer)
+            pts = c.arc_points(n_segments=32)
+            dxf.polyline([(p.n, p.e) for p in pts], layer=layer)
 
             # Export Right-of-Way Arc Boundaries (Inner and Outer R/W Curves)
-            hw = c.half_width
-            for r_offset in [c.radius - hw, c.radius + hw]:
-                if r_offset > 0:
-                    row_pts = []
-                    for step in range(n_segs + 1):
-                        ang = az_pc + delta_rad * (step / float(n_segs))
-                        pn = c.center_point.n + r_offset * math.cos(ang)
-                        pe = c.center_point.e + r_offset * math.sin(ang)
-                        row_pts.append((pn, pe))
-                    dxf.polyline(row_pts, layer="C-ROAD-ROW-EDGE")
+            if c.right_of_way_width > 0 and not self._row_is_derived(c):
+                inner_pts, outer_pts = c.offset_arc_points(n_segments=32)
+                dxf.polyline([(p.n, p.e) for p in inner_pts], layer="C-ROAD-ROW-EDGE")
+                dxf.polyline([(p.n, p.e) for p in outer_pts], layer="C-ROAD-ROW-EDGE")
 
             mid_idx = len(pts) // 2
-            dxf.text((pts[mid_idx][0] + 8.0, pts[mid_idx][1]),
+            dxf.text((pts[mid_idx].n + 8.0, pts[mid_idx].e),
                      f"{c.street_name} CURVE: R={c.radius:.2f}', L={c.arc_length:.2f}', Delta={c.delta_deg:.2f}°",
                      height=5.0, layer="C-ROAD-TEXT", halign=1, valign=2)
 
@@ -2204,8 +1873,14 @@ class BeachwoodRoadCenterlineEngine:
 
         # 2B. Plot Right-of-Way Corridor Boundaries (Hedges)
         seen_row_lbl = False
+        for _street, pts in self.derived_network.row_linework:
+            lbl = 'Right-of-Way Line (trimmed at 25\' returns)' if not seen_row_lbl else ""
+            seen_row_lbl = True
+            ax.plot([q[1] for q in pts], [q[0] for q in pts], color='#8b949e', linewidth=1.0, zorder=3, label=lbl)
+        for f in self.corner_fillets:
+            ax.plot([q[1] for q in f.arc_pts], [q[0] for q in f.arc_pts], color='#22c55e', linewidth=1.4, zorder=4)
         for seg in self.segments:
-            if not seg.is_boundary and seg.right_of_way_width > 0:
+            if not seg.is_boundary and seg.right_of_way_width > 0 and not self._row_is_derived(seg):
                 (l_start, l_end), (r_start, r_end) = seg.get_offset_lines()
                 lbl = 'Right-of-Way Corridor Boundary' if not seen_row_lbl else ""
                 if lbl:
@@ -2224,31 +1899,22 @@ class BeachwoodRoadCenterlineEngine:
 
         # 4. Plot Centerline Curves
         for cid, c in self.curves.items():
-            n_segs = 48
-            pts_e, pts_n = [], []
-            az_pc = math.atan2(c.pc_point.e - c.center_point.e, c.pc_point.n - c.center_point.n)
-            delta_rad = math.radians(c.delta_deg) * (1.0 if c.direction == "CW" else -1.0)
-            for step in range(n_segs + 1):
-                ang = az_pc + delta_rad * (step / float(n_segs))
-                pn = c.center_point.n + c.radius * math.cos(ang)
-                pe = c.center_point.e + c.radius * math.sin(ang)
-                pts_e.append(pe)
-                pts_n.append(pn)
+            pts = c.arc_points(n_segments=48)
+            pts_e = [p.e for p in pts]
+            pts_n = [p.n for p in pts]
 
             curve_col = '#ff3344' if c.is_assumed else '#00f5d4'
             lbl = f"Centerline Curve: {c.street_name} ({cid})"
             ax.plot(pts_e, pts_n, color=curve_col, linestyle='-', linewidth=2.6, zorder=7, label=lbl)
 
             # Plot Right-of-Way Arc Boundaries (Inner & Outer Curves)
-            hw = c.half_width
-            for r_offset in [c.radius - hw, c.radius + hw]:
-                if r_offset > 0:
-                    r_pts_e, r_pts_n = [], []
-                    for step in range(n_segs + 1):
-                        ang = az_pc + delta_rad * (step / float(n_segs))
-                        r_pts_n.append(c.center_point.n + r_offset * math.cos(ang))
-                        r_pts_e.append(c.center_point.e + r_offset * math.sin(ang))
-                    ax.plot(r_pts_e, r_pts_n, color='#475569', linestyle=':', linewidth=1.0, zorder=2, alpha=0.6)
+            if c.right_of_way_width > 0 and not self._row_is_derived(c):
+                inner_pts, outer_pts = c.offset_arc_points(n_segments=32)
+                lbl_inner = 'Right-of-Way Corridor Boundary' if not seen_row_lbl else ""
+                if lbl_inner:
+                    seen_row_lbl = True
+                ax.plot([p.e for p in inner_pts], [p.n for p in inner_pts], color='#8b949e', linestyle=':', linewidth=1.2, zorder=3, alpha=0.7, label=lbl_inner)
+                ax.plot([p.e for p in outer_pts], [p.n for p in outer_pts], color='#8b949e', linestyle=':', linewidth=1.2, zorder=3, alpha=0.7)
 
             mid_idx = len(pts_e) // 2
             ax.text(pts_e[mid_idx] + 20.0, pts_n[mid_idx],
@@ -2329,7 +1995,7 @@ class BeachwoodRoadCenterlineEngine:
             "Guild 1 (Outer Boundary 27 Courses): 20/20 ACCEPT [0.000' Closure]\n"
             "Guild 2 (Sheet 1 South Centerlines):  20/20 ACCEPT\n"
             "Guild 3 (Sheet 2 North Centerlines):  20/20 ACCEPT\n"
-            "Guild 4 (Open-Ended Cul-de-Sac Bulb): 20/20 ACCEPT [Keel Dr R=50']\n"
+            "Guild 4 (Cul-de-Sac check): none on the plat (Keel ends at Marina)\n"
             "Guild 5 (Rule 2 Tangents & Zero Fudg): 20/20 ACCEPT\n"
             "Unanimous Quorum: 100/100 (100% UNANIMOUS)\n"
             "Cadastral Precision: 1:10,000+ (F.A.C. 5J-17 Compliant)\n"
@@ -2346,7 +2012,7 @@ class BeachwoodRoadCenterlineEngine:
             "• Sheet 1 (Page 82): Parent 27-Course Metes-and-Bounds Boundary (8226.67' Perimeter, 64.15 Acres) +\n"
             "  Southern Centerline Network (Mangrove S, Bayou, Surfwood, San Salvadore, Cape Horn, Unit 1 Matchline)\n"
             "• Sheet 2 (Page 82A): Northern Centerline Network (Starfish, Sail, South, Marina, Shellfish,\n"
-            "  Beachwood Blvd, Sands Ave) + Keel Drive Open-Ended Cul-de-Sac (R=50.0' Turnaround Bulb)",
+            "  Beachwood Blvd, Sands Ave); all R/W corners 25' fillets",
             transform=ax.transAxes,
             fontsize=8.5, family='monospace', color='#94a3b8', va='bottom',
             bbox={"boxstyle": "round,pad=0.5", "facecolor": "#070e1c", "edgecolor": "#334155", "alpha": 0.9}
@@ -2412,8 +2078,11 @@ class BeachwoodRoadCenterlineEngine:
                 lines.append(f"   • {intx.id:30s} | N={intx.point.n:9.2f}', E={intx.point.e:9.2f}' | {intx.name}")
         lines.append("")
 
-        lines.append("4. OPEN-ENDED CUL-DE-SAC GEOMETRY (DOES NOT CLOSE)")
+        lines.append("4. CUL-DE-SAC GEOMETRY")
         lines.append("   " + "-" * 70)
+        if not self.culdesacs:
+            lines.append("   None on the plat: Keel Drive ends at Marina Drive (Sheet 2 Block 7 Lots 30-37 are continuous;")
+            lines.append("   no turnaround bulb on either sheet). The former Keel SW corridor + bulb were removed.")
         for cds in self.culdesacs:
             cp = cds["center_point"]
             geom = self.get_culdesac_geometry(cds["id"])
@@ -2443,6 +2112,19 @@ class BeachwoodRoadCenterlineEngine:
         lines.append(f"   {'Curve ID':<20} {'Radius':>8} {'Delta':>12} {'Arc Length':>11} {'Tangent':>9} {'Chord Dist':>11} {'Direction'}")
         for cid, c in self.curves.items():
             lines.append(f"   {cid:<20} {c.radius:8.2f}' {c.delta_deg:11.4f}° {c.arc_length:10.2f}' {c.tangent:8.2f}' {c.chord_length:10.2f}' {c.direction:>9}")
+        lines.append("")
+
+        lines.append("6b. R/W CORNER FILLET SCHEDULE (R = 25' at every street corner; derived)")
+        lines.append("   " + "-" * 70)
+        lines.append(f"   {'Fillet ID':<30} {'Delta':>11} {'T':>7} {'L':>7} {'Chord':>7} {'Chord Brg':<13} {'PI (street-line corner) N / E'}")
+        for f in self.corner_fillets:
+            lines.append(f"   {f.id:<30} {deg_to_dms(f.delta_deg):>11} {f.tangent:7.3f} {f.arc_length:7.3f} {f.chord:7.3f} "
+                         f"{f.chord_bearing:<13} {f.corner[0]:.3f} / {f.corner[1]:.3f}  ({f.location})")
+        lines.append("")
+        lines.append("6c. INDEPENDENT PLAT CHECKS ON THE DERIVED GEOMETRY (engine/centerline_geometry.py)")
+        lines.append("   " + "-" * 70)
+        for c in self.derived_network.checks:
+            lines.append(f"   [{'PASS' if c.ok else 'FAIL'}] {c.name:<66} resid {c.residual:+.3f}'  ({c.source})")
         lines.append("")
 
         lines.append("7. RED-LINED ASSUMPTIONS & FIELD RECOVERY PROTOCOLS")

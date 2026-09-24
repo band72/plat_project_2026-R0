@@ -1,0 +1,1904 @@
+{
+ "image": "dxf_preview.png",
+ "kind": "render",
+ "size": [
+  2400,
+  1500
+ ],
+ "stroke_w": 1.91,
+ "char_h": 12.0,
+ "n_monuments": 0,
+ "n_lines": 27,
+ "n_dashed": 0,
+ "n_arcs": 10,
+ "n_labels": 137,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 2,
+  "distance": 17,
+  "curve_id": 1,
+  "curve_data": 9,
+  "lot": 11,
+  "area": 8,
+  "table": 0,
+  "text": 80,
+  "empty": 9
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 2,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 1,
+  "rot_inliers": 0,
+  "verified": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [
+  {
+   "labels": [
+    51
+   ],
+   "fields": {
+    "R": 25.0
+   },
+   "R": 25.0,
+   "delta": null,
+   "derived": {},
+   "consistent": false,
+   "check": null,
+   "arc": null,
+   "center": [
+    1738.5,
+    268.0
+   ]
+  },
+  {
+   "labels": [
+    53
+   ],
+   "fields": {
+    "L": 38.67
+   },
+   "R": null,
+   "delta": null,
+   "derived": {},
+   "consistent": false,
+   "check": null,
+   "arc": 7,
+   "center": [
+    1834.5,
+    267.9
+   ]
+  },
+  {
+   "labels": [
+    54
+   ],
+   "fields": {
+    "R": 25.0
+   },
+   "R": 25.0,
+   "delta": null,
+   "derived": {},
+   "consistent": false,
+   "check": null,
+   "arc": 5,
+   "center": [
+    528.5,
+    275.9
+   ]
+  },
+  {
+   "labels": [
+    55
+   ],
+   "fields": {
+    "L": 37.0
+   },
+   "R": null,
+   "delta": null,
+   "derived": {},
+   "consistent": false,
+   "check": null,
+   "arc": 5,
+   "center": [
+    594.5,
+    275.9
+   ]
+  },
+  {
+   "labels": [
+    93
+   ],
+   "fields": {
+    "R": 1959.86
+   },
+   "R": 1959.86,
+   "delta": null,
+   "derived": {},
+   "consistent": false,
+   "check": null,
+   "arc": null,
+   "center": [
+    879.0,
+    750.0
+   ]
+  },
+  {
+   "labels": [
+    125
+   ],
+   "fields": {
+    "R": 25.0
+   },
+   "R": 25.0,
+   "delta": null,
+   "derived": {},
+   "consistent": false,
+   "check": null,
+   "arc": null,
+   "center": [
+    1770.0,
+    1238.0
+   ]
+  },
+  {
+   "labels": [
+    126
+   ],
+   "fields": {
+    "L": 39.27
+   },
+   "R": null,
+   "delta": null,
+   "derived": {},
+   "consistent": false,
+   "check": null,
+   "arc": 9,
+   "center": [
+    1851.0,
+    1237.9
+   ]
+  },
+  {
+   "labels": [
+    127
+   ],
+   "fields": {
+    "R": 25.0
+   },
+   "R": 25.0,
+   "delta": null,
+   "derived": {},
+   "consistent": false,
+   "check": null,
+   "arc": 8,
+   "center": [
+    517.0,
+    1243.0
+   ]
+  },
+  {
+   "labels": [
+    128
+   ],
+   "fields": {
+    "L": 37.0
+   },
+   "R": null,
+   "delta": null,
+   "derived": {},
+   "consistent": false,
+   "check": null,
+   "arc": 8,
+   "center": [
+    583.5,
+    1242.9
+   ]
+  }
+ ],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 1.0,
+  "line_precision": 1.0,
+  "line_f1": 1.0,
+  "label_assoc": 0.1579,
+  "label_classified": 0.3504,
+  "scale_consistency": null,
+  "score": 0.6166
+ },
+ "seconds": 22.6,
+ "labels": [
+  {
+   "id": 0,
+   "text": "BEACHWOOD",
+   "kind": "text",
+   "conf": 90.0,
+   "center": [
+    1064.0,
+    72.5
+   ],
+   "angle": 359.9,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "UNIT",
+   "kind": "text",
+   "conf": 96.0,
+   "center": [
+    1137.6,
+    72.3
+   ],
+   "angle": 355.3,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "TWO -- PLAT BOOK",
+   "kind": "text",
+   "conf": 94.2,
+   "center": [
+    1229.0,
+    72.5
+   ],
+   "angle": 0.3,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "39,",
+   "kind": "lot",
+   "conf": 71.0,
+   "center": [
+    1316.5,
+    73.2
+   ],
+   "angle": 11.8,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "PAGES 82 &",
+   "kind": "text",
+   "conf": 92.7,
+   "center": [
+    1379.5,
+    73.0
+   ],
+   "angle": 1.1,
+   "assoc": null
+  },
+  {
+   "id": 5,
+   "text": "82A,",
+   "kind": "text",
+   "conf": 91.0,
+   "center": [
+    1447.2,
+    72.9
+   ],
+   "angle": 2.9,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "DUVAL COUNTY,",
+   "kind": "text",
+   "conf": 93.5,
+   "center": [
+    1529.0,
+    72.5
+   ],
+   "angle": 359.2,
+   "assoc": null
+  },
+  {
+   "id": 7,
+   "text": "&",
+   "kind": "empty",
+   "conf": 73.0,
+   "center": [
+    1605.8,
+    73.8
+   ],
+   "angle": 28.8,
+   "assoc": null
+  },
+  {
+   "id": 8,
+   "text": "=",
+   "kind": "empty",
+   "conf": 83.0,
+   "center": [
+    1589.5,
+    78.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 9,
+   "text": "CADASTRAL SURVEY AUDIT: LOTS",
+   "kind": "text",
+   "conf": 95.2,
+   "center": [
+    1119.0,
+    140.5
+   ],
+   "angle": 359.9,
+   "assoc": null
+  },
+  {
+   "id": 10,
+   "text": "6",
+   "kind": "lot",
+   "conf": 96.0,
+   "center": [
+    1254.0,
+    140.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 11,
+   "text": "8",
+   "kind": "lot",
+   "conf": 95.0,
+   "center": [
+    1270.0,
+    140.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 12,
+   "text": "10",
+   "kind": "distance",
+   "conf": 87.0,
+   "center": [
+    1291.3,
+    140.0
+   ],
+   "angle": 352.6,
+   "assoc": null
+  },
+  {
+   "id": 13,
+   "text": "(BLOCK",
+   "kind": "text",
+   "conf": 96.0,
+   "center": [
+    1334.5,
+    140.8
+   ],
+   "angle": 359.6,
+   "assoc": null
+  },
+  {
+   "id": 14,
+   "text": "15) AND LOTS",
+   "kind": "text",
+   "conf": 94.0,
+   "center": [
+    1420.5,
+    140.5
+   ],
+   "angle": 359.4,
+   "assoc": null
+  },
+  {
+   "id": 15,
+   "text": "23 &",
+   "kind": "distance",
+   "conf": 72.0,
+   "center": [
+    1497.5,
+    140.5
+   ],
+   "angle": 0.5,
+   "assoc": null
+  },
+  {
+   "id": 16,
+   "text": "24 (BLOCK",
+   "kind": "text",
+   "conf": 95.0,
+   "center": [
+    1562.0,
+    141.3
+   ],
+   "angle": 359.6,
+   "assoc": null
+  },
+  {
+   "id": 17,
+   "text": "14)",
+   "kind": "distance",
+   "conf": 96.0,
+   "center": [
+    1619.9,
+    141.0
+   ],
+   "angle": 358.3,
+   "assoc": null
+  },
+  {
+   "id": 18,
+   "text": "zach",
+   "kind": "text",
+   "conf": 94.0,
+   "center": [
+    880.2,
+    199.2
+   ],
+   "angle": 2.2,
+   "assoc": null
+  },
+  {
+   "id": 19,
+   "text": "a &",
+   "kind": "text",
+   "conf": 67.0,
+   "center": [
+    977.5,
+    199.8
+   ],
+   "angle": 271.2,
+   "assoc": null
+  },
+  {
+   "id": 20,
+   "text": "hb v e",
+   "kind": "text",
+   "conf": 73.7,
+   "center": [
+    1044.0,
+    190.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 21,
+   "text": "\u2122",
+   "kind": "empty",
+   "conf": 67.0,
+   "center": [
+    1597.9,
+    193.3
+   ],
+   "angle": 356.9,
+   "assoc": null
+  },
+  {
+   "id": 22,
+   "text": "d",
+   "kind": "text",
+   "conf": 85.0,
+   "center": [
+    834.0,
+    200.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 23,
+   "text": "2",
+   "kind": "lot",
+   "conf": 64.0,
+   "center": [
+    1008.0,
+    200.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 24,
+   "text": "beret",
+   "kind": "text",
+   "conf": 52.0,
+   "center": [
+    1042.0,
+    200.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 25,
+   "text": "i",
+   "kind": "text",
+   "conf": 57.0,
+   "center": [
+    1230.0,
+    202.5
+   ],
+   "angle": 227.8,
+   "assoc": null
+  },
+  {
+   "id": 26,
+   "text": "ty",
+   "kind": "text",
+   "conf": 57.0,
+   "center": [
+    1264.7,
+    201.2
+   ],
+   "angle": 355.3,
+   "assoc": null
+  },
+  {
+   "id": 27,
+   "text": "rR",
+   "kind": "text",
+   "conf": 51.0,
+   "center": [
+    1407.0,
+    197.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 28,
+   "text": "alge",
+   "kind": "text",
+   "conf": 45.0,
+   "center": [
+    1434.5,
+    200.0
+   ],
+   "angle": 175.6,
+   "assoc": null
+  },
+  {
+   "id": 29,
+   "text": "DBR",
+   "kind": "text",
+   "conf": 68.0,
+   "center": [
+    1544.4,
+    200.5
+   ],
+   "angle": 0.7,
+   "assoc": null
+  },
+  {
+   "id": 30,
+   "text": "IWGS",
+   "kind": "text",
+   "conf": 67.0,
+   "center": [
+    943.5,
+    203.2
+   ],
+   "angle": 1.2,
+   "assoc": null
+  },
+  {
+   "id": 31,
+   "text": "a",
+   "kind": "text",
+   "conf": 92.0,
+   "center": [
+    1138.0,
+    199.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 32,
+   "text": "rae",
+   "kind": "text",
+   "conf": 51.0,
+   "center": [
+    1309.5,
+    202.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 33,
+   "text": "x",
+   "kind": "text",
+   "conf": 79.0,
+   "center": [
+    1455.2,
+    198.0
+   ],
+   "angle": 200.3,
+   "assoc": null
+  },
+  {
+   "id": 34,
+   "text": "ye",
+   "kind": "text",
+   "conf": 34.0,
+   "center": [
+    1591.0,
+    204.2
+   ],
+   "angle": 7.3,
+   "assoc": null
+  },
+  {
+   "id": 35,
+   "text": "\u201cSN",
+   "kind": "text",
+   "conf": 43.0,
+   "center": [
+    1628.5,
+    202.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 36,
+   "text": "sit",
+   "kind": "text",
+   "conf": 83.0,
+   "center": [
+    1660.4,
+    198.9
+   ],
+   "angle": 187.3,
+   "assoc": null
+  },
+  {
+   "id": 37,
+   "text": "=",
+   "kind": "empty",
+   "conf": 79.0,
+   "center": [
+    1162.0,
+    202.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 38,
+   "text": "Son",
+   "kind": "text",
+   "conf": 58.0,
+   "center": [
+    871.0,
+    208.0
+   ],
+   "angle": 154.8,
+   "assoc": null
+  },
+  {
+   "id": 39,
+   "text": "om",
+   "kind": "text",
+   "conf": 78.0,
+   "center": [
+    1325.0,
+    209.5
+   ],
+   "angle": 177.4,
+   "assoc": null
+  },
+  {
+   "id": 40,
+   "text": "STREET (60'",
+   "kind": "text",
+   "conf": 91.0,
+   "center": [
+    1855.0,
+    228.3
+   ],
+   "angle": 0.4,
+   "assoc": null
+  },
+  {
+   "id": 41,
+   "text": "R/W)",
+   "kind": "text",
+   "conf": 90.0,
+   "center": [
+    1924.0,
+    228.0
+   ],
+   "angle": 2.0,
+   "assoc": null
+  },
+  {
+   "id": 42,
+   "text": "N 87\u00b035'30\"",
+   "kind": "text",
+   "conf": 89.5,
+   "center": [
+    2004.5,
+    227.5
+   ],
+   "angle": 359.6,
+   "assoc": null
+  },
+  {
+   "id": 43,
+   "text": "3",
+   "kind": "lot",
+   "conf": 94.0,
+   "center": [
+    2062.0,
+    227.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 44,
+   "text": "SHELLFISH DRIVE",
+   "kind": "text",
+   "conf": 96.0,
+   "center": [
+    278.0,
+    249.0
+   ],
+   "angle": 359.8,
+   "assoc": null
+  },
+  {
+   "id": 45,
+   "text": "(60\u00b0",
+   "kind": "distance",
+   "conf": 65.0,
+   "center": [
+    363.0,
+    248.9
+   ],
+   "angle": 354.5,
+   "assoc": null
+  },
+  {
+   "id": 46,
+   "text": "RNY)",
+   "kind": "text",
+   "conf": 85.0,
+   "center": [
+    401.0,
+    249.7
+   ],
+   "angle": 1.2,
+   "assoc": null
+  },
+  {
+   "id": 47,
+   "text": "N",
+   "kind": "text",
+   "conf": 93.0,
+   "center": [
+    439.5,
+    249.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 48,
+   "text": "87\u00b035'30\"E",
+   "kind": "text",
+   "conf": 81.0,
+   "center": [
+    497.0,
+    249.0
+   ],
+   "angle": 0.1,
+   "assoc": null
+  },
+  {
+   "id": 49,
+   "text": "yo",
+   "kind": "text",
+   "conf": 73.0,
+   "center": [
+    2248.0,
+    265.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 50,
+   "text": "a =",
+   "kind": "text",
+   "conf": 57.0,
+   "center": [
+    2263.4,
+    269.1
+   ],
+   "angle": 242.1,
+   "assoc": null
+  },
+  {
+   "id": 51,
+   "text": "R=25",
+   "kind": "curve_data",
+   "conf": 91.0,
+   "center": [
+    1738.5,
+    268.0
+   ],
+   "angle": 0.9,
+   "assoc": null
+  },
+  {
+   "id": 52,
+   "text": "00",
+   "kind": "distance",
+   "conf": 86.0,
+   "center": [
+    1777.6,
+    267.8
+   ],
+   "angle": 173.7,
+   "assoc": null
+  },
+  {
+   "id": 53,
+   "text": "L=38.67'",
+   "kind": "curve_data",
+   "conf": 90.0,
+   "center": [
+    1834.5,
+    267.9
+   ],
+   "angle": 358.3,
+   "assoc": null
+  },
+  {
+   "id": 54,
+   "text": "R=25.00",
+   "kind": "curve_data",
+   "conf": 49.0,
+   "center": [
+    528.5,
+    275.9
+   ],
+   "angle": 358.4,
+   "assoc": {
+    "geom": [
+     "A",
+     5
+    ],
+    "t": 0.5,
+    "offset": 28.39356461137858,
+    "score": 2.0661303842815486
+   }
+  },
+  {
+   "id": 55,
+   "text": "L=37",
+   "kind": "curve_data",
+   "conf": 86.0,
+   "center": [
+    594.5,
+    275.9
+   ],
+   "angle": 356.8,
+   "assoc": null
+  },
+  {
+   "id": 56,
+   "text": "39",
+   "kind": "distance",
+   "conf": 82.0,
+   "center": [
+    632.7,
+    275.8
+   ],
+   "angle": 356.0,
+   "assoc": null
+  },
+  {
+   "id": 57,
+   "text": "S553",
+   "kind": "text",
+   "conf": 56.0,
+   "center": [
+    2085.5,
+    290.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 58,
+   "text": "PSa 3 |",
+   "kind": "text",
+   "conf": 27.0,
+   "center": [
+    2033.8,
+    293.3
+   ],
+   "angle": 357.9,
+   "assoc": null
+  },
+  {
+   "id": 59,
+   "text": "to Pl)",
+   "kind": "text",
+   "conf": 71.5,
+   "center": [
+    2136.1,
+    294.0
+   ],
+   "angle": 357.5,
+   "assoc": null
+  },
+  {
+   "id": 60,
+   "text": "35.98' to Pl.)",
+   "kind": "text",
+   "conf": 62.0,
+   "center": [
+    394.7,
+    320.7
+   ],
+   "angle": 356.7,
+   "assoc": null
+  },
+  {
+   "id": 61,
+   "text": "4",
+   "kind": "lot",
+   "conf": 83.0,
+   "center": [
+    1809.7,
+    442.7
+   ],
+   "angle": 320.6,
+   "assoc": null
+  },
+  {
+   "id": 62,
+   "text": "24",
+   "kind": "distance",
+   "conf": 96.0,
+   "center": [
+    2036.4,
+    506.0
+   ],
+   "angle": 357.8,
+   "assoc": null
+  },
+  {
+   "id": 63,
+   "text": "LTEOL",
+   "kind": "text",
+   "conf": 55.0,
+   "center": [
+    2198.5,
+    509.3
+   ],
+   "angle": 177.4,
+   "assoc": null
+  },
+  {
+   "id": 64,
+   "text": "S",
+   "kind": "text",
+   "conf": 71.0,
+   "center": [
+    2247.5,
+    509.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 65,
+   "text": "\u00b024'30\" E",
+   "kind": "text",
+   "conf": 65.0,
+   "center": [
+    2304.0,
+    509.5
+   ],
+   "angle": 0.1,
+   "assoc": null
+  },
+  {
+   "id": 66,
+   "text": "9",
+   "kind": "lot",
+   "conf": 96.0,
+   "center": [
+    394.0,
+    524.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 67,
+   "text": "100.00'",
+   "kind": "distance",
+   "conf": 91.0,
+   "center": [
+    156.1,
+    542.0
+   ],
+   "angle": 359.2,
+   "assoc": null
+  },
+  {
+   "id": 68,
+   "text": ">",
+   "kind": "empty",
+   "conf": 96.0,
+   "center": [
+    205.1,
+    540.7
+   ],
+   "angle": 234.6,
+   "assoc": null
+  },
+  {
+   "id": 69,
+   "text": "2\u00b024'30\"",
+   "kind": "text",
+   "conf": 89.0,
+   "center": [
+    250.5,
+    542.0
+   ],
+   "angle": 359.4,
+   "assoc": null
+  },
+  {
+   "id": 70,
+   "text": "=",
+   "kind": "empty",
+   "conf": 96.0,
+   "center": [
+    297.5,
+    542.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 71,
+   "text": "10,185.3 SF",
+   "kind": "area",
+   "conf": 93.5,
+   "center": [
+    2037.0,
+    560.5
+   ],
+   "angle": 359.0,
+   "assoc": null
+  },
+  {
+   "id": 72,
+   "text": "9",
+   "kind": "lot",
+   "conf": 95.0,
+   "center": [
+    357.0,
+    578.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 73,
+   "text": "372.1",
+   "kind": "distance",
+   "conf": 56.0,
+   "center": [
+    389.5,
+    578.2
+   ],
+   "angle": 3.7,
+   "assoc": null
+  },
+  {
+   "id": 74,
+   "text": "SF",
+   "kind": "area",
+   "conf": 95.0,
+   "center": [
+    426.5,
+    577.8
+   ],
+   "angle": 350.6,
+   "assoc": null
+  },
+  {
+   "id": 75,
+   "text": "76.34' (1",
+   "kind": "text",
+   "conf": 63.0,
+   "center": [
+    1769.0,
+    578.8
+   ],
+   "angle": 0.5,
+   "assoc": null
+  },
+  {
+   "id": 76,
+   "text": "0",
+   "kind": "lot",
+   "conf": 68.0,
+   "center": [
+    1817.1,
+    579.2
+   ],
+   "angle": 327.4,
+   "assoc": null
+  },
+  {
+   "id": 77,
+   "text": "CVa OWL",
+   "kind": "text",
+   "conf": 67.5,
+   "center": [
+    1864.0,
+    578.1
+   ],
+   "angle": 181.4,
+   "assoc": null
+  },
+  {
+   "id": 78,
+   "text": "0.2338 Acres",
+   "kind": "area",
+   "conf": 96.0,
+   "center": [
+    2036.5,
+    583.2
+   ],
+   "angle": 0.8,
+   "assoc": null
+  },
+  {
+   "id": 79,
+   "text": "af",
+   "kind": "text",
+   "conf": 73.0,
+   "center": [
+    364.5,
+    583.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 80,
+   "text": "0.2152 Acres",
+   "kind": "area",
+   "conf": 95.5,
+   "center": [
+    394.0,
+    601.2
+   ],
+   "angle": 0.8,
+   "assoc": null
+  },
+  {
+   "id": 81,
+   "text": "Arc:",
+   "kind": "text",
+   "conf": 83.0,
+   "center": [
+    598.4,
+    705.8
+   ],
+   "angle": 4.9,
+   "assoc": null
+  },
+  {
+   "id": 82,
+   "text": "3",
+   "kind": "lot",
+   "conf": 69.0,
+   "center": [
+    633.0,
+    705.0
+   ],
+   "angle": 90.3,
+   "assoc": null
+  },
+  {
+   "id": 83,
+   "text": "10.04' (to PI.)",
+   "kind": "text",
+   "conf": 77.7,
+   "center": [
+    691.5,
+    705.9
+   ],
+   "angle": 0.3,
+   "assoc": null
+  },
+  {
+   "id": 84,
+   "text": "A",
+   "kind": "text",
+   "conf": 70.0,
+   "center": [
+    616.5,
+    705.5
+   ],
+   "angle": 266.4,
+   "assoc": null
+  },
+  {
+   "id": 85,
+   "text": "102.38'",
+   "kind": "distance",
+   "conf": 89.0,
+   "center": [
+    1977.5,
+    737.0
+   ],
+   "angle": 359.0,
+   "assoc": {
+    "geom": [
+     "L",
+     17
+    ],
+    "t": 0.6382456911698624,
+    "offset": 11.641731005963491,
+    "score": 0.9701442504969576
+   }
+  },
+  {
+   "id": 86,
+   "text": "S 88\u00b058'20\" W",
+   "kind": "bearing",
+   "conf": 84.7,
+   "center": [
+    2079.0,
+    737.0
+   ],
+   "angle": 359.0,
+   "assoc": {
+    "geom": [
+     "L",
+     17
+    ],
+    "t": 0.4188541631276594,
+    "offset": 9.801953331018595,
+    "score": 0.8168294442515496
+   }
+  },
+  {
+   "id": 87,
+   "text": "92.99'",
+   "kind": "distance",
+   "conf": 84.0,
+   "center": [
+    426.0,
+    749.9
+   ],
+   "angle": 357.6,
+   "assoc": {
+    "geom": [
+     "L",
+     21
+    ],
+    "t": 0.4138120810006207,
+    "offset": 10.621367684568717,
+    "score": 0.8851139737140645
+   }
+  },
+  {
+   "id": 88,
+   "text": "nv agi OOD",
+   "kind": "text",
+   "conf": 63.3,
+   "center": [
+    623.5,
+    748.6
+   ],
+   "angle": 5.6,
+   "assoc": null
+  },
+  {
+   "id": 89,
+   "text": "BLVD",
+   "kind": "text",
+   "conf": 95.0,
+   "center": [
+    698.0,
+    750.0
+   ],
+   "angle": 359.5,
+   "assoc": null
+  },
+  {
+   "id": 90,
+   "text": "(80'",
+   "kind": "distance",
+   "conf": 80.0,
+   "center": [
+    737.1,
+    750.2
+   ],
+   "angle": 356.0,
+   "assoc": null
+  },
+  {
+   "id": 91,
+   "text": "R/W)",
+   "kind": "text",
+   "conf": 80.0,
+   "center": [
+    775.0,
+    750.5
+   ],
+   "angle": 2.0,
+   "assoc": null
+  },
+  {
+   "id": 92,
+   "text": "C2:",
+   "kind": "curve_id",
+   "conf": 94.0,
+   "center": [
+    815.1,
+    750.1
+   ],
+   "angle": 3.0,
+   "assoc": null
+  },
+  {
+   "id": 93,
+   "text": "R=1959.86'",
+   "kind": "curve_data",
+   "conf": 90.0,
+   "center": [
+    879.0,
+    750.0
+   ],
+   "angle": 0.2,
+   "assoc": null
+  },
+  {
+   "id": 94,
+   "text": "MANGROVE AVENUE (60'",
+   "kind": "text",
+   "conf": 93.7,
+   "center": [
+    1635.0,
+    751.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 95,
+   "text": "R/W)",
+   "kind": "text",
+   "conf": 90.0,
+   "center": [
+    1751.0,
+    750.6
+   ],
+   "angle": 1.6,
+   "assoc": null
+  },
+  {
+   "id": 96,
+   "text": "tivawereue ON",
+   "kind": "text",
+   "conf": 46.5,
+   "center": [
+    1842.0,
+    749.2
+   ],
+   "angle": 179.0,
+   "assoc": null
+  },
+  {
+   "id": 97,
+   "text": "Arc:",
+   "kind": "text",
+   "conf": 92.0,
+   "center": [
+    598.3,
+    863.7
+   ],
+   "angle": 4.4,
+   "assoc": null
+  },
+  {
+   "id": 98,
+   "text": "IT",
+   "kind": "text",
+   "conf": 68.0,
+   "center": [
+    628.0,
+    863.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 99,
+   "text": ">",
+   "kind": "empty",
+   "conf": 93.0,
+   "center": [
+    637.7,
+    862.6
+   ],
+   "angle": 241.2,
+   "assoc": null
+  },
+  {
+   "id": 100,
+   "text": "0.04' (to Pl)",
+   "kind": "text",
+   "conf": 81.0,
+   "center": [
+    691.5,
+    863.9
+   ],
+   "angle": 0.3,
+   "assoc": null
+  },
+  {
+   "id": 101,
+   "text": "a",
+   "kind": "text",
+   "conf": 58.0,
+   "center": [
+    616.5,
+    863.5
+   ],
+   "angle": 88.0,
+   "assoc": null
+  },
+  {
+   "id": 102,
+   "text": "715.09' (109.00 to PA)",
+   "kind": "text",
+   "conf": 61.5,
+   "center": [
+    1822.5,
+    920.0
+   ],
+   "angle": 0.3,
+   "assoc": null
+  },
+  {
+   "id": 103,
+   "text": "23",
+   "kind": "distance",
+   "conf": 96.0,
+   "center": [
+    2036.5,
+    958.0
+   ],
+   "angle": 0.7,
+   "assoc": null
+  },
+  {
+   "id": 104,
+   "text": "100.44'",
+   "kind": "distance",
+   "conf": 91.0,
+   "center": [
+    2197.5,
+    968.5
+   ],
+   "angle": 358.7,
+   "assoc": null
+  },
+  {
+   "id": 105,
+   "text": "Ww",
+   "kind": "text",
+   "conf": 69.0,
+   "center": [
+    2246.5,
+    968.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 106,
+   "text": "1\u00b058'48\"",
+   "kind": "text",
+   "conf": 72.0,
+   "center": [
+    2291.0,
+    968.5
+   ],
+   "angle": 359.6,
+   "assoc": null
+  },
+  {
+   "id": 107,
+   "text": "=",
+   "kind": "empty",
+   "conf": 94.0,
+   "center": [
+    2337.5,
+    968.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 108,
+   "text": "10",
+   "kind": "distance",
+   "conf": 96.0,
+   "center": [
+    403.9,
+    975.5
+   ],
+   "angle": 354.6,
+   "assoc": null
+  },
+  {
+   "id": 109,
+   "text": "100.00'",
+   "kind": "distance",
+   "conf": 91.0,
+   "center": [
+    175.1,
+    993.0
+   ],
+   "angle": 359.3,
+   "assoc": null
+  },
+  {
+   "id": 110,
+   "text": "112\u00b024'30\"",
+   "kind": "text",
+   "conf": 78.0,
+   "center": [
+    261.5,
+    993.0
+   ],
+   "angle": 359.5,
+   "assoc": null
+  },
+  {
+   "id": 111,
+   "text": "=",
+   "kind": "empty",
+   "conf": 95.0,
+   "center": [
+    316.5,
+    993.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 112,
+   "text": "9,842",
+   "kind": "text",
+   "conf": 96.0,
+   "center": [
+    2016.5,
+    1012.0
+   ],
+   "angle": 0.7,
+   "assoc": null
+  },
+  {
+   "id": 113,
+   "text": "5",
+   "kind": "lot",
+   "conf": 94.0,
+   "center": [
+    2049.5,
+    1012.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 114,
+   "text": "SF",
+   "kind": "area",
+   "conf": 95.0,
+   "center": [
+    2068.9,
+    1011.7
+   ],
+   "angle": 348.4,
+   "assoc": null
+  },
+  {
+   "id": 115,
+   "text": "led",
+   "kind": "text",
+   "conf": 46.0,
+   "center": [
+    2007.0,
+    1017.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 116,
+   "text": "9,073.1",
+   "kind": "text",
+   "conf": 96.0,
+   "center": [
+    391.0,
+    1031.0
+   ],
+   "angle": 0.2,
+   "assoc": null
+  },
+  {
+   "id": 117,
+   "text": "SF",
+   "kind": "area",
+   "conf": 94.0,
+   "center": [
+    436.0,
+    1029.6
+   ],
+   "angle": 349.1,
+   "assoc": null
+  },
+  {
+   "id": 118,
+   "text": "0.2259 Acres",
+   "kind": "area",
+   "conf": 96.0,
+   "center": [
+    2037.0,
+    1035.3
+   ],
+   "angle": 0.9,
+   "assoc": null
+  },
+  {
+   "id": 119,
+   "text": "0.2083 Acres",
+   "kind": "area",
+   "conf": 96.0,
+   "center": [
+    403.5,
+    1052.7
+   ],
+   "angle": 0.8,
+   "assoc": null
+  },
+  {
+   "id": 120,
+   "text": "55.00' (80.00' to Pi. 17.08\"",
+   "kind": "text",
+   "conf": 63.0,
+   "center": [
+    2078.5,
+    1188.2
+   ],
+   "angle": 359.3,
+   "assoc": null
+  },
+  {
+   "id": 121,
+   "text": "35068 S",
+   "kind": "text",
+   "conf": 78.5,
+   "center": [
+    2222.5,
+    1186.3
+   ],
+   "angle": 179.3,
+   "assoc": null
+  },
+  {
+   "id": 122,
+   "text": "20\" W",
+   "kind": "text",
+   "conf": 83.0,
+   "center": [
+    2282.4,
+    1186.2
+   ],
+   "angle": 2.4,
+   "assoc": null
+  },
+  {
+   "id": 123,
+   "text": "66.24 (90.00' to PLY",
+   "kind": "text",
+   "conf": 77.2,
+   "center": [
+    384.4,
+    1203.1
+   ],
+   "angle": 357.5,
+   "assoc": null
+  },
+  {
+   "id": 124,
+   "text": "wd",
+   "kind": "text",
+   "conf": 74.0,
+   "center": [
+    246.6,
+    1215.4
+   ],
+   "angle": 177.5,
+   "assoc": null
+  },
+  {
+   "id": 125,
+   "text": "R=25.00'",
+   "kind": "curve_data",
+   "conf": 91.0,
+   "center": [
+    1770.0,
+    1238.0
+   ],
+   "angle": 359.9,
+   "assoc": null
+  },
+  {
+   "id": 126,
+   "text": "L=39.27'",
+   "kind": "curve_data",
+   "conf": 90.0,
+   "center": [
+    1851.0,
+    1237.9
+   ],
+   "angle": 358.4,
+   "assoc": null
+  },
+  {
+   "id": 127,
+   "text": "R=25.00'",
+   "kind": "curve_data",
+   "conf": 90.0,
+   "center": [
+    517.0,
+    1243.0
+   ],
+   "angle": 0.2,
+   "assoc": {
+    "geom": [
+     "A",
+     8
+    ],
+    "t": 0.5,
+    "offset": 35.73196620163998,
+    "score": 2.677663850136665
+   }
+  },
+  {
+   "id": 128,
+   "text": "L=37",
+   "kind": "curve_data",
+   "conf": 91.0,
+   "center": [
+    583.5,
+    1242.9
+   ],
+   "angle": 356.9,
+   "assoc": null
+  },
+  {
+   "id": 129,
+   "text": "\".99'",
+   "kind": "distance",
+   "conf": 52.0,
+   "center": [
+    618.5,
+    1243.0
+   ],
+   "angle": 353.6,
+   "assoc": null
+  },
+  {
+   "id": 130,
+   "text": "STREET (60'",
+   "kind": "text",
+   "conf": 90.0,
+   "center": [
+    1827.0,
+    1283.8
+   ],
+   "angle": 0.3,
+   "assoc": null
+  },
+  {
+   "id": 131,
+   "text": "R/W)",
+   "kind": "text",
+   "conf": 90.0,
+   "center": [
+    1895.4,
+    1283.6
+   ],
+   "angle": 1.7,
+   "assoc": null
+  },
+  {
+   "id": 132,
+   "text": "N 88\u00b058'20\" E",
+   "kind": "bearing",
+   "conf": 85.3,
+   "center": [
+    1983.0,
+    1283.0
+   ],
+   "angle": 359.7,
+   "assoc": null
+  },
+  {
+   "id": 133,
+   "text": "KEEL DRIVE",
+   "kind": "text",
+   "conf": 96.0,
+   "center": [
+    223.5,
+    1300.5
+   ],
+   "angle": 359.8,
+   "assoc": null
+  },
+  {
+   "id": 134,
+   "text": "(60' R/W)",
+   "kind": "text",
+   "conf": 90.5,
+   "center": [
+    306.5,
+    1301.6
+   ],
+   "angle": 359.5,
+   "assoc": null
+  },
+  {
+   "id": 135,
+   "text": "87\u00b035'30\" W",
+   "kind": "text",
+   "conf": 91.5,
+   "center": [
+    422.0,
+    1300.6
+   ],
+   "angle": 0.3,
+   "assoc": null
+  },
+  {
+   "id": 136,
+   "text": "S",
+   "kind": "text",
+   "conf": 57.0,
+   "center": [
+    362.5,
+    1301.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  }
+ ]
+}

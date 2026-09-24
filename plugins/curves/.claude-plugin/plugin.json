@@ -1,0 +1,8 @@
+{
+  "name": "curves",
+  "version": "0.1.0",
+  "description": "Horizontal-curve toolkit for plat reading and COGO: PC/PT/PI/PRC/PCC geometry, centerline-vs-R/W-edge curve-data audit, and the horizontal-curves-platting skill.",
+  "author": {
+    "name": "band72"
+  }
+}

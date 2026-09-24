@@ -1,0 +1,164 @@
+{
+ "image": "corner_se10.png",
+ "kind": "scan",
+ "size": [
+  250,
+  250
+ ],
+ "stroke_w": 7.64,
+ "char_h": 45.5,
+ "n_monuments": 0,
+ "n_lines": 0,
+ "n_dashed": 0,
+ "n_arcs": 1,
+ "n_labels": 9,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 2,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 4,
+  "area": 0,
+  "table": 0,
+  "text": 2,
+  "empty": 1
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 0,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 1.0,
+  "line_precision": 1.0,
+  "line_f1": 1.0,
+  "label_assoc": 0.0,
+  "label_classified": 0.6667,
+  "scale_consistency": null,
+  "score": 0.6167
+ },
+ "seconds": 1.4,
+ "labels": [
+  {
+   "id": 0,
+   "text": "8",
+   "kind": "lot",
+   "conf": 87.0,
+   "center": [
+    231.0,
+    29.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "8",
+   "kind": "lot",
+   "conf": 86.0,
+   "center": [
+    230.5,
+    83.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "30\u00b0",
+   "kind": "distance",
+   "conf": 90.0,
+   "center": [
+    31.0,
+    77.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "19",
+   "kind": "distance",
+   "conf": 66.0,
+   "center": [
+    31.5,
+    104.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "x",
+   "kind": "text",
+   "conf": 60.0,
+   "center": [
+    229.5,
+    153.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 5,
+   "text": "4",
+   "kind": "lot",
+   "conf": 93.0,
+   "center": [
+    88.5,
+    178.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "4",
+   "kind": "lot",
+   "conf": 83.0,
+   "center": [
+    5.0,
+    185.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 7,
+   "text": "N",
+   "kind": "text",
+   "conf": 50.0,
+   "center": [
+    229.0,
+    221.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 8,
+   "text": "\u2018",
+   "kind": "empty",
+   "conf": 2.0,
+   "center": [
+    99.0,
+    242.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  }
+ ]
+}

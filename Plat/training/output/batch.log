@@ -1,0 +1,102 @@
+/home/artwalk/.local/lib/python3.12/site-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+block_strip_small.png                         0.8052
+/home/artwalk/.local/lib/python3.12/site-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+crop_lot23_24_wide.png                        0.8166
+/home/artwalk/.local/lib/python3.12/site-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+crop_block_lots23_24.png                      0.8203
+/home/artwalk/.local/lib/python3.12/site-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+lots23_24_block_search.png                    0.8296
+/home/artwalk/.local/lib/python3.12/site-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+block_strip.png                               0.819
+east_of_23_24.png                             0.7932
+block_mid_band.png                            0.794
+crop_lot9_10_large.png                        0.8429
+lots23_24_context.png                         0.8149
+beverly_isle_drawing.png                      0.6658
+block9_mapcheck_drawing.png                   0.8374
+crop_lot23_24_detail.png                      0.9105
+crop_block_lots9_10.png                       0.8321
+user_lots_mapcheck_drawing.png                0.6012
+block10_11_12_mapcheck_drawing.png            0.7816
+lots9_10_context.png                          0.8321
+/home/artwalk/.local/lib/python3.12/site-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+web_interface_grid.png                        0.6066
+block13_mapcheck_drawing.png                  0.7772
+web_interface_full.png                        0.6148
+lots_east_of_24_23.png                        0.8048
+below_23_24.png                               0.8186
+web_interface_preview.png                     0.6233
+above_23_24.png                               0.8751
+street_west_of_24_23.png                      0.8736
+crop_block6.png                               0.7413
+/home/artwalk/.local/lib/python3.12/site-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+new_media_792.png                             0.7413
+mapcheck_individual_parcels_detail.png        0.6571
+dxf_preview.png                               0.6166
+mapcheck_individual_parcels_grid.png          0.9119
+street_south_of_23.png                        0.8098
+lot22_detail.png                              0.7983
+block16_mapcheck_drawing.png                  0.764
+lots23_24_clean_scan.png                      0.8093
+plat_notes.png                                0.5654
+mangrove_frontage.png                         0.8127
+bot_23_zoom.png                               0.8538
+street_north_of_24.png                        0.8628
+east_24_detail.png                            0.7571
+east_23_detail.png                            0.6548
+block9_se.png                                 0.6726
+block9_ne.png                                 0.7196
+block9_nw.png                                 0.6726
+west_24_detail.png                            0.7467
+block9_sw.png                                 0.7115
+circle1.png                                   0.8417
+note2_clean.png                               0.825
+zoom_interior_lines.png                       0.7106
+mid_line_detail.png                           0.6357
+zoom_lot28_29.png                             0.7302
+zoom_san_salvadore_curve.png                  0.7229
+zoom_rear_30_31.png                           0.6756
+block9_full.png                               0.7286
+zoom_lot23_24_south.png                       0.571
+bot_right_23_zoom.png                         0.775
+south_23_detail.png                           0.8361
+west_23_detail.png                            0.77
+circle2.png                                   0.79
+centerline-curve-data.png                     0.7061
+zoom_san_salvadore_curve_data.png             0.7211
+north_line_24.png                             0.59
+corner_se10.png                               0.6167
+zoom_26_27_28_25.png                          0.7559
+zoom_lot26_corner.png                         0.7088
+corner_sw23.png                               0.5875
+zoom_lot27_corner.png                         0.7449
+zoom_lot30_31_rear.png                        0.7239
+corner_ne9.png                                0.6071
+zoom_lot30_31_easement.png                    0.7489
+media383_right_23.png                         0.675
+lot23_east_label.png                          0.7571
+corner_nw24.png                               0.6167
+zoom_831.png                                  0.6091
+media383_bottom_23.png                        0.7157
+media383_right_24.png                         0.7833
+media383_left_24.png                          0.6925
+media383_mid_line.png                         0.7577
+lot23_label_arrow.png                         0.59
+zoom_cape_horn_curve_data.png                 0.7382
+/home/artwalk/.local/lib/python3.12/site-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+page1_300dpi.png                              0.8468
+/home/artwalk/.local/lib/python3.12/site-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+page0_300dpi.png                              0.7898
+/home/artwalk/.local/lib/python3.12/site-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+beachwood_road_centerlines_drawing.png        0.66
+AGG {'n': 81, 'errors': 0, 'mean_score': 0.741, 'mean_line_f1': 0.9842, 'mean_label_assoc': 0.5705, 'scaled': 32, 'scale_truth': {'right': 6, 'wrong': 0, 'abstained': 2}} PREV {'n': 81, 'errors': 0, 'mean_score': 0.7408, 'mean_line_f1': 0.9842, 'mean_label_assoc': 0.5705, 'scaled': 32, 'scale_truth': {'right': 6, 'wrong': 0, 'abstained': 2}}

@@ -1,0 +1,4493 @@
+{
+ "image": "crop_lot23_24_wide.png",
+ "kind": "scan",
+ "size": [
+  1500,
+  1900
+ ],
+ "stroke_w": 5.73,
+ "char_h": 29.0,
+ "n_monuments": 2,
+ "n_lines": 82,
+ "n_dashed": 0,
+ "n_arcs": 23,
+ "n_labels": 321,
+ "n_verified": 28,
+ "kinds": {
+  "bearing": 7,
+  "distance": 72,
+  "curve_id": 0,
+  "curve_data": 1,
+  "lot": 65,
+  "area": 1,
+  "table": 1,
+  "text": 116,
+  "empty": 58
+ },
+ "calibration": {
+  "ft_per_px": 0.3348889352004123,
+  "scale_votes": 44,
+  "scale_inliers": 21,
+  "rotation_deg": -2.8613813962393806,
+  "rot_votes": 7,
+  "rot_inliers": 7,
+  "verified": 28
+ },
+ "qa": [
+  {
+   "label": 12,
+   "kind": "distance",
+   "text": "100\u00b0",
+   "measured": 87.94,
+   "written": 100.0,
+   "diff": -12.06
+  },
+  {
+   "label": 159,
+   "kind": "distance",
+   "text": "76.78\u00b0",
+   "measured": 68.62,
+   "written": 76.78,
+   "diff": -8.16
+  },
+  {
+   "label": 213,
+   "kind": "distance",
+   "text": "89.76\"",
+   "measured": 106.21,
+   "written": 89.76,
+   "diff": 16.45
+  },
+  {
+   "label": 264,
+   "kind": "distance",
+   "text": "60!",
+   "measured": 69.59,
+   "written": 60.0,
+   "diff": 9.59
+  },
+  {
+   "label": 287,
+   "kind": "distance",
+   "text": "96.80\u00b0",
+   "measured": 86.37,
+   "written": 96.8,
+   "diff": -10.43
+  },
+  {
+   "label": 300,
+   "kind": "distance",
+   "text": "/00\u00b0",
+   "measured": 83.75,
+   "written": 100.0,
+   "diff": -16.25
+  }
+ ],
+ "curve_table": {},
+ "curve_blocks": [
+  {
+   "labels": [
+    52
+   ],
+   "fields": {
+    "R": 359.0
+   },
+   "R": 359.0,
+   "delta": null,
+   "derived": {},
+   "consistent": false,
+   "check": null,
+   "arc": 5,
+   "center": [
+    1392.0,
+    379.8
+   ]
+  },
+  {
+   "labels": [
+    120
+   ],
+   "fields": {
+    "delta": 4.0
+   },
+   "R": null,
+   "delta": 4.0,
+   "derived": {},
+   "consistent": false,
+   "check": null,
+   "arc": 6,
+   "center": [
+    998.6,
+    910.9
+   ]
+  },
+  {
+   "labels": [
+    180
+   ],
+   "fields": {
+    "delta": 36.0
+   },
+   "R": null,
+   "delta": 36.0,
+   "derived": {},
+   "consistent": false,
+   "check": null,
+   "arc": 10,
+   "center": [
+    1140.4,
+    1182.3
+   ]
+  }
+ ],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 0.9961,
+  "line_precision": 1.0,
+  "line_f1": 0.9981,
+  "label_assoc": 0.7468,
+  "label_classified": 0.4667,
+  "scale_consistency": 0.4773,
+  "score": 0.8166
+ },
+ "seconds": 40.2,
+ "labels": [
+  {
+   "id": 0,
+   "text": "A",
+   "kind": "text",
+   "conf": 94.0,
+   "center": [
+    211.0,
+    5.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "A",
+   "kind": "text",
+   "conf": 90.0,
+   "center": [
+    508.5,
+    6.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "\u2014-\u2014 89.16\"",
+   "kind": "distance",
+   "conf": 79.0,
+   "center": [
+    1050.3,
+    12.0
+   ],
+   "angle": 1.4,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "\u2014110",
+   "kind": "distance",
+   "conf": 39.0,
+   "center": [
+    1351.3,
+    14.4
+   ],
+   "angle": 2.4,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "_\u2014\u2014v",
+   "kind": "text",
+   "conf": 36.0,
+   "center": [
+    1457.0,
+    5.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 5,
+   "text": "[n08, P02",
+   "kind": "text",
+   "conf": 0.0,
+   "center": [
+    1195.0,
+    132.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "",
+   "kind": "empty",
+   "conf": -1.0,
+   "center": [
+    1265.0,
+    6.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 7,
+   "text": "o-",
+   "kind": "text",
+   "conf": 83.0,
+   "center": [
+    130.8,
+    44.5
+   ],
+   "angle": 231.0,
+   "assoc": null
+  },
+  {
+   "id": 8,
+   "text": "",
+   "kind": "empty",
+   "conf": -1.0,
+   "center": [
+    227.0,
+    65.0
+   ],
+   "angle": 89.7,
+   "assoc": null
+  },
+  {
+   "id": 9,
+   "text": "2",
+   "kind": "lot",
+   "conf": 86.0,
+   "center": [
+    602.0,
+    59.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 10,
+   "text": "100!",
+   "kind": "distance",
+   "conf": 0.0,
+   "center": [
+    708.5,
+    132.0
+   ],
+   "angle": 268.8,
+   "assoc": {
+    "geom": [
+     "L",
+     3
+    ],
+    "t": 0.6237018731497792,
+    "offset": -21.375572259761547,
+    "score": 0.7370886986124672
+   }
+  },
+  {
+   "id": 11,
+   "text": "V4",
+   "kind": "text",
+   "conf": 85.0,
+   "center": [
+    142.5,
+    98.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 12,
+   "text": "100\u00b0",
+   "kind": "distance",
+   "conf": 91.0,
+   "center": [
+    1242.0,
+    132.5
+   ],
+   "angle": 270.0,
+   "assoc": {
+    "geom": [
+     "L",
+     8
+    ],
+    "t": 0.4854791859187842,
+    "offset": -21.304601611422477,
+    "score": 0.7346414348766395
+   }
+  },
+  {
+   "id": 13,
+   "text": "33",
+   "kind": "lot",
+   "conf": 96.0,
+   "center": [
+    819.0,
+    114.0
+   ],
+   "angle": 346.4,
+   "assoc": null
+  },
+  {
+   "id": 14,
+   "text": "100\u00b0",
+   "kind": "distance",
+   "conf": 52.0,
+   "center": [
+    989.9,
+    140.0
+   ],
+   "angle": 270.2,
+   "assoc": {
+    "geom": [
+     "L",
+     7
+    ],
+    "t": 0.4816417436527271,
+    "offset": 21.842184758418927,
+    "score": 0.7531787847730688
+   }
+  },
+  {
+   "id": 15,
+   "text": "32",
+   "kind": "lot",
+   "conf": 96.0,
+   "center": [
+    1069.2,
+    122.5
+   ],
+   "angle": 350.1,
+   "assoc": null
+  },
+  {
+   "id": 16,
+   "text": "&",
+   "kind": "empty",
+   "conf": 86.0,
+   "center": [
+    1340.9,
+    124.4
+   ],
+   "angle": 247.9,
+   "assoc": null
+  },
+  {
+   "id": 17,
+   "text": "Rm",
+   "kind": "text",
+   "conf": 57.0,
+   "center": [
+    1497.5,
+    122.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 18,
+   "text": "90'",
+   "kind": "distance",
+   "conf": 63.0,
+   "center": [
+    485.0,
+    160.5
+   ],
+   "angle": 270.0,
+   "assoc": {
+    "geom": [
+     "L",
+     1
+    ],
+    "t": 0.5228882029808956,
+    "offset": 23.098317278130015,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 19,
+   "text": "30\u00b0",
+   "kind": "distance",
+   "conf": 54.0,
+   "center": [
+    234.4,
+    163.5
+   ],
+   "angle": 269.7,
+   "assoc": {
+    "geom": [
+     "L",
+     0
+    ],
+    "t": 0.3021633719616966,
+    "offset": -24.16655499533741,
+    "score": 0.928839143876596
+   }
+  },
+  {
+   "id": 20,
+   "text": "ta.",
+   "kind": "text",
+   "conf": 77.0,
+   "center": [
+    1495.0,
+    141.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 21,
+   "text": "5",
+   "kind": "lot",
+   "conf": 96.0,
+   "center": [
+    358.0,
+    152.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 22,
+   "text": "\u00bb",
+   "kind": "empty",
+   "conf": 83.0,
+   "center": [
+    139.0,
+    158.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 23,
+   "text": "\u00a5 weg",
+   "kind": "text",
+   "conf": 60.0,
+   "center": [
+    1493.5,
+    162.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 24,
+   "text": "&.",
+   "kind": "empty",
+   "conf": 67.0,
+   "center": [
+    1052.3,
+    188.7
+   ],
+   "angle": 110.8,
+   "assoc": null
+  },
+  {
+   "id": 25,
+   "text": "a oy",
+   "kind": "text",
+   "conf": 54.5,
+   "center": [
+    1482.1,
+    213.0
+   ],
+   "angle": 103.0,
+   "assoc": null
+  },
+  {
+   "id": 26,
+   "text": "\u00bb x",
+   "kind": "text",
+   "conf": 55.0,
+   "center": [
+    354.5,
+    195.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 27,
+   "text": "~ FUE? OF.",
+   "kind": "text",
+   "conf": 63.0,
+   "center": [
+    361.3,
+    211.0
+   ],
+   "angle": 178.3,
+   "assoc": null
+  },
+  {
+   "id": 28,
+   "text": "2 \u00a2 \u2018",
+   "kind": "text",
+   "conf": 78.7,
+   "center": [
+    308.5,
+    198.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 29,
+   "text": "\\ 3",
+   "kind": "lot",
+   "conf": 37.0,
+   "center": [
+    1022.4,
+    214.1
+   ],
+   "angle": 181.4,
+   "assoc": null
+  },
+  {
+   "id": 30,
+   "text": "5.8607\" 22\"",
+   "kind": "text",
+   "conf": 47.5,
+   "center": [
+    1347.9,
+    221.7
+   ],
+   "angle": 5.1,
+   "assoc": null
+  },
+  {
+   "id": 31,
+   "text": "S 02\u00b026'53\" E",
+   "kind": "bearing",
+   "conf": 0.0,
+   "center": [
+    234.3,
+    339.0
+   ],
+   "angle": 89.7,
+   "assoc": {
+    "geom": [
+     "L",
+     0
+    ],
+    "t": 0.6654485467641961,
+    "offset": -24.863168616460776,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 32,
+   "text": "2",
+   "kind": "lot",
+   "conf": 91.0,
+   "center": [
+    997.5,
+    237.4
+   ],
+   "angle": 262.1,
+   "assoc": null
+  },
+  {
+   "id": 33,
+   "text": "93.50'",
+   "kind": "distance",
+   "conf": 91.0,
+   "center": [
+    840.5,
+    241.5
+   ],
+   "angle": 0.8,
+   "assoc": {
+    "geom": [
+     "L",
+     5
+    ],
+    "t": 0.2851743596526867,
+    "offset": -20.770405521905765,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 34,
+   "text": "89.76\"",
+   "kind": "distance",
+   "conf": 49.0,
+   "center": [
+    1111.5,
+    244.3
+   ],
+   "angle": 0.8,
+   "assoc": {
+    "geom": [
+     "L",
+     6
+    ],
+    "t": 0.566252002530766,
+    "offset": -21.78026092131627,
+    "score": 0.7510434800453886
+   }
+  },
+  {
+   "id": 35,
+   "text": "~~",
+   "kind": "empty",
+   "conf": 53.0,
+   "center": [
+    1255.5,
+    241.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 36,
+   "text": "85.24\"",
+   "kind": "distance",
+   "conf": 69.0,
+   "center": [
+    1375.6,
+    257.2
+   ],
+   "angle": 6.2,
+   "assoc": {
+    "geom": [
+     "A",
+     2
+    ],
+    "t": 0.5,
+    "offset": 21.445693993535997,
+    "score": 0.602388922671941
+   }
+  },
+  {
+   "id": 37,
+   "text": "5",
+   "kind": "lot",
+   "conf": 72.0,
+   "center": [
+    698.5,
+    256.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 38,
+   "text": "\u00ab",
+   "kind": "empty",
+   "conf": 45.0,
+   "center": [
+    966.0,
+    267.0
+   ],
+   "angle": 270.2,
+   "assoc": null
+  },
+  {
+   "id": 39,
+   "text": "\u2014 001 =)",
+   "kind": "distance",
+   "conf": 42.7,
+   "center": [
+    325.6,
+    267.3
+   ],
+   "angle": 180.5,
+   "assoc": {
+    "geom": [
+     "L",
+     14
+    ],
+    "t": 0.38309583141768594,
+    "offset": -21.394781970200658,
+    "score": 0.7377511024207135
+   }
+  },
+  {
+   "id": 40,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 92.0,
+   "center": [
+    66.5,
+    270.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 41,
+   "text": "",
+   "kind": "empty",
+   "conf": -1.0,
+   "center": [
+    459.0,
+    279.6
+   ],
+   "angle": 0.5,
+   "assoc": null
+  },
+  {
+   "id": 42,
+   "text": "S 87\u00b055'30\" W",
+   "kind": "bearing",
+   "conf": 11.0,
+   "center": [
+    368.9,
+    307.9
+   ],
+   "angle": 0.5,
+   "assoc": {
+    "geom": [
+     "L",
+     14
+    ],
+    "t": 0.6551513427978992,
+    "offset": 18.815363979073204,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 43,
+   "text": "\u00a2 60.48 \u00a7",
+   "kind": "distance",
+   "conf": 45.3,
+   "center": [
+    489.5,
+    408.0
+   ],
+   "angle": 270.0,
+   "assoc": {
+    "geom": [
+     "L",
+     2
+    ],
+    "t": 0.6340243243246212,
+    "offset": 18.69175025069727,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 44,
+   "text": "4",
+   "kind": "lot",
+   "conf": 74.0,
+   "center": [
+    1432.2,
+    335.7
+   ],
+   "angle": 97.9,
+   "assoc": null
+  },
+  {
+   "id": 45,
+   "text": "\\3",
+   "kind": "lot",
+   "conf": 75.0,
+   "center": [
+    726.5,
+    329.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 46,
+   "text": "2.",
+   "kind": "lot",
+   "conf": 92.0,
+   "center": [
+    1482.5,
+    348.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 47,
+   "text": "19\"",
+   "kind": "distance",
+   "conf": 77.0,
+   "center": [
+    440.5,
+    350.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 48,
+   "text": "N 87\u00b035'30\" E",
+   "kind": "bearing",
+   "conf": 34.0,
+   "center": [
+    997.6,
+    354.0
+   ],
+   "angle": 0.5,
+   "assoc": {
+    "geom": [
+     "L",
+     6
+    ],
+    "t": 0.12274974354529229,
+    "offset": 89.53075296546663,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 49,
+   "text": "70",
+   "kind": "distance",
+   "conf": 80.0,
+   "center": [
+    738.5,
+    355.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 50,
+   "text": "15.78",
+   "kind": "distance",
+   "conf": 68.0,
+   "center": [
+    271.1,
+    392.3
+   ],
+   "angle": 271.4,
+   "assoc": null
+  },
+  {
+   "id": 51,
+   "text": "4",
+   "kind": "lot",
+   "conf": 76.0,
+   "center": [
+    1497.5,
+    363.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 52,
+   "text": "R=359,",
+   "kind": "curve_data",
+   "conf": 60.0,
+   "center": [
+    1392.0,
+    379.8
+   ],
+   "angle": 7.9,
+   "assoc": {
+    "geom": [
+     "L",
+     20
+    ],
+    "t": 0.9079167040135057,
+    "offset": 62.34557275934818,
+    "score": 2.1498473365292474
+   }
+  },
+  {
+   "id": 53,
+   "text": "9",
+   "kind": "lot",
+   "conf": 84.0,
+   "center": [
+    738.5,
+    380.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 54,
+   "text": "1@.9'",
+   "kind": "text",
+   "conf": 64.0,
+   "center": [
+    440.0,
+    404.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 55,
+   "text": "&",
+   "kind": "empty",
+   "conf": 91.0,
+   "center": [
+    360.0,
+    390.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 56,
+   "text": "y",
+   "kind": "text",
+   "conf": 59.0,
+   "center": [
+    139.5,
+    396.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 57,
+   "text": "e",
+   "kind": "text",
+   "conf": 74.0,
+   "center": [
+    1494.5,
+    393.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 58,
+   "text": "we",
+   "kind": "text",
+   "conf": 46.0,
+   "center": [
+    1481.9,
+    406.3
+   ],
+   "angle": 187.4,
+   "assoc": null
+  },
+  {
+   "id": 59,
+   "text": "3",
+   "kind": "lot",
+   "conf": 73.0,
+   "center": [
+    136.0,
+    432.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 60,
+   "text": "4= 37",
+   "kind": "text",
+   "conf": 69.0,
+   "center": [
+    1431.0,
+    432.4
+   ],
+   "angle": 9.8,
+   "assoc": null
+  },
+  {
+   "id": 61,
+   "text": "Wate My",
+   "kind": "text",
+   "conf": 14.5,
+   "center": [
+    975.8,
+    579.5
+   ],
+   "angle": 270.2,
+   "assoc": null
+  },
+  {
+   "id": 62,
+   "text": "9",
+   "kind": "lot",
+   "conf": 84.0,
+   "center": [
+    1219.5,
+    440.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 63,
+   "text": ">",
+   "kind": "empty",
+   "conf": 86.0,
+   "center": [
+    440.0,
+    449.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 64,
+   "text": "4",
+   "kind": "lot",
+   "conf": 93.0,
+   "center": [
+    700.0,
+    454.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 65,
+   "text": ">",
+   "kind": "empty",
+   "conf": 66.0,
+   "center": [
+    228.2,
+    472.6
+   ],
+   "angle": 92.1,
+   "assoc": null
+  },
+  {
+   "id": 66,
+   "text": "99.93\"",
+   "kind": "distance",
+   "conf": 30.0,
+   "center": [
+    835.9,
+    467.5
+   ],
+   "angle": 0.8,
+   "assoc": {
+    "geom": [
+     "L",
+     22
+    ],
+    "t": 0.2795115308655753,
+    "offset": 21.483143130458597,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 67,
+   "text": "\"4",
+   "kind": "lot",
+   "conf": 60.0,
+   "center": [
+    998.0,
+    459.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 68,
+   "text": "&",
+   "kind": "empty",
+   "conf": 90.0,
+   "center": [
+    136.4,
+    477.3
+   ],
+   "angle": 196.0,
+   "assoc": null
+  },
+  {
+   "id": 69,
+   "text": "2 63.26\",",
+   "kind": "distance",
+   "conf": 55.5,
+   "center": [
+    1088.9,
+    473.2
+   ],
+   "angle": 0.8,
+   "assoc": {
+    "geom": [
+     "L",
+     23
+    ],
+    "t": 0.4394240275528436,
+    "offset": 23.71896223395718,
+    "score": 0.8178952494467993
+   }
+  },
+  {
+   "id": 70,
+   "text": "2",
+   "kind": "lot",
+   "conf": 47.0,
+   "center": [
+    472.5,
+    480.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 71,
+   "text": "oof",
+   "kind": "text",
+   "conf": 55.0,
+   "center": [
+    337.5,
+    483.2
+   ],
+   "angle": 182.1,
+   "assoc": null
+  },
+  {
+   "id": 72,
+   "text": "29.37\"",
+   "kind": "distance",
+   "conf": 51.0,
+   "center": [
+    1384.9,
+    489.6
+   ],
+   "angle": 6.3,
+   "assoc": {
+    "geom": [
+     "A",
+     5
+    ],
+    "t": 0.5,
+    "offset": -23.44114134596498,
+    "score": 0.9093158750059065
+   }
+  },
+  {
+   "id": 73,
+   "text": "N 02\u00b024'30\" W",
+   "kind": "bearing",
+   "conf": 20.7,
+   "center": [
+    1197.4,
+    614.5
+   ],
+   "angle": 270.5,
+   "assoc": {
+    "geom": [
+     "L",
+     24
+    ],
+    "t": 0.5374221134189667,
+    "offset": 20.417295624885256,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 74,
+   "text": "1,",
+   "kind": "lot",
+   "conf": 62.0,
+   "center": [
+    1037.0,
+    508.0
+   ],
+   "angle": 270.2,
+   "assoc": null
+  },
+  {
+   "id": 75,
+   "text": "8",
+   "kind": "lot",
+   "conf": 71.0,
+   "center": [
+    137.5,
+    518.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 76,
+   "text": "18",
+   "kind": "distance",
+   "conf": 55.0,
+   "center": [
+    734.5,
+    500.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 77,
+   "text": "105.13\" 2",
+   "kind": "text",
+   "conf": 72.5,
+   "center": [
+    1250.5,
+    582.4
+   ],
+   "angle": 270.5,
+   "assoc": null
+  },
+  {
+   "id": 78,
+   "text": "N 01\u00b000'14\" W",
+   "kind": "bearing",
+   "conf": 61.0,
+   "center": [
+    705.1,
+    559.2
+   ],
+   "angle": 279.0,
+   "assoc": {
+    "geom": [
+     "L",
+     21
+    ],
+    "t": 0.0965946632372906,
+    "offset": -19.14082874094713,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 79,
+   "text": "1.83\u00b043%45-,",
+   "kind": "text",
+   "conf": 43.0,
+   "center": [
+    1369.8,
+    525.6
+   ],
+   "angle": 4.5,
+   "assoc": null
+  },
+  {
+   "id": 80,
+   "text": "Ww. BYS5e20\"E.",
+   "kind": "text",
+   "conf": 19.5,
+   "center": [
+    349.4,
+    529.4
+   ],
+   "angle": 2.1,
+   "assoc": null
+  },
+  {
+   "id": 81,
+   "text": "\u20183",
+   "kind": "lot",
+   "conf": 58.0,
+   "center": [
+    776.0,
+    531.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 82,
+   "text": "418,08)",
+   "kind": "distance",
+   "conf": 4.0,
+   "center": [
+    742.1,
+    573.7
+   ],
+   "angle": 279.0,
+   "assoc": {
+    "geom": [
+     "L",
+     21
+    ],
+    "t": 0.16050195905181808,
+    "offset": -56.538871356119905,
+    "score": 3.1265750350409593
+   }
+  },
+  {
+   "id": 83,
+   "text": "103.17",
+   "kind": "distance",
+   "conf": 46.0,
+   "center": [
+    1008.1,
+    588.0
+   ],
+   "angle": 270.2,
+   "assoc": {
+    "geom": [
+     "L",
+     25
+    ],
+    "t": 0.5384806810464011,
+    "offset": 21.794802527538376,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 84,
+   "text": "=,",
+   "kind": "empty",
+   "conf": 76.0,
+   "center": [
+    1070.0,
+    542.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 85,
+   "text": "N",
+   "kind": "text",
+   "conf": 83.0,
+   "center": [
+    135.0,
+    548.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 86,
+   "text": "Wissv ores",
+   "kind": "text",
+   "conf": 15.5,
+   "center": [
+    1446.1,
+    662.3
+   ],
+   "angle": 288.1,
+   "assoc": null
+  },
+  {
+   "id": 87,
+   "text": "\u2014 75'\u2014",
+   "kind": "distance",
+   "conf": 70.0,
+   "center": [
+    227.2,
+    622.7
+   ],
+   "angle": 271.4,
+   "assoc": {
+    "geom": [
+     "L",
+     16
+    ],
+    "t": 0.27072400250712414,
+    "offset": -21.465890180772114,
+    "score": 0.740203109681797
+   }
+  },
+  {
+   "id": 88,
+   "text": "3.",
+   "kind": "lot",
+   "conf": 70.0,
+   "center": [
+    761.5,
+    561.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 89,
+   "text": "\u00bb",
+   "kind": "empty",
+   "conf": 31.0,
+   "center": [
+    134.5,
+    580.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 90,
+   "text": "8",
+   "kind": "lot",
+   "conf": 65.0,
+   "center": [
+    772.5,
+    582.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 91,
+   "text": "NY",
+   "kind": "text",
+   "conf": 72.0,
+   "center": [
+    827.4,
+    594.9
+   ],
+   "angle": 255.5,
+   "assoc": null
+  },
+  {
+   "id": 92,
+   "text": "x",
+   "kind": "text",
+   "conf": 60.0,
+   "center": [
+    304.8,
+    611.4
+   ],
+   "angle": 61.0,
+   "assoc": null
+  },
+  {
+   "id": 93,
+   "text": "25",
+   "kind": "lot",
+   "conf": 96.0,
+   "center": [
+    1084.0,
+    612.4
+   ],
+   "angle": 349.7,
+   "assoc": null
+  },
+  {
+   "id": 94,
+   "text": "4",
+   "kind": "lot",
+   "conf": 62.0,
+   "center": [
+    771.0,
+    612.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 95,
+   "text": "\u00bb",
+   "kind": "empty",
+   "conf": 82.0,
+   "center": [
+    133.0,
+    617.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 96,
+   "text": "75'",
+   "kind": "distance",
+   "conf": 66.0,
+   "center": [
+    484.6,
+    634.1
+   ],
+   "angle": 271.4,
+   "assoc": {
+    "geom": [
+     "L",
+     27
+    ],
+    "t": 0.5547122222518174,
+    "offset": 18.762409532386847,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 97,
+   "text": "7",
+   "kind": "lot",
+   "conf": 95.0,
+   "center": [
+    393.5,
+    635.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 98,
+   "text": "26",
+   "kind": "lot",
+   "conf": 96.0,
+   "center": [
+    1327.0,
+    636.5
+   ],
+   "angle": 347.6,
+   "assoc": null
+  },
+  {
+   "id": 99,
+   "text": "PEM",
+   "kind": "text",
+   "conf": 28.0,
+   "center": [
+    1487.1,
+    680.5
+   ],
+   "angle": 108.1,
+   "assoc": null
+  },
+  {
+   "id": 100,
+   "text": "2",
+   "kind": "lot",
+   "conf": 73.0,
+   "center": [
+    134.0,
+    671.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 101,
+   "text": "3",
+   "kind": "lot",
+   "conf": 96.0,
+   "center": [
+    575.0,
+    687.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 102,
+   "text": "\u00a5",
+   "kind": "empty",
+   "conf": 65.0,
+   "center": [
+    712.8,
+    684.1
+   ],
+   "angle": 63.8,
+   "assoc": null
+  },
+  {
+   "id": 103,
+   "text": "5900: B5098 |",
+   "kind": "text",
+   "conf": 29.7,
+   "center": [
+    842.2,
+    683.4
+   ],
+   "angle": 181.5,
+   "assoc": null
+  },
+  {
+   "id": 104,
+   "text": "sf",
+   "kind": "area",
+   "conf": 31.0,
+   "center": [
+    298.4,
+    699.8
+   ],
+   "angle": 199.0,
+   "assoc": null
+  },
+  {
+   "id": 105,
+   "text": "",
+   "kind": "empty",
+   "conf": -1.0,
+   "center": [
+    254.5,
+    725.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 106,
+   "text": "-~\u2014/02. 38\".",
+   "kind": "distance",
+   "conf": 26.5,
+   "center": [
+    805.2,
+    727.0
+   ],
+   "angle": 1.3,
+   "assoc": {
+    "geom": [
+     "L",
+     39
+    ],
+    "t": 0.41188963285902197,
+    "offset": -21.079438875770727,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 107,
+   "text": "1392 \u20ac8-",
+   "kind": "text",
+   "conf": 52.0,
+   "center": [
+    1100.7,
+    733.3
+   ],
+   "angle": 181.3,
+   "assoc": null
+  },
+  {
+   "id": 108,
+   "text": "A\\",
+   "kind": "text",
+   "conf": 83.0,
+   "center": [
+    572.5,
+    754.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 109,
+   "text": "Sey",
+   "kind": "text",
+   "conf": 31.0,
+   "center": [
+    1235.5,
+    745.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 110,
+   "text": "9899",
+   "kind": "distance",
+   "conf": 43.0,
+   "center": [
+    1327.0,
+    766.3
+   ],
+   "angle": 196.8,
+   "assoc": {
+    "geom": [
+     "L",
+     48
+    ],
+    "t": 0.41973856797458037,
+    "offset": -38.32791025135877,
+    "score": 1.3746327761857788
+   }
+  },
+  {
+   "id": 111,
+   "text": "",
+   "kind": "empty",
+   "conf": -1.0,
+   "center": [
+    703.5,
+    764.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 112,
+   "text": "Ps",
+   "kind": "text",
+   "conf": 28.0,
+   "center": [
+    920.1,
+    782.5
+   ],
+   "angle": 1.3,
+   "assoc": null
+  },
+  {
+   "id": 113,
+   "text": "N 01\u00b058'48\" E",
+   "kind": "bearing",
+   "conf": 14.5,
+   "center": [
+    958.2,
+    884.9
+   ],
+   "angle": 273.9,
+   "assoc": {
+    "geom": [
+     "L",
+     41
+    ],
+    "t": 0.4322704839522713,
+    "offset": 18.861275961374147,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 114,
+   "text": "",
+   "kind": "empty",
+   "conf": -1.0,
+   "center": [
+    1026.5,
+    769.5
+   ],
+   "angle": 1.7,
+   "assoc": null
+  },
+  {
+   "id": 115,
+   "text": "\u2014,SL",
+   "kind": "text",
+   "conf": 65.0,
+   "center": [
+    223.4,
+    822.2
+   ],
+   "angle": 91.4,
+   "assoc": null
+  },
+  {
+   "id": 116,
+   "text": "Ie",
+   "kind": "text",
+   "conf": 66.0,
+   "center": [
+    1210.5,
+    779.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 117,
+   "text": "20\",",
+   "kind": "distance",
+   "conf": 47.0,
+   "center": [
+    1260.4,
+    790.7
+   ],
+   "angle": 16.8,
+   "assoc": {
+    "geom": [
+     "L",
+     44
+    ],
+    "t": 0.17535587014504525,
+    "offset": 20.62411893056491,
+    "score": 0.7111765148470659
+   }
+  },
+  {
+   "id": 118,
+   "text": "V2",
+   "kind": "text",
+   "conf": 76.0,
+   "center": [
+    893.0,
+    801.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 119,
+   "text": "6,",
+   "kind": "lot",
+   "conf": 83.0,
+   "center": [
+    1483.5,
+    815.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 120,
+   "text": "% 100.44!",
+   "kind": "distance",
+   "conf": 26.5,
+   "center": [
+    998.6,
+    910.9
+   ],
+   "angle": 273.9,
+   "assoc": {
+    "geom": [
+     "L",
+     41
+    ],
+    "t": 0.5069617504341,
+    "offset": -23.19775256756621,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 121,
+   "text": "EL eGos/W z",
+   "kind": "text",
+   "conf": 31.7,
+   "center": [
+    1223.9,
+    925.7
+   ],
+   "angle": 104.2,
+   "assoc": null
+  },
+  {
+   "id": 122,
+   "text": "y",
+   "kind": "text",
+   "conf": 78.0,
+   "center": [
+    337.0,
+    830.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 123,
+   "text": "75'",
+   "kind": "distance",
+   "conf": 86.0,
+   "center": [
+    475.1,
+    847.7
+   ],
+   "angle": 271.4,
+   "assoc": {
+    "geom": [
+     "L",
+     28
+    ],
+    "t": 0.5085447768877043,
+    "offset": 23.19292950268712,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 124,
+   "text": "\u201c20\u00b0",
+   "kind": "distance",
+   "conf": 56.0,
+   "center": [
+    899.0,
+    835.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 125,
+   "text": "BOL",
+   "kind": "text",
+   "conf": 33.0,
+   "center": [
+    925.9,
+    874.6
+   ],
+   "angle": 93.9,
+   "assoc": null
+  },
+  {
+   "id": 126,
+   "text": "static.",
+   "kind": "text",
+   "conf": 17.0,
+   "center": [
+    1405.4,
+    852.5
+   ],
+   "angle": 16.8,
+   "assoc": null
+  },
+  {
+   "id": 127,
+   "text": "109,05\",",
+   "kind": "distance",
+   "conf": 78.0,
+   "center": [
+    1279.2,
+    911.4
+   ],
+   "angle": 284.2,
+   "assoc": {
+    "geom": [
+     "L",
+     47
+    ],
+    "t": 0.3684679109406865,
+    "offset": -21.716802838635232,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 128,
+   "text": "\\ ~",
+   "kind": "empty",
+   "conf": 74.0,
+   "center": [
+    250.0,
+    848.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 129,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 93.0,
+   "center": [
+    40.0,
+    864.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 130,
+   "text": "3",
+   "kind": "lot",
+   "conf": 35.0,
+   "center": [
+    891.0,
+    859.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 131,
+   "text": "5",
+   "kind": "lot",
+   "conf": 47.0,
+   "center": [
+    266.5,
+    873.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 132,
+   "text": "100\u00b0",
+   "kind": "distance",
+   "conf": 69.0,
+   "center": [
+    698.5,
+    905.0
+   ],
+   "angle": 269.8,
+   "assoc": {
+    "geom": [
+     "L",
+     38
+    ],
+    "t": 0.3469149858919379,
+    "offset": 19.98586291329396,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 133,
+   "text": "18",
+   "kind": "distance",
+   "conf": 35.0,
+   "center": [
+    897.5,
+    881.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 134,
+   "text": "23",
+   "kind": "lot",
+   "conf": 95.0,
+   "center": [
+    809.7,
+    894.1
+   ],
+   "angle": 341.9,
+   "assoc": null
+  },
+  {
+   "id": 135,
+   "text": "N",
+   "kind": "text",
+   "conf": 65.0,
+   "center": [
+    125.0,
+    900.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 136,
+   "text": "=,",
+   "kind": "empty",
+   "conf": 72.0,
+   "center": [
+    578.0,
+    902.3
+   ],
+   "angle": 62.3,
+   "assoc": null
+  },
+  {
+   "id": 137,
+   "text": "22",
+   "kind": "lot",
+   "conf": 95.0,
+   "center": [
+    1113.9,
+    903.3
+   ],
+   "angle": 346.2,
+   "assoc": null
+  },
+  {
+   "id": 138,
+   "text": "ig",
+   "kind": "text",
+   "conf": 63.0,
+   "center": [
+    896.5,
+    905.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 139,
+   "text": "2",
+   "kind": "lot",
+   "conf": 73.0,
+   "center": [
+    239.1,
+    907.6
+   ],
+   "angle": 82.7,
+   "assoc": null
+  },
+  {
+   "id": 140,
+   "text": "<aGt 0206! N x",
+   "kind": "text",
+   "conf": 47.5,
+   "center": [
+    1457.9,
+    1003.9
+   ],
+   "angle": 111.4,
+   "assoc": null
+  },
+  {
+   "id": 141,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 93.0,
+   "center": [
+    39.0,
+    914.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 142,
+   "text": "Tot",
+   "kind": "text",
+   "conf": 79.0,
+   "center": [
+    891.0,
+    923.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 143,
+   "text": "9",
+   "kind": "lot",
+   "conf": 10.0,
+   "center": [
+    109.6,
+    929.6
+   ],
+   "angle": 21.8,
+   "assoc": null
+  },
+  {
+   "id": 144,
+   "text": "61",
+   "kind": "distance",
+   "conf": 51.0,
+   "center": [
+    895.0,
+    944.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 145,
+   "text": "7",
+   "kind": "lot",
+   "conf": 74.0,
+   "center": [
+    1355.0,
+    956.1
+   ],
+   "angle": 341.3,
+   "assoc": null
+  },
+  {
+   "id": 146,
+   "text": "8",
+   "kind": "lot",
+   "conf": 69.0,
+   "center": [
+    583.0,
+    946.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 147,
+   "text": "&",
+   "kind": "empty",
+   "conf": 91.0,
+   "center": [
+    894.0,
+    968.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 148,
+   "text": "%",
+   "kind": "empty",
+   "conf": 83.0,
+   "center": [
+    572.8,
+    994.6
+   ],
+   "angle": 329.6,
+   "assoc": null
+  },
+  {
+   "id": 149,
+   "text": "7",
+   "kind": "lot",
+   "conf": 77.0,
+   "center": [
+    125.5,
+    984.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 150,
+   "text": "\u2014 SL",
+   "kind": "text",
+   "conf": 75.0,
+   "center": [
+    218.5,
+    1047.2
+   ],
+   "angle": 91.4,
+   "assoc": null
+  },
+  {
+   "id": 151,
+   "text": "%",
+   "kind": "empty",
+   "conf": 82.0,
+   "center": [
+    894.0,
+    1004.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 152,
+   "text": "1.84\u00b03/40\"",
+   "kind": "text",
+   "conf": 25.0,
+   "center": [
+    1083.9,
+    1010.6
+   ],
+   "angle": 7.5,
+   "assoc": null
+  },
+  {
+   "id": 153,
+   "text": "11\u00b0",
+   "kind": "distance",
+   "conf": 77.0,
+   "center": [
+    1492.5,
+    1027.3
+   ],
+   "angle": 291.4,
+   "assoc": {
+    "geom": [
+     "L",
+     50
+    ],
+    "t": 0.3154453646132134,
+    "offset": -19.19450417659637,
+    "score": 0.6618794543653921
+   }
+  },
+  {
+   "id": 154,
+   "text": "Ss",
+   "kind": "text",
+   "conf": 63.0,
+   "center": [
+    924.5,
+    1032.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 155,
+   "text": ">",
+   "kind": "empty",
+   "conf": 91.0,
+   "center": [
+    1175.1,
+    1021.5
+   ],
+   "angle": 97.5,
+   "assoc": null
+  },
+  {
+   "id": 156,
+   "text": ".08",
+   "kind": "distance",
+   "conf": 86.0,
+   "center": [
+    796.4,
+    1032.5
+   ],
+   "angle": 184.4,
+   "assoc": {
+    "geom": [
+     "L",
+     42
+    ],
+    "t": 0.10735143517938911,
+    "offset": -19.58793837448037,
+    "score": 0.6754461508441528
+   }
+  },
+  {
+   "id": 157,
+   "text": "4",
+   "kind": "lot",
+   "conf": 94.0,
+   "center": [
+    684.5,
+    1038.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 158,
+   "text": "&",
+   "kind": "empty",
+   "conf": 71.0,
+   "center": [
+    1250.2,
+    1044.2
+   ],
+   "angle": 262.1,
+   "assoc": null
+  },
+  {
+   "id": 159,
+   "text": "76.78\u00b0",
+   "kind": "distance",
+   "conf": 64.0,
+   "center": [
+    1096.2,
+    1053.8
+   ],
+   "angle": 7.5,
+   "assoc": {
+    "geom": [
+     "L",
+     51
+    ],
+    "t": 0.6288865992565317,
+    "offset": -25.316387027961618,
+    "score": 0.8729788630331592
+   }
+  },
+  {
+   "id": 160,
+   "text": "LV.",
+   "kind": "text",
+   "conf": 85.0,
+   "center": [
+    570.5,
+    1075.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 161,
+   "text": "1250:",
+   "kind": "distance",
+   "conf": 58.0,
+   "center": [
+    1298.7,
+    1052.5
+   ],
+   "angle": 8.3,
+   "assoc": null
+  },
+  {
+   "id": 162,
+   "text": "75\u00b0F",
+   "kind": "text",
+   "conf": 34.0,
+   "center": [
+    1322.7,
+    1061.9
+   ],
+   "angle": 17.8,
+   "assoc": null
+  },
+  {
+   "id": 163,
+   "text": "7",
+   "kind": "lot",
+   "conf": 92.0,
+   "center": [
+    333.5,
+    1066.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 164,
+   "text": "\u00bb(",
+   "kind": "empty",
+   "conf": 74.0,
+   "center": [
+    916.5,
+    1051.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 165,
+   "text": "140%,",
+   "kind": "distance",
+   "conf": 76.0,
+   "center": [
+    1384.7,
+    1081.3
+   ],
+   "angle": 11.5,
+   "assoc": null
+  },
+  {
+   "id": 166,
+   "text": "75",
+   "kind": "distance",
+   "conf": 69.0,
+   "center": [
+    472.2,
+    1093.5
+   ],
+   "angle": 271.4,
+   "assoc": {
+    "geom": [
+     "L",
+     29
+    ],
+    "t": 0.6031004259153846,
+    "offset": 20.30842499071424,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 167,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 93.0,
+   "center": [
+    914.5,
+    1079.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 168,
+   "text": "76.78'",
+   "kind": "distance",
+   "conf": 84.0,
+   "center": [
+    1331.3,
+    1109.5
+   ],
+   "angle": 17.8,
+   "assoc": {
+    "geom": [
+     "L",
+     52
+    ],
+    "t": 0.5450622507636856,
+    "offset": -26.168848874340483,
+    "score": 0.9023740991151891
+   }
+  },
+  {
+   "id": 169,
+   "text": "2",
+   "kind": "lot",
+   "conf": 43.0,
+   "center": [
+    1182.1,
+    1126.5
+   ],
+   "angle": 194.2,
+   "assoc": null
+  },
+  {
+   "id": 170,
+   "text": "&",
+   "kind": "empty",
+   "conf": 72.0,
+   "center": [
+    1461.1,
+    1115.6
+   ],
+   "angle": 253.0,
+   "assoc": null
+  },
+  {
+   "id": 171,
+   "text": "=",
+   "kind": "empty",
+   "conf": 69.0,
+   "center": [
+    702.0,
+    1116.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 172,
+   "text": "%,",
+   "kind": "empty",
+   "conf": 51.0,
+   "center": [
+    1491.6,
+    1129.2
+   ],
+   "angle": 141.9,
+   "assoc": null
+  },
+  {
+   "id": 173,
+   "text": "4",
+   "kind": "lot",
+   "conf": 71.0,
+   "center": [
+    569.0,
+    1149.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 174,
+   "text": "\"2.028508 NS",
+   "kind": "text",
+   "conf": 54.5,
+   "center": [
+    841.3,
+    1143.4
+   ],
+   "angle": 182.4,
+   "assoc": null
+  },
+  {
+   "id": 175,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 93.0,
+   "center": [
+    208.0,
+    1138.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 176,
+   "text": "Curve",
+   "kind": "text",
+   "conf": 96.0,
+   "center": [
+    1277.9,
+    1164.1
+   ],
+   "angle": 17.8,
+   "assoc": null
+  },
+  {
+   "id": 177,
+   "text": "ob",
+   "kind": "text",
+   "conf": 59.0,
+   "center": [
+    729.2,
+    1174.4
+   ],
+   "angle": 167.6,
+   "assoc": null
+  },
+  {
+   "id": 178,
+   "text": "a",
+   "kind": "text",
+   "conf": 75.0,
+   "center": [
+    1489.0,
+    1172.1
+   ],
+   "angle": 294.1,
+   "assoc": null
+  },
+  {
+   "id": 179,
+   "text": "1",
+   "kind": "lot",
+   "conf": 86.0,
+   "center": [
+    207.0,
+    1164.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 180,
+   "text": "4=36\u00b0",
+   "kind": "text",
+   "conf": 54.0,
+   "center": [
+    1140.4,
+    1182.3
+   ],
+   "angle": 7.5,
+   "assoc": null
+  },
+  {
+   "id": 181,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 90.0,
+   "center": [
+    207.0,
+    1191.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 182,
+   "text": "\u2122",
+   "kind": "empty",
+   "conf": 69.0,
+   "center": [
+    729.2,
+    1191.5
+   ],
+   "angle": 347.6,
+   "assoc": null
+  },
+  {
+   "id": 183,
+   "text": "2,",
+   "kind": "lot",
+   "conf": 81.0,
+   "center": [
+    1345.5,
+    1192.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 184,
+   "text": "M",
+   "kind": "text",
+   "conf": 81.0,
+   "center": [
+    567.5,
+    1227.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 185,
+   "text": "r",
+   "kind": "text",
+   "conf": 84.0,
+   "center": [
+    1395.5,
+    1200.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 186,
+   "text": "20%",
+   "kind": "distance",
+   "conf": 81.0,
+   "center": [
+    1262.2,
+    1210.7
+   ],
+   "angle": 10.5,
+   "assoc": {
+    "geom": [
+     "A",
+     10
+    ],
+    "t": 0.5,
+    "offset": 85.02028579094122,
+    "score": 3.2722648050462637
+   }
+  },
+  {
+   "id": 187,
+   "text": "7N",
+   "kind": "text",
+   "conf": 59.0,
+   "center": [
+    910.0,
+    1212.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 188,
+   "text": "&",
+   "kind": "empty",
+   "conf": 86.0,
+   "center": [
+    1430.0,
+    1223.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 189,
+   "text": "2",
+   "kind": "lot",
+   "conf": 73.0,
+   "center": [
+    1473.2,
+    1232.9
+   ],
+   "angle": 114.1,
+   "assoc": null
+  },
+  {
+   "id": 190,
+   "text": "19 \u00b0",
+   "kind": "distance",
+   "conf": 53.5,
+   "center": [
+    1329.6,
+    1233.5
+   ],
+   "angle": 304.3,
+   "assoc": null
+  },
+  {
+   "id": 191,
+   "text": "\u2018",
+   "kind": "empty",
+   "conf": 83.0,
+   "center": [
+    908.5,
+    1227.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 192,
+   "text": "73",
+   "kind": "distance",
+   "conf": 0.0,
+   "center": [
+    210.9,
+    1281.7
+   ],
+   "angle": 271.4,
+   "assoc": {
+    "geom": [
+     "L",
+     18
+    ],
+    "t": 0.47621488863105327,
+    "offset": -21.397602728668126,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 193,
+   "text": "J",
+   "kind": "text",
+   "conf": 87.0,
+   "center": [
+    679.0,
+    1242.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 194,
+   "text": "N",
+   "kind": "text",
+   "conf": 93.0,
+   "center": [
+    1221.5,
+    1246.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 195,
+   "text": "oy\u2019",
+   "kind": "text",
+   "conf": 30.0,
+   "center": [
+    1376.9,
+    1239.8
+   ],
+   "angle": 214.3,
+   "assoc": null
+  },
+  {
+   "id": 196,
+   "text": "80\u00b0",
+   "kind": "distance",
+   "conf": 90.0,
+   "center": [
+    786.9,
+    1257.4
+   ],
+   "angle": 2.0,
+   "assoc": {
+    "geom": [
+     "L",
+     55
+    ],
+    "t": 0.7363812874066283,
+    "offset": -21.454068235342216,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 197,
+   "text": ".-",
+   "kind": "empty",
+   "conf": 56.0,
+   "center": [
+    908.5,
+    1251.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 198,
+   "text": "A",
+   "kind": "text",
+   "conf": 88.0,
+   "center": [
+    914.5,
+    1287.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 199,
+   "text": "= 150.73\"",
+   "kind": "distance",
+   "conf": 66.0,
+   "center": [
+    1346.8,
+    1290.6
+   ],
+   "angle": 19.3,
+   "assoc": {
+    "geom": [
+     "A",
+     22
+    ],
+    "t": 0.5,
+    "offset": 82.23939230981551,
+    "score": 3.043558998919009
+   }
+  },
+  {
+   "id": 200,
+   "text": "Rad,",
+   "kind": "text",
+   "conf": 37.0,
+   "center": [
+    1453.7,
+    1285.6
+   ],
+   "angle": 25.3,
+   "assoc": null
+  },
+  {
+   "id": 201,
+   "text": "89.76\u00b0",
+   "kind": "table",
+   "conf": 60.0,
+   "center": [
+    1100.4,
+    1286.4
+   ],
+   "angle": 8.3,
+   "assoc": null
+  },
+  {
+   "id": 202,
+   "text": "o/",
+   "kind": "text",
+   "conf": 63.0,
+   "center": [
+    330.5,
+    1293.6
+   ],
+   "angle": 170.7,
+   "assoc": null
+  },
+  {
+   "id": 203,
+   "text": "4",
+   "kind": "lot",
+   "conf": 77.0,
+   "center": [
+    117.5,
+    1296.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 204,
+   "text": "75",
+   "kind": "distance",
+   "conf": 1.0,
+   "center": [
+    467.4,
+    1319.0
+   ],
+   "angle": 271.4,
+   "assoc": {
+    "geom": [
+     "L",
+     30
+    ],
+    "t": 0.6128631149645263,
+    "offset": 19.742995456964753,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 205,
+   "text": "\u00a5",
+   "kind": "empty",
+   "conf": 79.0,
+   "center": [
+    982.4,
+    1314.0
+   ],
+   "angle": 70.0,
+   "assoc": null
+  },
+  {
+   "id": 206,
+   "text": "Shoo",
+   "kind": "text",
+   "conf": 41.0,
+   "center": [
+    862.0,
+    1330.0
+   ],
+   "angle": 135.1,
+   "assoc": null
+  },
+  {
+   "id": 207,
+   "text": "Of: 19028",
+   "kind": "text",
+   "conf": 37.5,
+   "center": [
+    1077.8,
+    1324.0
+   ],
+   "angle": 189.4,
+   "assoc": null
+  },
+  {
+   "id": 208,
+   "text": "\"Cs",
+   "kind": "text",
+   "conf": 69.0,
+   "center": [
+    119.0,
+    1314.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 209,
+   "text": "MeVS.LIOY N",
+   "kind": "text",
+   "conf": 11.5,
+   "center": [
+    924.6,
+    1418.9
+   ],
+   "angle": 93.7,
+   "assoc": null
+  },
+  {
+   "id": 210,
+   "text": "aA",
+   "kind": "text",
+   "conf": 80.0,
+   "center": [
+    1497.5,
+    1321.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 211,
+   "text": ">",
+   "kind": "empty",
+   "conf": 62.0,
+   "center": [
+    117.0,
+    1348.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 212,
+   "text": "V.I2Z\u00b0S3'25\u00b0E, =",
+   "kind": "text",
+   "conf": 51.0,
+   "center": [
+    1145.1,
+    1452.1
+   ],
+   "angle": 285.1,
+   "assoc": null
+  },
+  {
+   "id": 213,
+   "text": "89.76\"",
+   "kind": "distance",
+   "conf": 81.0,
+   "center": [
+    1353.5,
+    1359.0
+   ],
+   "angle": 19.3,
+   "assoc": {
+    "geom": [
+     "L",
+     60
+    ],
+    "t": 0.7661421082333562,
+    "offset": 23.76180586941051,
+    "score": 0.8193726161865693
+   }
+  },
+  {
+   "id": 214,
+   "text": ",00/",
+   "kind": "distance",
+   "conf": 69.0,
+   "center": [
+    685.5,
+    1392.1
+   ],
+   "angle": 91.7,
+   "assoc": {
+    "geom": [
+     "L",
+     58
+    ],
+    "t": 0.6804747734109354,
+    "offset": 19.367940155092434,
+    "score": 0.6678600053480149
+   }
+  },
+  {
+   "id": 215,
+   "text": "99.80'",
+   "kind": "distance",
+   "conf": 70.0,
+   "center": [
+    965.7,
+    1410.1
+   ],
+   "angle": 273.7,
+   "assoc": {
+    "geom": [
+     "L",
+     59
+    ],
+    "t": 0.5672710217719981,
+    "offset": -20.207261009988425,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 216,
+   "text": "3",
+   "kind": "lot",
+   "conf": 80.0,
+   "center": [
+    1230.0,
+    1360.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 217,
+   "text": "23",
+   "kind": "lot",
+   "conf": 85.0,
+   "center": [
+    754.5,
+    1372.5
+   ],
+   "angle": 339.5,
+   "assoc": null
+  },
+  {
+   "id": 218,
+   "text": "10,",
+   "kind": "distance",
+   "conf": 83.0,
+   "center": [
+    833.5,
+    1366.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 219,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 92.0,
+   "center": [
+    203.5,
+    1370.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 220,
+   "text": ">",
+   "kind": "empty",
+   "conf": 84.0,
+   "center": [
+    582.0,
+    1360.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 221,
+   "text": "\u201870\u00b041 40:",
+   "kind": "text",
+   "conf": 40.0,
+   "center": [
+    1317.9,
+    1390.5
+   ],
+   "angle": 19.3,
+   "assoc": null
+  },
+  {
+   "id": 222,
+   "text": "yA",
+   "kind": "text",
+   "conf": 43.0,
+   "center": [
+    571.5,
+    1385.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 223,
+   "text": "a",
+   "kind": "text",
+   "conf": 74.0,
+   "center": [
+    866.0,
+    1366.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 224,
+   "text": "x",
+   "kind": "text",
+   "conf": 61.0,
+   "center": [
+    115.0,
+    1399.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 225,
+   "text": "=",
+   "kind": "empty",
+   "conf": 92.0,
+   "center": [
+    815.5,
+    1381.1
+   ],
+   "angle": 73.0,
+   "assoc": null
+  },
+  {
+   "id": 226,
+   "text": "9",
+   "kind": "lot",
+   "conf": 65.0,
+   "center": [
+    859.5,
+    1387.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 227,
+   "text": "7 op",
+   "kind": "text",
+   "conf": 60.0,
+   "center": [
+    13.5,
+    1434.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 228,
+   "text": "/",
+   "kind": "empty",
+   "conf": 92.0,
+   "center": [
+    1482.0,
+    1394.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 229,
+   "text": "La Ve x",
+   "kind": "text",
+   "conf": 39.7,
+   "center": [
+    802.5,
+    1400.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 230,
+   "text": "a.",
+   "kind": "text",
+   "conf": 61.0,
+   "center": [
+    845.0,
+    1402.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 231,
+   "text": "oo",
+   "kind": "text",
+   "conf": 65.0,
+   "center": [
+    802.2,
+    1420.3
+   ],
+   "angle": 2.1,
+   "assoc": null
+  },
+  {
+   "id": 232,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 64.0,
+   "center": [
+    203.0,
+    1411.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 233,
+   "text": "24",
+   "kind": "lot",
+   "conf": 95.0,
+   "center": [
+    1050.9,
+    1427.0
+   ],
+   "angle": 351.9,
+   "assoc": null
+  },
+  {
+   "id": 234,
+   "text": "108.82!",
+   "kind": "distance",
+   "conf": 75.0,
+   "center": [
+    1188.2,
+    1483.0
+   ],
+   "angle": 285.1,
+   "assoc": {
+    "geom": [
+     "L",
+     62
+    ],
+    "t": 0.5998736551753896,
+    "offset": -20.85018882565809,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 235,
+   "text": "a",
+   "kind": "text",
+   "conf": 94.0,
+   "center": [
+    1395.0,
+    1417.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 236,
+   "text": "TRACT",
+   "kind": "text",
+   "conf": 95.0,
+   "center": [
+    307.7,
+    1432.5
+   ],
+   "angle": 1.6,
+   "assoc": null
+  },
+  {
+   "id": 237,
+   "text": "aby",
+   "kind": "text",
+   "conf": 40.0,
+   "center": [
+    1467.5,
+    1457.9
+   ],
+   "angle": 297.5,
+   "assoc": null
+  },
+  {
+   "id": 238,
+   "text": "ee",
+   "kind": "text",
+   "conf": 82.0,
+   "center": [
+    561.0,
+    1432.5
+   ],
+   "angle": 84.7,
+   "assoc": null
+  },
+  {
+   "id": 239,
+   "text": "X26 MoE HN",
+   "kind": "text",
+   "conf": 6.0,
+   "center": [
+    1360.7,
+    1541.9
+   ],
+   "angle": 117.5,
+   "assoc": null
+  },
+  {
+   "id": 240,
+   "text": "-4.0\u00b0:",
+   "kind": "distance",
+   "conf": 31.0,
+   "center": [
+    207.9,
+    1462.6
+   ],
+   "angle": 271.4,
+   "assoc": {
+    "geom": [
+     "L",
+     19
+    ],
+    "t": 0.5396064477793189,
+    "offset": -22.79310220220062,
+    "score": 0.7859690414551939
+   }
+  },
+  {
+   "id": 241,
+   "text": "a",
+   "kind": "text",
+   "conf": 68.0,
+   "center": [
+    810.5,
+    1441.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 242,
+   "text": "> Se",
+   "kind": "text",
+   "conf": 72.5,
+   "center": [
+    760.5,
+    1450.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 243,
+   "text": "J",
+   "kind": "text",
+   "conf": 79.0,
+   "center": [
+    445.5,
+    1446.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 244,
+   "text": "|",
+   "kind": "empty",
+   "conf": 95.0,
+   "center": [
+    40.0,
+    1504.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 245,
+   "text": "\u201cYs,",
+   "kind": "text",
+   "conf": 49.0,
+   "center": [
+    311.2,
+    1464.3
+   ],
+   "angle": 181.5,
+   "assoc": null
+  },
+  {
+   "id": 246,
+   "text": "40\u2019",
+   "kind": "distance",
+   "conf": 49.0,
+   "center": [
+    459.8,
+    1482.0
+   ],
+   "angle": 271.4,
+   "assoc": {
+    "geom": [
+     "L",
+     31
+    ],
+    "t": 0.642585975437788,
+    "offset": 23.526297642604263,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 247,
+   "text": "2.",
+   "kind": "lot",
+   "conf": 66.0,
+   "center": [
+    747.5,
+    1467.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 248,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 92.0,
+   "center": [
+    112.5,
+    1466.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 249,
+   "text": "01",
+   "kind": "distance",
+   "conf": 66.0,
+   "center": [
+    570.5,
+    1469.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 250,
+   "text": "4",
+   "kind": "lot",
+   "conf": 60.0,
+   "center": [
+    98.5,
+    1492.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 251,
+   "text": "55",
+   "kind": "distance",
+   "conf": 79.0,
+   "center": [
+    1491.5,
+    1477.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 252,
+   "text": "&. 4 7tr7",
+   "kind": "text",
+   "conf": 14.0,
+   "center": [
+    11.0,
+    1586.1
+   ],
+   "angle": 271.6,
+   "assoc": null
+  },
+  {
+   "id": 253,
+   "text": "O02 E orn",
+   "kind": "text",
+   "conf": 45.3,
+   "center": [
+    801.4,
+    1500.3
+   ],
+   "angle": 181.5,
+   "assoc": null
+  },
+  {
+   "id": 254,
+   "text": "25",
+   "kind": "lot",
+   "conf": 96.0,
+   "center": [
+    1266.7,
+    1495.9
+   ],
+   "angle": 348.5,
+   "assoc": null
+  },
+  {
+   "id": 255,
+   "text": ",001",
+   "kind": "lot",
+   "conf": 73.0,
+   "center": [
+    327.5,
+    1498.1
+   ],
+   "angle": 181.5,
+   "assoc": null
+  },
+  {
+   "id": 256,
+   "text": "Ww.",
+   "kind": "text",
+   "conf": 67.0,
+   "center": [
+    569.0,
+    1498.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 257,
+   "text": "* polos =",
+   "kind": "text",
+   "conf": 52.3,
+   "center": [
+    1381.3,
+    1578.3
+   ],
+   "angle": 117.5,
+   "assoc": null
+  },
+  {
+   "id": 258,
+   "text": "74",
+   "kind": "distance",
+   "conf": 66.0,
+   "center": [
+    200.5,
+    1505.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 259,
+   "text": "\u201c4",
+   "kind": "lot",
+   "conf": 82.0,
+   "center": [
+    1492.0,
+    1509.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 260,
+   "text": ".",
+   "kind": "empty",
+   "conf": 71.0,
+   "center": [
+    561.5,
+    1525.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 261,
+   "text": "ai",
+   "kind": "text",
+   "conf": 56.0,
+   "center": [
+    1495.0,
+    1526.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 262,
+   "text": "gous",
+   "kind": "text",
+   "conf": 24.0,
+   "center": [
+    286.5,
+    1577.0
+   ],
+   "angle": 179.0,
+   "assoc": null
+  },
+  {
+   "id": 263,
+   "text": "9",
+   "kind": "lot",
+   "conf": 85.0,
+   "center": [
+    109.5,
+    1545.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 264,
+   "text": "60!",
+   "kind": "distance",
+   "conf": 83.0,
+   "center": [
+    1032.1,
+    1549.0
+   ],
+   "angle": 19.4,
+   "assoc": {
+    "geom": [
+     "L",
+     70
+    ],
+    "t": 0.44906386099131446,
+    "offset": -20.686992173059167,
+    "score": 0.7133445576916955
+   }
+  },
+  {
+   "id": 265,
+   "text": "yr",
+   "kind": "text",
+   "conf": 70.0,
+   "center": [
+    570.5,
+    1546.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 266,
+   "text": "40'",
+   "kind": "distance",
+   "conf": 91.0,
+   "center": [
+    458.1,
+    1588.5
+   ],
+   "angle": 271.4,
+   "assoc": {
+    "geom": [
+     "L",
+     32
+    ],
+    "t": 0.5328770488965345,
+    "offset": 22.702910305606075,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 267,
+   "text": "01",
+   "kind": "distance",
+   "conf": 63.0,
+   "center": [
+    569.0,
+    1572.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 268,
+   "text": "of",
+   "kind": "text",
+   "conf": 96.0,
+   "center": [
+    814.0,
+    1582.5
+   ],
+   "angle": 1.5,
+   "assoc": null
+  },
+  {
+   "id": 269,
+   "text": "40\u00b0",
+   "kind": "distance",
+   "conf": 80.0,
+   "center": [
+    680.5,
+    1594.1
+   ],
+   "angle": 271.7,
+   "assoc": {
+    "geom": [
+     "L",
+     57
+    ],
+    "t": 0.4706005378878689,
+    "offset": 20.287025926702412,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 270,
+   "text": "26",
+   "kind": "lot",
+   "conf": 96.0,
+   "center": [
+    1456.3,
+    1586.8
+   ],
+   "angle": 10.6,
+   "assoc": null
+  },
+  {
+   "id": 271,
+   "text": "8",
+   "kind": "lot",
+   "conf": 72.0,
+   "center": [
+    1122.0,
+    1582.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 272,
+   "text": "+ DH OP MGOEL'S",
+   "kind": "text",
+   "conf": 11.0,
+   "center": [
+    1140.1,
+    1630.5
+   ],
+   "angle": 199.4,
+   "assoc": null
+  },
+  {
+   "id": 273,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 93.0,
+   "center": [
+    109.0,
+    1596.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 274,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 93.0,
+   "center": [
+    38.0,
+    1605.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 275,
+   "text": "A",
+   "kind": "text",
+   "conf": 86.0,
+   "center": [
+    206.5,
+    1603.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 276,
+   "text": ",09",
+   "kind": "distance",
+   "conf": 85.0,
+   "center": [
+    1219.7,
+    1614.5
+   ],
+   "angle": 199.4,
+   "assoc": {
+    "geom": [
+     "L",
+     71
+    ],
+    "t": 0.3166462692403682,
+    "offset": -21.049149810911516,
+    "score": 0.7258327521003977
+   }
+  },
+  {
+   "id": 277,
+   "text": "8",
+   "kind": "lot",
+   "conf": 81.0,
+   "center": [
+    560.5,
+    1612.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 278,
+   "text": "f:",
+   "kind": "text",
+   "conf": 55.0,
+   "center": [
+    95.5,
+    1638.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 279,
+   "text": "N 88\u00b050'20\" E",
+   "kind": "bearing",
+   "conf": 27.0,
+   "center": [
+    829.9,
+    1639.6
+   ],
+   "angle": 2.0,
+   "assoc": {
+    "geom": [
+     "L",
+     74
+    ],
+    "t": 0.7585563680123377,
+    "offset": -16.52036988977405,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 280,
+   "text": "\u201cve",
+   "kind": "text",
+   "conf": 70.0,
+   "center": [
+    1043.0,
+    1642.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 281,
+   "text": "vi",
+   "kind": "text",
+   "conf": 75.0,
+   "center": [
+    567.0,
+    1637.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 282,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 93.0,
+   "center": [
+    36.5,
+    1662.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 283,
+   "text": "\u2014 \u2014+00/\u2014-",
+   "kind": "distance",
+   "conf": 61.5,
+   "center": [
+    199.7,
+    1773.1
+   ],
+   "angle": 91.4,
+   "assoc": {
+    "geom": [
+     "L",
+     72
+    ],
+    "t": 0.5244014270050908,
+    "offset": -22.351757904445165,
+    "score": 0.7707502725670746
+   }
+  },
+  {
+   "id": 284,
+   "text": "11.86:",
+   "kind": "distance",
+   "conf": 62.0,
+   "center": [
+    1380.3,
+    1666.1
+   ],
+   "angle": 19.4,
+   "assoc": null
+  },
+  {
+   "id": 285,
+   "text": "/00\u00b0",
+   "kind": "distance",
+   "conf": 62.0,
+   "center": [
+    326.5,
+    1665.7
+   ],
+   "angle": 1.6,
+   "assoc": {
+    "geom": [
+     "L",
+     73
+    ],
+    "t": 0.49045065867131465,
+    "offset": 25.055607334411988,
+    "score": 0.0
+   }
+  },
+  {
+   "id": 286,
+   "text": "\u201co>",
+   "kind": "text",
+   "conf": 68.0,
+   "center": [
+    1096.7,
+    1665.4
+   ],
+   "angle": 334.7,
+   "assoc": null
+  },
+  {
+   "id": 287,
+   "text": "96.80\u00b0",
+   "kind": "distance",
+   "conf": 89.0,
+   "center": [
+    782.3,
+    1674.5
+   ],
+   "angle": 2.0,
+   "assoc": {
+    "geom": [
+     "L",
+     74
+    ],
+    "t": 0.5543073355731385,
+    "offset": 20.09810983439641,
+    "score": 0.6930382701516004
+   }
+  },
+  {
+   "id": 288,
+   "text": "A,",
+   "kind": "text",
+   "conf": 85.0,
+   "center": [
+    96.0,
+    1685.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 289,
+   "text": "33\u00b0",
+   "kind": "distance",
+   "conf": 39.0,
+   "center": [
+    933.4,
+    1683.6
+   ],
+   "angle": 13.2,
+   "assoc": {
+    "geom": [
+     "A",
+     14
+    ],
+    "t": 0.5,
+    "offset": -20.588040876601156,
+    "score": 0.7510628584091035
+   }
+  },
+  {
+   "id": 290,
+   "text": "*4",
+   "kind": "lot",
+   "conf": 68.0,
+   "center": [
+    576.5,
+    1679.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 291,
+   "text": "N.",
+   "kind": "text",
+   "conf": 82.0,
+   "center": [
+    565.5,
+    1698.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 292,
+   "text": "\"28.90\" \u00bb.",
+   "kind": "distance",
+   "conf": 36.5,
+   "center": [
+    1456.3,
+    1722.5
+   ],
+   "angle": 38.0,
+   "assoc": {
+    "geom": [
+     "L",
+     75
+    ],
+    "t": 0.5818980098710047,
+    "offset": -22.44077144945611,
+    "score": 0.773819705153659
+   }
+  },
+  {
+   "id": 293,
+   "text": "\u00a9, LP eOh,",
+   "kind": "text",
+   "conf": 8.7,
+   "center": [
+    952.7,
+    1783.6
+   ],
+   "angle": 97.4,
+   "assoc": null
+  },
+  {
+   "id": 294,
+   "text": "Fu PES",
+   "kind": "text",
+   "conf": 45.0,
+   "center": [
+    996.9,
+    1750.2
+   ],
+   "angle": 97.4,
+   "assoc": null
+  },
+  {
+   "id": 295,
+   "text": "407",
+   "kind": "lot",
+   "conf": 59.0,
+   "center": [
+    1298.8,
+    1730.0
+   ],
+   "angle": 199.4,
+   "assoc": null
+  },
+  {
+   "id": 296,
+   "text": "5",
+   "kind": "lot",
+   "conf": 84.0,
+   "center": [
+    107.0,
+    1735.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 297,
+   "text": "a \u2122~",
+   "kind": "text",
+   "conf": 78.5,
+   "center": [
+    235.0,
+    1727.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 298,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 93.0,
+   "center": [
+    35.0,
+    1738.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 299,
+   "text": "15.56\"",
+   "kind": "distance",
+   "conf": 11.0,
+   "center": [
+    1167.4,
+    1764.9
+   ],
+   "angle": 18.8,
+   "assoc": {
+    "geom": [
+     "L",
+     76
+    ],
+    "t": 0.5734542226887028,
+    "offset": 18.802358610233185,
+    "score": 0.6483571934563167
+   }
+  },
+  {
+   "id": 300,
+   "text": "/00\u00b0",
+   "kind": "distance",
+   "conf": 73.0,
+   "center": [
+    452.5,
+    1787.5
+   ],
+   "angle": 271.4,
+   "assoc": {
+    "geom": [
+     "L",
+     33
+    ],
+    "t": 0.5718777857514016,
+    "offset": 23.551542940140514,
+    "score": 0.8121221703496729
+   }
+  },
+  {
+   "id": 301,
+   "text": "22",
+   "kind": "lot",
+   "conf": 96.0,
+   "center": [
+    806.5,
+    1781.6
+   ],
+   "angle": 341.7,
+   "assoc": null
+  },
+  {
+   "id": 302,
+   "text": "/",
+   "kind": "empty",
+   "conf": 88.0,
+   "center": [
+    107.5,
+    1779.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 303,
+   "text": "\u201c",
+   "kind": "empty",
+   "conf": 53.0,
+   "center": [
+    310.2,
+    1784.4
+   ],
+   "angle": 333.8,
+   "assoc": null
+  },
+  {
+   "id": 304,
+   "text": ",00/",
+   "kind": "distance",
+   "conf": 63.0,
+   "center": [
+    675.5,
+    1813.0
+   ],
+   "angle": 91.7,
+   "assoc": {
+    "geom": [
+     "L",
+     56
+    ],
+    "t": 0.3427272059130225,
+    "offset": 21.699918684355993,
+    "score": 0.7482730580812434
+   }
+  },
+  {
+   "id": 305,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 92.0,
+   "center": [
+    34.0,
+    1784.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 306,
+   "text": "oF",
+   "kind": "text",
+   "conf": 64.0,
+   "center": [
+    1493.5,
+    1781.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 307,
+   "text": "Vira.",
+   "kind": "text",
+   "conf": 66.0,
+   "center": [
+    986.3,
+    1847.5
+   ],
+   "angle": 280.4,
+   "assoc": null
+  },
+  {
+   "id": 308,
+   "text": "\u201cHATE.",
+   "kind": "text",
+   "conf": 22.0,
+   "center": [
+    1274.4,
+    1852.1
+   ],
+   "angle": 298.8,
+   "assoc": null
+  },
+  {
+   "id": 309,
+   "text": "x",
+   "kind": "text",
+   "conf": 79.0,
+   "center": [
+    107.0,
+    1834.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 310,
+   "text": "as",
+   "kind": "text",
+   "conf": 48.0,
+   "center": [
+    15.6,
+    1857.5
+   ],
+   "angle": 271.2,
+   "assoc": null
+  },
+  {
+   "id": 311,
+   "text": "448.",
+   "kind": "lot",
+   "conf": 51.0,
+   "center": [
+    757.3,
+    1859.6
+   ],
+   "angle": 344.8,
+   "assoc": null
+  },
+  {
+   "id": 312,
+   "text": "a",
+   "kind": "text",
+   "conf": 96.0,
+   "center": [
+    813.0,
+    1828.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 313,
+   "text": "330\"",
+   "kind": "distance",
+   "conf": 49.0,
+   "center": [
+    913.8,
+    1845.6
+   ],
+   "angle": 195.4,
+   "assoc": null
+  },
+  {
+   "id": 314,
+   "text": "Q",
+   "kind": "text",
+   "conf": 90.0,
+   "center": [
+    1478.4,
+    1846.6
+   ],
+   "angle": 307.6,
+   "assoc": null
+  },
+  {
+   "id": 315,
+   "text": "358 2!",
+   "kind": "distance",
+   "conf": 55.5,
+   "center": [
+    846.4,
+    1854.8
+   ],
+   "angle": 354.9,
+   "assoc": null
+  },
+  {
+   "id": 316,
+   "text": "<=",
+   "kind": "empty",
+   "conf": 68.0,
+   "center": [
+    1102.5,
+    1868.3
+   ],
+   "angle": 323.4,
+   "assoc": null
+  },
+  {
+   "id": 317,
+   "text": "3g",
+   "kind": "text",
+   "conf": 48.0,
+   "center": [
+    785.5,
+    1875.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 318,
+   "text": "Sb,",
+   "kind": "text",
+   "conf": 60.0,
+   "center": [
+    1298.3,
+    1880.6
+   ],
+   "angle": 118.8,
+   "assoc": null
+  },
+  {
+   "id": 319,
+   "text": "8",
+   "kind": "lot",
+   "conf": 53.0,
+   "center": [
+    1405.2,
+    1889.5
+   ],
+   "angle": 37.6,
+   "assoc": null
+  },
+  {
+   "id": 320,
+   "text": "\u201crow",
+   "kind": "text",
+   "conf": 33.0,
+   "center": [
+    851.8,
+    1893.1
+   ],
+   "angle": 184.0,
+   "assoc": null
+  }
+ ]
+}

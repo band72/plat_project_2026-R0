@@ -1,0 +1,7606 @@
+{
+ "aggregate": {
+  "n": 81,
+  "errors": 0,
+  "mean_score": 0.741,
+  "mean_line_f1": 0.9842,
+  "mean_label_assoc": 0.5705,
+  "scaled": 32,
+  "scale_truth": {
+   "right": 6,
+   "wrong": 0,
+   "abstained": 2
+  }
+ },
+ "previous_aggregate": {
+  "n": 81,
+  "errors": 0,
+  "mean_score": 0.7408,
+  "mean_line_f1": 0.9842,
+  "mean_label_assoc": 0.5705,
+  "scaled": 32,
+  "scale_truth": {
+   "right": 6,
+   "wrong": 0,
+   "abstained": 2
+  }
+ },
+ "images": [
+  {
+   "image": "above_23_24.png",
+   "kind": "scan",
+   "size": [
+    1000,
+    800
+   ],
+   "stroke_w": 5.73,
+   "char_h": 31.0,
+   "n_monuments": 1,
+   "n_lines": 28,
+   "n_dashed": 0,
+   "n_arcs": 3,
+   "n_labels": 52,
+   "n_verified": 6,
+   "kinds": {
+    "bearing": 1,
+    "distance": 15,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 15,
+    "area": 0,
+    "table": 0,
+    "text": 11,
+    "empty": 10
+   },
+   "calibration": {
+    "ft_per_px": 0.3373025879296305,
+    "scale_votes": 14,
+    "scale_inliers": 6,
+    "rotation_deg": 0.0,
+    "rot_votes": 1,
+    "rot_inliers": 0,
+    "verified": 6
+   },
+   "qa": [
+    {
+     "label": 48,
+     "kind": "distance",
+     "text": "\"85.2",
+     "measured": 59.72,
+     "written": 85.2,
+     "diff": -25.48
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 1.0,
+    "label_classified": 0.6078,
+    "scale_consistency": 0.4286,
+    "score": 0.8751
+   },
+   "seconds": 5.3,
+   "prev_score": 0.8751
+  },
+  {
+   "image": "beachwood_road_centerlines_drawing.png",
+   "kind": "render",
+   "size": [
+    7800,
+    6000
+   ],
+   "stroke_w": 3.82,
+   "char_h": 24.0,
+   "n_monuments": 3,
+   "n_lines": 159,
+   "n_dashed": 13,
+   "n_arcs": 83,
+   "n_labels": 1113,
+   "n_verified": 2,
+   "kinds": {
+    "bearing": 3,
+    "distance": 31,
+    "curve_id": 0,
+    "curve_data": 9,
+    "lot": 109,
+    "area": 7,
+    "table": 0,
+    "text": 625,
+    "empty": 329
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 7,
+    "scale_inliers": 0,
+    "rotation_deg": 0.01310202145292294,
+    "rot_votes": 2,
+    "rot_inliers": 2,
+    "verified": 2
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      150
+     ],
+     "fields": {
+      "R": 50.0
+     },
+     "R": 50.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 10,
+     "center": [
+      1726.5,
+      645.4
+     ]
+    },
+    {
+     "labels": [
+      265
+     ],
+     "fields": {
+      "R": 1959.86
+     },
+     "R": 1959.86,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 14,
+     "center": [
+      5740.5,
+      1132.0
+     ]
+    },
+    {
+     "labels": [
+      266
+     ],
+     "fields": {
+      "L": 260.19
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 14,
+     "center": [
+      5965.0,
+      1132.0
+     ]
+    },
+    {
+     "labels": [
+      392
+     ],
+     "fields": {
+      "L": 291.3
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      6183.0,
+      2048.7
+     ]
+    },
+    {
+     "labels": [
+      456
+     ],
+     "fields": {
+      "T": 143.2
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      4005.0,
+      2151.5
+     ]
+    },
+    {
+     "labels": [
+      618
+     ],
+     "fields": {
+      "T": 70.64
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 29,
+     "center": [
+      4278.0,
+      2958.0
+     ]
+    },
+    {
+     "labels": [
+      635
+     ],
+     "fields": {
+      "L": 131.3
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 21,
+     "center": [
+      3851.0,
+      3099.0
+     ]
+    },
+    {
+     "labels": [
+      662
+     ],
+     "fields": {
+      "R": 25.07
+     },
+     "R": 25.07,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 29,
+     "center": [
+      4270.0,
+      3219.5
+     ]
+    },
+    {
+     "labels": [
+      782
+     ],
+     "fields": {
+      "T": 107.3
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 38,
+     "center": [
+      3733.5,
+      4189.0
+     ]
+    },
+    {
+     "labels": [
+      1047
+     ],
+     "fields": {
+      "R": 50.0
+     },
+     "R": 50.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      1844.5,
+      5635.0
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": 0.46136,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9809,
+    "line_precision": 0.9437,
+    "line_f1": 0.962,
+    "label_assoc": 0.2059,
+    "label_classified": 0.1478,
+    "scale_consistency": 0.5,
+    "score": 0.66
+   },
+   "seconds": 238.9,
+   "prev_score": 0.66
+  },
+  {
+   "image": "below_23_24.png",
+   "kind": "scan",
+   "size": [
+    1000,
+    800
+   ],
+   "stroke_w": 5.73,
+   "char_h": 29.0,
+   "n_monuments": 0,
+   "n_lines": 26,
+   "n_dashed": 0,
+   "n_arcs": 6,
+   "n_labels": 97,
+   "n_verified": 8,
+   "kinds": {
+    "bearing": 0,
+    "distance": 25,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 19,
+    "area": 0,
+    "table": 1,
+    "text": 43,
+    "empty": 9
+   },
+   "calibration": {
+    "ft_per_px": 0.3346275281333563,
+    "scale_votes": 15,
+    "scale_inliers": 8,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 8
+   },
+   "qa": [
+    {
+     "label": 29,
+     "kind": "distance",
+     "text": "89.76",
+     "measured": 103.92,
+     "written": 89.76,
+     "diff": 14.16
+    },
+    {
+     "label": 85,
+     "kind": "distance",
+     "text": "100\u00b0",
+     "measured": 82.63,
+     "written": 100.0,
+     "diff": -17.37
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      9
+     ],
+     "fields": {
+      "delta": 36.0
+     },
+     "R": null,
+     "delta": 36.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 2,
+     "center": [
+      740.4,
+      82.3
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9937,
+    "line_precision": 1.0,
+    "line_f1": 0.9968,
+    "label_assoc": 0.72,
+    "label_classified": 0.4639,
+    "scale_consistency": 0.5333,
+    "score": 0.8186
+   },
+   "seconds": 15.9,
+   "prev_score": 0.8186
+  },
+  {
+   "image": "beverly_isle_drawing.png",
+   "kind": "render",
+   "size": [
+    2800,
+    3600
+   ],
+   "stroke_w": 4.65,
+   "char_h": 21.0,
+   "n_monuments": 0,
+   "n_lines": 69,
+   "n_dashed": 0,
+   "n_arcs": 11,
+   "n_labels": 156,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 15,
+    "curve_id": 1,
+    "curve_data": 0,
+    "lot": 7,
+    "area": 0,
+    "table": 0,
+    "text": 50,
+    "empty": 83
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 2,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": 0.30286,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9973,
+    "line_precision": 1.0,
+    "line_f1": 0.9986,
+    "label_assoc": 0.1333,
+    "label_classified": 0.1484,
+    "scale_consistency": 0.5,
+    "score": 0.6658
+   },
+   "seconds": 16.6,
+   "prev_score": 0.6658
+  },
+  {
+   "image": "block10_11_12_mapcheck_drawing.png",
+   "kind": "scan",
+   "size": [
+    1830,
+    2968
+   ],
+   "stroke_w": 2.74,
+   "char_h": 13.0,
+   "n_monuments": 0,
+   "n_lines": 50,
+   "n_dashed": 0,
+   "n_arcs": 5,
+   "n_labels": 241,
+   "n_verified": 8,
+   "kinds": {
+    "bearing": 0,
+    "distance": 59,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 46,
+    "area": 0,
+    "table": 0,
+    "text": 109,
+    "empty": 27
+   },
+   "calibration": {
+    "ft_per_px": 0.27696117640582324,
+    "scale_votes": 11,
+    "scale_inliers": 8,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 8
+   },
+   "qa": [
+    {
+     "label": 183,
+     "kind": "distance",
+     "text": ".10 86",
+     "measured": 98.0,
+     "written": 1086.0,
+     "diff": -988.0
+    },
+    {
+     "label": 232,
+     "kind": "distance",
+     "text": "1000",
+     "measured": 472.22,
+     "written": 1000.0,
+     "diff": -527.78
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": 0.27701,
+    "scale_correct": true,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.1864,
+    "label_classified": 0.443,
+    "scale_consistency": 1.0,
+    "score": 0.7816
+   },
+   "seconds": 20.1,
+   "prev_score": 0.7816
+  },
+  {
+   "image": "block13_mapcheck_drawing.png",
+   "kind": "render",
+   "size": [
+    4800,
+    3000
+   ],
+   "stroke_w": 3.82,
+   "char_h": 16.0,
+   "n_monuments": 2,
+   "n_lines": 65,
+   "n_dashed": 1,
+   "n_arcs": 13,
+   "n_labels": 850,
+   "n_verified": 4,
+   "kinds": {
+    "bearing": 1,
+    "distance": 95,
+    "curve_id": 1,
+    "curve_data": 4,
+    "lot": 103,
+    "area": 28,
+    "table": 10,
+    "text": 391,
+    "empty": 217
+   },
+   "calibration": {
+    "ft_per_px": 0.27491162708038247,
+    "scale_votes": 11,
+    "scale_inliers": 4,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 4
+   },
+   "qa": [
+    {
+     "label": 96,
+     "kind": "distance",
+     "text": "1509",
+     "measured": 897.46,
+     "written": 1509.0,
+     "diff": -611.54
+    },
+    {
+     "label": 240,
+     "kind": "distance",
+     "text": "77.25'",
+     "measured": 11.82,
+     "written": 77.25,
+     "diff": -65.43
+    },
+    {
+     "label": 248,
+     "kind": "distance",
+     "text": "100'",
+     "measured": 74.76,
+     "written": 100.0,
+     "diff": -25.24
+    },
+    {
+     "label": 280,
+     "kind": "distance",
+     "text": "100'",
+     "measured": 74.99,
+     "written": 100.0,
+     "diff": -25.01
+    }
+   ],
+   "curve_table": {
+    "C2": {
+     "id": "C2",
+     "raw": "C2|\\|25.09|\\|99\u00b029'|96\"|\\|39.42|\\|25.15|\\|35.46|\\|SAA\u00ae|03\"|2O\"W|L4|NO1\u00b0O1'40\"W|100|1|REAR|LINE|ON|DRAINAGE|R/W|4|\\|354.50|\\|7125.8|\\|0.1773|\\|\u00a9.00000|\\|PASS|(0.000",
+     "delta": 99.48333333333333,
+     "R": 25.09,
+     "L": 96.0,
+     "CH": 39.42,
+     "T": 25.15,
+     "consistency": 0.1882
+    }
+   },
+   "curve_blocks": [
+    {
+     "labels": [
+      169
+     ],
+     "fields": {
+      "T": 6.0
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      720.5,
+      949.5
+     ]
+    },
+    {
+     "labels": [
+      261,
+      269
+     ],
+     "fields": {
+      "T": 25.0,
+      "R": 25.0
+     },
+     "R": 25.0,
+     "delta": 90.0,
+     "derived": {
+      "delta": 90.0,
+      "L": 39.27,
+      "CH": 35.355
+     },
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      4312.0,
+      1109.2
+     ]
+    },
+    {
+     "labels": [
+      282,
+      288
+     ],
+     "fields": {
+      "T": 25.1,
+      "R": 25.0
+     },
+     "R": 25.0,
+     "delta": 90.22872536296829,
+     "derived": {
+      "delta": 90.229,
+      "L": 39.37,
+      "CH": 35.426
+     },
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      688.8,
+      1167.7
+     ]
+    },
+    {
+     "labels": [
+      441
+     ],
+     "fields": {
+      "delta": 6.027777777777778
+     },
+     "R": null,
+     "delta": 6.027777777777778,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      1505.0,
+      1940.0
+     ]
+    },
+    {
+     "labels": [
+      759
+     ],
+     "fields": {
+      "delta": 5.166666666666667
+     },
+     "R": null,
+     "delta": 5.166666666666667,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      1123.5,
+      2433.2
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": 0.27416,
+    "scale_correct": true,
+    "monument_f1": 1.0,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9947,
+    "line_precision": 0.9993,
+    "line_f1": 0.997,
+    "label_assoc": 0.125,
+    "label_classified": 0.2912,
+    "scale_consistency": 1.0,
+    "score": 0.7772
+   },
+   "seconds": 116.5,
+   "prev_score": 0.7772
+  },
+  {
+   "image": "block16_mapcheck_drawing.png",
+   "kind": "render",
+   "size": [
+    6105,
+    4165
+   ],
+   "stroke_w": 3.82,
+   "char_h": 22.0,
+   "n_monuments": 0,
+   "n_lines": 202,
+   "n_dashed": 3,
+   "n_arcs": 82,
+   "n_labels": 752,
+   "n_verified": 5,
+   "kinds": {
+    "bearing": 10,
+    "distance": 92,
+    "curve_id": 8,
+    "curve_data": 3,
+    "lot": 123,
+    "area": 12,
+    "table": 18,
+    "text": 354,
+    "empty": 132
+   },
+   "calibration": {
+    "ft_per_px": 0.17544515202337013,
+    "scale_votes": 14,
+    "scale_inliers": 5,
+    "rotation_deg": 0.0,
+    "rot_votes": 1,
+    "rot_inliers": 0,
+    "verified": 5
+   },
+   "qa": [
+    {
+     "label": 357,
+     "kind": "distance",
+     "text": "93.50'",
+     "measured": 183.85,
+     "written": 93.5,
+     "diff": 90.35
+    },
+    {
+     "label": 692,
+     "kind": "distance",
+     "text": "167.95'",
+     "measured": 45.09,
+     "written": 167.95,
+     "diff": -122.86
+    },
+    {
+     "label": 694,
+     "kind": "distance",
+     "text": "69.24",
+     "measured": 45.09,
+     "written": 69.24,
+     "diff": -24.15
+    },
+    {
+     "label": 695,
+     "kind": "distance",
+     "text": "35.12'",
+     "measured": 45.09,
+     "written": 35.12,
+     "diff": 9.97
+    },
+    {
+     "label": 696,
+     "kind": "distance",
+     "text": "68.",
+     "measured": 45.09,
+     "written": 68.0,
+     "diff": -22.91
+    }
+   ],
+   "curve_table": {
+    "C2": {
+     "id": "C2",
+     "raw": "C2|25.00'|90\u00b000'00\"|39.|25.00'|35.36'|$47\u00b024'30\"E",
+     "delta": 90.0,
+     "R": 25.0,
+     "L": 39.0,
+     "T": 25.0,
+     "CH": 35.36,
+     "consistency": 0.0018
+    },
+    "C3": {
+     "id": "C3",
+     "raw": "C3|389.27'|12\u00b034'17\"|85.41'|42.88'|85.24'|$86\u00b007'22\"E",
+     "delta": 12.571388888888889,
+     "R": 389.27,
+     "L": 85.41,
+     "consistency": 0.0
+    },
+    "C4": {
+     "id": "C4",
+     "raw": "C4|389.|12\u00b034'17\"|85.41'|42.88'|85.24'|$73\u00b033'06\"E",
+     "delta": 12.571388888888889,
+     "R": 389.0,
+     "L": 85.41,
+     "consistency": 0.0003
+    },
+    "C5": {
+     "id": "C5",
+     "raw": "C5|389.27'|12\u00b034'17\"|85.41'|42.88'|85.24'|$60\u00b058'49\"E",
+     "delta": 12.571388888888889,
+     "R": 389.27,
+     "L": 85.41,
+     "consistency": 0.0
+    },
+    "C6": {
+     "id": "C6",
+     "raw": "C6|25.00'|90\u00b000'00\"|39.|25.00'|35.36'|N80\u00b018'20\"E",
+     "delta": 90.0,
+     "R": 25.0,
+     "L": 39.0,
+     "T": 25.0,
+     "CH": 35.36,
+     "consistency": 0.0018
+    },
+    "C7": {
+     "id": "C7",
+     "raw": "C7|167.95'|23\u00b037'15\"|69.24|35.12'|68.|75'|N60\u00b018'20\"E",
+     "delta": 23.620833333333334,
+     "R": 167.95,
+     "L": 69.24,
+     "consistency": 0.0
+    }
+   },
+   "curve_blocks": [
+    {
+     "labels": [
+      433
+     ],
+     "fields": {
+      "R": 20.0
+     },
+     "R": 20.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      2636.0,
+      2043.1
+     ]
+    },
+    {
+     "labels": [
+      598
+     ],
+     "fields": {
+      "delta": 7.408333333333334
+     },
+     "R": null,
+     "delta": 7.408333333333335,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      1700.0,
+      3261.0
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": 0.17506,
+    "scale_correct": true,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9886,
+    "line_precision": 0.9994,
+    "line_f1": 0.994,
+    "label_assoc": 0.1569,
+    "label_classified": 0.3595,
+    "scale_consistency": 1.0,
+    "score": 0.764
+   },
+   "seconds": 140.3,
+   "prev_score": 0.764
+  },
+  {
+   "image": "block9_full.png",
+   "kind": "scan",
+   "size": [
+    530,
+    380
+   ],
+   "stroke_w": 1.91,
+   "char_h": 10.0,
+   "n_monuments": 0,
+   "n_lines": 61,
+   "n_dashed": 2,
+   "n_arcs": 15,
+   "n_labels": 223,
+   "n_verified": 4,
+   "kinds": {
+    "bearing": 0,
+    "distance": 31,
+    "curve_id": 1,
+    "curve_data": 1,
+    "lot": 43,
+    "area": 0,
+    "table": 0,
+    "text": 99,
+    "empty": 48
+   },
+   "calibration": {
+    "ft_per_px": 1.3268339985309097,
+    "scale_votes": 17,
+    "scale_inliers": 4,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 4
+   },
+   "qa": [
+    {
+     "label": 32,
+     "kind": "distance",
+     "text": "140\u00b0",
+     "measured": 241.94,
+     "written": 140.0,
+     "diff": 101.94
+    },
+    {
+     "label": 119,
+     "kind": "distance",
+     "text": "100\u00b0",
+     "measured": 80.42,
+     "written": 100.0,
+     "diff": -19.58
+    },
+    {
+     "label": 142,
+     "kind": "distance",
+     "text": "100\u00b0",
+     "measured": 32.3,
+     "written": 100.0,
+     "diff": -67.7
+    },
+    {
+     "label": 181,
+     "kind": "distance",
+     "text": "96\"",
+     "measured": 42.47,
+     "written": 96.0,
+     "diff": -53.53
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9524,
+    "line_precision": 0.999,
+    "line_f1": 0.9751,
+    "label_assoc": 0.6129,
+    "label_classified": 0.3439,
+    "scale_consistency": 0.2353,
+    "score": 0.7286
+   },
+   "seconds": 12.5,
+   "prev_score": 0.7286
+  },
+  {
+   "image": "block9_mapcheck_drawing.png",
+   "kind": "render",
+   "size": [
+    3200,
+    2400
+   ],
+   "stroke_w": 3.82,
+   "char_h": 24.0,
+   "n_monuments": 1,
+   "n_lines": 72,
+   "n_dashed": 0,
+   "n_arcs": 4,
+   "n_labels": 166,
+   "n_verified": 3,
+   "kinds": {
+    "bearing": 0,
+    "distance": 30,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 25,
+    "area": 18,
+    "table": 0,
+    "text": 68,
+    "empty": 25
+   },
+   "calibration": {
+    "ft_per_px": 0.19710458580717338,
+    "scale_votes": 11,
+    "scale_inliers": 3,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 3
+   },
+   "qa": [
+    {
+     "label": 50,
+     "kind": "distance",
+     "text": "108 2",
+     "measured": 106.96,
+     "written": 1082.0,
+     "diff": -975.04
+    },
+    {
+     "label": 60,
+     "kind": "distance",
+     "text": "115.0'",
+     "measured": 108.86,
+     "written": 115.0,
+     "diff": -6.14
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": 0.1995,
+    "scale_correct": true,
+    "monument_f1": 1.0,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9999,
+    "line_precision": 0.9994,
+    "line_f1": 0.9996,
+    "label_assoc": 0.3667,
+    "label_classified": 0.462,
+    "scale_consistency": 1.0,
+    "score": 0.8374
+   },
+   "seconds": 49.8,
+   "prev_score": 0.8374
+  },
+  {
+   "image": "block9_ne.png",
+   "kind": "scan",
+   "size": [
+    370,
+    260
+   ],
+   "stroke_w": 1.91,
+   "char_h": 11.0,
+   "n_monuments": 0,
+   "n_lines": 20,
+   "n_dashed": 1,
+   "n_arcs": 4,
+   "n_labels": 77,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 14,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 15,
+    "area": 0,
+    "table": 0,
+    "text": 28,
+    "empty": 20
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 9,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9628,
+    "line_precision": 0.9982,
+    "line_f1": 0.9802,
+    "label_assoc": 0.7143,
+    "label_classified": 0.3766,
+    "scale_consistency": null,
+    "score": 0.7196
+   },
+   "seconds": 3.9,
+   "prev_score": 0.7196
+  },
+  {
+   "image": "block9_nw.png",
+   "kind": "scan",
+   "size": [
+    270,
+    270
+   ],
+   "stroke_w": 1.91,
+   "char_h": 9.0,
+   "n_monuments": 0,
+   "n_lines": 35,
+   "n_dashed": 0,
+   "n_arcs": 6,
+   "n_labels": 99,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 13,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 19,
+    "area": 0,
+    "table": 0,
+    "text": 58,
+    "empty": 9
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 9,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      0
+     ],
+     "fields": {
+      "R": 2.0
+     },
+     "R": 2.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 2,
+     "center": [
+      157.9,
+      13.0
+     ]
+    },
+    {
+     "labels": [
+      19
+     ],
+     "fields": {
+      "delta": 9.0
+     },
+     "R": null,
+     "delta": 9.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 1,
+     "center": [
+      58.4,
+      84.0
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.839,
+    "line_precision": 1.0,
+    "line_f1": 0.9125,
+    "label_assoc": 0.6923,
+    "label_classified": 0.3232,
+    "scale_consistency": null,
+    "score": 0.6726
+   },
+   "seconds": 6.1,
+   "prev_score": 0.6726
+  },
+  {
+   "image": "block9_se.png",
+   "kind": "scan",
+   "size": [
+    330,
+    260
+   ],
+   "stroke_w": 1.91,
+   "char_h": 13.5,
+   "n_monuments": 0,
+   "n_lines": 12,
+   "n_dashed": 3,
+   "n_arcs": 3,
+   "n_labels": 79,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 6,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 15,
+    "area": 0,
+    "table": 0,
+    "text": 28,
+    "empty": 30
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 3,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 0.9819,
+    "line_f1": 0.9909,
+    "label_assoc": 0.5,
+    "label_classified": 0.2763,
+    "scale_consistency": null,
+    "score": 0.6726
+   },
+   "seconds": 3.9,
+   "prev_score": 0.6726
+  },
+  {
+   "image": "block9_sw.png",
+   "kind": "scan",
+   "size": [
+    320,
+    200
+   ],
+   "stroke_w": 1.91,
+   "char_h": 10.0,
+   "n_monuments": 0,
+   "n_lines": 32,
+   "n_dashed": 0,
+   "n_arcs": 3,
+   "n_labels": 100,
+   "n_verified": 2,
+   "kinds": {
+    "bearing": 0,
+    "distance": 17,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 17,
+    "area": 0,
+    "table": 0,
+    "text": 55,
+    "empty": 11
+   },
+   "calibration": {
+    "ft_per_px": 1.7956381258943765,
+    "scale_votes": 11,
+    "scale_inliers": 2,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 2
+   },
+   "qa": [
+    {
+     "label": 7,
+     "kind": "distance",
+     "text": "100\u00b0",
+     "measured": 71.18,
+     "written": 100.0,
+     "diff": -28.82
+    },
+    {
+     "label": 87,
+     "kind": "distance",
+     "text": "50\",",
+     "measured": 71.83,
+     "written": 50.0,
+     "diff": 21.83
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.8992,
+    "line_precision": 1.0,
+    "line_f1": 0.9469,
+    "label_assoc": 0.6471,
+    "label_classified": 0.34,
+    "scale_consistency": 0.1818,
+    "score": 0.7115
+   },
+   "seconds": 6.3,
+   "prev_score": 0.7115
+  },
+  {
+   "image": "block_mid_band.png",
+   "kind": "scan",
+   "size": [
+    4000,
+    360
+   ],
+   "stroke_w": 5.73,
+   "char_h": 30.0,
+   "n_monuments": 0,
+   "n_lines": 59,
+   "n_dashed": 3,
+   "n_arcs": 10,
+   "n_labels": 139,
+   "n_verified": 5,
+   "kinds": {
+    "bearing": 0,
+    "distance": 29,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 34,
+    "area": 0,
+    "table": 1,
+    "text": 55,
+    "empty": 20
+   },
+   "calibration": {
+    "ft_per_px": 0.35440702487914927,
+    "scale_votes": 24,
+    "scale_inliers": 5,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 5
+   },
+   "qa": [
+    {
+     "label": 5,
+     "kind": "distance",
+     "text": "100.74",
+     "measured": 79.13,
+     "written": 100.74,
+     "diff": -21.61
+    },
+    {
+     "label": 11,
+     "kind": "distance",
+     "text": "108.13\" :",
+     "measured": 83.27,
+     "written": 108.13,
+     "diff": -24.86
+    },
+    {
+     "label": 23,
+     "kind": "distance",
+     "text": "81.03\".",
+     "measured": 11.38,
+     "written": 81.03,
+     "diff": -69.65
+    },
+    {
+     "label": 83,
+     "kind": "distance",
+     "text": "\u2014-66.85\"",
+     "measured": 26.25,
+     "written": 66.85,
+     "diff": -40.6
+    },
+    {
+     "label": 86,
+     "kind": "distance",
+     "text": "115\u00b0",
+     "measured": 83.22,
+     "written": 115.0,
+     "diff": -31.78
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      41
+     ],
+     "fields": {
+      "delta": 3.0
+     },
+     "R": null,
+     "delta": 3.0000000000000004,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 0,
+     "center": [
+      1290.9,
+      153.0
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9724,
+    "line_precision": 0.9997,
+    "line_f1": 0.9859,
+    "label_assoc": 0.8621,
+    "label_classified": 0.4812,
+    "scale_consistency": 0.2083,
+    "score": 0.794
+   },
+   "seconds": 12.9,
+   "prev_score": 0.794
+  },
+  {
+   "image": "block_strip.png",
+   "kind": "scan",
+   "size": [
+    4000,
+    1200
+   ],
+   "stroke_w": 5.73,
+   "char_h": 30.0,
+   "n_monuments": 2,
+   "n_lines": 135,
+   "n_dashed": 4,
+   "n_arcs": 32,
+   "n_labels": 447,
+   "n_verified": 43,
+   "kinds": {
+    "bearing": 11,
+    "distance": 107,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 82,
+    "area": 1,
+    "table": 3,
+    "text": 170,
+    "empty": 73
+   },
+   "calibration": {
+    "ft_per_px": 0.33494748163895893,
+    "scale_votes": 76,
+    "scale_inliers": 32,
+    "rotation_deg": -2.817395785746612,
+    "rot_votes": 11,
+    "rot_inliers": 11,
+    "verified": 43
+   },
+   "qa": [
+    {
+     "label": 1,
+     "kind": "distance",
+     "text": "100\u00b0",
+     "measured": 54.71,
+     "written": 100.0,
+     "diff": -45.29
+    },
+    {
+     "label": 17,
+     "kind": "distance",
+     "text": "/00",
+     "measured": 53.34,
+     "written": 100.0,
+     "diff": -46.66
+    },
+    {
+     "label": 27,
+     "kind": "distance",
+     "text": "196",
+     "measured": 63.03,
+     "written": 196.0,
+     "diff": -132.97
+    },
+    {
+     "label": 29,
+     "kind": "distance",
+     "text": "90\u00b0",
+     "measured": 133.53,
+     "written": 90.0,
+     "diff": 43.53
+    },
+    {
+     "label": 62,
+     "kind": "distance",
+     "text": "59.50\u00b0",
+     "measured": 51.72,
+     "written": 59.5,
+     "diff": -7.78
+    },
+    {
+     "label": 138,
+     "kind": "distance",
+     "text": "15,",
+     "measured": 27.8,
+     "written": 15.0,
+     "diff": 12.8
+    },
+    {
+     "label": 140,
+     "kind": "distance",
+     "text": "/00\u00b0",
+     "measured": 87.43,
+     "written": 100.0,
+     "diff": -12.57
+    },
+    {
+     "label": 224,
+     "kind": "distance",
+     "text": "\u2014-66. 85\"",
+     "measured": 24.77,
+     "written": 66.85,
+     "diff": -42.08
+    },
+    {
+     "label": 228,
+     "kind": "distance",
+     "text": "-88.50.",
+     "measured": 176.33,
+     "written": 88.5,
+     "diff": 87.83
+    },
+    {
+     "label": 252,
+     "kind": "distance",
+     "text": "66.86%",
+     "measured": 26.81,
+     "written": 66.86,
+     "diff": -40.05
+    },
+    {
+     "label": 329,
+     "kind": "distance",
+     "text": "76.78\u00b0",
+     "measured": 68.63,
+     "written": 76.78,
+     "diff": -8.15
+    },
+    {
+     "label": 423,
+     "kind": "distance",
+     "text": "78\u00b0",
+     "measured": 59.05,
+     "written": 78.0,
+     "diff": -18.95
+    },
+    {
+     "label": 424,
+     "kind": "distance",
+     "text": "62.5\"",
+     "measured": 26.37,
+     "written": 62.5,
+     "diff": -36.13
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      253
+     ],
+     "fields": {
+      "delta": 4.0
+     },
+     "R": null,
+     "delta": 4.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 17,
+     "center": [
+      798.6,
+      810.9
+     ]
+    },
+    {
+     "labels": [
+      384
+     ],
+     "fields": {
+      "delta": 36.0
+     },
+     "R": null,
+     "delta": 36.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 24,
+     "center": [
+      940.4,
+      1082.3
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9977,
+    "line_precision": 0.9968,
+    "line_f1": 0.9972,
+    "label_assoc": 0.8051,
+    "label_classified": 0.4636,
+    "scale_consistency": 0.4211,
+    "score": 0.819
+   },
+   "seconds": 52.2,
+   "prev_score": 0.819
+  },
+  {
+   "image": "block_strip_small.png",
+   "kind": "scan",
+   "size": [
+    2000,
+    600
+   ],
+   "stroke_w": 3.82,
+   "char_h": 15.0,
+   "n_monuments": 1,
+   "n_lines": 132,
+   "n_dashed": 0,
+   "n_arcs": 24,
+   "n_labels": 434,
+   "n_verified": 36,
+   "kinds": {
+    "bearing": 10,
+    "distance": 102,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 85,
+    "area": 0,
+    "table": 0,
+    "text": 178,
+    "empty": 59
+   },
+   "calibration": {
+    "ft_per_px": 0.6649598255161225,
+    "scale_votes": 70,
+    "scale_inliers": 26,
+    "rotation_deg": -2.691297779677029,
+    "rot_votes": 10,
+    "rot_inliers": 10,
+    "verified": 36
+   },
+   "qa": [
+    {
+     "label": 1,
+     "kind": "distance",
+     "text": "700\u00b0",
+     "measured": 54.9,
+     "written": 700.0,
+     "diff": -645.1
+    },
+    {
+     "label": 14,
+     "kind": "distance",
+     "text": "100",
+     "measured": 53.09,
+     "written": 100.0,
+     "diff": -46.91
+    },
+    {
+     "label": 27,
+     "kind": "distance",
+     "text": "196",
+     "measured": 63.14,
+     "written": 196.0,
+     "diff": -132.86
+    },
+    {
+     "label": 33,
+     "kind": "distance",
+     "text": "166.73'",
+     "measured": 115.91,
+     "written": 166.73,
+     "diff": -50.82
+    },
+    {
+     "label": 58,
+     "kind": "distance",
+     "text": "59.50\u00b0",
+     "measured": 50.9,
+     "written": 59.5,
+     "diff": -8.6
+    },
+    {
+     "label": 132,
+     "kind": "distance",
+     "text": "15;",
+     "measured": 28.37,
+     "written": 15.0,
+     "diff": 13.37
+    },
+    {
+     "label": 219,
+     "kind": "distance",
+     "text": "~-66. 85\"",
+     "measured": 87.11,
+     "written": 66.85,
+     "diff": 20.26
+    },
+    {
+     "label": 271,
+     "kind": "distance",
+     "text": "116.28!",
+     "measured": 90.06,
+     "written": 116.28,
+     "diff": -26.22
+    },
+    {
+     "label": 279,
+     "kind": "distance",
+     "text": "30\"",
+     "measured": 26.24,
+     "written": 30.0,
+     "diff": -3.76
+    },
+    {
+     "label": 377,
+     "kind": "distance",
+     "text": "125\u00b0",
+     "measured": 109.61,
+     "written": 125.0,
+     "diff": -15.39
+    },
+    {
+     "label": 393,
+     "kind": "distance",
+     "text": "20\u00b0,",
+     "measured": 35.0,
+     "written": 20.0,
+     "diff": 15.0
+    },
+    {
+     "label": 414,
+     "kind": "distance",
+     "text": "75\u00b0",
+     "measured": 58.4,
+     "written": 75.0,
+     "diff": -16.6
+    },
+    {
+     "label": 418,
+     "kind": "distance",
+     "text": "89.76:",
+     "measured": 69.87,
+     "written": 89.76,
+     "diff": -19.89
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      6
+     ],
+     "fields": {
+      "delta": 19.333333333333332
+     },
+     "R": null,
+     "delta": 19.333333333333336,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      781.7,
+      56.2
+     ]
+    },
+    {
+     "labels": [
+      17
+     ],
+     "fields": {
+      "delta": 3.0
+     },
+     "R": null,
+     "delta": 3.0000000000000004,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 1,
+     "center": [
+      1055.2,
+      41.2
+     ]
+    },
+    {
+     "labels": [
+      182
+     ],
+     "fields": {
+      "delta": 3.0
+     },
+     "R": null,
+     "delta": 3.0000000000000004,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 6,
+     "center": [
+      645.4,
+      286.6
+     ]
+    },
+    {
+     "labels": [
+      241
+     ],
+     "fields": {
+      "delta": 3.1333333333333333
+     },
+     "R": null,
+     "delta": 3.1333333333333333,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 1,
+     "center": [
+      1492.7,
+      412.1
+     ]
+    },
+    {
+     "labels": [
+      85
+     ],
+     "fields": {
+      "delta": 37.71,
+      "T": 122.7
+     },
+     "source": "dewarp",
+     "verified_by": "arc",
+     "n_reads": 5,
+     "arc": 8,
+     "R": 359.29795718656504,
+     "delta": 37.71,
+     "derived": {
+      "R": 359.298,
+      "L": 236.477,
+      "CH": 232.232
+     },
+     "consistent": false,
+     "check": null,
+     "center": [
+      701.5,
+      144.6
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9914,
+    "line_precision": 1.0,
+    "line_f1": 0.9957,
+    "label_assoc": 0.7768,
+    "label_classified": 0.4646,
+    "scale_consistency": 0.3714,
+    "score": 0.8052
+   },
+   "seconds": 34.7,
+   "prev_score": 0.8052
+  },
+  {
+   "image": "bot_23_zoom.png",
+   "kind": "scan",
+   "size": [
+    440,
+    400
+   ],
+   "stroke_w": 5.73,
+   "char_h": 29.0,
+   "n_monuments": 0,
+   "n_lines": 4,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 26,
+   "n_verified": 2,
+   "kinds": {
+    "bearing": 0,
+    "distance": 4,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 10,
+    "area": 0,
+    "table": 0,
+    "text": 9,
+    "empty": 3
+   },
+   "calibration": {
+    "ft_per_px": 0.46312194433543746,
+    "scale_votes": 2,
+    "scale_inliers": 2,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 2
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.5,
+    "label_classified": 0.5385,
+    "scale_consistency": 1.0,
+    "score": 0.8538
+   },
+   "seconds": 2.4,
+   "prev_score": 0.8538
+  },
+  {
+   "image": "bot_right_23_zoom.png",
+   "kind": "scan",
+   "size": [
+    290,
+    250
+   ],
+   "stroke_w": 5.73,
+   "char_h": 28.0,
+   "n_monuments": 0,
+   "n_lines": 3,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 12,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 1,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 2,
+    "area": 0,
+    "table": 0,
+    "text": 4,
+    "empty": 5
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 1,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 1.0,
+    "label_classified": 0.25,
+    "scale_consistency": null,
+    "score": 0.775
+   },
+   "seconds": 1.9,
+   "prev_score": 0.775
+  },
+  {
+   "image": "centerline-curve-data.png",
+   "kind": "scan",
+   "size": [
+    367,
+    173
+   ],
+   "stroke_w": 3.82,
+   "char_h": 15.0,
+   "n_monuments": 0,
+   "n_lines": 5,
+   "n_dashed": 0,
+   "n_arcs": 2,
+   "n_labels": 43,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 7,
+    "curve_id": 0,
+    "curve_data": 2,
+    "lot": 9,
+    "area": 0,
+    "table": 0,
+    "text": 19,
+    "empty": 6
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 4,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      26
+     ],
+     "fields": {
+      "R": 269.5
+     },
+     "R": 269.5,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 0,
+     "center": [
+      201.5,
+      120.5
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.5714,
+    "label_classified": 0.4186,
+    "scale_consistency": null,
+    "score": 0.7061
+   },
+   "seconds": 9.8,
+   "prev_score": 0.7061
+  },
+  {
+   "image": "circle1.png",
+   "kind": "scan",
+   "size": [
+    250,
+    250
+   ],
+   "stroke_w": 5.73,
+   "char_h": 34.5,
+   "n_monuments": 0,
+   "n_lines": 3,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 6,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 0,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 1,
+    "area": 0,
+    "table": 0,
+    "text": 5,
+    "empty": 0
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 0,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": null,
+    "label_classified": 0.1667,
+    "scale_consistency": null,
+    "score": 0.8417
+   },
+   "seconds": 1.3,
+   "prev_score": 0.8417
+  },
+  {
+   "image": "circle2.png",
+   "kind": "scan",
+   "size": [
+    250,
+    250
+   ],
+   "stroke_w": 5.73,
+   "char_h": 32.0,
+   "n_monuments": 0,
+   "n_lines": 3,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 5,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 1,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 1,
+    "area": 0,
+    "table": 0,
+    "text": 2,
+    "empty": 1
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 0,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 1.0,
+    "label_classified": 0.4,
+    "scale_consistency": null,
+    "score": 0.79
+   },
+   "seconds": 1.6,
+   "prev_score": 0.79
+  },
+  {
+   "image": "corner_ne9.png",
+   "kind": "scan",
+   "size": [
+    250,
+    250
+   ],
+   "stroke_w": 7.39,
+   "char_h": 36.0,
+   "n_monuments": 0,
+   "n_lines": 1,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 7,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 2,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 2,
+    "area": 0,
+    "table": 0,
+    "text": 1,
+    "empty": 2
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 0,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.0,
+    "label_classified": 0.5714,
+    "scale_consistency": null,
+    "score": 0.6071
+   },
+   "seconds": 1.4,
+   "prev_score": 0.6071
+  },
+  {
+   "image": "corner_nw24.png",
+   "kind": "scan",
+   "size": [
+    250,
+    200
+   ],
+   "stroke_w": 5.73,
+   "char_h": 33.0,
+   "n_monuments": 0,
+   "n_lines": 1,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 5,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 1,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 1,
+    "area": 0,
+    "table": 0,
+    "text": 0,
+    "empty": 3
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 0,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.0,
+    "label_classified": 0.6667,
+    "scale_consistency": null,
+    "score": 0.6167
+   },
+   "seconds": 1.2,
+   "prev_score": 0.6167
+  },
+  {
+   "image": "corner_se10.png",
+   "kind": "scan",
+   "size": [
+    250,
+    250
+   ],
+   "stroke_w": 7.64,
+   "char_h": 45.5,
+   "n_monuments": 0,
+   "n_lines": 0,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 9,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 2,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 4,
+    "area": 0,
+    "table": 0,
+    "text": 2,
+    "empty": 1
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 0,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.0,
+    "label_classified": 0.6667,
+    "scale_consistency": null,
+    "score": 0.6167
+   },
+   "seconds": 1.4,
+   "prev_score": 0.6167
+  },
+  {
+   "image": "corner_sw23.png",
+   "kind": "scan",
+   "size": [
+    250,
+    250
+   ],
+   "stroke_w": 5.73,
+   "char_h": 31.0,
+   "n_monuments": 0,
+   "n_lines": 0,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 8,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 1,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 2,
+    "area": 0,
+    "table": 0,
+    "text": 4,
+    "empty": 1
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 0,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.0,
+    "label_classified": 0.375,
+    "scale_consistency": null,
+    "score": 0.5875
+   },
+   "seconds": 1.4,
+   "prev_score": 0.5875
+  },
+  {
+   "image": "crop_block6.png",
+   "kind": "scan",
+   "size": [
+    558,
+    438
+   ],
+   "stroke_w": 1.91,
+   "char_h": 11.0,
+   "n_monuments": 0,
+   "n_lines": 128,
+   "n_dashed": 0,
+   "n_arcs": 9,
+   "n_labels": 249,
+   "n_verified": 5,
+   "kinds": {
+    "bearing": 0,
+    "distance": 38,
+    "curve_id": 0,
+    "curve_data": 1,
+    "lot": 41,
+    "area": 0,
+    "table": 0,
+    "text": 128,
+    "empty": 41
+   },
+   "calibration": {
+    "ft_per_px": 1.057406804630517,
+    "scale_votes": 25,
+    "scale_inliers": 5,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 5
+   },
+   "qa": [
+    {
+     "label": 11,
+     "kind": "distance",
+     "text": "40",
+     "measured": 47.44,
+     "written": 40.0,
+     "diff": 7.44
+    },
+    {
+     "label": 61,
+     "kind": "distance",
+     "text": "49",
+     "measured": 77.19,
+     "written": 49.0,
+     "diff": 28.19
+    },
+    {
+     "label": 63,
+     "kind": "distance",
+     "text": "700\u00b0",
+     "measured": 92.2,
+     "written": 700.0,
+     "diff": -607.8
+    },
+    {
+     "label": 94,
+     "kind": "distance",
+     "text": "1007",
+     "measured": 215.57,
+     "written": 1007.0,
+     "diff": -791.43
+    },
+    {
+     "label": 161,
+     "kind": "distance",
+     "text": "60\u00b0",
+     "measured": 51.04,
+     "written": 60.0,
+     "diff": -8.96
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9721,
+    "line_precision": 1.0,
+    "line_f1": 0.9858,
+    "label_assoc": 0.6842,
+    "label_classified": 0.3226,
+    "scale_consistency": 0.2,
+    "score": 0.7413
+   },
+   "seconds": 18.3,
+   "prev_score": 0.7413
+  },
+  {
+   "image": "crop_block_lots23_24.png",
+   "kind": "scan",
+   "size": [
+    1600,
+    2000
+   ],
+   "stroke_w": 5.73,
+   "char_h": 29.0,
+   "n_monuments": 2,
+   "n_lines": 79,
+   "n_dashed": 0,
+   "n_arcs": 23,
+   "n_labels": 316,
+   "n_verified": 31,
+   "kinds": {
+    "bearing": 7,
+    "distance": 72,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 59,
+    "area": 1,
+    "table": 1,
+    "text": 116,
+    "empty": 60
+   },
+   "calibration": {
+    "ft_per_px": 0.3345561923141913,
+    "scale_votes": 49,
+    "scale_inliers": 24,
+    "rotation_deg": -2.2250510570293045,
+    "rot_votes": 7,
+    "rot_inliers": 7,
+    "verified": 31
+   },
+   "qa": [
+    {
+     "label": 2,
+     "kind": "distance",
+     "text": "100\u00b0",
+     "measured": 54.64,
+     "written": 100.0,
+     "diff": -45.36
+    },
+    {
+     "label": 5,
+     "kind": "distance",
+     "text": "100",
+     "measured": 53.29,
+     "written": 100.0,
+     "diff": -46.71
+    },
+    {
+     "label": 8,
+     "kind": "distance",
+     "text": "90'",
+     "measured": 62.96,
+     "written": 90.0,
+     "diff": -27.04
+    },
+    {
+     "label": 23,
+     "kind": "distance",
+     "text": "85.2",
+     "measured": 59.38,
+     "written": 85.2,
+     "diff": -25.82
+    },
+    {
+     "label": 146,
+     "kind": "distance",
+     "text": "76.78\u00b0",
+     "measured": 66.01,
+     "written": 76.78,
+     "diff": -10.77
+    },
+    {
+     "label": 181,
+     "kind": "distance",
+     "text": "89.76",
+     "measured": 103.9,
+     "written": 89.76,
+     "diff": 14.14
+    },
+    {
+     "label": 183,
+     "kind": "distance",
+     "text": "400\u00b0",
+     "measured": 99.69,
+     "written": 400.0,
+     "diff": -300.31
+    },
+    {
+     "label": 226,
+     "kind": "distance",
+     "text": "60!",
+     "measured": 69.52,
+     "written": 60.0,
+     "diff": 9.52
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      104
+     ],
+     "fields": {
+      "delta": 4.0
+     },
+     "R": null,
+     "delta": 4.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 3,
+     "center": [
+      1198.6,
+      810.9
+     ]
+    },
+    {
+     "labels": [
+      268
+     ],
+     "fields": {
+      "delta": 9.0
+     },
+     "R": null,
+     "delta": 9.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 19,
+     "center": [
+      1439.7,
+      1807.1
+     ]
+    },
+    {
+     "labels": [
+      307
+     ],
+     "fields": {
+      "delta": 36.333333333333336
+     },
+     "R": null,
+     "delta": 36.333333333333336,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 18,
+     "center": [
+      1107.2,
+      1967.8
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9987,
+    "line_precision": 1.0,
+    "line_f1": 0.9993,
+    "label_assoc": 0.7595,
+    "label_classified": 0.4531,
+    "scale_consistency": 0.4898,
+    "score": 0.8203
+   },
+   "seconds": 41.9,
+   "prev_score": 0.8203
+  },
+  {
+   "image": "crop_block_lots9_10.png",
+   "kind": "scan",
+   "size": [
+    1200,
+    1400
+   ],
+   "stroke_w": 5.73,
+   "char_h": 32.5,
+   "n_monuments": 1,
+   "n_lines": 41,
+   "n_dashed": 1,
+   "n_arcs": 12,
+   "n_labels": 96,
+   "n_verified": 11,
+   "kinds": {
+    "bearing": 0,
+    "distance": 28,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 18,
+    "area": 0,
+    "table": 0,
+    "text": 29,
+    "empty": 21
+   },
+   "calibration": {
+    "ft_per_px": 0.33223754684483464,
+    "scale_votes": 22,
+    "scale_inliers": 11,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 11
+   },
+   "qa": [
+    {
+     "label": 2,
+     "kind": "distance",
+     "text": "100\u00b0",
+     "measured": 68.27,
+     "written": 100.0,
+     "diff": -31.73
+    },
+    {
+     "label": 39,
+     "kind": "distance",
+     "text": "10",
+     "measured": 19.83,
+     "written": 10.0,
+     "diff": 9.83
+    },
+    {
+     "label": 83,
+     "kind": "distance",
+     "text": "87.05\u00b0",
+     "measured": 76.79,
+     "written": 87.05,
+     "diff": -10.26
+    },
+    {
+     "label": 85,
+     "kind": "distance",
+     "text": "105.97'",
+     "measured": 76.33,
+     "written": 105.97,
+     "diff": -29.64
+    },
+    {
+     "label": 87,
+     "kind": "distance",
+     "text": "90\u00b0",
+     "measured": 75.55,
+     "written": 90.0,
+     "diff": -14.45
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      82
+     ],
+     "fields": {
+      "delta": 30.0
+     },
+     "R": null,
+     "delta": 29.999999999999996,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      50.9,
+      1299.5
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 0.9997,
+    "line_f1": 0.9999,
+    "label_assoc": 0.7857,
+    "label_classified": 0.5,
+    "scale_consistency": 0.5,
+    "score": 0.8321
+   },
+   "seconds": 7.9,
+   "prev_score": 0.8321
+  },
+  {
+   "image": "crop_lot23_24_detail.png",
+   "kind": "scan",
+   "size": [
+    900,
+    1300
+   ],
+   "stroke_w": 5.73,
+   "char_h": 29.0,
+   "n_monuments": 2,
+   "n_lines": 42,
+   "n_dashed": 0,
+   "n_arcs": 8,
+   "n_labels": 145,
+   "n_verified": 18,
+   "kinds": {
+    "bearing": 5,
+    "distance": 36,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 28,
+    "area": 0,
+    "table": 0,
+    "text": 47,
+    "empty": 29
+   },
+   "calibration": {
+    "ft_per_px": 0.3366379979964488,
+    "scale_votes": 25,
+    "scale_inliers": 13,
+    "rotation_deg": -2.8613813962393806,
+    "rot_votes": 5,
+    "rot_inliers": 5,
+    "verified": 18
+   },
+   "qa": [
+    {
+     "label": 6,
+     "kind": "distance",
+     "text": "93.50'",
+     "measured": 78.23,
+     "written": 93.5,
+     "diff": -15.27
+    },
+    {
+     "label": 82,
+     "kind": "distance",
+     "text": "80\u00b0",
+     "measured": 96.52,
+     "written": 80.0,
+     "diff": 16.52
+    },
+    {
+     "label": 118,
+     "kind": "distance",
+     "text": "100\u00b0",
+     "measured": 89.29,
+     "written": 100.0,
+     "diff": -10.71
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      61
+     ],
+     "fields": {
+      "delta": 4.0
+     },
+     "R": null,
+     "delta": 4.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 2,
+     "center": [
+      598.6,
+      710.9
+     ]
+    },
+    {
+     "labels": [
+      99
+     ],
+     "fields": {
+      "delta": 36.0
+     },
+     "R": null,
+     "delta": 36.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 5,
+     "center": [
+      740.4,
+      982.3
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": 0.3375,
+    "scale_correct": true,
+    "monument_f1": 1.0,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.7561,
+    "label_classified": 0.4929,
+    "scale_consistency": 1.0,
+    "score": 0.9105
+   },
+   "seconds": 19.4,
+   "prev_score": 0.9105
+  },
+  {
+   "image": "crop_lot23_24_wide.png",
+   "kind": "scan",
+   "size": [
+    1500,
+    1900
+   ],
+   "stroke_w": 5.73,
+   "char_h": 29.0,
+   "n_monuments": 2,
+   "n_lines": 82,
+   "n_dashed": 0,
+   "n_arcs": 23,
+   "n_labels": 321,
+   "n_verified": 28,
+   "kinds": {
+    "bearing": 7,
+    "distance": 72,
+    "curve_id": 0,
+    "curve_data": 1,
+    "lot": 65,
+    "area": 1,
+    "table": 1,
+    "text": 116,
+    "empty": 58
+   },
+   "calibration": {
+    "ft_per_px": 0.3348889352004123,
+    "scale_votes": 44,
+    "scale_inliers": 21,
+    "rotation_deg": -2.8613813962393806,
+    "rot_votes": 7,
+    "rot_inliers": 7,
+    "verified": 28
+   },
+   "qa": [
+    {
+     "label": 12,
+     "kind": "distance",
+     "text": "100\u00b0",
+     "measured": 87.94,
+     "written": 100.0,
+     "diff": -12.06
+    },
+    {
+     "label": 159,
+     "kind": "distance",
+     "text": "76.78\u00b0",
+     "measured": 68.62,
+     "written": 76.78,
+     "diff": -8.16
+    },
+    {
+     "label": 213,
+     "kind": "distance",
+     "text": "89.76\"",
+     "measured": 106.21,
+     "written": 89.76,
+     "diff": 16.45
+    },
+    {
+     "label": 264,
+     "kind": "distance",
+     "text": "60!",
+     "measured": 69.59,
+     "written": 60.0,
+     "diff": 9.59
+    },
+    {
+     "label": 287,
+     "kind": "distance",
+     "text": "96.80\u00b0",
+     "measured": 86.37,
+     "written": 96.8,
+     "diff": -10.43
+    },
+    {
+     "label": 300,
+     "kind": "distance",
+     "text": "/00\u00b0",
+     "measured": 83.75,
+     "written": 100.0,
+     "diff": -16.25
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      52
+     ],
+     "fields": {
+      "R": 359.0
+     },
+     "R": 359.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 5,
+     "center": [
+      1392.0,
+      379.8
+     ]
+    },
+    {
+     "labels": [
+      120
+     ],
+     "fields": {
+      "delta": 4.0
+     },
+     "R": null,
+     "delta": 4.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 6,
+     "center": [
+      998.6,
+      910.9
+     ]
+    },
+    {
+     "labels": [
+      180
+     ],
+     "fields": {
+      "delta": 36.0
+     },
+     "R": null,
+     "delta": 36.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 10,
+     "center": [
+      1140.4,
+      1182.3
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9961,
+    "line_precision": 1.0,
+    "line_f1": 0.9981,
+    "label_assoc": 0.7468,
+    "label_classified": 0.4667,
+    "scale_consistency": 0.4773,
+    "score": 0.8166
+   },
+   "seconds": 40.2,
+   "prev_score": 0.8166
+  },
+  {
+   "image": "crop_lot9_10_large.png",
+   "kind": "scan",
+   "size": [
+    1500,
+    1600
+   ],
+   "stroke_w": 5.73,
+   "char_h": 32.0,
+   "n_monuments": 1,
+   "n_lines": 65,
+   "n_dashed": 7,
+   "n_arcs": 12,
+   "n_labels": 146,
+   "n_verified": 11,
+   "kinds": {
+    "bearing": 0,
+    "distance": 31,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 35,
+    "area": 0,
+    "table": 0,
+    "text": 49,
+    "empty": 31
+   },
+   "calibration": {
+    "ft_per_px": 0.3354609902837132,
+    "scale_votes": 27,
+    "scale_inliers": 11,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 11
+   },
+   "qa": [
+    {
+     "label": 16,
+     "kind": "distance",
+     "text": "400\u00b0",
+     "measured": 136.02,
+     "written": 400.0,
+     "diff": -263.98
+    },
+    {
+     "label": 23,
+     "kind": "distance",
+     "text": "795\u00b0",
+     "measured": 20.59,
+     "written": 795.0,
+     "diff": -774.41
+    },
+    {
+     "label": 93,
+     "kind": "distance",
+     "text": "75\u00b0",
+     "measured": 58.24,
+     "written": 75.0,
+     "diff": -16.76
+    },
+    {
+     "label": 134,
+     "kind": "distance",
+     "text": "90\u00b0",
+     "measured": 76.32,
+     "written": 90.0,
+     "diff": -13.68
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9874,
+    "line_precision": 0.9998,
+    "line_f1": 0.9936,
+    "label_assoc": 0.9355,
+    "label_classified": 0.4818,
+    "scale_consistency": 0.4074,
+    "score": 0.8429
+   },
+   "seconds": 12.0,
+   "prev_score": 0.8429
+  },
+  {
+   "image": "dxf_preview.png",
+   "kind": "render",
+   "size": [
+    2400,
+    1500
+   ],
+   "stroke_w": 1.91,
+   "char_h": 12.0,
+   "n_monuments": 0,
+   "n_lines": 27,
+   "n_dashed": 0,
+   "n_arcs": 10,
+   "n_labels": 137,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 2,
+    "distance": 17,
+    "curve_id": 1,
+    "curve_data": 9,
+    "lot": 11,
+    "area": 8,
+    "table": 0,
+    "text": 80,
+    "empty": 9
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 2,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 1,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      51
+     ],
+     "fields": {
+      "R": 25.0
+     },
+     "R": 25.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      1738.5,
+      268.0
+     ]
+    },
+    {
+     "labels": [
+      53
+     ],
+     "fields": {
+      "L": 38.67
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 7,
+     "center": [
+      1834.5,
+      267.9
+     ]
+    },
+    {
+     "labels": [
+      54
+     ],
+     "fields": {
+      "R": 25.0
+     },
+     "R": 25.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 5,
+     "center": [
+      528.5,
+      275.9
+     ]
+    },
+    {
+     "labels": [
+      55
+     ],
+     "fields": {
+      "L": 37.0
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 5,
+     "center": [
+      594.5,
+      275.9
+     ]
+    },
+    {
+     "labels": [
+      93
+     ],
+     "fields": {
+      "R": 1959.86
+     },
+     "R": 1959.86,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      879.0,
+      750.0
+     ]
+    },
+    {
+     "labels": [
+      125
+     ],
+     "fields": {
+      "R": 25.0
+     },
+     "R": 25.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      1770.0,
+      1238.0
+     ]
+    },
+    {
+     "labels": [
+      126
+     ],
+     "fields": {
+      "L": 39.27
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 9,
+     "center": [
+      1851.0,
+      1237.9
+     ]
+    },
+    {
+     "labels": [
+      127
+     ],
+     "fields": {
+      "R": 25.0
+     },
+     "R": 25.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 8,
+     "center": [
+      517.0,
+      1243.0
+     ]
+    },
+    {
+     "labels": [
+      128
+     ],
+     "fields": {
+      "L": 37.0
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 8,
+     "center": [
+      583.5,
+      1242.9
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.1579,
+    "label_classified": 0.3504,
+    "scale_consistency": null,
+    "score": 0.6166
+   },
+   "seconds": 22.6,
+   "prev_score": 0.6166
+  },
+  {
+   "image": "east_23_detail.png",
+   "kind": "scan",
+   "size": [
+    220,
+    400
+   ],
+   "stroke_w": 5.73,
+   "char_h": 27.0,
+   "n_monuments": 0,
+   "n_lines": 3,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 21,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 3,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 5,
+    "area": 0,
+    "table": 0,
+    "text": 8,
+    "empty": 5
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 1,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.3333,
+    "label_classified": 0.381,
+    "scale_consistency": null,
+    "score": 0.6548
+   },
+   "seconds": 1.8,
+   "prev_score": 0.6548
+  },
+  {
+   "image": "east_24_detail.png",
+   "kind": "scan",
+   "size": [
+    220,
+    420
+   ],
+   "stroke_w": 5.73,
+   "char_h": 27.0,
+   "n_monuments": 1,
+   "n_lines": 5,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 11,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 2,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 0,
+    "area": 0,
+    "table": 0,
+    "text": 7,
+    "empty": 2
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 2,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9606,
+    "line_precision": 1.0,
+    "line_f1": 0.9799,
+    "label_assoc": 1.0,
+    "label_classified": 0.1818,
+    "scale_consistency": null,
+    "score": 0.7571
+   },
+   "seconds": 2.0,
+   "prev_score": 0.7571
+  },
+  {
+   "image": "east_of_23_24.png",
+   "kind": "scan",
+   "size": [
+    1000,
+    1200
+   ],
+   "stroke_w": 5.73,
+   "char_h": 30.5,
+   "n_monuments": 0,
+   "n_lines": 34,
+   "n_dashed": 0,
+   "n_arcs": 8,
+   "n_labels": 146,
+   "n_verified": 9,
+   "kinds": {
+    "bearing": 0,
+    "distance": 35,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 21,
+    "area": 0,
+    "table": 1,
+    "text": 74,
+    "empty": 15
+   },
+   "calibration": {
+    "ft_per_px": 0.3409228162316458,
+    "scale_votes": 22,
+    "scale_inliers": 9,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 9
+   },
+   "qa": [
+    {
+     "label": 90,
+     "kind": "distance",
+     "text": "66.86%",
+     "measured": 27.21,
+     "written": 66.86,
+     "diff": -39.65
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      103
+     ],
+     "fields": {
+      "delta": 3.0
+     },
+     "R": null,
+     "delta": 3.0000000000000004,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      306.8,
+      892.1
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9988,
+    "line_precision": 1.0,
+    "line_f1": 0.9994,
+    "label_assoc": 0.7143,
+    "label_classified": 0.3931,
+    "scale_consistency": 0.4091,
+    "score": 0.7932
+   },
+   "seconds": 13.9,
+   "prev_score": 0.7932
+  },
+  {
+   "image": "lot22_detail.png",
+   "kind": "scan",
+   "size": [
+    450,
+    850
+   ],
+   "stroke_w": 5.73,
+   "char_h": 29.0,
+   "n_monuments": 0,
+   "n_lines": 12,
+   "n_dashed": 0,
+   "n_arcs": 3,
+   "n_labels": 57,
+   "n_verified": 3,
+   "kinds": {
+    "bearing": 0,
+    "distance": 9,
+    "curve_id": 0,
+    "curve_data": 1,
+    "lot": 12,
+    "area": 0,
+    "table": 0,
+    "text": 26,
+    "empty": 9
+   },
+   "calibration": {
+    "ft_per_px": 0.3518355158115707,
+    "scale_votes": 6,
+    "scale_inliers": 3,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 3
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      52
+     ],
+     "fields": {
+      "delta": 36.0
+     },
+     "R": null,
+     "delta": 36.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 2,
+     "center": [
+      140.4,
+      801.8
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.6667,
+    "label_classified": 0.4,
+    "scale_consistency": 0.5,
+    "score": 0.7983
+   },
+   "seconds": 4.4,
+   "prev_score": 0.7983
+  },
+  {
+   "image": "lot23_east_label.png",
+   "kind": "scan",
+   "size": [
+    140,
+    300
+   ],
+   "stroke_w": 5.73,
+   "char_h": 26.0,
+   "n_monuments": 0,
+   "n_lines": 3,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 14,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 1,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 0,
+    "area": 0,
+    "table": 0,
+    "text": 8,
+    "empty": 5
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 1,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 1.0,
+    "label_classified": 0.0714,
+    "scale_consistency": null,
+    "score": 0.7571
+   },
+   "seconds": 1.9,
+   "prev_score": 0.7571
+  },
+  {
+   "image": "lot23_label_arrow.png",
+   "kind": "scan",
+   "size": [
+    160,
+    200
+   ],
+   "stroke_w": 5.73,
+   "char_h": 27.0,
+   "n_monuments": 0,
+   "n_lines": 1,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 10,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 1,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 3,
+    "area": 0,
+    "table": 0,
+    "text": 2,
+    "empty": 4
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 0,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.0,
+    "label_classified": 0.4,
+    "scale_consistency": null,
+    "score": 0.59
+   },
+   "seconds": 1.2,
+   "prev_score": 0.59
+  },
+  {
+   "image": "lots23_24_block_search.png",
+   "kind": "scan",
+   "size": [
+    2000,
+    2200
+   ],
+   "stroke_w": 5.73,
+   "char_h": 30.0,
+   "n_monuments": 2,
+   "n_lines": 116,
+   "n_dashed": 1,
+   "n_arcs": 24,
+   "n_labels": 394,
+   "n_verified": 38,
+   "kinds": {
+    "bearing": 8,
+    "distance": 89,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 75,
+    "area": 0,
+    "table": 1,
+    "text": 163,
+    "empty": 58
+   },
+   "calibration": {
+    "ft_per_px": 0.3348178978804008,
+    "scale_votes": 66,
+    "scale_inliers": 30,
+    "rotation_deg": -2.407684522280249,
+    "rot_votes": 8,
+    "rot_inliers": 8,
+    "verified": 38
+   },
+   "qa": [
+    {
+     "label": 30,
+     "kind": "distance",
+     "text": "75\u00b0",
+     "measured": 51.61,
+     "written": 75.0,
+     "diff": -23.39
+    },
+    {
+     "label": 61,
+     "kind": "distance",
+     "text": "75'",
+     "measured": 116.52,
+     "written": 75.0,
+     "diff": 41.52
+    },
+    {
+     "label": 80,
+     "kind": "distance",
+     "text": "196",
+     "measured": 91.02,
+     "written": 196.0,
+     "diff": -104.98
+    },
+    {
+     "label": 181,
+     "kind": "distance",
+     "text": "\u2014-66. 85\"",
+     "measured": 24.76,
+     "written": 66.85,
+     "diff": -42.09
+    },
+    {
+     "label": 193,
+     "kind": "distance",
+     "text": "66.86%",
+     "measured": 27.41,
+     "written": 66.86,
+     "diff": -39.45
+    },
+    {
+     "label": 244,
+     "kind": "distance",
+     "text": "76.78\u00b0",
+     "measured": 68.6,
+     "written": 76.78,
+     "diff": -8.18
+    },
+    {
+     "label": 265,
+     "kind": "distance",
+     "text": "76.78!",
+     "measured": 69.96,
+     "written": 76.78,
+     "diff": -6.82
+    },
+    {
+     "label": 294,
+     "kind": "distance",
+     "text": "715",
+     "measured": 74.66,
+     "written": 715.0,
+     "diff": -640.34
+    },
+    {
+     "label": 375,
+     "kind": "distance",
+     "text": "75\u00b0",
+     "measured": 53.34,
+     "written": 75.0,
+     "diff": -21.66
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      223
+     ],
+     "fields": {
+      "delta": 3.0
+     },
+     "R": null,
+     "delta": 3.0000000000000004,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 23,
+     "center": [
+      1706.8,
+      1492.1
+     ]
+    },
+    {
+     "labels": [
+      263
+     ],
+     "fields": {
+      "delta": 36.33,
+      "R": 459.36
+     },
+     "source": "dewarp",
+     "verified_by": "arc",
+     "n_reads": 4,
+     "arc": 12,
+     "R": 459.36,
+     "delta": 36.33,
+     "derived": {
+      "T": 150.719,
+      "L": 291.27,
+      "CH": 286.415
+     },
+     "consistent": false,
+     "check": null,
+     "center": [
+      1477.9,
+      1664.1
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9994,
+    "line_precision": 1.0,
+    "line_f1": 0.9997,
+    "label_assoc": 0.8351,
+    "label_classified": 0.4459,
+    "scale_consistency": 0.4545,
+    "score": 0.8296
+   },
+   "seconds": 47.4,
+   "prev_score": 0.8296
+  },
+  {
+   "image": "lots23_24_clean_scan.png",
+   "kind": "scan",
+   "size": [
+    440,
+    850
+   ],
+   "stroke_w": 5.73,
+   "char_h": 27.0,
+   "n_monuments": 1,
+   "n_lines": 11,
+   "n_dashed": 0,
+   "n_arcs": 2,
+   "n_labels": 48,
+   "n_verified": 3,
+   "kinds": {
+    "bearing": 0,
+    "distance": 9,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 8,
+    "area": 0,
+    "table": 0,
+    "text": 22,
+    "empty": 9
+   },
+   "calibration": {
+    "ft_per_px": 0.33245103799055536,
+    "scale_votes": 5,
+    "scale_inliers": 3,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 3
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": 1.0,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.5556,
+    "label_classified": 0.3696,
+    "scale_consistency": 0.6,
+    "score": 0.8093
+   },
+   "seconds": 3.9,
+   "prev_score": 0.8093
+  },
+  {
+   "image": "lots23_24_context.png",
+   "kind": "scan",
+   "size": [
+    1300,
+    1400
+   ],
+   "stroke_w": 5.73,
+   "char_h": 29.0,
+   "n_monuments": 2,
+   "n_lines": 55,
+   "n_dashed": 0,
+   "n_arcs": 12,
+   "n_labels": 230,
+   "n_verified": 20,
+   "kinds": {
+    "bearing": 7,
+    "distance": 46,
+    "curve_id": 0,
+    "curve_data": 1,
+    "lot": 42,
+    "area": 1,
+    "table": 1,
+    "text": 90,
+    "empty": 42
+   },
+   "calibration": {
+    "ft_per_px": 0.3365950444695331,
+    "scale_votes": 31,
+    "scale_inliers": 13,
+    "rotation_deg": -3.0375942878940236,
+    "rot_votes": 7,
+    "rot_inliers": 7,
+    "verified": 20
+   },
+   "qa": [
+    {
+     "label": 1,
+     "kind": "distance",
+     "text": "/00'",
+     "measured": 54.98,
+     "written": 100.0,
+     "diff": -45.02
+    },
+    {
+     "label": 4,
+     "kind": "distance",
+     "text": "/00",
+     "measured": 53.6,
+     "written": 100.0,
+     "diff": -46.4
+    },
+    {
+     "label": 8,
+     "kind": "distance",
+     "text": "90'",
+     "measured": 63.34,
+     "written": 90.0,
+     "diff": -26.66
+    },
+    {
+     "label": 110,
+     "kind": "distance",
+     "text": "400\u00b0",
+     "measured": 100.33,
+     "written": 400.0,
+     "diff": -299.67
+    },
+    {
+     "label": 131,
+     "kind": "distance",
+     "text": "80\u00b0",
+     "measured": 96.51,
+     "written": 80.0,
+     "diff": 16.51
+    },
+    {
+     "label": 190,
+     "kind": "distance",
+     "text": "89.76\"",
+     "measured": 106.75,
+     "written": 89.76,
+     "diff": 16.99
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      38
+     ],
+     "fields": {
+      "R": 359.0
+     },
+     "R": 359.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 3,
+     "center": [
+      1192.0,
+      279.8
+     ]
+    },
+    {
+     "labels": [
+      157
+     ],
+     "fields": {
+      "delta": 36.0
+     },
+     "R": null,
+     "delta": 36.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 7,
+     "center": [
+      940.4,
+      1082.3
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.7925,
+    "label_classified": 0.4356,
+    "scale_consistency": 0.4194,
+    "score": 0.8149
+   },
+   "seconds": 34.9,
+   "prev_score": 0.8149
+  },
+  {
+   "image": "lots9_10_context.png",
+   "kind": "scan",
+   "size": [
+    1200,
+    1400
+   ],
+   "stroke_w": 5.73,
+   "char_h": 32.5,
+   "n_monuments": 1,
+   "n_lines": 41,
+   "n_dashed": 1,
+   "n_arcs": 12,
+   "n_labels": 96,
+   "n_verified": 11,
+   "kinds": {
+    "bearing": 0,
+    "distance": 28,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 18,
+    "area": 0,
+    "table": 0,
+    "text": 29,
+    "empty": 21
+   },
+   "calibration": {
+    "ft_per_px": 0.33223754684483464,
+    "scale_votes": 22,
+    "scale_inliers": 11,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 11
+   },
+   "qa": [
+    {
+     "label": 2,
+     "kind": "distance",
+     "text": "100\u00b0",
+     "measured": 68.27,
+     "written": 100.0,
+     "diff": -31.73
+    },
+    {
+     "label": 39,
+     "kind": "distance",
+     "text": "10",
+     "measured": 19.83,
+     "written": 10.0,
+     "diff": 9.83
+    },
+    {
+     "label": 83,
+     "kind": "distance",
+     "text": "87.05\u00b0",
+     "measured": 76.79,
+     "written": 87.05,
+     "diff": -10.26
+    },
+    {
+     "label": 85,
+     "kind": "distance",
+     "text": "105.97'",
+     "measured": 76.33,
+     "written": 105.97,
+     "diff": -29.64
+    },
+    {
+     "label": 87,
+     "kind": "distance",
+     "text": "90\u00b0",
+     "measured": 75.55,
+     "written": 90.0,
+     "diff": -14.45
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      82
+     ],
+     "fields": {
+      "delta": 30.0
+     },
+     "R": null,
+     "delta": 29.999999999999996,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      50.9,
+      1299.5
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 0.9997,
+    "line_f1": 0.9999,
+    "label_assoc": 0.7857,
+    "label_classified": 0.5,
+    "scale_consistency": 0.5,
+    "score": 0.8321
+   },
+   "seconds": 8.5,
+   "prev_score": 0.8321
+  },
+  {
+   "image": "lots_east_of_24_23.png",
+   "kind": "scan",
+   "size": [
+    550,
+    1000
+   ],
+   "stroke_w": 5.73,
+   "char_h": 29.0,
+   "n_monuments": 0,
+   "n_lines": 20,
+   "n_dashed": 0,
+   "n_arcs": 3,
+   "n_labels": 67,
+   "n_verified": 4,
+   "kinds": {
+    "bearing": 0,
+    "distance": 15,
+    "curve_id": 0,
+    "curve_data": 2,
+    "lot": 13,
+    "area": 0,
+    "table": 0,
+    "text": 25,
+    "empty": 12
+   },
+   "calibration": {
+    "ft_per_px": 0.353954433559437,
+    "scale_votes": 11,
+    "scale_inliers": 4,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 4
+   },
+   "qa": [
+    {
+     "label": 27,
+     "kind": "distance",
+     "text": "\u2014~-66. 85\"",
+     "measured": 26.18,
+     "written": 66.85,
+     "diff": -40.67
+    },
+    {
+     "label": 65,
+     "kind": "distance",
+     "text": "89.76:",
+     "measured": 61.77,
+     "written": 89.76,
+     "diff": -27.99
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      5
+     ],
+     "fields": {
+      "R": 359.0
+     },
+     "R": 359.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 0,
+     "center": [
+      442.0,
+      79.8
+     ]
+    },
+    {
+     "labels": [
+      33
+     ],
+     "fields": {
+      "delta": 4.0
+     },
+     "R": null,
+     "delta": 4.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      48.6,
+      610.9
+     ]
+    },
+    {
+     "labels": [
+      56
+     ],
+     "fields": {
+      "delta": 36.0
+     },
+     "R": null,
+     "delta": 36.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 2,
+     "center": [
+      190.4,
+      881.8
+     ]
+    },
+    {
+     "labels": [
+      61
+     ],
+     "fields": {
+      "T": 150.0
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 1,
+     "center": [
+      333.4,
+      967.6
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9788,
+    "line_precision": 1.0,
+    "line_f1": 0.9893,
+    "label_assoc": 0.8,
+    "label_classified": 0.4615,
+    "scale_consistency": 0.3636,
+    "score": 0.8048
+   },
+   "seconds": 12.4,
+   "prev_score": 0.8048
+  },
+  {
+   "image": "mangrove_frontage.png",
+   "kind": "scan",
+   "size": [
+    400,
+    1200
+   ],
+   "stroke_w": 5.73,
+   "char_h": 30.5,
+   "n_monuments": 0,
+   "n_lines": 16,
+   "n_dashed": 0,
+   "n_arcs": 6,
+   "n_labels": 45,
+   "n_verified": 3,
+   "kinds": {
+    "bearing": 0,
+    "distance": 9,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 9,
+    "area": 0,
+    "table": 0,
+    "text": 19,
+    "empty": 8
+   },
+   "calibration": {
+    "ft_per_px": 0.33525681045960265,
+    "scale_votes": 7,
+    "scale_inliers": 3,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 3
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.7778,
+    "label_classified": 0.4286,
+    "scale_consistency": 0.4286,
+    "score": 0.8127
+   },
+   "seconds": 3.0,
+   "prev_score": 0.8127
+  },
+  {
+   "image": "mapcheck_individual_parcels_detail.png",
+   "kind": "scan",
+   "size": [
+    1024,
+    752
+   ],
+   "stroke_w": 1.91,
+   "char_h": 7.0,
+   "n_monuments": 0,
+   "n_lines": 83,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 185,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 13,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 22,
+    "area": 5,
+    "table": 0,
+    "text": 131,
+    "empty": 14
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 6,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9754,
+    "line_precision": 1.0,
+    "line_f1": 0.9876,
+    "label_assoc": 0.4615,
+    "label_classified": 0.2162,
+    "scale_consistency": null,
+    "score": 0.6571
+   },
+   "seconds": 11.4,
+   "prev_score": 0.6571
+  },
+  {
+   "image": "mapcheck_individual_parcels_grid.png",
+   "kind": "screenshot",
+   "size": [
+    1024,
+    752
+   ],
+   "stroke_w": 1.91,
+   "char_h": 47.0,
+   "n_monuments": 0,
+   "n_lines": 160,
+   "n_dashed": 28,
+   "n_arcs": 0,
+   "n_labels": 74,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 10,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 4,
+    "area": 0,
+    "table": 0,
+    "text": 51,
+    "empty": 9
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 7,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": "none",
+    "scale_correct": true,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 0.9749,
+    "line_f1": 0.9873,
+    "label_assoc": 1.0,
+    "label_classified": 0.1892,
+    "scale_consistency": 1.0,
+    "score": 0.9119
+   },
+   "seconds": 15.4,
+   "prev_score": 0.9119
+  },
+  {
+   "image": "media383_bottom_23.png",
+   "kind": "scan",
+   "size": [
+    135,
+    78
+   ],
+   "stroke_w": 1.91,
+   "char_h": 10.0,
+   "n_monuments": 0,
+   "n_lines": 2,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 13,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 0,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 3,
+    "area": 0,
+    "table": 0,
+    "text": 10,
+    "empty": 0
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 0,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.7,
+    "line_precision": 1.0,
+    "line_f1": 0.8235,
+    "label_assoc": null,
+    "label_classified": 0.2308,
+    "scale_consistency": null,
+    "score": 0.7157
+   },
+   "seconds": 1.7,
+   "prev_score": 0.7157
+  },
+  {
+   "image": "media383_left_24.png",
+   "kind": "scan",
+   "size": [
+    65,
+    100
+   ],
+   "stroke_w": 1.91,
+   "char_h": 9.0,
+   "n_monuments": 0,
+   "n_lines": 2,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 16,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 5,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 4,
+    "area": 1,
+    "table": 0,
+    "text": 5,
+    "empty": 1
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 1,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.4,
+    "label_classified": 0.625,
+    "scale_consistency": null,
+    "score": 0.6925
+   },
+   "seconds": 1.6,
+   "prev_score": 0.6925
+  },
+  {
+   "image": "media383_mid_line.png",
+   "kind": "scan",
+   "size": [
+    135,
+    50
+   ],
+   "stroke_w": 1.91,
+   "char_h": 8.0,
+   "n_monuments": 0,
+   "n_lines": 9,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 13,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 1,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 0,
+    "area": 0,
+    "table": 0,
+    "text": 8,
+    "empty": 4
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 1,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 1.0,
+    "label_classified": 0.0769,
+    "scale_consistency": null,
+    "score": 0.7577
+   },
+   "seconds": 1.5,
+   "prev_score": 0.7577
+  },
+  {
+   "image": "media383_right_23.png",
+   "kind": "scan",
+   "size": [
+    65,
+    100
+   ],
+   "stroke_w": 1.91,
+   "char_h": 9.0,
+   "n_monuments": 0,
+   "n_lines": 2,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 16,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 2,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 2,
+    "area": 0,
+    "table": 0,
+    "text": 8,
+    "empty": 4
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 1,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.5,
+    "label_classified": 0.25,
+    "scale_consistency": null,
+    "score": 0.675
+   },
+   "seconds": 1.8,
+   "prev_score": 0.675
+  },
+  {
+   "image": "media383_right_24.png",
+   "kind": "scan",
+   "size": [
+    45,
+    100
+   ],
+   "stroke_w": 1.91,
+   "char_h": 9.0,
+   "n_monuments": 0,
+   "n_lines": 4,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 7,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 1,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 1,
+    "area": 0,
+    "table": 0,
+    "text": 3,
+    "empty": 2
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 1,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 1.0,
+    "label_classified": 0.3333,
+    "scale_consistency": null,
+    "score": 0.7833
+   },
+   "seconds": 1.4,
+   "prev_score": 0.7833
+  },
+  {
+   "image": "mid_line_detail.png",
+   "kind": "scan",
+   "size": [
+    440,
+    170
+   ],
+   "stroke_w": 5.73,
+   "char_h": 26.0,
+   "n_monuments": 0,
+   "n_lines": 6,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 15,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 4,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 1,
+    "area": 0,
+    "table": 0,
+    "text": 8,
+    "empty": 2
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 1,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      7
+     ],
+     "fields": {
+      "delta": 4.0
+     },
+     "R": null,
+     "delta": 4.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      398.8,
+      122.6
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.25,
+    "label_classified": 0.3571,
+    "scale_consistency": null,
+    "score": 0.6357
+   },
+   "seconds": 1.7,
+   "prev_score": 0.6357
+  },
+  {
+   "image": "new_media_792.png",
+   "kind": "scan",
+   "size": [
+    558,
+    438
+   ],
+   "stroke_w": 1.91,
+   "char_h": 11.0,
+   "n_monuments": 0,
+   "n_lines": 128,
+   "n_dashed": 0,
+   "n_arcs": 9,
+   "n_labels": 249,
+   "n_verified": 5,
+   "kinds": {
+    "bearing": 0,
+    "distance": 38,
+    "curve_id": 0,
+    "curve_data": 1,
+    "lot": 41,
+    "area": 0,
+    "table": 0,
+    "text": 128,
+    "empty": 41
+   },
+   "calibration": {
+    "ft_per_px": 1.057406804630517,
+    "scale_votes": 25,
+    "scale_inliers": 5,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 5
+   },
+   "qa": [
+    {
+     "label": 11,
+     "kind": "distance",
+     "text": "40",
+     "measured": 47.44,
+     "written": 40.0,
+     "diff": 7.44
+    },
+    {
+     "label": 61,
+     "kind": "distance",
+     "text": "49",
+     "measured": 77.19,
+     "written": 49.0,
+     "diff": 28.19
+    },
+    {
+     "label": 63,
+     "kind": "distance",
+     "text": "700\u00b0",
+     "measured": 92.2,
+     "written": 700.0,
+     "diff": -607.8
+    },
+    {
+     "label": 94,
+     "kind": "distance",
+     "text": "1007",
+     "measured": 215.57,
+     "written": 1007.0,
+     "diff": -791.43
+    },
+    {
+     "label": 161,
+     "kind": "distance",
+     "text": "60\u00b0",
+     "measured": 51.04,
+     "written": 60.0,
+     "diff": -8.96
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9721,
+    "line_precision": 1.0,
+    "line_f1": 0.9858,
+    "label_assoc": 0.6842,
+    "label_classified": 0.3226,
+    "scale_consistency": 0.2,
+    "score": 0.7413
+   },
+   "seconds": 18.5,
+   "prev_score": 0.7413
+  },
+  {
+   "image": "north_line_24.png",
+   "kind": "scan",
+   "size": [
+    700,
+    150
+   ],
+   "stroke_w": 5.73,
+   "char_h": 31.0,
+   "n_monuments": 0,
+   "n_lines": 2,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 6,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 2,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 0,
+    "area": 0,
+    "table": 0,
+    "text": 3,
+    "empty": 1
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 0,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.0,
+    "label_classified": 0.4,
+    "scale_consistency": null,
+    "score": 0.59
+   },
+   "seconds": 1.6,
+   "prev_score": 0.59
+  },
+  {
+   "image": "note2_clean.png",
+   "kind": "scan",
+   "size": [
+    1000,
+    200
+   ],
+   "stroke_w": 5.73,
+   "char_h": 35.0,
+   "n_monuments": 0,
+   "n_lines": 0,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 11,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 0,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 0,
+    "area": 0,
+    "table": 0,
+    "text": 11,
+    "empty": 0
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 0,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": [
+    "id distsnces shown on curves\nesrings gnd distznces. \u2018\n2own on block corners gre\nym se ney Ane - 7",
+    52.65
+   ],
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": null,
+    "label_classified": 0.0,
+    "scale_consistency": null,
+    "score": 0.825
+   },
+   "seconds": 3.2,
+   "prev_score": 0.825
+  },
+  {
+   "image": "page0_300dpi.png",
+   "kind": "scan",
+   "size": [
+    9000,
+    5400
+   ],
+   "stroke_w": 5.73,
+   "char_h": 36.0,
+   "n_monuments": 3,
+   "n_lines": 291,
+   "n_dashed": 27,
+   "n_arcs": 172,
+   "n_labels": 1550,
+   "n_verified": 46,
+   "kinds": {
+    "bearing": 14,
+    "distance": 118,
+    "curve_id": 1,
+    "curve_data": 1,
+    "lot": 179,
+    "area": 5,
+    "table": 0,
+    "text": 940,
+    "empty": 292
+   },
+   "calibration": {
+    "ft_per_px": 0.3346120055955303,
+    "scale_votes": 78,
+    "scale_inliers": 32,
+    "rotation_deg": -0.6925696274758764,
+    "rot_votes": 14,
+    "rot_inliers": 14,
+    "verified": 46
+   },
+   "qa": [
+    {
+     "label": 364,
+     "kind": "distance",
+     "text": "100\u00b0 =",
+     "measured": 24.43,
+     "written": 100.0,
+     "diff": -75.57
+    },
+    {
+     "label": 440,
+     "kind": "distance",
+     "text": "72.39\"",
+     "measured": 54.54,
+     "written": 72.39,
+     "diff": -17.85
+    },
+    {
+     "label": 470,
+     "kind": "distance",
+     "text": "700\u00b0",
+     "measured": 82.47,
+     "written": 700.0,
+     "diff": -617.53
+    },
+    {
+     "label": 492,
+     "kind": "distance",
+     "text": "115.54",
+     "measured": 124.97,
+     "written": 115.54,
+     "diff": 9.43
+    },
+    {
+     "label": 505,
+     "kind": "distance",
+     "text": "\"1960,",
+     "measured": 177.34,
+     "written": 1960.0,
+     "diff": -1782.66
+    },
+    {
+     "label": 518,
+     "kind": "distance",
+     "text": "62.57,",
+     "measured": 85.61,
+     "written": 62.57,
+     "diff": 23.04
+    },
+    {
+     "label": 608,
+     "kind": "distance",
+     "text": "103\u00b0",
+     "measured": 85.53,
+     "written": 103.0,
+     "diff": -17.47
+    },
+    {
+     "label": 954,
+     "kind": "distance",
+     "text": "120.0\"",
+     "measured": 37.92,
+     "written": 120.0,
+     "diff": -82.08
+    },
+    {
+     "label": 1218,
+     "kind": "distance",
+     "text": "400\u00b0",
+     "measured": 88.83,
+     "written": 400.0,
+     "diff": -311.17
+    },
+    {
+     "label": 1356,
+     "kind": "distance",
+     "text": "75\u00b0",
+     "measured": 133.02,
+     "written": 75.0,
+     "diff": 58.02
+    },
+    {
+     "label": 1359,
+     "kind": "distance",
+     "text": "92.67\u2019",
+     "measured": 83.58,
+     "written": 92.67,
+     "diff": -9.09
+    },
+    {
+     "label": 1420,
+     "kind": "distance",
+     "text": "74.01",
+     "measured": 94.33,
+     "written": 74.01,
+     "diff": 20.32
+    },
+    {
+     "label": 1441,
+     "kind": "distance",
+     "text": "100\u00b0",
+     "measured": 42.09,
+     "written": 100.0,
+     "diff": -57.91
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      1019
+     ],
+     "fields": {
+      "delta": 1.6666666666666665
+     },
+     "R": null,
+     "delta": 1.6666666666666665,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 56,
+     "center": [
+      2786.9,
+      3560.5
+     ]
+    },
+    {
+     "labels": [
+      1039
+     ],
+     "fields": {
+      "delta": 7.0
+     },
+     "R": null,
+     "delta": 7.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 117,
+     "center": [
+      6048.9,
+      3511.9
+     ]
+    },
+    {
+     "labels": [
+      1089
+     ],
+     "fields": {
+      "delta": 20.0
+     },
+     "R": null,
+     "delta": 20.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 97,
+     "center": [
+      2923.5,
+      3675.5
+     ]
+    },
+    {
+     "labels": [
+      1385
+     ],
+     "fields": {
+      "delta": 92.0
+     },
+     "R": null,
+     "delta": 92.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 141,
+     "center": [
+      3356.0,
+      4565.3
+     ]
+    },
+    {
+     "labels": [
+      1517
+     ],
+     "fields": {
+      "R": 4.0
+     },
+     "R": 4.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 149,
+     "center": [
+      6613.0,
+      5023.5
+     ]
+    },
+    {
+     "labels": [
+      422
+     ],
+     "fields": {
+      "delta": 36.33,
+      "R": 327.01
+     },
+     "source": "dewarp",
+     "verified_by": "arc",
+     "n_reads": 8,
+     "arc": 63,
+     "R": 327.01,
+     "delta": 36.33,
+     "derived": {
+      "T": 107.294,
+      "L": 207.35,
+      "CH": 203.894
+     },
+     "consistent": false,
+     "check": null,
+     "center": [
+      2673.6,
+      1756.0
+     ]
+    },
+    {
+     "labels": [
+      722
+     ],
+     "fields": {
+      "delta": 36.33,
+      "R": 269.96,
+      "T": 88.59
+     },
+     "source": "dewarp",
+     "verified_by": "identity",
+     "n_reads": 7,
+     "arc": 97,
+     "R": 269.96,
+     "delta": 36.33,
+     "derived": {
+      "L": 171.176,
+      "CH": 168.323
+     },
+     "consistent": true,
+     "check": 0.0002,
+     "center": [
+      2680.1,
+      2698.3
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": 2,
+    "curves_wrong": 0,
+    "line_recall": 0.9975,
+    "line_precision": 0.9927,
+    "line_f1": 0.9951,
+    "label_assoc": 0.7424,
+    "label_classified": 0.2146,
+    "scale_consistency": 0.4103,
+    "score": 0.7898
+   },
+   "seconds": 218.3,
+   "prev_score": 0.7788
+  },
+  {
+   "image": "page1_300dpi.png",
+   "kind": "scan",
+   "size": [
+    9000,
+    5400
+   ],
+   "stroke_w": 5.73,
+   "char_h": 32.0,
+   "n_monuments": 10,
+   "n_lines": 651,
+   "n_dashed": 41,
+   "n_arcs": 172,
+   "n_labels": 1885,
+   "n_verified": 174,
+   "kinds": {
+    "bearing": 27,
+    "distance": 361,
+    "curve_id": 0,
+    "curve_data": 1,
+    "lot": 321,
+    "area": 4,
+    "table": 4,
+    "text": 751,
+    "empty": 416
+   },
+   "calibration": {
+    "ft_per_px": 0.33250897381968825,
+    "scale_votes": 255,
+    "scale_inliers": 148,
+    "rotation_deg": -2.5186478264426455,
+    "rot_votes": 27,
+    "rot_inliers": 26,
+    "verified": 174
+   },
+   "qa": [
+    {
+     "label": 269,
+     "kind": "distance",
+     "text": "413.34!",
+     "measured": 182.53,
+     "written": 413.34,
+     "diff": -230.81
+    },
+    {
+     "label": 323,
+     "kind": "distance",
+     "text": "700\u00b0",
+     "measured": 96.32,
+     "written": 700.0,
+     "diff": -603.68
+    },
+    {
+     "label": 414,
+     "kind": "distance",
+     "text": "700\u00b0",
+     "measured": 105.02,
+     "written": 700.0,
+     "diff": -594.98
+    },
+    {
+     "label": 624,
+     "kind": "distance",
+     "text": "75'",
+     "measured": 19.28,
+     "written": 75.0,
+     "diff": -55.72
+    },
+    {
+     "label": 634,
+     "kind": "distance",
+     "text": "2 4",
+     "measured": 4.62,
+     "written": 24.0,
+     "diff": -19.38
+    },
+    {
+     "label": 636,
+     "kind": "distance",
+     "text": "\u2014\"~ 89.76\"",
+     "measured": 167.79,
+     "written": 89.76,
+     "diff": 78.03
+    },
+    {
+     "label": 665,
+     "kind": "distance",
+     "text": "400\u00b0",
+     "measured": 461.8,
+     "written": 400.0,
+     "diff": 61.8
+    },
+    {
+     "label": 668,
+     "kind": "distance",
+     "text": "100\u00b0",
+     "measured": 194.3,
+     "written": 100.0,
+     "diff": 94.3
+    },
+    {
+     "label": 723,
+     "kind": "distance",
+     "text": "59.50\u00b0",
+     "measured": 51.31,
+     "written": 59.5,
+     "diff": -8.19
+    },
+    {
+     "label": 806,
+     "kind": "distance",
+     "text": "95.98\"",
+     "measured": 62.54,
+     "written": 95.98,
+     "diff": -33.44
+    },
+    {
+     "label": 943,
+     "kind": "distance",
+     "text": "66.66%",
+     "measured": 26.61,
+     "written": 66.66,
+     "diff": -40.05
+    },
+    {
+     "label": 976,
+     "kind": "distance",
+     "text": "167.98\"",
+     "measured": 154.24,
+     "written": 167.98,
+     "diff": -13.74
+    },
+    {
+     "label": 1027,
+     "kind": "distance",
+     "text": "76.78\"",
+     "measured": 68.13,
+     "written": 76.78,
+     "diff": -8.65
+    },
+    {
+     "label": 1082,
+     "kind": "distance",
+     "text": "76.78\u00b0",
+     "measured": 69.48,
+     "written": 76.78,
+     "diff": -7.3
+    },
+    {
+     "label": 1124,
+     "kind": "distance",
+     "text": "60\u00b0",
+     "measured": 76.54,
+     "written": 60.0,
+     "diff": 16.54
+    },
+    {
+     "label": 1143,
+     "kind": "distance",
+     "text": "108.22!",
+     "measured": 120.52,
+     "written": 108.22,
+     "diff": 12.3
+    },
+    {
+     "label": 1171,
+     "kind": "distance",
+     "text": "89.76\"",
+     "measured": 105.45,
+     "written": 89.76,
+     "diff": 15.69
+    },
+    {
+     "label": 1253,
+     "kind": "distance",
+     "text": "\u2018700!",
+     "measured": 93.09,
+     "written": 700.0,
+     "diff": -606.91
+    },
+    {
+     "label": 1337,
+     "kind": "distance",
+     "text": "96.80\u00b0",
+     "measured": 85.74,
+     "written": 96.8,
+     "diff": -11.06
+    },
+    {
+     "label": 1341,
+     "kind": "distance",
+     "text": "19.2",
+     "measured": 28.28,
+     "written": 19.2,
+     "diff": 9.08
+    },
+    {
+     "label": 1441,
+     "kind": "distance",
+     "text": "70.50",
+     "measured": 57.54,
+     "written": 70.5,
+     "diff": -12.96
+    },
+    {
+     "label": 1653,
+     "kind": "distance",
+     "text": "200\u00b0",
+     "measured": 89.11,
+     "written": 200.0,
+     "diff": -110.89
+    },
+    {
+     "label": 1694,
+     "kind": "distance",
+     "text": "78\u00b0",
+     "measured": 28.07,
+     "written": 78.0,
+     "diff": -49.93
+    },
+    {
+     "label": 1727,
+     "kind": "distance",
+     "text": "75\u00b0",
+     "measured": 68.47,
+     "written": 75.0,
+     "diff": -6.53
+    },
+    {
+     "label": 1286,
+     "kind": "bearing",
+     "text": "\"-N.89\u00b018'20\"E:",
+     "measured_az": 87.93,
+     "written_az": 89.31
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      221
+     ],
+     "fields": {
+      "delta": 60.0
+     },
+     "R": null,
+     "delta": 59.99999999999999,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 48,
+     "center": [
+      5348.1,
+      866.5
+     ]
+    },
+    {
+     "labels": [
+      941
+     ],
+     "fields": {
+      "delta": 3.1352777777777776
+     },
+     "R": null,
+     "delta": 3.1352777777777776,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 79,
+     "center": [
+      6181.8,
+      3236.4
+     ]
+    },
+    {
+     "labels": [
+      994
+     ],
+     "fields": {
+      "delta": 3.0
+     },
+     "R": null,
+     "delta": 3.0000000000000004,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 164,
+     "center": [
+      4506.8,
+      3292.1
+     ]
+    },
+    {
+     "labels": [
+      1081
+     ],
+     "fields": {
+      "delta": 25.0
+     },
+     "R": null,
+     "delta": 25.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 86,
+     "center": [
+      5826.0,
+      3481.3
+     ]
+    },
+    {
+     "labels": [
+      1363
+     ],
+     "fields": {
+      "delta": 6.0
+     },
+     "R": null,
+     "delta": 6.000000000000001,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 96,
+     "center": [
+      6925.8,
+      4100.6
+     ]
+    },
+    {
+     "labels": [
+      1381
+     ],
+     "fields": {
+      "delta": 90.0
+     },
+     "R": null,
+     "delta": 90.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      7414.6,
+      4110.6
+     ]
+    },
+    {
+     "labels": [
+      1382
+     ],
+     "fields": {
+      "delta": 9.0
+     },
+     "R": null,
+     "delta": 9.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 130,
+     "center": [
+      4239.7,
+      4207.1
+     ]
+    },
+    {
+     "labels": [
+      1071
+     ],
+     "fields": {
+      "delta": 36.33,
+      "R": 459.36
+     },
+     "source": "dewarp",
+     "verified_by": "arc",
+     "n_reads": 5,
+     "arc": 104,
+     "R": 459.36,
+     "delta": 36.33,
+     "derived": {
+      "T": 150.719,
+      "L": 291.27,
+      "CH": 286.415
+     },
+     "consistent": false,
+     "check": null,
+     "center": [
+      4277.9,
+      3464.1
+     ]
+    },
+    {
+     "labels": [
+      798
+     ],
+     "fields": {
+      "delta": 52.0,
+      "R": 167.95,
+      "T": 82.35
+     },
+     "source": "dewarp",
+     "verified_by": "identity",
+     "n_reads": 2,
+     "arc": 86,
+     "R": 167.95,
+     "delta": 52.0,
+     "derived": {
+      "L": 152.427,
+      "CH": 147.249
+     },
+     "consistent": true,
+     "check": 0.0053,
+     "center": [
+      5195.5,
+      2781.7
+     ]
+    },
+    {
+     "labels": [
+      1533
+     ],
+     "fields": {
+      "delta": 36.33,
+      "R": 327.01,
+      "T": 107.31
+     },
+     "source": "dewarp",
+     "verified_by": "identity",
+     "n_reads": 6,
+     "arc": 138,
+     "R": 327.01,
+     "delta": 36.33,
+     "derived": {
+      "L": 207.35,
+      "CH": 203.894
+     },
+     "consistent": true,
+     "check": 0.0001,
+     "center": [
+      4007.8,
+      4443.6
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": 0.9,
+    "curves_right": 3,
+    "curves_wrong": 0,
+    "line_recall": 0.9925,
+    "line_precision": 0.9986,
+    "line_f1": 0.9955,
+    "label_assoc": 0.7887,
+    "label_classified": 0.3965,
+    "scale_consistency": 0.5804,
+    "score": 0.8468
+   },
+   "seconds": 210.7,
+   "prev_score": 0.8388
+  },
+  {
+   "image": "plat_notes.png",
+   "kind": "scan",
+   "size": [
+    1000,
+    500
+   ],
+   "stroke_w": 5.73,
+   "char_h": 35.0,
+   "n_monuments": 0,
+   "n_lines": 0,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 27,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 1,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 3,
+    "area": 0,
+    "table": 0,
+    "text": 18,
+    "empty": 5
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 0,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": [
+    "\u201cNOTES\u201d\n1d distsnces shown on curves\nesriags wand distznces.\nS$0wn on block corners gre\n.e watersections. .\nstrretion and setback lines\n\u201com otreet Line. \u2014-",
+    60.56
+   ],
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.0,
+    "label_classified": 0.1538,
+    "scale_consistency": null,
+    "score": 0.5654
+   },
+   "seconds": 4.5,
+   "prev_score": 0.5654
+  },
+  {
+   "image": "south_23_detail.png",
+   "kind": "scan",
+   "size": [
+    440,
+    200
+   ],
+   "stroke_w": 5.73,
+   "char_h": 29.0,
+   "n_monuments": 0,
+   "n_lines": 1,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 9,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 0,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 1,
+    "area": 0,
+    "table": 0,
+    "text": 6,
+    "empty": 2
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 0,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": null,
+    "label_classified": 0.1111,
+    "scale_consistency": null,
+    "score": 0.8361
+   },
+   "seconds": 1.6,
+   "prev_score": 0.8361
+  },
+  {
+   "image": "street_north_of_24.png",
+   "kind": "scan",
+   "size": [
+    800,
+    550
+   ],
+   "stroke_w": 5.73,
+   "char_h": 30.0,
+   "n_monuments": 1,
+   "n_lines": 18,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 39,
+   "n_verified": 4,
+   "kinds": {
+    "bearing": 0,
+    "distance": 8,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 6,
+    "area": 0,
+    "table": 0,
+    "text": 21,
+    "empty": 4
+   },
+   "calibration": {
+    "ft_per_px": 0.38972768587630324,
+    "scale_votes": 7,
+    "scale_inliers": 4,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 4
+   },
+   "qa": [
+    {
+     "label": 12,
+     "kind": "distance",
+     "text": "100\u00b0",
+     "measured": 142.38,
+     "written": 100.0,
+     "diff": 42.38
+    },
+    {
+     "label": 24,
+     "kind": "distance",
+     "text": "93.50'",
+     "measured": 108.43,
+     "written": 93.5,
+     "diff": 14.93
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": 1.0,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.875,
+    "label_classified": 0.3684,
+    "scale_consistency": 0.5714,
+    "score": 0.8628
+   },
+   "seconds": 3.6,
+   "prev_score": 0.8628
+  },
+  {
+   "image": "street_south_of_23.png",
+   "kind": "scan",
+   "size": [
+    800,
+    550
+   ],
+   "stroke_w": 5.73,
+   "char_h": 28.0,
+   "n_monuments": 0,
+   "n_lines": 21,
+   "n_dashed": 0,
+   "n_arcs": 3,
+   "n_labels": 66,
+   "n_verified": 6,
+   "kinds": {
+    "bearing": 0,
+    "distance": 16,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 7,
+    "area": 0,
+    "table": 0,
+    "text": 32,
+    "empty": 11
+   },
+   "calibration": {
+    "ft_per_px": 0.33424300822204656,
+    "scale_votes": 12,
+    "scale_inliers": 6,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 6
+   },
+   "qa": [
+    {
+     "label": 14,
+     "kind": "distance",
+     "text": "89.76\"",
+     "measured": 63.76,
+     "written": 89.76,
+     "diff": -26.0
+    },
+    {
+     "label": 46,
+     "kind": "distance",
+     "text": "*703.20\u00b0",
+     "measured": 92.65,
+     "written": 703.2,
+     "diff": -610.55
+    },
+    {
+     "label": 49,
+     "kind": "distance",
+     "text": "60!",
+     "measured": 69.5,
+     "written": 60.0,
+     "diff": 9.5
+    },
+    {
+     "label": 63,
+     "kind": "distance",
+     "text": "96.80\"",
+     "measured": 82.61,
+     "written": 96.8,
+     "diff": -14.19
+    }
+   ],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.75,
+    "label_classified": 0.3485,
+    "scale_consistency": 0.5,
+    "score": 0.8098
+   },
+   "seconds": 4.9,
+   "prev_score": 0.8098
+  },
+  {
+   "image": "street_west_of_24_23.png",
+   "kind": "scan",
+   "size": [
+    550,
+    1000
+   ],
+   "stroke_w": 5.73,
+   "char_h": 31.0,
+   "n_monuments": 0,
+   "n_lines": 13,
+   "n_dashed": 0,
+   "n_arcs": 5,
+   "n_labels": 47,
+   "n_verified": 4,
+   "kinds": {
+    "bearing": 0,
+    "distance": 6,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 11,
+    "area": 0,
+    "table": 0,
+    "text": 22,
+    "empty": 8
+   },
+   "calibration": {
+    "ft_per_px": 0.33374420874424393,
+    "scale_votes": 5,
+    "scale_inliers": 4,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 4
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.8333,
+    "label_classified": 0.3696,
+    "scale_consistency": 0.8,
+    "score": 0.8736
+   },
+   "seconds": 3.7,
+   "prev_score": 0.8736
+  },
+  {
+   "image": "user_lots_mapcheck_drawing.png",
+   "kind": "render",
+   "size": [
+    4400,
+    2400
+   ],
+   "stroke_w": 3.82,
+   "char_h": 20.0,
+   "n_monuments": 2,
+   "n_lines": 60,
+   "n_dashed": 0,
+   "n_arcs": 18,
+   "n_labels": 345,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 82,
+    "curve_id": 1,
+    "curve_data": 0,
+    "lot": 66,
+    "area": 18,
+    "table": 0,
+    "text": 131,
+    "empty": 47
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 1,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 0.9992,
+    "line_f1": 0.9996,
+    "label_assoc": 0.0122,
+    "label_classified": 0.4897,
+    "scale_consistency": null,
+    "score": 0.6012
+   },
+   "seconds": 74.6,
+   "prev_score": 0.6012
+  },
+  {
+   "image": "web_interface_full.png",
+   "kind": "render",
+   "size": [
+    1440,
+    1600
+   ],
+   "stroke_w": 1.91,
+   "char_h": 8.0,
+   "n_monuments": 0,
+   "n_lines": 84,
+   "n_dashed": 0,
+   "n_arcs": 64,
+   "n_labels": 361,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 27,
+    "curve_id": 0,
+    "curve_data": 3,
+    "lot": 69,
+    "area": 5,
+    "table": 0,
+    "text": 224,
+    "empty": 33
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 5,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      69
+     ],
+     "fields": {
+      "R": 25.0
+     },
+     "R": 25.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 38,
+     "center": [
+      865.9,
+      294.8
+     ]
+    },
+    {
+     "labels": [
+      73
+     ],
+     "fields": {
+      "T": 25.6
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      1003.0,
+      294.5
+     ]
+    },
+    {
+     "labels": [
+      74
+     ],
+     "fields": {
+      "L": 39.27
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      1066.5,
+      294.5
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9959,
+    "line_precision": 1.0,
+    "line_f1": 0.9979,
+    "label_assoc": 0.1852,
+    "label_classified": 0.2889,
+    "scale_consistency": null,
+    "score": 0.6148
+   },
+   "seconds": 26.7,
+   "prev_score": 0.6148
+  },
+  {
+   "image": "web_interface_grid.png",
+   "kind": "render",
+   "size": [
+    1440,
+    2600
+   ],
+   "stroke_w": 1.91,
+   "char_h": 8.0,
+   "n_monuments": 0,
+   "n_lines": 130,
+   "n_dashed": 0,
+   "n_arcs": 109,
+   "n_labels": 644,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 46,
+    "curve_id": 0,
+    "curve_data": 3,
+    "lot": 131,
+    "area": 33,
+    "table": 0,
+    "text": 389,
+    "empty": 42
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 6,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      68
+     ],
+     "fields": {
+      "R": 25.0
+     },
+     "R": 25.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 38,
+     "center": [
+      865.9,
+      294.8
+     ]
+    },
+    {
+     "labels": [
+      72
+     ],
+     "fields": {
+      "T": 25.6
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      1003.0,
+      294.5
+     ]
+    },
+    {
+     "labels": [
+      73
+     ],
+     "fields": {
+      "L": 39.27
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      1066.5,
+      294.5
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9904,
+    "line_precision": 1.0,
+    "line_f1": 0.9952,
+    "label_assoc": 0.1304,
+    "label_classified": 0.3313,
+    "scale_consistency": null,
+    "score": 0.6066
+   },
+   "seconds": 50.8,
+   "prev_score": 0.6066
+  },
+  {
+   "image": "web_interface_preview.png",
+   "kind": "render",
+   "size": [
+    1440,
+    1100
+   ],
+   "stroke_w": 1.91,
+   "char_h": 8.0,
+   "n_monuments": 0,
+   "n_lines": 58,
+   "n_dashed": 0,
+   "n_arcs": 41,
+   "n_labels": 241,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 20,
+    "curve_id": 0,
+    "curve_data": 3,
+    "lot": 55,
+    "area": 2,
+    "table": 0,
+    "text": 137,
+    "empty": 24
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 4,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      69
+     ],
+     "fields": {
+      "R": 25.0
+     },
+     "R": 25.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 28,
+     "center": [
+      865.9,
+      294.8
+     ]
+    },
+    {
+     "labels": [
+      73
+     ],
+     "fields": {
+      "T": 25.6
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      1003.0,
+      294.5
+     ]
+    },
+    {
+     "labels": [
+      74
+     ],
+     "fields": {
+      "L": 39.27
+     },
+     "R": null,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      1066.5,
+      294.5
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.2,
+    "label_classified": 0.3333,
+    "scale_consistency": null,
+    "score": 0.6233
+   },
+   "seconds": 16.0,
+   "prev_score": 0.6233
+  },
+  {
+   "image": "west_23_detail.png",
+   "kind": "scan",
+   "size": [
+    220,
+    400
+   ],
+   "stroke_w": 5.73,
+   "char_h": 29.5,
+   "n_monuments": 0,
+   "n_lines": 1,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 10,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 1,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 1,
+    "area": 0,
+    "table": 0,
+    "text": 6,
+    "empty": 2
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 1,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 1.0,
+    "label_classified": 0.2,
+    "scale_consistency": null,
+    "score": 0.77
+   },
+   "seconds": 1.5,
+   "prev_score": 0.77
+  },
+  {
+   "image": "west_24_detail.png",
+   "kind": "scan",
+   "size": [
+    220,
+    420
+   ],
+   "stroke_w": 5.73,
+   "char_h": 27.0,
+   "n_monuments": 0,
+   "n_lines": 3,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 16,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 4,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 3,
+    "area": 0,
+    "table": 0,
+    "text": 5,
+    "empty": 4
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 3,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.75,
+    "label_classified": 0.4667,
+    "scale_consistency": null,
+    "score": 0.7467
+   },
+   "seconds": 1.8,
+   "prev_score": 0.7467
+  },
+  {
+   "image": "zoom_26_27_28_25.png",
+   "kind": "scan",
+   "size": [
+    190,
+    120
+   ],
+   "stroke_w": 1.91,
+   "char_h": 9.0,
+   "n_monuments": 0,
+   "n_lines": 20,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 45,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 2,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 10,
+    "area": 0,
+    "table": 0,
+    "text": 30,
+    "empty": 3
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 2,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9273,
+    "line_precision": 1.0,
+    "line_f1": 0.9623,
+    "label_assoc": 1.0,
+    "label_classified": 0.2667,
+    "scale_consistency": null,
+    "score": 0.7559
+   },
+   "seconds": 3.4,
+   "prev_score": 0.7559
+  },
+  {
+   "image": "zoom_831.png",
+   "kind": "scan",
+   "size": [
+    120,
+    120
+   ],
+   "stroke_w": 1.91,
+   "char_h": 10.0,
+   "n_monuments": 0,
+   "n_lines": 12,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 30,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 4,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 6,
+    "area": 0,
+    "table": 0,
+    "text": 11,
+    "empty": 9
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 1,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9155,
+    "line_precision": 1.0,
+    "line_f1": 0.9559,
+    "label_assoc": 0.25,
+    "label_classified": 0.3333,
+    "scale_consistency": null,
+    "score": 0.6091
+   },
+   "seconds": 2.4,
+   "prev_score": 0.6091
+  },
+  {
+   "image": "zoom_cape_horn_curve_data.png",
+   "kind": "scan",
+   "size": [
+    280,
+    120
+   ],
+   "stroke_w": 1.91,
+   "char_h": 11.0,
+   "n_monuments": 0,
+   "n_lines": 7,
+   "n_dashed": 1,
+   "n_arcs": 3,
+   "n_labels": 24,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 2,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 1,
+    "area": 0,
+    "table": 0,
+    "text": 14,
+    "empty": 7
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 1,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      5
+     ],
+     "fields": {
+      "delta": 36.333333333333336
+     },
+     "R": null,
+     "delta": 36.333333333333336,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 0,
+     "center": [
+      36.7,
+      39.3
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9153,
+    "line_precision": 1.0,
+    "line_f1": 0.9558,
+    "label_assoc": 1.0,
+    "label_classified": 0.125,
+    "scale_consistency": null,
+    "score": 0.7382
+   },
+   "seconds": 7.8,
+   "prev_score": 0.7382
+  },
+  {
+   "image": "zoom_interior_lines.png",
+   "kind": "scan",
+   "size": [
+    220,
+    160
+   ],
+   "stroke_w": 1.91,
+   "char_h": 9.0,
+   "n_monuments": 0,
+   "n_lines": 28,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 74,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 10,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 12,
+    "area": 2,
+    "table": 0,
+    "text": 41,
+    "empty": 9
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 8,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.8904,
+    "line_precision": 1.0,
+    "line_f1": 0.9421,
+    "label_assoc": 0.8,
+    "label_classified": 0.3243,
+    "scale_consistency": null,
+    "score": 0.7106
+   },
+   "seconds": 4.5,
+   "prev_score": 0.7106
+  },
+  {
+   "image": "zoom_lot23_24_south.png",
+   "kind": "scan",
+   "size": [
+    260,
+    160
+   ],
+   "stroke_w": 1.91,
+   "char_h": 13.0,
+   "n_monuments": 0,
+   "n_lines": 9,
+   "n_dashed": 1,
+   "n_arcs": 2,
+   "n_labels": 46,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 2,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 11,
+    "area": 0,
+    "table": 0,
+    "text": 20,
+    "empty": 13
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 2,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.4531,
+    "line_precision": 0.9978,
+    "line_f1": 0.6232,
+    "label_assoc": 1.0,
+    "label_classified": 0.2826,
+    "scale_consistency": null,
+    "score": 0.571
+   },
+   "seconds": 2.9,
+   "prev_score": 0.571
+  },
+  {
+   "image": "zoom_lot26_corner.png",
+   "kind": "scan",
+   "size": [
+    160,
+    160
+   ],
+   "stroke_w": 1.91,
+   "char_h": 10.0,
+   "n_monuments": 0,
+   "n_lines": 12,
+   "n_dashed": 0,
+   "n_arcs": 2,
+   "n_labels": 38,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 8,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 10,
+    "area": 0,
+    "table": 0,
+    "text": 18,
+    "empty": 2
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 5,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      30
+     ],
+     "fields": {
+      "R": 265.0
+     },
+     "R": 265.0,
+     "delta": null,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 0,
+     "center": [
+      134.2,
+      130.3
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.952,
+    "line_precision": 1.0,
+    "line_f1": 0.9754,
+    "label_assoc": 0.625,
+    "label_classified": 0.4737,
+    "scale_consistency": null,
+    "score": 0.7088
+   },
+   "seconds": 2.6,
+   "prev_score": 0.7088
+  },
+  {
+   "image": "zoom_lot27_corner.png",
+   "kind": "scan",
+   "size": [
+    150,
+    150
+   ],
+   "stroke_w": 1.91,
+   "char_h": 9.0,
+   "n_monuments": 0,
+   "n_lines": 8,
+   "n_dashed": 0,
+   "n_arcs": 2,
+   "n_labels": 24,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 1,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 6,
+    "area": 0,
+    "table": 0,
+    "text": 16,
+    "empty": 1
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 1,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      11
+     ],
+     "fields": {
+      "delta": 9.0
+     },
+     "R": null,
+     "delta": 9.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": 1,
+     "center": [
+      58.5,
+      84.0
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.8826,
+    "line_precision": 1.0,
+    "line_f1": 0.9376,
+    "label_assoc": 1.0,
+    "label_classified": 0.2917,
+    "scale_consistency": null,
+    "score": 0.7449
+   },
+   "seconds": 2.4,
+   "prev_score": 0.7449
+  },
+  {
+   "image": "zoom_lot28_29.png",
+   "kind": "scan",
+   "size": [
+    210,
+    200
+   ],
+   "stroke_w": 1.91,
+   "char_h": 10.0,
+   "n_monuments": 0,
+   "n_lines": 11,
+   "n_dashed": 0,
+   "n_arcs": 5,
+   "n_labels": 61,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 10,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 12,
+    "area": 0,
+    "table": 0,
+    "text": 25,
+    "empty": 14
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 5,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9439,
+    "line_precision": 1.0,
+    "line_f1": 0.9711,
+    "label_assoc": 0.8,
+    "label_classified": 0.3607,
+    "scale_consistency": null,
+    "score": 0.7302
+   },
+   "seconds": 3.2,
+   "prev_score": 0.7302
+  },
+  {
+   "image": "zoom_lot30_31_easement.png",
+   "kind": "scan",
+   "size": [
+    200,
+    130
+   ],
+   "stroke_w": 2.74,
+   "char_h": 13.0,
+   "n_monuments": 0,
+   "n_lines": 7,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 18,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 5,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 2,
+    "area": 0,
+    "table": 0,
+    "text": 7,
+    "empty": 4
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 4,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.8,
+    "label_classified": 0.3889,
+    "scale_consistency": null,
+    "score": 0.7489
+   },
+   "seconds": 1.9,
+   "prev_score": 0.7489
+  },
+  {
+   "image": "zoom_lot30_31_rear.png",
+   "kind": "scan",
+   "size": [
+    240,
+    140
+   ],
+   "stroke_w": 2.74,
+   "char_h": 13.0,
+   "n_monuments": 0,
+   "n_lines": 5,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 24,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 4,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 3,
+    "area": 0,
+    "table": 0,
+    "text": 6,
+    "empty": 11
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 3,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9809,
+    "line_precision": 1.0,
+    "line_f1": 0.9904,
+    "label_assoc": 0.75,
+    "label_classified": 0.2917,
+    "scale_consistency": null,
+    "score": 0.7239
+   },
+   "seconds": 2.0,
+   "prev_score": 0.7239
+  },
+  {
+   "image": "zoom_rear_30_31.png",
+   "kind": "scan",
+   "size": [
+    280,
+    160
+   ],
+   "stroke_w": 1.91,
+   "char_h": 10.0,
+   "n_monuments": 0,
+   "n_lines": 17,
+   "n_dashed": 0,
+   "n_arcs": 1,
+   "n_labels": 61,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 7,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 9,
+    "area": 0,
+    "table": 0,
+    "text": 30,
+    "empty": 15
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 4,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9456,
+    "line_precision": 1.0,
+    "line_f1": 0.9721,
+    "label_assoc": 0.5714,
+    "label_classified": 0.2667,
+    "scale_consistency": null,
+    "score": 0.6756
+   },
+   "seconds": 3.4,
+   "prev_score": 0.6756
+  },
+  {
+   "image": "zoom_san_salvadore_curve.png",
+   "kind": "scan",
+   "size": [
+    300,
+    120
+   ],
+   "stroke_w": 1.91,
+   "char_h": 10.0,
+   "n_monuments": 0,
+   "n_lines": 13,
+   "n_dashed": 0,
+   "n_arcs": 2,
+   "n_labels": 61,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 13,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 8,
+    "area": 0,
+    "table": 0,
+    "text": 29,
+    "empty": 11
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 9,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 1.0,
+    "line_precision": 1.0,
+    "line_f1": 1.0,
+    "label_assoc": 0.6923,
+    "label_classified": 0.3443,
+    "scale_consistency": null,
+    "score": 0.7229
+   },
+   "seconds": 3.4,
+   "prev_score": 0.7229
+  },
+  {
+   "image": "zoom_san_salvadore_curve_data.png",
+   "kind": "scan",
+   "size": [
+    270,
+    110
+   ],
+   "stroke_w": 1.91,
+   "char_h": 11.5,
+   "n_monuments": 0,
+   "n_lines": 10,
+   "n_dashed": 0,
+   "n_arcs": 0,
+   "n_labels": 42,
+   "n_verified": 0,
+   "kinds": {
+    "bearing": 0,
+    "distance": 10,
+    "curve_id": 0,
+    "curve_data": 0,
+    "lot": 5,
+    "area": 0,
+    "table": 0,
+    "text": 24,
+    "empty": 3
+   },
+   "calibration": {
+    "ft_per_px": null,
+    "scale_votes": 7,
+    "scale_inliers": 0,
+    "rotation_deg": 0.0,
+    "rot_votes": 0,
+    "rot_inliers": 0,
+    "verified": 0
+   },
+   "qa": [],
+   "curve_table": {},
+   "curve_blocks": [
+    {
+     "labels": [
+      26
+     ],
+     "fields": {
+      "delta": 2.0
+     },
+     "R": null,
+     "delta": 2.0,
+     "derived": {},
+     "consistent": false,
+     "check": null,
+     "arc": null,
+     "center": [
+      239.7,
+      60.0
+     ]
+    }
+   ],
+   "notes": null,
+   "metrics": {
+    "scale_truth": null,
+    "scale_correct": null,
+    "monument_f1": null,
+    "curves_right": null,
+    "curves_wrong": null,
+    "line_recall": 0.9832,
+    "line_precision": 1.0,
+    "line_f1": 0.9915,
+    "label_assoc": 0.7,
+    "label_classified": 0.3571,
+    "scale_consistency": null,
+    "score": 0.7211
+   },
+   "seconds": 3.2,
+   "prev_score": 0.7211
+  }
+ ]
+}

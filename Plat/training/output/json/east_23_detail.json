@@ -1,0 +1,317 @@
+{
+ "image": "east_23_detail.png",
+ "kind": "scan",
+ "size": [
+  220,
+  400
+ ],
+ "stroke_w": 5.73,
+ "char_h": 27.0,
+ "n_monuments": 0,
+ "n_lines": 3,
+ "n_dashed": 0,
+ "n_arcs": 0,
+ "n_labels": 21,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 3,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 5,
+  "area": 0,
+  "table": 0,
+  "text": 8,
+  "empty": 5
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 1,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0,
+  "verified": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 1.0,
+  "line_precision": 1.0,
+  "line_f1": 1.0,
+  "label_assoc": 0.3333,
+  "label_classified": 0.381,
+  "scale_consistency": null,
+  "score": 0.6548
+ },
+ "seconds": 1.8,
+ "labels": [
+  {
+   "id": 0,
+   "text": "2",
+   "kind": "lot",
+   "conf": 56.0,
+   "center": [
+    83.0,
+    12.6
+   ],
+   "angle": 244.6,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "Er.ESeIN |",
+   "kind": "text",
+   "conf": 34.5,
+   "center": [
+    135.2,
+    86.8
+   ],
+   "angle": 93.1,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "100.44",
+   "kind": "distance",
+   "conf": 94.0,
+   "center": [
+    175.3,
+    66.9
+   ],
+   "angle": 273.1,
+   "assoc": {
+    "geom": [
+     "L",
+     0
+    ],
+    "t": 0.27413940128464026,
+    "offset": -20.704744559938785,
+    "score": 0.7668423911088439
+   }
+  },
+  {
+   "id": 3,
+   "text": "[\u00a308",
+   "kind": "distance",
+   "conf": 33.0,
+   "center": [
+    105.5,
+    53.5
+   ],
+   "angle": 273.1,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "3",
+   "kind": "lot",
+   "conf": 65.0,
+   "center": [
+    71.0,
+    29.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 5,
+   "text": "% \\",
+   "kind": "empty",
+   "conf": 53.5,
+   "center": [
+    77.5,
+    50.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "3",
+   "kind": "lot",
+   "conf": 89.0,
+   "center": [
+    9.5,
+    63.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 7,
+   "text": "Se",
+   "kind": "text",
+   "conf": 87.0,
+   "center": [
+    76.5,
+    75.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 8,
+   "text": "3",
+   "kind": "lot",
+   "conf": 65.0,
+   "center": [
+    71.0,
+    93.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 9,
+   "text": "61",
+   "kind": "distance",
+   "conf": 41.0,
+   "center": [
+    75.0,
+    114.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 10,
+   "text": "&",
+   "kind": "empty",
+   "conf": 92.0,
+   "center": [
+    74.0,
+    138.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 11,
+   "text": "5",
+   "kind": "lot",
+   "conf": 77.0,
+   "center": [
+    74.0,
+    174.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 12,
+   "text": "NE",
+   "kind": "text",
+   "conf": 70.0,
+   "center": [
+    187.1,
+    172.5
+   ],
+   "angle": 0.4,
+   "assoc": null
+  },
+  {
+   "id": 13,
+   "text": "Ss",
+   "kind": "text",
+   "conf": 71.0,
+   "center": [
+    106.5,
+    202.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 14,
+   "text": "a",
+   "kind": "text",
+   "conf": 84.0,
+   "center": [
+    8.0,
+    196.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 15,
+   "text": "o\\",
+   "kind": "text",
+   "conf": 72.0,
+   "center": [
+    96.5,
+    220.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 16,
+   "text": "\u2018",
+   "kind": "empty",
+   "conf": 87.0,
+   "center": [
+    217.0,
+    224.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 17,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 93.0,
+   "center": [
+    94.5,
+    249.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 18,
+   "text": "58'20\".",
+   "kind": "text",
+   "conf": 40.0,
+   "center": [
+    81.4,
+    317.5
+   ],
+   "angle": 4.5,
+   "assoc": null
+  },
+  {
+   "id": 19,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 46.0,
+   "center": [
+    90.0,
+    382.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 20,
+   "text": "d 1",
+   "kind": "text",
+   "conf": 81.0,
+   "center": [
+    88.5,
+    394.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  }
+ ]
+}

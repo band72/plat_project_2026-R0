@@ -1,0 +1,215 @@
+{
+ "_doc": "Ground-truth ft/px for rendered mapchecks, measured from their matplotlib axis tick labels (evenly spaced ticks, linear fit residual <= 0.7 px) by an OCR script independent of raster2dxf; block9 read by hand from its tick positions. Assumes equal axis aspect (survey plots).",
+ "scales": {
+  "block13_mapcheck_drawing.png": {
+   "ft_per_px": 0.27416,
+   "axis": "x",
+   "ticks": [
+    200.0,
+    400.0,
+    600.0,
+    800.0
+   ],
+   "max_resid_px": 0.0,
+   "source": "axis-ocr"
+  },
+  "block16_mapcheck_drawing.png": {
+   "ft_per_px": 0.17506,
+   "axis": "x",
+   "ticks": [
+    100.0,
+    200.0,
+    300.0,
+    400.0,
+    500.0,
+    600.0
+   ],
+   "max_resid_px": 0.66,
+   "source": "axis-ocr"
+  },
+  "block10_11_12_mapcheck_drawing.png": {
+   "ft_per_px": 0.27701,
+   "axis": "x",
+   "ticks": [
+    1000.0,
+    1100.0,
+    1200.0,
+    1300.0,
+    1400.0
+   ],
+   "max_resid_px": 0.0,
+   "source": "axis-ocr"
+  },
+  "beachwood_road_centerlines_drawing.png": {
+   "ft_per_px": 0.46136,
+   "axis": "x",
+   "ticks": [
+    9000.0,
+    9500.0,
+    10000.0,
+    10500.0,
+    11000.0,
+    11500.0,
+    12000.0
+   ],
+   "max_resid_px": 0.38,
+   "source": "axis-ocr"
+  },
+  "beverly_isle_drawing.png": {
+   "ft_per_px": 0.30286,
+   "axis": "x",
+   "ticks": [
+    9500.0,
+    9600.0,
+    9700.0,
+    9800.0,
+    9900.0,
+    10000.0,
+    10100.0,
+    10200.0
+   ],
+   "max_resid_px": 0.35,
+   "source": "axis-ocr"
+  },
+  "block9_mapcheck_drawing.png": {
+   "ft_per_px": 0.1995,
+   "axis": "x",
+   "ticks": [
+    -300,
+    -200,
+    -100,
+    0,
+    100,
+    200
+   ],
+   "source": "hand: 100 ft = 501.3 px"
+  },
+  "mapcheck_individual_parcels_grid.png": {
+   "ft_per_px": null,
+   "no_scale": true,
+   "source": "viewed: grid of parcel thumbnails, no dimension labels -> any scale is wrong"
+  },
+  "crop_lot23_24_detail.png": {
+   "ft_per_px": 0.3375,
+   "tol": 0.06,
+   "source": "hand, dark-pixel profiles: lot 23 102.38' = 303.5 px (0.3373), lot 25 W 103.17' = 305.5 px (0.3377); lot 25 83.26' = 232 px (0.3586) shows the drafting is only ~6% to scale, hence tol 0.06"
+  }
+ },
+ "_doc_monuments": "Hand-verified monument (P.R.M.) symbol centres in px, complete for each listed image; symbols cut by the image edge are excluded from scoring both ways.",
+ "monuments": {
+  "crop_lot23_24_detail.png": [
+   [
+    565,
+    66
+   ],
+   [
+    585,
+    247
+   ]
+  ],
+  "lots23_24_clean_scan.png": [
+   [
+    385,
+    67
+   ]
+  ],
+  "street_north_of_24.png": [
+   [
+    566,
+    366
+   ]
+  ],
+  "block9_mapcheck_drawing.png": [
+   [
+    2583,
+    1203
+   ]
+  ],
+  "block13_mapcheck_drawing.png": [
+   [
+    1188,
+    1148
+   ],
+   [
+    3722,
+    1103
+   ]
+  ],
+  "page1_300dpi.png": [
+   [
+    3976,
+    1018
+   ],
+   [
+    3506,
+    1508
+   ],
+   [
+    3968,
+    1806
+   ],
+   [
+    3966,
+    2566
+   ],
+   [
+    7340,
+    3390
+   ],
+   [
+    7338,
+    2608
+   ],
+   [
+    3984,
+    2748
+   ],
+   [
+    7344,
+    1820
+   ],
+   [
+    1802,
+    552
+   ],
+   [
+    3453,
+    4732
+   ]
+  ]
+ },
+ "_doc_monuments_page1": "page1: every raw Hough ring candidate with ring>=0.8 and empty centre (314) reviewed by eye, plus the detector's own hits; legend symbol at (2056,1922) excluded (not a surveyed point); diamond at (1802,552) is a P.C.P. on the lines -> included",
+ "curve_catalog": {
+  "_doc": "PB30 P82 centreline (\u2104 Curve Data) curves, R and T as read from the scan and recorded in the project notes (horizontal-curves memory, 2026-09-23). Shellfish T=82.35 is the plat's own value (internally 0.084 off -- a plat discrepancy, kept as printed). A read curve is 'right' if R is within 1% of a catalog R (and T within 1% when read), else 'wrong'.",
+  "images": [
+   "page0_300dpi.png",
+   "page1_300dpi.png"
+  ],
+  "curves": {
+   "San Salvadore": {
+    "R": 269.96,
+    "T": 88.59
+   },
+   "Cape Horn": {
+    "R": 327.01,
+    "T": 107.31
+   },
+   "Marina": {
+    "R": 359.27,
+    "T": 122.7
+   },
+   "Sands": {
+    "R": 459.36,
+    "T": 150.73
+   },
+   "Keel": {
+    "R": 143.93,
+    "T": 70.65
+   },
+   "Shellfish": {
+    "R": 167.95,
+    "T": 82.35
+   }
+  }
+ }
+}

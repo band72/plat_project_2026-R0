@@ -1,0 +1,613 @@
+{
+ "image": "zoom_26_27_28_25.png",
+ "kind": "scan",
+ "size": [
+  190,
+  120
+ ],
+ "stroke_w": 1.91,
+ "char_h": 9.0,
+ "n_monuments": 0,
+ "n_lines": 20,
+ "n_dashed": 0,
+ "n_arcs": 0,
+ "n_labels": 45,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 2,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 10,
+  "area": 0,
+  "table": 0,
+  "text": 30,
+  "empty": 3
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 2,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0,
+  "verified": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 0.9273,
+  "line_precision": 1.0,
+  "line_f1": 0.9623,
+  "label_assoc": 1.0,
+  "label_classified": 0.2667,
+  "scale_consistency": null,
+  "score": 0.7559
+ },
+ "seconds": 3.4,
+ "labels": [
+  {
+   "id": 0,
+   "text": "7",
+   "kind": "lot",
+   "conf": 85.0,
+   "center": [
+    7.0,
+    6.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "\"4",
+   "kind": "lot",
+   "conf": 90.0,
+   "center": [
+    8.0,
+    1.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "~&",
+   "kind": "empty",
+   "conf": 50.0,
+   "center": [
+    31.1,
+    2.0
+   ],
+   "angle": 168.8,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "N.3\u00b06",
+   "kind": "text",
+   "conf": 74.0,
+   "center": [
+    81.1,
+    17.7
+   ],
+   "angle": 276.4,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "WwW",
+   "kind": "text",
+   "conf": 65.0,
+   "center": [
+    94.4,
+    6.5
+   ],
+   "angle": 6.4,
+   "assoc": null
+  },
+  {
+   "id": 5,
+   "text": "28",
+   "kind": "lot",
+   "conf": 50.0,
+   "center": [
+    123.5,
+    8.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "Tercyec:",
+   "kind": "text",
+   "conf": 32.0,
+   "center": [
+    158.4,
+    20.9
+   ],
+   "angle": 120.6,
+   "assoc": null
+  },
+  {
+   "id": 7,
+   "text": "8",
+   "kind": "lot",
+   "conf": 35.0,
+   "center": [
+    26.0,
+    10.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 8,
+   "text": "2",
+   "kind": "lot",
+   "conf": 42.0,
+   "center": [
+    25.5,
+    22.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 9,
+   "text": "\"thew",
+   "kind": "text",
+   "conf": 35.0,
+   "center": [
+    165.8,
+    36.8
+   ],
+   "angle": 310.2,
+   "assoc": null
+  },
+  {
+   "id": 10,
+   "text": "Van.",
+   "kind": "text",
+   "conf": 55.0,
+   "center": [
+    187.0,
+    26.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 11,
+   "text": "tg",
+   "kind": "text",
+   "conf": 54.0,
+   "center": [
+    185.0,
+    34.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 12,
+   "text": "\u2018oF",
+   "kind": "text",
+   "conf": 65.0,
+   "center": [
+    105.4,
+    41.1
+   ],
+   "angle": 177.9,
+   "assoc": null
+  },
+  {
+   "id": 13,
+   "text": "502!",
+   "kind": "lot",
+   "conf": 70.0,
+   "center": [
+    182.3,
+    44.6
+   ],
+   "angle": 304.8,
+   "assoc": null
+  },
+  {
+   "id": 14,
+   "text": "\u201cyt",
+   "kind": "text",
+   "conf": 29.0,
+   "center": [
+    76.3,
+    42.9
+   ],
+   "angle": 196.6,
+   "assoc": null
+  },
+  {
+   "id": 15,
+   "text": "ne!",
+   "kind": "text",
+   "conf": 50.0,
+   "center": [
+    61.4,
+    45.9
+   ],
+   "angle": 357.0,
+   "assoc": null
+  },
+  {
+   "id": 16,
+   "text": "vex \u2018",
+   "kind": "text",
+   "conf": 69.5,
+   "center": [
+    44.2,
+    46.7
+   ],
+   "angle": 338.8,
+   "assoc": null
+  },
+  {
+   "id": 17,
+   "text": "@",
+   "kind": "empty",
+   "conf": 64.0,
+   "center": [
+    34.0,
+    48.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 18,
+   "text": "wr",
+   "kind": "text",
+   "conf": 65.0,
+   "center": [
+    20.5,
+    62.9
+   ],
+   "angle": 27.1,
+   "assoc": null
+  },
+  {
+   "id": 19,
+   "text": "\u00bb ~o .",
+   "kind": "text",
+   "conf": 66.7,
+   "center": [
+    107.5,
+    51.5
+   ],
+   "angle": 179.5,
+   "assoc": null
+  },
+  {
+   "id": 20,
+   "text": "ag",
+   "kind": "text",
+   "conf": 91.0,
+   "center": [
+    180.6,
+    55.7
+   ],
+   "angle": 153.1,
+   "assoc": null
+  },
+  {
+   "id": 21,
+   "text": "2",
+   "kind": "lot",
+   "conf": 66.0,
+   "center": [
+    125.1,
+    60.3
+   ],
+   "angle": 296.0,
+   "assoc": null
+  },
+  {
+   "id": 22,
+   "text": "{s",
+   "kind": "text",
+   "conf": 78.0,
+   "center": [
+    143.5,
+    57.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 23,
+   "text": "We",
+   "kind": "text",
+   "conf": 35.0,
+   "center": [
+    53.7,
+    58.1
+   ],
+   "angle": 27.1,
+   "assoc": null
+  },
+  {
+   "id": 24,
+   "text": "Cc",
+   "kind": "text",
+   "conf": 54.0,
+   "center": [
+    44.5,
+    63.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 25,
+   "text": "CY a",
+   "kind": "text",
+   "conf": 52.0,
+   "center": [
+    91.5,
+    61.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 26,
+   "text": "hong,",
+   "kind": "text",
+   "conf": 39.0,
+   "center": [
+    113.5,
+    67.9
+   ],
+   "angle": 196.6,
+   "assoc": null
+  },
+  {
+   "id": 27,
+   "text": "\u2014 om",
+   "kind": "text",
+   "conf": 51.0,
+   "center": [
+    14.5,
+    64.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 28,
+   "text": "a",
+   "kind": "text",
+   "conf": 75.0,
+   "center": [
+    172.3,
+    71.6
+   ],
+   "angle": 183.9,
+   "assoc": null
+  },
+  {
+   "id": 29,
+   "text": "\"Pulls",
+   "kind": "text",
+   "conf": 34.0,
+   "center": [
+    92.6,
+    81.9
+   ],
+   "angle": 102.1,
+   "assoc": null
+  },
+  {
+   "id": 30,
+   "text": "ines,",
+   "kind": "text",
+   "conf": 49.0,
+   "center": [
+    164.9,
+    80.6
+   ],
+   "angle": 3.9,
+   "assoc": null
+  },
+  {
+   "id": 31,
+   "text": "%62",
+   "kind": "lot",
+   "conf": 41.0,
+   "center": [
+    107.6,
+    87.9
+   ],
+   "angle": 102.1,
+   "assoc": null
+  },
+  {
+   "id": 32,
+   "text": "563)",
+   "kind": "distance",
+   "conf": 55.0,
+   "center": [
+    123.7,
+    85.6
+   ],
+   "angle": 26.0,
+   "assoc": {
+    "geom": [
+     "L",
+     15
+    ],
+    "t": 0.8966482582877287,
+    "offset": 16.068728634727073,
+    "score": 1.7854142927474526
+   }
+  },
+  {
+   "id": 33,
+   "text": "woe Anau cS. Pe",
+   "kind": "text",
+   "conf": 37.0,
+   "center": [
+    159.7,
+    91.8
+   ],
+   "angle": 3.9,
+   "assoc": null
+  },
+  {
+   "id": 34,
+   "text": "&",
+   "kind": "empty",
+   "conf": 45.0,
+   "center": [
+    173.0,
+    104.4
+   ],
+   "angle": 183.9,
+   "assoc": null
+  },
+  {
+   "id": 35,
+   "text": "103\u00b0",
+   "kind": "distance",
+   "conf": 71.0,
+   "center": [
+    9.5,
+    106.0
+   ],
+   "angle": 270.1,
+   "assoc": {
+    "geom": [
+     "L",
+     6
+    ],
+    "t": 0.878894572202257,
+    "offset": -7.5617136094151,
+    "score": 0.8401904010461222
+   }
+  },
+  {
+   "id": 36,
+   "text": "26",
+   "kind": "lot",
+   "conf": 96.0,
+   "center": [
+    46.4,
+    99.6
+   ],
+   "angle": 346.8,
+   "assoc": null
+  },
+  {
+   "id": 37,
+   "text": "v, a",
+   "kind": "text",
+   "conf": 48.5,
+   "center": [
+    86.9,
+    96.5
+   ],
+   "angle": 96.1,
+   "assoc": null
+  },
+  {
+   "id": 38,
+   "text": "Zee",
+   "kind": "text",
+   "conf": 35.0,
+   "center": [
+    152.4,
+    98.7
+   ],
+   "angle": 183.9,
+   "assoc": null
+  },
+  {
+   "id": 39,
+   "text": "ve",
+   "kind": "text",
+   "conf": 88.0,
+   "center": [
+    104.0,
+    103.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 40,
+   "text": "4",
+   "kind": "lot",
+   "conf": 93.0,
+   "center": [
+    85.0,
+    108.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 41,
+   "text": "e e..",
+   "kind": "text",
+   "conf": 47.5,
+   "center": [
+    93.0,
+    114.6
+   ],
+   "angle": 157.5,
+   "assoc": null
+  },
+  {
+   "id": 42,
+   "text": "ar ww",
+   "kind": "text",
+   "conf": 70.5,
+   "center": [
+    38.5,
+    118.1
+   ],
+   "angle": 179.1,
+   "assoc": null
+  },
+  {
+   "id": 43,
+   "text": "Ar",
+   "kind": "text",
+   "conf": 67.0,
+   "center": [
+    128.5,
+    117.4
+   ],
+   "angle": 357.1,
+   "assoc": null
+  },
+  {
+   "id": 44,
+   "text": "we",
+   "kind": "text",
+   "conf": 84.0,
+   "center": [
+    162.5,
+    117.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  }
+ ]
+}

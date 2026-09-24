@@ -74,9 +74,11 @@ def draw_lot_sheet(dxf, verification, pts, origin_n, origin_e,
         pos = course_label_positions(pa[0], pa[1], pb[0], pb[1], 3.0, 3.0)
         if pos:
             dxf.text(pos["bearing_pos"], azimuth_to_bearing(az), height=3.4,
-                     layer=layer_lbl, rotation=pos["angle"])
+                     layer=layer_lbl, rotation=pos["angle"],
+                     halign=pos["bearing_align"][0], valign=pos["bearing_align"][1])
             dxf.text(pos["distance_pos"], f"{d:.2f}'", height=3.2,
-                     layer=layer_lbl, rotation=pos["angle"])
+                     layer=layer_lbl, rotation=pos["angle"],
+                     halign=pos["distance_align"][0], valign=pos["distance_align"][1])
         dxf.point(pa, layer=layer_lbl)
 
     # error geometry drawn red, on top

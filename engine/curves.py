@@ -335,19 +335,17 @@ def solve_curve_all_parameters(
             T = have["tangent"]
             # T = R tan(theta) = (L / 2theta) tan(theta) => tan(theta)/theta = 2T / L
             k = (2.0 * T) / L
-            if k < 1.0:
-                raise ValueError(f"Tangent {T} must satisfy 2*T >= L ({L})")
-            theta = math.sqrt(max(0.0, 3.0 * (k - 1.0)))
-            if theta == 0.0: theta = 0.1
-            for _ in range(30):
-                c = math.cos(theta)
-                sec2 = 1.0 / (c * c) if abs(c) > 1e-9 else 1.0
-                f_val = math.tan(theta) - k * theta
-                f_prime = sec2 - k
-                if abs(f_prime) < 1e-12: break
-                d_theta = f_val / f_prime
-                theta -= d_theta
-                if abs(d_theta) < 1e-12: break
+            if k <= 1.0:
+                raise ValueError(f"Tangent {T} must satisfy 2*T > L ({L})")
+            # tan(theta) / theta is strictly increasing on (0, pi/2)
+            lo, hi = 1e-12, math.pi / 2.0 - 1e-12
+            for _ in range(60):
+                mid = 0.5 * (lo + hi)
+                if math.tan(mid) / mid < k:
+                    lo = mid
+                else:
+                    hi = mid
+            theta = 0.5 * (lo + hi)
             delta_d = math.degrees(2.0 * theta)
             R = L / math.radians(delta_d)
         elif "mid_ordinate" in have:
@@ -463,6 +461,9 @@ def solve_curve_all_parameters(
         delta_d = math.degrees(2.0 * theta)
     else:
         raise ValueError("Provided parameter combination cannot be resolved")
+
+    if delta_d <= 0.0 or delta_d >= 180.0 or not math.isfinite(delta_d) or R <= 0.0 or not math.isfinite(R):
+        raise ValueError(f"Infeasible curve solved: R={R}, delta={delta_d}")
 
     # Final parameter calculations
     delta_r = math.radians(delta_d)
@@ -681,8 +682,8 @@ def trace_curve_from_skeleton(
     dn = ptn - pcn
     de = pte - pce
     chord_dist = math.hypot(dn, de)
-    if chord_dist > 2.0 * radius:
-        radius = chord_dist / 2.0  # limit radius to semicircle
+    if chord_dist > 2.0 * radius + 1e-7:
+        raise ValueError(f"Chord distance {chord_dist:.4f} exceeds diameter 2*R ({2.0 * radius:.4f})")
 
     # Central angle Delta
     sin_half_delta = max(-1.0, min(1.0, chord_dist / (2.0 * radius)))

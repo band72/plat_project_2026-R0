@@ -141,7 +141,8 @@ for i, w in enumerate(WIDTHS):                     # per-lot widths + corner tic
     pos = course_label_positions(a[0], a[1], b[0], b[1], 1.0, 1.0)
     if pos:
         dxf.text(pos["distance_pos"], f"{w:.2f}'", height=2.6,
-                 layer="LABELS", rotation=pos["angle"])
+                 layer="LABELS", rotation=pos["angle"],
+                 halign=pos["distance_align"][0], valign=pos["distance_align"][1])
     dn, de = f12[0]-f0[0], f12[1]-f0[1]
     ln = math.hypot(dn, de); px, py = -de/ln, dn/ln
     dxf.line((a[0]-px, a[1]-py), (a[0]+px, a[1]+py), layer="LOT_LINE")

@@ -1,0 +1,233 @@
+{
+ "image": "lot23_east_label.png",
+ "kind": "scan",
+ "size": [
+  140,
+  300
+ ],
+ "stroke_w": 5.73,
+ "char_h": 26.0,
+ "n_monuments": 0,
+ "n_lines": 3,
+ "n_dashed": 0,
+ "n_arcs": 0,
+ "n_labels": 14,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 1,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 0,
+  "area": 0,
+  "table": 0,
+  "text": 8,
+  "empty": 5
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 1,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0,
+  "verified": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 1.0,
+  "line_precision": 1.0,
+  "line_f1": 1.0,
+  "label_assoc": 1.0,
+  "label_classified": 0.0714,
+  "scale_consistency": null,
+  "score": 0.7571
+ },
+ "seconds": 1.9,
+ "labels": [
+  {
+   "id": 0,
+   "text": "Le FI a",
+   "kind": "text",
+   "conf": 66.0,
+   "center": [
+    5.0,
+    6.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "WAL",
+   "kind": "text",
+   "conf": 69.0,
+   "center": [
+    24.4,
+    27.0
+   ],
+   "angle": 94.0,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "OS0/N ,",
+   "kind": "text",
+   "conf": 42.0,
+   "center": [
+    54.6,
+    62.8
+   ],
+   "angle": 94.0,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "700.",
+   "kind": "distance",
+   "conf": 89.0,
+   "center": [
+    94.2,
+    43.3
+   ],
+   "angle": 274.0,
+   "assoc": {
+    "geom": [
+     "L",
+     0
+    ],
+    "t": 0.21874222512316158,
+    "offset": -19.40654357083626,
+    "score": 0.7464055219552456
+   }
+  },
+  {
+   "id": 4,
+   "text": "X",
+   "kind": "text",
+   "conf": 50.0,
+   "center": [
+    4.0,
+    29.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 5,
+   "text": "\u2018",
+   "kind": "empty",
+   "conf": 54.0,
+   "center": [
+    4.0,
+    67.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "\u00e9",
+   "kind": "empty",
+   "conf": 68.0,
+   "center": [
+    3.5,
+    90.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 7,
+   "text": ":",
+   "kind": "empty",
+   "conf": 89.0,
+   "center": [
+    2.5,
+    108.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 8,
+   "text": "ON",
+   "kind": "text",
+   "conf": 71.0,
+   "center": [
+    107.6,
+    122.4
+   ],
+   "angle": 180.7,
+   "assoc": null
+  },
+  {
+   "id": 9,
+   "text": "wi",
+   "kind": "text",
+   "conf": 86.0,
+   "center": [
+    3.5,
+    128.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 10,
+   "text": "\u00a5,",
+   "kind": "empty",
+   "conf": 20.0,
+   "center": [
+    27.5,
+    152.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 11,
+   "text": "1 cc",
+   "kind": "text",
+   "conf": 32.5,
+   "center": [
+    10.3,
+    188.8
+   ],
+   "angle": 86.0,
+   "assoc": null
+  },
+  {
+   "id": 12,
+   "text": "=",
+   "kind": "empty",
+   "conf": 91.0,
+   "center": [
+    137.0,
+    174.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 13,
+   "text": "\u201cPudi",
+   "kind": "text",
+   "conf": 55.0,
+   "center": [
+    41.5,
+    269.6
+   ],
+   "angle": 186.0,
+   "assoc": null
+  }
+ ]
+}

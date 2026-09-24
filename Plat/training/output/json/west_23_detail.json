@@ -1,0 +1,185 @@
+{
+ "image": "west_23_detail.png",
+ "kind": "scan",
+ "size": [
+  220,
+  400
+ ],
+ "stroke_w": 5.73,
+ "char_h": 29.5,
+ "n_monuments": 0,
+ "n_lines": 1,
+ "n_dashed": 0,
+ "n_arcs": 1,
+ "n_labels": 10,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 1,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 1,
+  "area": 0,
+  "table": 0,
+  "text": 6,
+  "empty": 2
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 1,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0,
+  "verified": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 1.0,
+  "line_precision": 1.0,
+  "line_f1": 1.0,
+  "label_assoc": 1.0,
+  "label_classified": 0.2,
+  "scale_consistency": null,
+  "score": 0.77
+ },
+ "seconds": 1.5,
+ "labels": [
+  {
+   "id": 0,
+   "text": "100\u00b0",
+   "kind": "distance",
+   "conf": 31.0,
+   "center": [
+    98.0,
+    75.0
+   ],
+   "angle": 269.0,
+   "assoc": {
+    "geom": [
+     "L",
+     0
+    ],
+    "t": 0.4641906806110638,
+    "offset": -20.579105654303387,
+    "score": 0.6975968018407975
+   }
+  },
+  {
+   "id": 1,
+   "text": "q.",
+   "kind": "text",
+   "conf": 70.0,
+   "center": [
+    197.2,
+    64.5
+   ],
+   "angle": 24.4,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "=",
+   "kind": "empty",
+   "conf": 52.0,
+   "center": [
+    215.5,
+    79.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "Og",
+   "kind": "text",
+   "conf": 79.0,
+   "center": [
+    186.3,
+    202.5
+   ],
+   "angle": 167.8,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "4",
+   "kind": "lot",
+   "conf": 81.0,
+   "center": [
+    84.5,
+    208.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 5,
+   "text": "=",
+   "kind": "empty",
+   "conf": 77.0,
+   "center": [
+    197.0,
+    224.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "ei",
+   "kind": "text",
+   "conf": 54.0,
+   "center": [
+    102.0,
+    286.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 7,
+   "text": "QV",
+   "kind": "text",
+   "conf": 42.0,
+   "center": [
+    159.1,
+    309.9
+   ],
+   "angle": 1.1,
+   "assoc": null
+  },
+  {
+   "id": 8,
+   "text": "Se",
+   "kind": "text",
+   "conf": 43.0,
+   "center": [
+    130.9,
+    343.1
+   ],
+   "angle": 205.1,
+   "assoc": null
+  },
+  {
+   "id": 9,
+   "text": "Re",
+   "kind": "text",
+   "conf": 69.0,
+   "center": [
+    128.5,
+    362.8
+   ],
+   "angle": 202.7,
+   "assoc": null
+  }
+ ]
+}

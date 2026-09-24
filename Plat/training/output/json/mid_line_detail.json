@@ -1,0 +1,264 @@
+{
+ "image": "mid_line_detail.png",
+ "kind": "scan",
+ "size": [
+  440,
+  170
+ ],
+ "stroke_w": 5.73,
+ "char_h": 26.0,
+ "n_monuments": 0,
+ "n_lines": 6,
+ "n_dashed": 0,
+ "n_arcs": 0,
+ "n_labels": 15,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 4,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 1,
+  "area": 0,
+  "table": 0,
+  "text": 8,
+  "empty": 2
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 1,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0,
+  "verified": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [
+  {
+   "labels": [
+    7
+   ],
+   "fields": {
+    "delta": 4.0
+   },
+   "R": null,
+   "delta": 4.0,
+   "derived": {},
+   "consistent": false,
+   "check": null,
+   "arc": null,
+   "center": [
+    398.8,
+    122.6
+   ]
+  }
+ ],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 1.0,
+  "line_precision": 1.0,
+  "line_f1": 1.0,
+  "label_assoc": 0.25,
+  "label_classified": 0.3571,
+  "scale_consistency": null,
+  "score": 0.6357
+ },
+ "seconds": 1.7,
+ "labels": [
+  {
+   "id": 0,
+   "text": "\u2014 Mere? A t\u2014\u2014\u2014",
+   "kind": "text",
+   "conf": 27.5,
+   "center": [
+    199.5,
+    4.9
+   ],
+   "angle": 181.3,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "\u2014",
+   "kind": "empty",
+   "conf": 69.0,
+   "center": [
+    104.0,
+    34.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "x",
+   "kind": "text",
+   "conf": 78.0,
+   "center": [
+    301.0,
+    52.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "so",
+   "kind": "text",
+   "conf": 39.0,
+   "center": [
+    332.0,
+    39.5
+   ],
+   "angle": 1.3,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "948\"E.)",
+   "kind": "text",
+   "conf": 59.0,
+   "center": [
+    362.0,
+    102.5
+   ],
+   "angle": 273.8,
+   "assoc": null
+  },
+  {
+   "id": 5,
+   "text": "",
+   "kind": "empty",
+   "conf": -1.0,
+   "center": [
+    415.5,
+    39.0
+   ],
+   "angle": 359.8,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "Zoe |",
+   "kind": "text",
+   "conf": 76.5,
+   "center": [
+    293.0,
+    71.5
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 7,
+   "text": "44\u00b0",
+   "kind": "distance",
+   "conf": 37.0,
+   "center": [
+    398.8,
+    122.6
+   ],
+   "angle": 273.8,
+   "assoc": {
+    "geom": [
+     "L",
+     4
+    ],
+    "t": 0.3152882094871813,
+    "offset": 19.536955907322934,
+    "score": 0.7514213810508821
+   }
+  },
+  {
+   "id": 8,
+   "text": "02.",
+   "kind": "lot",
+   "conf": 67.0,
+   "center": [
+    300.0,
+    106.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 9,
+   "text": "180.",
+   "kind": "distance",
+   "conf": 64.0,
+   "center": [
+    327.1,
+    127.2
+   ],
+   "angle": 93.8,
+   "assoc": null
+  },
+  {
+   "id": 10,
+   "text": "Vre",
+   "kind": "text",
+   "conf": 51.0,
+   "center": [
+    291.0,
+    129.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 11,
+   "text": "+O",
+   "kind": "text",
+   "conf": 55.0,
+   "center": [
+    97.0,
+    150.7
+   ],
+   "angle": 91.3,
+   "assoc": null
+  },
+  {
+   "id": 12,
+   "text": "18\"",
+   "kind": "distance",
+   "conf": 48.0,
+   "center": [
+    297.5,
+    151.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 13,
+   "text": "92",
+   "kind": "distance",
+   "conf": 61.0,
+   "center": [
+    212.1,
+    155.8
+   ],
+   "angle": 359.0,
+   "assoc": null
+  },
+  {
+   "id": 14,
+   "text": "ra",
+   "kind": "text",
+   "conf": 22.0,
+   "center": [
+    295.3,
+    165.5
+   ],
+   "angle": 186.3,
+   "assoc": null
+  }
+ ]
+}

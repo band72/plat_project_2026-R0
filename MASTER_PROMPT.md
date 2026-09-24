@@ -1905,4 +1905,53 @@ Executed Iterations 5–10 of the 10-minute recurring refinement cadence, comple
      - 21 unit tests in `test_beachwood_road_centerlines.py` covering all geometric derivations.
      - Full repository test suite: 97/97 tests passing in 13.6s (100% green).
 
+## Iter 54 — PLUGINS/CURVES HORIZONTAL CURVE HELPERS INTEGRATION & ENGINE ADAPTER
+Executed Iteration 13 of the 10-minute recurring refinement cadence, integrating `/plugins/curves` horizontal curve helpers:
+  1. **Bridge `/plugins/curves` Horizontal Curve Helpers into Engine**:
+     - Connected `plat_curves` package (`plat_curves.core`, `plat_curves.compound`, `plat_curves.plat_notation`) to `engine/cogo_road_centerlines.py`.
+     - Built `plugins/curves/plat_curves/engine_adapter.py` providing `STATED_PLAT_CURVES`, `build_placed_curve_from_plat()`, `placed_to_engine_curve_dict()`, `compute_concentric_row_edges()`, `compute_corner_return()`, and `compute_open_cul_de_sac()`.
+     - Added comprehensive unit tests in `plugins/curves/plat_curves/tests/test_engine_adapter.py` (6/6 passing).
+  2. **Curve Arc Geometry Centralization (Eliminating F14)**:
+     - Implemented `to_placed_curve()`, `arc_points()`, and `offset_arc_points()` directly on `CenterlineCurve`.
+     - Replaced duplicate arc generation loops across `export_dxf()`, `render_matplotlib_visual()`, and `get_centerline_reference_alignments()` with unified `c.arc_points(n_segments)` and `c.offset_arc_points(n_segments)`.
+  3. **Analytical Quadrant Bearing Correction**:
+     - Corrected invalid bearing strings `"S91°01'40\"E"` on Cape Horn and San Salvadore outgoing P.I. rays to the exact plat tangent bearing `"N88°58'20\"E"`.
+     - Removed strict xfail mark on Cape Horn in `test_engine_bridge.py` as it now passes analytically (0.000000° residual).
+  4. **Verification & Audit**:
+     - `plugins/curves` test suite: **3038 passed, 72 xfailed** (100% green).
+     - Engine curve audit: failing checks reduced from 62 to 61.
+     - Root repository test suite: **97 / 97 passing** in 13.9s.
+     - Master CAD DXF audit: Status **PASS**, exactly 120 lines, 27 polylines, 141 texts, 0 false noise circles.
 
+## Iter 55 — RESOLUTION OF KEEL DRIVE CURVE GEOMETRY & CENTER POINT
+Executed Iteration 14 of the 10-minute recurring refinement cadence, resolving Keel Drive curve geometry (Finding F6):
+  1. **Keel Drive Curve Center Point Correction (F6)**:
+     - Corrected radial offset for Keel Drive centerline curve ($R = 143.93', \Delta = 52^\circ 17' 10"$) from `"N54°41'40\"W"` to `"S54°41'40\"E"`.
+     - Places the radius point to the right of travel ($N 35^\circ 18' 20" E + 90^\circ = S 54^\circ 41' 40" E$) consistent with a clockwise curve.
+     - Closed the arc-to-PT gap from $253.7'$ to $0.000'$ and verified $|PT - Center| = 143.93'$ to machine precision ($< 10^{-12}'$).
+  2. **Curve Audit & Strict-XFail Progression**:
+     - Keel Drive audit failures in `audit_engine_curves.py` dropped from 4 to **0** (perfect compliance across all checks).
+     - Total engine curve audit failures dropped from 61 to **57**.
+     - Removed 5 strict-xfail marks in `test_engine_bridge.py`: `test_pt_lies_on_circle_about_centre`, `test_centre_side_matches_direction_flag`, `test_drawn_arc_is_tangent_to_pi_ray_at_pc`, `test_drawn_arc_ends_at_pt`, and `test_validate_all_curves_verdict_agrees_with_pt_on_circle`.
+  3. **Verification & Audit**:
+     - `plugins/curves` test suite: **3043 passed, 67 xfailed** (100% green).
+     - Root repository test suite: **97 / 97 passing** in 13.6s.
+     - Master CAD DXF audit: Status **PASS**, exactly 120 lines, 27 polylines, 141 texts, 0 false noise circles.
+
+## Iter 56 — RESOLUTION OF CAPE HORN CURVE CHORD BEARING & GEOMETRY
+Executed Iteration 15 of the 10-minute recurring refinement cadence, resolving Cape Horn horizontal curve geometry (Finding F5):
+  1. **Cape Horn Chord Bearing Analytical Correction (F5)**:
+     - Corrected hard-coded chord bearing from legacy approximate `"S74°21'40\"E"` to the exact analytical bearing `"S72°51'40\"E"`.
+     - Derived from incoming tangent $S 54^\circ 41' 40" E$ and central deflection $\Delta = 36^\circ 20' 00"$ CCW:
+       $$\text{Azimuth}_{\text{chord}} = 125^\circ 18' 20" - 18^\circ 10' 00" = 107^\circ 08' 20" \implies \mathbf{S\, 72^\circ 51' 40"\, E}$$
+     - Closed $|PT - Center|$ from $321.92'$ to **$327.010000'$** exact.
+     - Closed $|PI - PT|$ from $109.02'$ to **$107.3046'$** exact ($T = R \cdot \tan(\Delta/2)$).
+     - Reduced arc-to-PT gap from $5.34'$ to **$0.000'$**.
+  2. **Curve Audit & Strict-XFail Progression**:
+     - Cape Horn audit failures in `audit_engine_curves.py` dropped from 6 to **1** (internal geometry fully compliant; PT gap $0.000'$).
+     - Total engine curve audit failures across all sections dropped from 57 to **52**.
+     - Removed 7 strict-xfail marks in `test_engine_bridge.py`: `test_pt_lies_on_circle_about_centre`, `test_pi_to_pt_distance_is_tangent_length`, `test_interior_angle_at_pi_is_180_minus_delta`, `test_drawn_arc_ends_at_pt`, `test_hardcoded_chord_bearing_matches_analytic`, `test_validate_all_curves_verdict_agrees_with_pt_on_circle`, and `test_core_placed_pt_equals_engine_pt`.
+  3. **Verification & Audit**:
+     - `plugins/curves` test suite: **3050 passed, 60 xfailed** (100% green).
+     - Root repository test suite: **97 / 97 passing** in 13.9s.
+     - Master CAD DXF audit: Status **PASS**, exactly 120 lines, 27 polylines, 141 texts, 0 false noise circles.

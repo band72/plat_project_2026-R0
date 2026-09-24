@@ -1,0 +1,209 @@
+{
+ "image": "bot_right_23_zoom.png",
+ "kind": "scan",
+ "size": [
+  290,
+  250
+ ],
+ "stroke_w": 5.73,
+ "char_h": 28.0,
+ "n_monuments": 0,
+ "n_lines": 3,
+ "n_dashed": 0,
+ "n_arcs": 0,
+ "n_labels": 12,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 1,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 2,
+  "area": 0,
+  "table": 0,
+  "text": 4,
+  "empty": 5
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 1,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0,
+  "verified": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 1.0,
+  "line_precision": 1.0,
+  "line_f1": 1.0,
+  "label_assoc": 1.0,
+  "label_classified": 0.25,
+  "scale_consistency": null,
+  "score": 0.775
+ },
+ "seconds": 1.9,
+ "labels": [
+  {
+   "id": 0,
+   "text": "\"A",
+   "kind": "text",
+   "conf": 94.0,
+   "center": [
+    204.0,
+    12.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "%",
+   "kind": "empty",
+   "conf": 76.0,
+   "center": [
+    144.0,
+    24.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "NE",
+   "kind": "text",
+   "conf": 67.0,
+   "center": [
+    257.6,
+    22.5
+   ],
+   "angle": 0.5,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "Ss",
+   "kind": "text",
+   "conf": 72.0,
+   "center": [
+    174.5,
+    52.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": ".08",
+   "kind": "distance",
+   "conf": 72.0,
+   "center": [
+    46.4,
+    52.5
+   ],
+   "angle": 183.7,
+   "assoc": {
+    "geom": [
+     "L",
+     1
+    ],
+    "t": 0.2021637322019431,
+    "offset": -21.73504507874268,
+    "score": 0.7762516099550976
+   }
+  },
+  {
+   "id": 5,
+   "text": "4",
+   "kind": "lot",
+   "conf": 44.0,
+   "center": [
+    166.5,
+    71.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "4",
+   "kind": "lot",
+   "conf": 86.0,
+   "center": [
+    287.0,
+    75.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 7,
+   "text": "\\",
+   "kind": "empty",
+   "conf": 92.0,
+   "center": [
+    164.5,
+    100.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 8,
+   "text": "V.88\u00b0S8'20\"E.",
+   "kind": "text",
+   "conf": 40.0,
+   "center": [
+    116.5,
+    165.1
+   ],
+   "angle": 3.1,
+   "assoc": null
+  },
+  {
+   "id": 9,
+   "text": "\u00a2",
+   "kind": "empty",
+   "conf": 77.0,
+   "center": [
+    6.5,
+    208.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 10,
+   "text": "\u2018",
+   "kind": "empty",
+   "conf": 48.0,
+   "center": [
+    160.0,
+    232.0
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 11,
+   "text": "\u2018",
+   "kind": "empty",
+   "conf": 92.0,
+   "center": [
+    158.5,
+    245.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  }
+ ]
+}

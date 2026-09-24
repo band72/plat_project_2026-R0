@@ -1,0 +1,383 @@
+{
+ "image": "plat_notes.png",
+ "kind": "scan",
+ "size": [
+  1000,
+  500
+ ],
+ "stroke_w": 5.73,
+ "char_h": 35.0,
+ "n_monuments": 0,
+ "n_lines": 0,
+ "n_dashed": 0,
+ "n_arcs": 0,
+ "n_labels": 27,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 1,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 3,
+  "area": 0,
+  "table": 0,
+  "text": 18,
+  "empty": 5
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 0,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [],
+ "notes": [
+  "\u201cNOTES\u201d\n1d distsnces shown on curves\nesriags wand distznces.\nS$0wn on block corners gre\n.e watersections. .\nstrretion and setback lines\n\u201com otreet Line. \u2014-",
+  60.56
+ ],
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 1.0,
+  "line_precision": 1.0,
+  "line_f1": 1.0,
+  "label_assoc": 0.0,
+  "label_classified": 0.1538,
+  "scale_consistency": null,
+  "score": 0.5654
+ },
+ "seconds": 4.5,
+ "labels": [
+  {
+   "id": 0,
+   "text": "4",
+   "kind": "lot",
+   "conf": 84.0,
+   "center": [
+    71.5,
+    90.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "-",
+   "kind": "empty",
+   "conf": 63.0,
+   "center": [
+    448.5,
+    97.0
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "YY,",
+   "kind": "text",
+   "conf": 62.0,
+   "center": [
+    112.5,
+    110.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "NY",
+   "kind": "text",
+   "conf": 45.0,
+   "center": [
+    191.0,
+    110.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "7",
+   "kind": "lot",
+   "conf": 66.0,
+   "center": [
+    269.0,
+    111.5
+   ],
+   "angle": 0.0,
+   "assoc": null
+  },
+  {
+   "id": 5,
+   "text": "\u00e9s",
+   "kind": "text",
+   "conf": 58.0,
+   "center": [
+    362.6,
+    114.8
+   ],
+   "angle": 357.4,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "Ws. Aces 7",
+   "kind": "text",
+   "conf": 62.0,
+   "center": [
+    208.7,
+    181.5
+   ],
+   "angle": 1.3,
+   "assoc": null
+  },
+  {
+   "id": 7,
+   "text": "sho wn",
+   "kind": "text",
+   "conf": 83.5,
+   "center": [
+    468.8,
+    183.7
+   ],
+   "angle": 1.4,
+   "assoc": null
+  },
+  {
+   "id": 8,
+   "text": "Le,",
+   "kind": "text",
+   "conf": 54.0,
+   "center": [
+    30.6,
+    184.6
+   ],
+   "angle": 153.2,
+   "assoc": null
+  },
+  {
+   "id": 9,
+   "text": "on curves",
+   "kind": "text",
+   "conf": 52.0,
+   "center": [
+    730.5,
+    196.7
+   ],
+   "angle": 359.9,
+   "assoc": null
+  },
+  {
+   "id": 10,
+   "text": "29 wepsip pup shurses",
+   "kind": "text",
+   "conf": 35.0,
+   "center": [
+    326.5,
+    247.9
+   ],
+   "angle": 179.9,
+   "assoc": null
+  },
+  {
+   "id": 11,
+   "text": "sown",
+   "kind": "text",
+   "conf": 64.0,
+   "center": [
+    71.7,
+    292.4
+   ],
+   "angle": 3.0,
+   "assoc": null
+  },
+  {
+   "id": 12,
+   "text": "\"on block",
+   "kind": "text",
+   "conf": 81.5,
+   "center": [
+    294.0,
+    295.8
+   ],
+   "angle": 359.7,
+   "assoc": null
+  },
+  {
+   "id": 13,
+   "text": "Corners",
+   "kind": "text",
+   "conf": 69.0,
+   "center": [
+    563.5,
+    303.5
+   ],
+   "angle": 0.7,
+   "assoc": null
+  },
+  {
+   "id": 14,
+   "text": "gre",
+   "kind": "text",
+   "conf": 76.0,
+   "center": [
+    753.2,
+    308.4
+   ],
+   "angle": 358.3,
+   "assoc": null
+  },
+  {
+   "id": 15,
+   "text": "\u201cintersections.",
+   "kind": "text",
+   "conf": 40.0,
+   "center": [
+    271.9,
+    341.7
+   ],
+   "angle": 1.0,
+   "assoc": null
+  },
+  {
+   "id": 16,
+   "text": "%",
+   "kind": "empty",
+   "conf": 87.0,
+   "center": [
+    20.7,
+    349.9
+   ],
+   "angle": 266.7,
+   "assoc": null
+  },
+  {
+   "id": 17,
+   "text": "strict ron ond se t hack lanes",
+   "kind": "text",
+   "conf": 51.1,
+   "center": [
+    410.5,
+    397.9
+   ],
+   "angle": 0.6,
+   "assoc": null
+  },
+  {
+   "id": 18,
+   "text": "bal",
+   "kind": "text",
+   "conf": 58.0,
+   "center": [
+    2.5,
+    428.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 19,
+   "text": "street hae.",
+   "kind": "text",
+   "conf": 71.5,
+   "center": [
+    286.5,
+    449.8
+   ],
+   "angle": 0.1,
+   "assoc": null
+  },
+  {
+   "id": 20,
+   "text": "\"077,",
+   "kind": "distance",
+   "conf": 68.0,
+   "center": [
+    48.6,
+    457.9
+   ],
+   "angle": 4.2,
+   "assoc": null
+  },
+  {
+   "id": 21,
+   "text": "3",
+   "kind": "lot",
+   "conf": 67.0,
+   "center": [
+    7.0,
+    487.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 22,
+   "text": "a4.",
+   "kind": "text",
+   "conf": 54.0,
+   "center": [
+    89.1,
+    488.7
+   ],
+   "angle": 177.8,
+   "assoc": null
+  },
+  {
+   "id": 23,
+   "text": "/",
+   "kind": "empty",
+   "conf": 69.0,
+   "center": [
+    572.0,
+    487.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 24,
+   "text": "\u2018",
+   "kind": "empty",
+   "conf": 67.0,
+   "center": [
+    486.0,
+    489.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 25,
+   "text": "an",
+   "kind": "text",
+   "conf": 62.0,
+   "center": [
+    411.0,
+    495.0
+   ],
+   "angle": 358.4,
+   "assoc": null
+  },
+  {
+   "id": 26,
+   "text": "",
+   "kind": "empty",
+   "conf": -1.0,
+   "center": [
+    207.6,
+    497.1
+   ],
+   "angle": 1.7,
+   "assoc": null
+  }
+ ]
+}

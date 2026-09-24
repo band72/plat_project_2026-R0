@@ -1,0 +1,221 @@
+{
+ "image": "media383_mid_line.png",
+ "kind": "scan",
+ "size": [
+  135,
+  50
+ ],
+ "stroke_w": 1.91,
+ "char_h": 8.0,
+ "n_monuments": 0,
+ "n_lines": 9,
+ "n_dashed": 0,
+ "n_arcs": 0,
+ "n_labels": 13,
+ "n_verified": 0,
+ "kinds": {
+  "bearing": 0,
+  "distance": 1,
+  "curve_id": 0,
+  "curve_data": 0,
+  "lot": 0,
+  "area": 0,
+  "table": 0,
+  "text": 8,
+  "empty": 4
+ },
+ "calibration": {
+  "ft_per_px": null,
+  "scale_votes": 1,
+  "scale_inliers": 0,
+  "rotation_deg": 0.0,
+  "rot_votes": 0,
+  "rot_inliers": 0,
+  "verified": 0
+ },
+ "qa": [],
+ "curve_table": {},
+ "curve_blocks": [],
+ "notes": null,
+ "metrics": {
+  "scale_truth": null,
+  "scale_correct": null,
+  "monument_f1": null,
+  "curves_right": null,
+  "curves_wrong": null,
+  "line_recall": 1.0,
+  "line_precision": 1.0,
+  "line_f1": 1.0,
+  "label_assoc": 1.0,
+  "label_classified": 0.0769,
+  "scale_consistency": null,
+  "score": 0.7577
+ },
+ "seconds": 1.5,
+ "labels": [
+  {
+   "id": 0,
+   "text": "a",
+   "kind": "text",
+   "conf": 96.0,
+   "center": [
+    28.0,
+    1.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 1,
+   "text": "te.wyw wy ay",
+   "kind": "text",
+   "conf": 39.3,
+   "center": [
+    61.0,
+    1.6
+   ],
+   "angle": 0.7,
+   "assoc": null
+  },
+  {
+   "id": 2,
+   "text": "$",
+   "kind": "empty",
+   "conf": 80.0,
+   "center": [
+    104.0,
+    2.4
+   ],
+   "angle": 273.3,
+   "assoc": null
+  },
+  {
+   "id": 3,
+   "text": "VN",
+   "kind": "text",
+   "conf": 64.0,
+   "center": [
+    113.4,
+    6.9
+   ],
+   "angle": 91.8,
+   "assoc": null
+  },
+  {
+   "id": 4,
+   "text": "(02 28\u00b0",
+   "kind": "distance",
+   "conf": 80.5,
+   "center": [
+    71.0,
+    12.9
+   ],
+   "angle": 3.1,
+   "assoc": {
+    "geom": [
+     "L",
+     5
+    ],
+    "t": 0.435752652190148,
+    "offset": -7.004465475545915,
+    "score": 1.1896249433346235
+   }
+  },
+  {
+   "id": 5,
+   "text": "--",
+   "kind": "empty",
+   "conf": 82.0,
+   "center": [
+    129.0,
+    17.0
+   ],
+   "angle": 1.2,
+   "assoc": null
+  },
+  {
+   "id": 6,
+   "text": "\u2014o ame ae oe oe",
+   "kind": "text",
+   "conf": 44.4,
+   "center": [
+    56.0,
+    25.4
+   ],
+   "angle": 1.2,
+   "assoc": null
+  },
+  {
+   "id": 7,
+   "text": "a.",
+   "kind": "text",
+   "conf": 45.0,
+   "center": [
+    93.0,
+    32.0
+   ],
+   "angle": 90.0,
+   "assoc": null
+  },
+  {
+   "id": 8,
+   "text": "we",
+   "kind": "text",
+   "conf": 88.0,
+   "center": [
+    112.2,
+    40.6
+   ],
+   "angle": 271.8,
+   "assoc": null
+  },
+  {
+   "id": 9,
+   "text": "\u00bb",
+   "kind": "empty",
+   "conf": 81.0,
+   "center": [
+    125.0,
+    44.0
+   ],
+   "angle": 91.8,
+   "assoc": null
+  },
+  {
+   "id": 10,
+   "text": "Ve",
+   "kind": "text",
+   "conf": 70.0,
+   "center": [
+    100.0,
+    42.5
+   ],
+   "angle": 270.0,
+   "assoc": null
+  },
+  {
+   "id": 11,
+   "text": "NS",
+   "kind": "text",
+   "conf": 85.0,
+   "center": [
+    96.0,
+    45.5
+   ],
+   "angle": 180.0,
+   "assoc": null
+  },
+  {
+   "id": 12,
+   "text": "~",
+   "kind": "empty",
+   "conf": 78.0,
+   "center": [
+    118.5,
+    46.0
+   ],
+   "angle": 270.0,
+   "assoc": null
+  }
+ ]
+}

@@ -44,13 +44,24 @@ def test_intersections_count_and_keys(engine):
         "INT_CAPEHORN_MATCHLINE",
         "INT_STARFISH_BEACHWOOD",
         "INT_SAIL_BEACHWOOD",
+        "INT_SHELLFISH_BEACHWOOD",
+        "INT_KEEL_BEACHWOOD",
+        "INT_BLVD_NORTH_END",
+        "INT_BLVD_SOUTH_END",
         "INT_SOUTH_MARINA_PC",
         "INT_MARINA_PT",
         "INT_MARINA_KEEL",
-        "INT_KEEL_SOUTH_END",
-        "INT_ASSUMP_SS_SURFWOOD_PI",
-        "INT_ASSUMP_SANDS_BEACHWOOD",
-        "INT_ASSUMP_SANDS_PC",
+        "INT_KEEL_PC",
+        "INT_KEEL_PT",
+        "INT_MARINA_SHELLFISH",
+        "INT_SANSALVADORE_MANGROVE",
+        "INT_SANSALVADORE_BOUNDARY",
+        "INT_SANDS_MANGROVE",
+        "INT_SANDS_PC",
+        "INT_SANDS_PT",
+        "INT_SANDS_BOUNDARY",
+        "INT_CAPEHORN_MANGROVE",
+        "INT_CAPEHORN_BOUNDARY",
     ]
     for key in required_keys:
         assert key in engine.intersections, f"Missing intersection {key}"
@@ -63,26 +74,36 @@ def test_centerline_curves_geometry(engine):
     """Verify analytical curve parameters for Marina Ave and San Salvadore Ave."""
     # 1. Marina Avenue Centerline Curve
     c_marina = engine.curves["C_MARINA_CL"]
-    assert pytest.approx(c_marina.radius, abs=0.01) == 419.27
-    assert pytest.approx(c_marina.delta_deg, abs=0.01) == 37.7139
-    assert pytest.approx(c_marina.arc_length, abs=0.1) == 275.98
-    assert pytest.approx(c_marina.tangent, abs=0.1) == 143.21
+    # Plat ℄ Curve Data (Sheet 2): R=359.27', T=122.70', Δ=37°42'50" (419.27 was the NE edge 389.27 + 30, wrong side)
+    assert pytest.approx(c_marina.radius, abs=0.01) == 359.27
+    assert pytest.approx(c_marina.delta_deg, abs=1e-6) == 37 + 42 / 60 + 50 / 3600
+    assert pytest.approx(c_marina.arc_length, abs=0.01) == 236.48
+    assert pytest.approx(c_marina.tangent, abs=0.01) == 122.70
+    assert c_marina.chord_bearing == "S73°33'05\"E"
+    # P.T. is on the circle and the forward tangent is the printed diagonal S54°41'40"E
+    assert pytest.approx(c_marina.center_point.dist_to(c_marina.pt_point), abs=1e-6) == 359.27
 
     # 2. San Salvadore Avenue Centerline Curve
     c_ss = engine.curves["C_SANSALVADORE_CL"]
-    assert pytest.approx(c_ss.radius, abs=0.01) == 299.96
+    # Plat ℄ block R=269.96' T=88.59' (299.96' is the N R/W edge)
+    assert pytest.approx(c_ss.radius, abs=0.01) == 269.96
     assert pytest.approx(c_ss.delta_deg, abs=0.01) == 36.3333
-    assert pytest.approx(c_ss.arc_length, abs=0.1) == 190.22
-    assert pytest.approx(c_ss.tangent, abs=0.1) == 98.43
+    assert pytest.approx(c_ss.arc_length, abs=0.01) == 171.19
+    assert pytest.approx(c_ss.tangent, abs=0.01) == 88.58
+    assert pytest.approx(c_ss.center_point.dist_to(c_ss.pt_point), abs=1e-6) == 269.96
 
-    # 3. Beachwood Boulevard Centerline Curve
-    c_blvd = engine.curves["C_BEACHWOOD_BLVD_CL"]
-    assert pytest.approx(c_blvd.radius, abs=0.01) == 1959.86
-    assert c_blvd.arc_length > 250.0
+    # 3. Beachwood Boulevard is straight on the plat (no ℄ curve block; east line N00°41'40"W 1247.95')
+    assert "C_BEACHWOOD_BLVD_CL" not in engine.curves
+    blvd_segs = [s for s in engine.segments if s.street_name == "Beachwood Boulevard"]
+    assert len(blvd_segs) == 5
+    for seg in blvd_segs:
+        assert seg.bearing == "S00°41'40\"E"
+        assert seg.right_of_way_width == 80.0
+        assert seg.is_assumed is False
 
 
 def test_mangrove_avenue_continuity_and_deflection(engine):
-    """Verify Mangrove Avenue runs 730.50' along north leg and deflects at course 1 angle point."""
+    """Mangrove ℄ north leg: 180' inside c1; it deflects where the c1 and c2 offsets meet (not at c1's length)."""
     north_end = engine.intersections["INT_MANGROVE_NORTH_END"].point
     starfish = engine.intersections["INT_STARFISH_MANGROVE"].point
     defl = engine.intersections["INT_MANGROVE_DEFL"].point
@@ -90,26 +111,34 @@ def test_mangrove_avenue_continuity_and_deflection(engine):
     # Distance North End -> Starfish = 180.00'
     assert pytest.approx(north_end.dist_to(starfish), abs=0.01) == 180.00
 
-    # Distance Starfish -> Deflection = 550.50'
-    assert pytest.approx(starfish.dist_to(defl), abs=0.01) == 550.50
-
-    # Total North leg = 180 + 550.50 = 730.50' (Matches Course 1 of parent plat)
-    assert pytest.approx(north_end.dist_to(defl), abs=0.01) == 730.50
+    # c1 = 730.50' ends 550.50' south of Starfish ℄; the ℄ is an OUTSIDE offset (180') of a 1°22'50" right turn,
+    # so its vertex is 180 x tan(0°41'25") = 2.17' further along: 552.67'.
+    half_defl = math.radians((1 + 22 / 60 + 50 / 3600) / 2)
+    expected = 550.50 + 180.0 * math.tan(half_defl)
+    assert pytest.approx(expected, abs=0.005) == 552.67
+    assert pytest.approx(starfish.dist_to(defl), abs=0.01) == expected
+    assert pytest.approx(north_end.dist_to(defl), abs=0.01) == 180.0 + expected
 
 
 def test_red_lined_assumptions_categorization(engine):
     """Verify that all inferred or projected features are explicitly flagged in RED."""
-    assert len(engine.assumptions) >= 3
+    assert len(engine.assumptions) >= 2
 
     # Check that red assumptions are properly categorized
     assumption_types = [a["type"] for a in engine.assumptions]
-    assert "TRANSITION_CORRIDOR" in assumption_types
-    assert "ARTERIAL_PROJECTION" in assumption_types
-    assert "CURVE_CORRIDOR" in assumption_types
+    # The "San Salvadore-Surfwood tie" was not a street (lot lines in Block 12)
+    assert "TRANSITION_CORRIDOR" not in assumption_types
+    # Beachwood Blvd is derived from course c26, so it is no longer an arterial projection
+    assert "ARTERIAL_PROJECTION" not in assumption_types
+    # Sands Ave is derived (℄ block + lot chords + c19), so its old "curve corridor" assumption is gone
+    assert "CURVE_CORRIDOR" not in assumption_types
+    # No cul-de-sac on the plat
+    assert "OPEN_ENDED_CULDESAC" not in assumption_types
 
     # Verify every assumed segment is flagged
+    # Only the not-yet-derived Sheet 1 corridors remain assumptions (Bayou, San Salvadore-Surfwood tie)
     assumed_segs = [s for s in engine.segments if s.is_assumed]
-    assert len(assumed_segs) >= 3
+    assert {s.id for s in assumed_segs} == {"SEG_ASSUMP_BAYOU_E"}
     for s in assumed_segs:
         assert s.is_assumed is True
 
@@ -127,8 +156,11 @@ def test_cad_dxf_export_and_audit(engine, tmp_path):
     audit = dxf_audit(out_dxf)
     assert audit["status"] == "PASS"
     assert audit["entity_counts"]["circles"] == 0
-    assert audit["entity_counts"]["lines"] == 120
-    assert audit["entity_counts"]["polylines"] == 27
+    # Derived streets draw their R/W as trimmed polylines (cut at every opening and 25' return), so LINE entities are
+    # only the boundary, ℄ segments, P.I. rays and the R/W offsets of not-yet-derived Sheet 1 streets.
+    assert audit["entity_counts"]["lines"] == 81
+    # 64 trimmed R/W pieces + 30 x 25' returns + ℄ curves (6) + alignments
+    assert audit["entity_counts"]["polylines"] == 108
     assert audit["entity_counts"]["texts"] > 0
 
 
@@ -145,9 +177,9 @@ def test_100_agent_multiagent_consensus(engine):
 
 
 def test_all_plat_centerline_curves(engine):
-    """Verify all 6 centerline curves across Sheet 1 and Sheet 2 are mathematically solved."""
+    """All 6 plat ℄ Curve Data blocks (Sheet 1 + Sheet 2) are modelled; Beachwood Blvd has none."""
     assert len(engine.curves) == 6
-    expected_curves = ["C_MARINA_CL", "C_SANSALVADORE_CL", "C_BEACHWOOD_BLVD_CL", "C_SANDS_CL", "C_KEEL_CL", "C_CAPEHORN_CL"]
+    expected_curves = ["C_MARINA_CL", "C_SANSALVADORE_CL", "C_SANDS_CL", "C_KEEL_CL", "C_CAPEHORN_CL", "C_SHELLFISH_CL"]
     for cid in expected_curves:
         assert cid in engine.curves
         c = engine.curves[cid]
@@ -159,12 +191,19 @@ def test_all_plat_centerline_curves(engine):
 
 
 def test_shellfish_drive_and_keel_intersection(engine):
-    """Verify Shellfish Drive connects Mangrove Ave to Keel Drive."""
-    assert "INT_SHELLFISH_MANGROVE" in engine.intersections
-    assert "INT_SHELLFISH_KEEL" in engine.intersections
-    intx_keel = engine.intersections["INT_SHELLFISH_KEEL"]
-    assert pytest.approx(intx_keel.point.n, abs=1.0) == 9247.91
-    assert pytest.approx(intx_keel.point.e, abs=1.0) == 10678.32
+    """Shellfish and Keel curve (R=167.95 / 143.93, Δ=52°17'10") from their E-W legs into Marina Dr, square to it."""
+    for cid, r, iid in (("C_SHELLFISH_CL", 167.95, "INT_MARINA_SHELLFISH"), ("C_KEEL_CL", 143.93, "INT_MARINA_KEEL")):
+        c = engine.curves[cid]
+        assert c.radius == r
+        assert pytest.approx(c.delta_deg, abs=1e-9) == 52 + 17 / 60 + 10 / 3600
+        assert pytest.approx(c.center_point.dist_to(c.pt_point), abs=1e-9) == r
+        assert engine.intersections[iid].is_assumed is False
+    # Mouths are 410' apart on Marina ℄ (Block 15 Lots 1/18/17 = 115 + 110 + 125, + 2 x 30')
+    d = engine.intersections["INT_MARINA_SHELLFISH"].point.dist_to(engine.intersections["INT_MARINA_KEEL"].point)
+    assert pytest.approx(d, abs=0.05) == 410.0
+    # No Shellfish at Mangrove on the plat (its west end is the Marina mouth)
+    assert "INT_SHELLFISH_MANGROVE" not in engine.intersections
+    assert "INT_SANDS_MANGROVE" in engine.intersections
 
 
 def test_pi_tangents_rule2_derivation(engine):
@@ -175,7 +214,7 @@ def test_pi_tangents_rule2_derivation(engine):
         assert seg.distance > 0.0
 
     # Verify P.I. intersections exist and are flagged as assumed
-    pi_keys = ["INT_PI_MARINA", "INT_PI_SANSALVADORE", "INT_PI_BEACHWOOD_BLVD", "INT_PI_SANDS", "INT_PI_KEEL", "INT_PI_CAPEHORN"]
+    pi_keys = ["INT_PI_MARINA", "INT_PI_SANSALVADORE", "INT_PI_SHELLFISH", "INT_PI_SANDS", "INT_PI_KEEL", "INT_PI_CAPEHORN"]
     for pk in pi_keys:
         assert pk in engine.intersections
         assert engine.intersections[pk].is_assumed is True
@@ -214,9 +253,7 @@ def test_boundary_tie_intersections(engine):
     tie_keys = [
         "INT_MANGROVE_NORTH_END",
         "INT_STARFISH_WEST_END",
-        "INT_SAIL_WEST_END",
-        "INT_SOUTH_WEST_END",
-        "INT_SHELLFISH_WEST_END",
+        "INT_MARINA_BOUNDARY",
         "INT_SURFWOOD_WEST_END",
         "INT_MANGROVE_SOUTH_END",
         "INT_SURFWOOD_MATCHLINE",
@@ -228,17 +265,14 @@ def test_boundary_tie_intersections(engine):
         assert engine.intersections[tk].is_boundary_tie is True
 
 
-def test_open_ended_culdesac_keel_drive(engine):
-    """Verify Keel Drive terminates at an open-ended cul-de-sac that does NOT close."""
-    assert len(engine.culdesacs) == 1
-    cds = engine.culdesacs[0]
-    assert cds["street"] == "Keel Drive"
-    assert cds["bulb_radius_ft"] == 50.0
-    assert cds["closes_to_boundary"] is False
-
-    # Check that it is also registered in assumptions
-    assumption_types = [a["type"] for a in engine.assumptions]
-    assert "OPEN_ENDED_CULDESAC" in assumption_types
+def test_no_culdesac_keel_ends_at_marina(engine):
+    """Sheet 2: Block 7 Lots 30-37 are continuous SW of Marina at Keel; there is no cul-de-sac bulb on the plat."""
+    assert engine.culdesacs == []
+    assert "INT_KEEL_SOUTH_END" not in engine.intersections
+    assert "INT_KEEL_CULDESAC" not in engine.intersections
+    keel_segs = [s for s in engine.segments if s.street_name.startswith("Keel Drive")]
+    assert {s.id for s in keel_segs} == {"SEG_KEEL_MOUTH", "SEG_KEEL_EW"}
+    assert engine.intersections["INT_MARINA_KEEL"].is_assumed is False
 
 
 def test_edge_row_bearing_hedge_and_lot_frontage_summations(engine):
@@ -251,24 +285,22 @@ def test_edge_row_bearing_hedge_and_lot_frontage_summations(engine):
     assert bayou_seg.summed_lot_frontages is not None
     assert len(bayou_seg.summed_lot_frontages) >= 3
 
-    # 2. Sands Avenue Approach Corridor
-    sands_seg = next(s for s in engine.segments if s.id == "SEG_ASSUMP_SANDS_APPROACH")
-    assert sands_seg.is_assumed is True
-    assert sands_seg.derivation_method == "FRONT_LOT_SUMMATION_APPROXIMATION"
-    assert sands_seg.front_lot_bearing == "S87°35'30\"W"
-    assert sands_seg.summed_lot_frontages is not None
+    # 2. Sands Avenue is derived from Mangrove (the old approach from Beachwood Blvd was not on the plat)
+    assert not any(s.id == "SEG_ASSUMP_SANDS_APPROACH" for s in engine.segments)
+    sands = [s for s in engine.segments if s.street_name == "Sands Avenue"]
+    assert [s.bearing for s in sands] == ["N88°58'20\"E", "S54°41'40\"E"]
+    assert all(not s.is_assumed for s in sands)
 
-    # 3. Shellfish Drive East Extension
-    shell_seg = next(s for s in engine.segments if s.id == "SEG_ASSUMP_SHELLFISH_KEEL")
-    assert shell_seg.is_assumed is True
-    assert shell_seg.derivation_method == "FRONT_LOT_SUMMATION_APPROXIMATION"
-    assert shell_seg.summed_lot_frontages is not None
+    # 3. Shellfish Drive is derived now (the old "Shellfish-Keel" extension was not on the plat)
+    assert not any(s.id == "SEG_ASSUMP_SHELLFISH_KEEL" for s in engine.segments)
+    shell_seg = next(s for s in engine.segments if s.id == "SEG_SHELLFISH_MAIN")
+    assert shell_seg.is_assumed is False
 
-    # 4. Beachwood Boulevard South Projection
-    blvd_seg = next(s for s in engine.segments if s.id == "SEG_ASSUMP_BEACHWOOD_S")
-    assert blvd_seg.is_assumed is True
-    assert blvd_seg.derivation_method == "RIGHT_OF_WAY_EDGE_HEDGE"
-    assert blvd_seg.front_lot_bearing == "S08°30'00\"E"
+    # 4. Beachwood Boulevard is no longer a projection: it is derived from course c26 (not assumed)
+    assert not any(s.id == "SEG_ASSUMP_BEACHWOOD_S" for s in engine.segments)
+    blvd_seg = next(s for s in engine.segments if s.street_name == "Beachwood Boulevard")
+    assert blvd_seg.is_assumed is False
+    assert blvd_seg.derivation_method == "BOUNDARY_OFFSET_AND_TRIM"
 
 
 def test_right_of_way_offset_corridor_boundaries(engine):
@@ -281,18 +313,18 @@ def test_right_of_way_offset_corridor_boundaries(engine):
     assert pytest.approx(r_start.dist_to(r_end), abs=0.01) == starfish.distance
     assert pytest.approx(l_start.dist_to(r_start), abs=0.01) == 60.0
 
-    # 2. Arterial 100' R/W segment offset
-    blvd_proj = next(s for s in engine.segments if s.id == "SEG_ASSUMP_BEACHWOOD_S")
-    assert blvd_proj.half_width == 50.0
-    (l_start, l_end), (r_start, r_end) = blvd_proj.get_offset_lines()
-    assert pytest.approx(l_start.dist_to(r_start), abs=0.01) == 100.0
+    # 2. Beachwood Blvd 80' R/W segment offset (80.04' on the north line, '80'' at Block 6)
+    blvd_seg = next(s for s in engine.segments if s.street_name == "Beachwood Boulevard")
+    assert blvd_seg.half_width == 40.0
+    (l_start, l_end), (r_start, r_end) = blvd_seg.get_offset_lines()
+    assert pytest.approx(l_start.dist_to(r_start), abs=0.01) == 80.0
 
-    # 3. Curve offset arcs (San Salvadore: CL R=299.96' -> Inner R=269.96', Outer R=329.96')
+    # 3. Curve offset arcs (San Salvadore: CL R=269.96' -> Inner (S) R=239.96', Outer (N) R=299.96')
     c_ss = engine.curves["C_SANSALVADORE_CL"]
     assert c_ss.half_width == 30.0
     inner_arc, outer_arc = c_ss.get_offset_arcs()
-    assert pytest.approx(inner_arc["radius"], abs=0.01) == 269.96  # Matches stated North R/W curve
-    assert pytest.approx(outer_arc["radius"], abs=0.01) == 329.96
+    assert pytest.approx(inner_arc["radius"], abs=0.01) == 239.96  # S R/W: chords 106.60 / 44.61
+    assert pytest.approx(outer_arc["radius"], abs=0.01) == 299.96  # N R/W: chords 67.91 / 66.18 / 55.76
 
 
 def test_validate_all_curves_consistency(engine):
@@ -305,44 +337,6 @@ def test_validate_all_curves_consistency(engine):
         assert res["diff_chord"] < 0.1
         assert res["diff_tan"] < 0.1
         assert res["diff_euclid"] < 0.1
-
-
-def test_culdesac_fillet_parameters(engine):
-    """Verify Keel Drive open-ended cul-de-sac includes reverse curve fillet transitions."""
-    cds = engine.culdesacs[0]
-    assert cds["reverse_fillet_radius_ft"] == 25.0
-    assert cds["bulb_radius_ft"] == 50.0
-    assert cds["right_of_way_width_ft"] == 60.0
-
-
-def test_culdesac_analytical_geometry_and_fillets(engine):
-    """Verify exact analytical coordinates and fillet tangencies for Keel Drive cul-de-sac."""
-    geom = engine.get_culdesac_geometry("CULDESAC_KEEL_DRIVE")
-    assert geom["bulb_radius_ft"] == 50.0
-    assert geom["corridor_half_width_ft"] == 30.0
-    assert geom["fillet_radius_ft"] == 25.0
-    assert pytest.approx(geom["throat_distance_yf_ft"], abs=0.01) == 50.99
-    assert pytest.approx(geom["theta_prc_deg"], abs=0.01) == 47.17
-    assert pytest.approx(geom["delta_bulb_deg"], abs=0.01) == 265.67
-
-    # Tangency verifications:
-    # 1. pc_left to c_left = fillet radius 25.0'
-    assert pytest.approx(geom["pc_left"].dist_to(geom["center_left_fillet"]), abs=0.001) == 25.0
-    # 2. prc_left to c_left = fillet radius 25.0'
-    assert pytest.approx(geom["prc_left"].dist_to(geom["center_left_fillet"]), abs=0.001) == 25.0
-    # 3. prc_left to bulb center = bulb radius 50.0'
-    assert pytest.approx(geom["prc_left"].dist_to(geom["center_point"]), abs=0.001) == 50.0
-    # 4. pt_right to c_right = fillet radius 25.0'
-    assert pytest.approx(geom["pt_right"].dist_to(geom["center_right_fillet"]), abs=0.001) == 25.0
-    # 5. prc_right to c_right = fillet radius 25.0'
-    assert pytest.approx(geom["prc_right"].dist_to(geom["center_right_fillet"]), abs=0.001) == 25.0
-    # 6. prc_right to bulb center = bulb radius 50.0'
-    assert pytest.approx(geom["prc_right"].dist_to(geom["center_point"]), abs=0.001) == 50.0
-    # 7. Throat width between pc_left and pt_right = exactly 60.00'
-    assert pytest.approx(geom["pc_left"].dist_to(geom["pt_right"]), abs=0.001) == 60.0
-
-    # Continuous boundary polyline has vertices
-    assert len(geom["boundary_pts"]) >= 50
 
 
 def test_centerline_reference_alignments_preserved(engine):
