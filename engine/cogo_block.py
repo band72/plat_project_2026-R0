@@ -514,7 +514,11 @@ class BeachwoodBlock9Solver:
             r27 = float(cr9.get("CR_BLK9_L27", {}).get("radius", 25.0))
             r26 = float(cr9.get("CR_BLK9_L26", {}).get("radius", 25.0))
         self.sol27 = solve_corner_return("N01°01'40\"W", "N88°58'20\"E", radius=r27, stated_dim_in_to_pi=140.0)
-        self.sol26 = solve_corner_return("S84°31'40\"E", "S01°01'40\"E", radius=r26, stated_dim_in_to_pi=109.0)
+        # Lot 26 SW return: the plat prints "25.0' N88°58'20\"E" from the P.I., i.e. the return is tangent to the
+        # N88°58'20"E line and ends at the San Salvadore curve P.C. (Δ 90°, T 25'). It was previously filleted
+        # against the 67.91' chord bearing (S84°31'40"E), which gave Δ 83°30' and a 22.2' P.C. cut-back.
+        self.sol26 = solve_corner_return("S88°58'20\"W", "N01°01'40\"W", radius=r26,
+                                         stated_dim_in_to_pi=25.0, stated_dim_out_to_pi=109.0)
 
         # 3. Coordinate Geometry
         self.points: dict[str, Point] = {}
@@ -660,6 +664,27 @@ class BeachwoodBlock9Solver:
                 stated_area_sqft=7499.1,
             ),
         }
+
+        # Street-frontage curves (re-read at 400 dpi 2026-09-24; these fronts used to be straight chords).
+        # Cape Horn Ave S R/W: R = 327.01 - 30 = 297.01' (lots inside the curve), chords 72.39 / 108.25 / 6.91
+        #   -> Δ 14° + 21° + 1°20' = CL Δ 36°20'.
+        # San Salvadore Ave N R/W: R = 269.96 + 30 = 299.96' (lots outside), chords 67.91 / 66.18 / 55.76
+        #   -> Δ 13° + 12°40' + 10°40' = CL Δ 36°20'.
+        # Record area = chord polygon +/- the segment computed from the plat Δ (the plat prints no lot areas).
+        self.r_capehorn_s, self.r_sansal_n = 297.01, 299.96
+        fronts = [("27", "side_3", self.r_capehorn_s, 14.0, "CW", +1),
+                  ("28", "side_2", self.r_capehorn_s, 21.0, "CW", +1),
+                  ("29", "side_2", self.r_capehorn_s, 1.0 + 20.0 / 60.0, "CW", +1),
+                  ("26", "side_4", self.r_sansal_n, 13.0, "CCW", -1),
+                  ("25", "side_4", self.r_sansal_n, 12.0 + 40.0 / 60.0, "CCW", -1),
+                  ("24", "side_6", self.r_sansal_n, 10.0 + 40.0 / 60.0, "CCW", -1)]
+        for num, side, R, d, rot, sgn in fronts:
+            lot = self.lots[num]
+            chord_area = lot.compute_mapcheck().computed_area_sqft
+            t = math.radians(d)
+            lot.curve_specs = dict(lot.curve_specs)
+            lot.curve_specs[side] = {"radius": R, "delta_deg": d, "length": round(R * t, 2), "rot": rot}
+            lot.stated_area_sqft = round(chord_area + sgn * 0.5 * R * R * (t - math.sin(t)), 1)
 
     def solve_all(self) -> dict[str, LotMapCheckResult]:
         """Compute MapCheck for all lots in Block 9."""
@@ -1057,15 +1082,22 @@ class BeachwoodBlock16Solver:
             self.r_marina = float(m_spec["radius"])
             c_marina_full = PlatCurve.from_params(radius=self.r_marina, delta_deg=float(m_spec["delta_deg"]))
             self.delta_marina = float(c_marina_full.delta_deg)
-            k_spec = fc16["CURVE_BLK16_KEEL_L28"]
-            self.r_keel = float(k_spec["radius"])
-            c_keel = PlatCurve.from_params(radius=self.r_keel, chord=float(k_spec["stated_chord"]))
-            self.delta_keel_28 = float(c_keel.delta_deg)
+            k_spec = fc16["CURVE_BLK16_SHELLFISH_L28"]
+            self.r_shellfish = float(k_spec["radius"])
         else:
             self.r_marina = 389.27
             self.delta_marina = 37.0 + 42.0 / 60.0 + 50.0 / 3600.0
-            self.r_keel = 167.95
-            self.delta_keel_28 = 2.0 * math.degrees(math.asin(68.75 / (2.0 * self.r_keel)))  # 23.6208°
+            self.r_shellfish = 197.95
+        # Shellfish Dr N R/W: CL R=167.95' + 30' (the lots are on the outside of the curve).  Each lot's
+        # Δ comes from its printed chord; the three sum to the printed CL Δ 52°17'10".
+        self.delta_shellfish_29 = 2.0 * math.degrees(math.asin(51.68 / (2.0 * self.r_shellfish)))  # 15°00'
+        self.delta_shellfish_28 = 2.0 * math.degrees(math.asin(68.75 / (2.0 * self.r_shellfish)))  # 20°00'
+        self.delta_shellfish_27 = 2.0 * math.degrees(math.asin(59.50 / (2.0 * self.r_shellfish)))  # 17°17'
+        self.r_keel = self.r_shellfish  # backwards-compatible name (the curve was mislabelled "Keel")
+        self.delta_keel_28 = self.delta_shellfish_28
+        # East end corner returns on Beachwood Blvd (S00°41'40"E), dimensions to the P.I. (Note 2)
+        self.sol17 = solve_corner_return("N87°35'30\"E", "S00°41'40\"E", radius=25.0, stated_dim_in_to_pi=103.76, rot="CW")
+        self.sol18 = solve_corner_return("S00°41'40\"E", "S87°35'30\"W", radius=25.0, stated_dim_out_to_pi=97.78, rot="CW")
         self.delta_sub = self.delta_marina / 3.0  # 12.571296° per lot
 
         # 5. Coordinate Geometry Construction
@@ -1228,7 +1260,6 @@ class BeachwoodBlock16Solver:
 
         # Lot 29: Wedge / Pie Lot (Apex at p_cl_apex, Curve C5, Corner Return C6, Straight 51.68', Side 166.73')
         l29_poly = [p30_se, p29_pt_marina, p29_ret_pt, p29_se, p_cl_apex]
-        a29 = shoelace_area(l29_poly) + c_marina_seg_a - self.sol29.segment_area
         lots_dict["29"] = DeterministicLotSolver(
             lot_id="Blk16-Lot29", block_id="16", lot_number="29",
             vertices=l29_poly,
@@ -1236,31 +1267,120 @@ class BeachwoodBlock16Solver:
             curve_specs={
                 "side_1": {"radius": self.r_marina, "delta_deg": self.delta_sub, "length": 85.41, "rot": "CW"},
                 "side_2": {"radius": self.sol29.radius, "delta_deg": self.sol29.delta_deg, "length": round(self.sol29.arc_length, 2), "rot": "CCW"},
+                "side_3": {"radius": self.r_shellfish, "delta_deg": self.delta_shellfish_29,
+                           "length": round(self.r_shellfish * math.radians(self.delta_shellfish_29), 2), "rot": "CW"},
             },
-            stated_area_sqft=round(a29, 1),
+            stated_area_sqft=0.0,  # set below from the closed-form record area
         )
 
-        # Lot 28: Frontage along Keel Drive (Chord=68.75' @ N60°18'20"E, Rear 110.00', East 116.36', West 166.73')
-        if _HAS_PLAT_CURVES:
-            c7_cur = PlatCurve.from_params(radius=self.r_keel, delta_deg=self.delta_keel_28)
-            c7_seg_a = float(c7_cur.segment_area)
-        else:
-            c7_sol = solve_curve_all_parameters(radius=self.r_keel, delta_deg=self.delta_keel_28)
-            c7_seg_a = float(c7_sol["segment_area"])
+        # Lot 28: Shellfish Dr N R/W chord 68.75' N60°18'20"E, rear 110.00', east 116.36', west 166.73'
         l28_poly = [p29_se, p28_se, p_cl_28_27, p_cl_apex]
-        a28 = shoelace_area(l28_poly) + c7_seg_a
         lots_dict["28"] = DeterministicLotSolver(
             lot_id="Blk16-Lot28", block_id="16", lot_number="28",
             vertices=l28_poly,
             node_names=["SW_Cor", "SE_Cor", "NE_Cor", "NW_Apex"],
-            curve_specs={"side_1": {"radius": self.r_keel, "delta_deg": self.delta_keel_28, "length": 69.24, "rot": "CW"}},
-            stated_area_sqft=round(a28, 1),
+            curve_specs={"side_1": {"radius": self.r_shellfish, "delta_deg": self.delta_shellfish_28,
+                                    "length": round(self.r_shellfish * math.radians(self.delta_shellfish_28), 2), "rot": "CW"}},
+            stated_area_sqft=0.0,
         )
 
+        # ---- east of the wedge: Lots 9-17 (north) and 18-27 (south) ----
+        az_e, az_s = self.az_axis_e, self.az_west_s
+        blvd_s, blvd_n = parse_bearing("S00°41'40\"E"), parse_bearing("N00°41'40\"W")
+        rear = {8: north_rear[7]}                       # rear-line points; Lot 8 SE = x 618.50'
+        front_n = {8: north_front[7]}
+        for i in range(9, 17):
+            rear[i] = rear[i - 1].offset(az_e, 75.0)
+            front_n[i] = front_n[i - 1].offset(az_e, 75.0)
+        p_rear_e = rear[16].offset(az_e, 100.77)        # rear line meets Beachwood Blvd W R/W
+        pi17 = front_n[16].offset(az_e, 103.76)
+        p17_pt = pi17.offset(parse_bearing("S87°35'30\"W"), self.sol17.tangent)
+        p17_pc = pi17.offset(blvd_s, self.sol17.tangent)
+        front_s = {26: north_rear[7].offset(az_s, 100.0)}  # front_s[i] = Lot i SW; Lot 26 SW is under Lot 8 SE
+        for i in range(25, 17, -1):
+            front_s[i] = front_s[i + 1].offset(az_e, 75.0)
+        pi18 = front_s[18].offset(az_e, 97.78)
+        p18_pc = pi18.offset(blvd_n, self.sol18.tangent)
+        p18_pt = pi18.offset(parse_bearing("S87°35'30\"W"), self.sol18.tangent)
+        # Lot 27: Shellfish N R/W curve continues from Lot 28's SE corner (chord 59.50'), then 5.45' tangent
+        c_sh = p29_ret_pt.offset((parse_bearing("N35°18'20\"E") + 90.0) % 360.0, self.r_shellfish)
+        a_pc = (parse_bearing("N35°18'20\"E") - 90.0) % 360.0
+        p27_pt = c_sh.offset((a_pc + self.delta_shellfish_29 + self.delta_shellfish_28 + self.delta_shellfish_27) % 360.0,
+                             self.r_shellfish)
+        self.points.update({"p_rear_e": p_rear_e, "p17_pi_ne": pi17, "p17_pt": p17_pt, "p17_pc": p17_pc,
+                            "p18_pi_se": pi18, "p18_pc": p18_pc, "p18_pt": p18_pt, "p27_sh_pt": p27_pt,
+                            "center_shellfish": c_sh})
+        for i in range(9, 17):
+            self.points[f"p{i}_ne"] = front_n[i]
+            self.points[f"p{i}_se"] = rear[i]
+        for i in range(18, 27):
+            self.points[f"p{i}_sw"] = front_s[i]
+
+        for i in range(9, 17):
+            lots_dict[str(i)] = DeterministicLotSolver(
+                lot_id=f"Blk16-Lot{i}", block_id="16", lot_number=str(i),
+                vertices=[rear[i - 1], front_n[i - 1], front_n[i], rear[i]],
+                node_names=["SW_Cor", "NW_Cor", "NE_Cor", "SE_Cor"], stated_area_sqft=7500.0,
+            )
+        lots_dict["17"] = DeterministicLotSolver(
+            lot_id="Blk16-Lot17", block_id="16", lot_number="17",
+            vertices=[rear[16], front_n[16], p17_pt, p17_pc, p_rear_e],
+            node_names=["SW_Cor", "NW_Cor", "PT_Sail", "PC_Blvd", "SE_Cor"],
+            curve_specs={"side_3": {"radius": 25.0, "delta_deg": self.sol17.delta_deg,
+                                    "length": round(self.sol17.arc_length, 2), "rot": "CW"}},
+            stated_area_sqft=round(0.5 * (103.76 + 100.77) * 100.0 - self.sol17.fillet_area, 1),
+        )
+        lots_dict["18"] = DeterministicLotSolver(
+            lot_id="Blk16-Lot18", block_id="16", lot_number="18",
+            vertices=[rear[16], p_rear_e, p18_pc, p18_pt, front_s[18]],
+            node_names=["NW_Cor", "NE_Cor", "PC_Blvd", "PT_Shellfish", "SW_Cor(PRM)"],
+            curve_specs={"side_3": {"radius": 25.0, "delta_deg": self.sol18.delta_deg,
+                                    "length": round(self.sol18.arc_length, 2), "rot": "CW"}},
+            stated_area_sqft=round(0.5 * (100.77 + 97.78) * 100.0 - self.sol18.fillet_area, 1),
+        )
+        for i in range(19, 27):
+            lots_dict[str(i)] = DeterministicLotSolver(
+                lot_id=f"Blk16-Lot{i}", block_id="16", lot_number=str(i),
+                vertices=[rear[8 + (26 - i)], rear[9 + (26 - i)], front_s[i - 1], front_s[i]],
+                node_names=["NW_Cor", "NE_Cor", "SE_Cor", "SW_Cor"], stated_area_sqft=7500.0,
+            )
+        lots_dict["27"] = DeterministicLotSolver(
+            lot_id="Blk16-Lot27", block_id="16", lot_number="27",
+            vertices=[p_cl_28_27, rear[8], front_s[26], p27_pt, p28_se],
+            node_names=["NW_Cor", "NE_Cor", "SE_Cor", "PT_Shellfish", "SW_Cor"],
+            curve_specs={"side_4": {"radius": self.r_shellfish, "delta_deg": self.delta_shellfish_27,
+                                    "length": round(self.r_shellfish * math.radians(self.delta_shellfish_27), 2), "rot": "CCW"}},
+            stated_area_sqft=0.0,
+        )
+
+        # Record ("stated") areas for the curved south-row lots: chord polygon minus the segments of the
+        # Marina / Shellfish curves (the lots lie outside both circles) and minus the Lot 29 return fillet.
+        def seg(R, d):
+            t = math.radians(d)
+            return 0.5 * R * R * (t - math.sin(t))
+        for num, poly, cuts in [
+            ("31", l31_poly, seg(self.r_marina, self.delta_sub)),
+            ("30", l30_poly, seg(self.r_marina, self.delta_sub)),
+            ("29", [p30_se, p29_pt_marina, p29_ret_pi, p29_ret_pt, p29_se, p_cl_apex],
+             seg(self.r_marina, self.delta_sub) + self.sol29.fillet_area + seg(self.r_shellfish, self.delta_shellfish_29)),
+            ("28", l28_poly, seg(self.r_shellfish, self.delta_shellfish_28)),
+            ("27", [p_cl_28_27, rear[8], front_s[26], p27_pt, p28_se], seg(self.r_shellfish, self.delta_shellfish_27)),
+        ]:
+            lots_dict[num].stated_area_sqft = round(shoelace_area(poly) - cuts, 1)
+
+        # Printed lines not used in the construction (computed, printed)
+        self.checks = {
+            "Lot 29 Shellfish chord 51.68'": (p29_ret_pt.dist_to(p29_se), 51.68),
+            "Lot 28 Shellfish chord 68.75'": (p29_se.dist_to(p28_se), 68.75),
+            "Lot 29 SE on Shellfish circle (0')": (abs(p29_se.dist_to(c_sh) - self.r_shellfish), 0.0),
+            "Lot 28 SE on Shellfish circle (0')": (abs(p28_se.dist_to(c_sh) - self.r_shellfish), 0.0),
+            "Lot 27 tangent 5.45'": (p27_pt.dist_to(front_s[26]), 5.45),
+            "Lot 27 rear 105.24'": (p_cl_28_27.dist_to(rear[8]), 105.24),
+        }
         self.lots = lots_dict
 
     def solve_all(self) -> dict[str, LotMapCheckResult]:
-        """Compute MapCheck for all 14 lots in Block 16."""
+        """Compute MapCheck for all 33 lots in Block 16."""
         results = {}
         for lot_num, solver in self.lots.items():
             results[lot_num] = solver.compute_mapcheck()
@@ -1269,7 +1389,9 @@ class BeachwoodBlock16Solver:
     def get_curve_table_data(self) -> list[dict[str, Any]]:
         """Return structured curve table rows for Block 16."""
         c3 = solve_curve_all_parameters(radius=self.r_marina, delta_deg=self.delta_sub)
-        c7 = solve_curve_all_parameters(radius=self.r_keel, delta_deg=self.delta_keel_28)
+        c7 = solve_curve_all_parameters(radius=self.r_shellfish, delta_deg=self.delta_shellfish_28)
+        c8 = solve_curve_all_parameters(radius=self.r_shellfish, delta_deg=self.delta_shellfish_29)
+        c9 = solve_curve_all_parameters(radius=self.r_shellfish, delta_deg=self.delta_shellfish_27)
         return [
             {"tag": "C1", "radius": self.sol1.radius, "delta": "90°00'00\"", "length": self.sol1.arc_length, "tangent": self.sol1.tangent, "chord": self.sol1.chord, "chord_bearing": whole_second_bearing(self.sol1.chord_bearing), "location": "Lot 1 NW Corner Return (Sail Ave & West St, Glyph '┌')"},
             {"tag": "C2", "radius": self.sol33.radius, "delta": "90°00'00\"", "length": self.sol33.arc_length, "tangent": self.sol33.tangent, "chord": self.sol33.chord, "chord_bearing": whole_second_bearing(self.sol33.chord_bearing), "location": "Lot 33 SW Corner Return (South St & West St, Glyph '└')"},
@@ -1277,7 +1399,11 @@ class BeachwoodBlock16Solver:
             {"tag": "C4", "radius": self.r_marina, "delta": "12°34'17\"", "length": float(c3["length"]), "tangent": float(c3["tangent"]), "chord": 85.24, "chord_bearing": "S73°33'06\"E", "location": "Lot 30 Frontage (Marina Ave North R/W)"},
             {"tag": "C5", "radius": self.r_marina, "delta": "12°34'17\"", "length": float(c3["length"]), "tangent": float(c3["tangent"]), "chord": 85.24, "chord_bearing": "S60°58'49\"E", "location": "Lot 29 Frontage (Marina Ave North R/W)"},
             {"tag": "C6", "radius": self.sol29.radius, "delta": "90°00'00\"", "length": self.sol29.arc_length, "tangent": self.sol29.tangent, "chord": self.sol29.chord, "chord_bearing": whole_second_bearing(self.sol29.chord_bearing), "location": "Lot 29 SE Corner Return (Marina Ave PT to Keel Dr, Glyph '┘')"},
-            {"tag": "C7", "radius": self.r_keel, "delta": "23°37'15\"", "length": float(c7["length"]), "tangent": float(c7["tangent"]), "chord": 68.75, "chord_bearing": "N60°18'20\"E", "location": "Lot 28 Frontage (Keel Drive North R/W)"},
+            {"tag": "C7", "radius": self.r_shellfish, "delta": deg_to_dms(self.delta_shellfish_28) if _HAS_PLAT_CURVES else "20°00'00\"", "length": float(c7["length"]), "tangent": float(c7["tangent"]), "chord": 68.75, "chord_bearing": "N60°18'20\"E", "location": "Lot 28 Frontage (Shellfish Drive North R/W)"},
+            {"tag": "C8", "radius": self.r_shellfish, "delta": deg_to_dms(self.delta_shellfish_29) if _HAS_PLAT_CURVES else "15°00'00\"", "length": float(c8["length"]), "tangent": float(c8["tangent"]), "chord": 51.68, "chord_bearing": "N42°48'20\"E", "location": "Lot 29 Frontage (Shellfish Drive North R/W)"},
+            {"tag": "C9", "radius": self.r_shellfish, "delta": deg_to_dms(self.delta_shellfish_27) if _HAS_PLAT_CURVES else "17°17'10\"", "length": float(c9["length"]), "tangent": float(c9["tangent"]), "chord": 59.50, "chord_bearing": "N78°56'55\"E", "location": "Lot 27 Frontage (Shellfish Drive North R/W)"},
+            {"tag": "C10", "radius": self.sol17.radius, "delta": deg_to_dms(self.sol17.delta_deg) if _HAS_PLAT_CURVES else "", "length": self.sol17.arc_length, "tangent": self.sol17.tangent, "chord": self.sol17.chord, "chord_bearing": whole_second_bearing(self.sol17.chord_bearing), "location": "Lot 17 NE Corner Return (Sail Ave & Beachwood Blvd)"},
+            {"tag": "C11", "radius": self.sol18.radius, "delta": deg_to_dms(self.sol18.delta_deg) if _HAS_PLAT_CURVES else "", "length": self.sol18.arc_length, "tangent": self.sol18.tangent, "chord": self.sol18.chord, "chord_bearing": whole_second_bearing(self.sol18.chord_bearing), "location": "Lot 18 SE Corner Return (Beachwood Blvd & Shellfish Dr)"},
         ]
 
     def get_line_table_data(self) -> list[dict[str, Any]]:
@@ -1595,6 +1721,37 @@ class BeachwoodBlock11Solver:
             res = lot.compute_mapcheck()
             lot.stated_area_sqft = round(res.computed_area_sqft, 2)
 
+        # R=25' returns at the two Mangrove corners (drawn rounded on the scan, re-read 2026-09-24). The printed
+        # 93.83' / 100' and 92.67' / 100' run to the P.I.s (Note 2), so p15_nw / p14_sw stay the P.I. points.
+        self.sol15 = solve_corner_return("N01°01'40\"W", "N89°18'20\"E", radius=25.0,
+                                         stated_dim_in_to_pi=100.0, stated_dim_out_to_pi=93.83, rot="CW")
+        self.sol14 = solve_corner_return("S89°18'20\"W", "N01°01'40\"W", radius=25.0,
+                                         stated_dim_in_to_pi=92.67, stated_dim_out_to_pi=100.0, rot="CW")
+        P = self.points
+        north = (self.az_west + 180.0) % 360.0
+        P["p15_pc_w"] = P["p15_nw"].offset(self.az_west, self.sol15.tangent)
+        P["p15_pt_n"] = P["p15_nw"].offset(self.az_front, self.sol15.tangent)
+        P["p14_pt_s"] = P["p14_sw"].offset(self.az_front, self.sol14.tangent)
+        P["p14_pc_w"] = P["p14_sw"].offset(north, self.sol14.tangent)
+        quad15 = shoelace_area([P["p15_sw"], P["p15_nw"], P["p15_ne"], P["p15_se"]])
+        quad14 = shoelace_area([P["p14_sw"], P["p14_nw"], P["p14_ne"], P["p14_se"]])
+        self.lots["15"] = DeterministicLotSolver(
+            lot_id="Blk11-Lot15", block_id="11", lot_number="15",
+            vertices=[P["p15_sw"], P["p15_pc_w"], P["p15_pt_n"], P["p15_ne"], P["p15_se"]],
+            node_names=["SW_Cor", "PC_West", "PT_Bayou", "NE_Cor", "SE_Cor"],
+            curve_specs={"side_2": {"radius": 25.0, "delta_deg": self.sol15.delta_deg,
+                                    "length": round(self.sol15.arc_length, 2), "rot": "CW"}},
+            stated_area_sqft=round(quad15 - self.sol15.fillet_area, 1),
+        )
+        self.lots["14"] = DeterministicLotSolver(
+            lot_id="Blk11-Lot14", block_id="11", lot_number="14",
+            vertices=[P["p14_pc_w"], P["p14_nw"], P["p14_ne"], P["p14_se"], P["p14_pt_s"]],
+            node_names=["PC_West", "NW_Cor", "NE_Cor", "SE_Cor", "PT_Surfwood"],
+            curve_specs={"side_5": {"radius": 25.0, "delta_deg": self.sol14.delta_deg,
+                                    "length": round(self.sol14.arc_length, 2), "rot": "CW"}},
+            stated_area_sqft=round(quad14 - self.sol14.fillet_area, 1),
+        )
+
     def solve_all(self) -> dict[str, LotMapCheckResult]:
         return {num: lot.compute_mapcheck() for num, lot in self.lots.items()}
 
@@ -1670,227 +1827,168 @@ class InsufficientPlatDataError(Exception):
 
 class BeachwoodBlock12Solver:
     """
-    Deterministic solver for Block 12, Beachwood Unit Two (the only part of
-    Block 12 within this plat -- the dashed-outline "(12)" parcels drawn near
-    San Salvadore Road/Unit One belong to the adjoining Beachwood Unit One and
-    carry no bearings/distances on this sheet).
-    Plat Book 30, Page 82, Duval County, FL.
+    Block 12, Beachwood Unit Two (Sheet 1, PB 30 Pg 82), Lots 4-10: the part west of the Unit One
+    matchline. Lot 3 and the other dashed "(12)" parcels belong to Unit One. Re-read at 400 dpi 2026-09-24.
+    The earlier reading at 300 dpi left Lots 8-10 flagged and closed Lots 4/6/7 as quadrilaterals. At 400 dpi
+    every course is legible:
 
-    Lots 4, 5, 6, 7 (WEST OF MATCHLINE, CERTIFIED):
-    Straight-sided lots stacked along the 50' drainage/utility R/W (the same
-    alignment as Mangrove Ave in Blocks 13/11/10). Each is closed from
-    exactly the sides legibly stated on the plat, with the one remaining
-    side computed by closure (a normal, expected condition -- a
-    quadrilateral only needs 3 independent sides + closure, not 4 printed
-    ones, and every computed 4th side here reproduces its neighbor's
-    independently-stated dimension to within 0.01', confirming the reading):
-      - Lot 7: West 75.00' (R/W, S01°01'40"E), North 100.00' (shared w/
-        Lot 8, N88°58'20"E), South 120.00' (shared w/ Lot 6, N88°58'20"E).
-        East side (shared w/ Lot 8/9 curve transition) computed at 77.62'.
-      - Lot 6: West 71.27' (R/W), North 120.00' (= Lot 7 south),
-        South 120.52' (shared w/ Lot 5). East computed at 71.27' (matches
-        west exactly).
-      - Lot 5: West 90.00' (R/W), North 120.52' (= Lot 6 south), South
-        120.00' (Bayou frontage, N89°18'20"E). East computed at 90.70' --
-        matches Lot 4's independently-stated west side (90.69') to 0.01'.
-      - Lot 4: West 90.69' (shared w/ Lot 5, standard perpendicular divider
-        N00°41'40"W), South 94.20' (Bayou frontage), East 102.20'
-        (matchline, N00°41'40"W). North side (shared w/ Lot 6's curve-side
-        jog) computed at 94.90' -- not independently stated, not needed.
-
-    Lots 8, 9, 10 (FLAGGED -- NOT CERTIFIED, see Rule 3 below):
-    These lots front the San Salvadore Avenue curve transition (centerline
-    curve data on the plat: R=269.96', Delta=36°20'00", T=88.59' -- the
-    same curve documented for Block 9's Lots 23-26 in
-    data/block9_mapcheck_report.txt) via a multi-segment jog off Lot 6/7's
-    east side. The plat prints several short courses in that jog (e.g.
-    "25.82'", "N19°06'16"E", "60.34'", "S56°34'xx"E") that this reading
-    could not transcribe with certifiable confidence -- some of that text is
-    an easement annotation ("Esm't") rather than a boundary line, and the
-    remaining figures are small enough on the scan that a misread digit
-    would silently produce a legally wrong corner. Rather than guess, this
-    solver only fixes the ONE corner that IS unambiguous (Lot 8's SW corner,
-    shared with Lot 7's already-certified NE corner) and leaves Lots 8, 9,
-    10 OUT of self.lots. See BeachwoodBlock12Solver.flagged_points for the
-    corner(s) recovered by straight-line intersection instead of a direct
-    plat reading, and MASTER_PROMPT.md / the drawing script for how these
-    are marked in red on the CAD output -- exactly the "not enough
-    information, compute the intersection, mark it in red" workflow this
-    was built for.
+      - West line (50' drainage R/W, S01°01'40"E) from the San Salvadore P.I.: 90' (L8), 75' (L7),
+        71.27' (L6), 90' (L5) to the Bayou P.I. R=25' returns at both ends (Note 2 dims to the P.I.).
+      - San Salvadore Ave S R/W: 25.0' N88°58'20"E to the P.C. of the curve R=269.96-30=239.96', lot chords
+        106.60' N78°11'40"W (L8, Δ 25°40') and 44.61' N60°01'40"W (L9, Δ 10°40'; total = CL Δ 36°20'), then
+        57.92' + 75' (L10) on S54°41'40"E to the P.R.M.
+      - Lot 7 is 100' x 75' (east line N01°01'40"W 75'). Lot 6 is north 120.00' (= 100' + 20'), then the jog
+        25.82' on S56°34'xx"E, 60.34' N19°06'16"E, south 120.52'. Lot 8 east N22°32'48"E 72.37'.
+        Lot 9/10 line N35°18'20"E 122.45'. Lot 10 rear 75.04' on the same S56°34'xx"E line.
+      - Lot 4: 90.69' (N00°41'40"W), 60.34', 75.04', then the boundary N75°27'25"W 12.07' and
+        N00°41'40"W 102.20', and 94.20' on Bayou Rd (N89°18'20"E).
+    Construction uses only the printed values listed below; all others are in `self.checks`.
+    Origin: Lot 7 NW corner (on the drainage R/W).
     """
-    def __init__(self, origin: Point | None = None):
-        self.brg_div = "N88°58'20\"E"     # interior divider (Lots 4-7, matches Block 13's convention)
-        self.brg_west = "S01°01'40\"E"    # 50' drainage/utility R/W (west side of Lots 5, 6, 7)
-        self.brg_bayou = "N89°18'20\"E"   # Bayou frontage (Lot 4 south, Lot 5 south)
-        self.brg_side = "N00°41'40\"W"    # standard perpendicular divider (Lot 4/5, matchline)
+    R_SANSAL = 239.96
 
+    def __init__(self, origin: Point | None = None):
+        self.brg_div = "N88°58'20\"E"
+        self.brg_west = "S01°01'40\"E"
+        self.brg_bayou = "N89°18'20\"E"
+        self.brg_side = "N00°41'40\"W"
         self.az_div = parse_bearing(self.brg_div)
         self.az_west = parse_bearing(self.brg_west)
         self.az_bayou = parse_bearing(self.brg_bayou)
         self.az_side = parse_bearing(self.brg_side)
-
         self.origin = origin or Point(1000.0, 1000.0)
         self.points: dict[str, Point] = {}
-        self.flagged_points: dict[str, dict[str, Any]] = {}
+        self.flagged_points: dict[str, dict[str, Any]] = {}   # none remain after the 400 dpi re-read
         self.lots: dict[str, DeterministicLotSolver] = {}
+        self.checks: dict[str, tuple[float, float]] = {}
+        self.sol8 = solve_corner_return("N01°01'40\"W", "N88°58'20\"E", radius=25.0,
+                                        stated_dim_in_to_pi=90.0, stated_dim_out_to_pi=25.0, rot="CW")
+        self.sol5 = solve_corner_return("S89°18'20\"W", "N01°01'40\"W", radius=25.0,
+                                        stated_dim_in_to_pi=120.0, stated_dim_out_to_pi=90.0, rot="CW")
         self._solve_geometry()
 
     def _solve_geometry(self):
-        # Anchor: NW corner of Lot 7, on the 50' drainage/utility R/W.
-        p7_nw = self.origin
-        p7_ne = p7_nw.offset(self.az_div, 100.00)
-        p7_sw = p7_nw.offset(self.az_west, 75.0)
-        p7_se = p7_sw.offset(self.az_div, 120.00)
+        P = self.points
+        north = parse_bearing("N01°01'40\"W")
+        diag = parse_bearing("S54°41'40\"E")
 
-        p6_nw, p6_ne = p7_sw, p7_se
-        p6_sw = p6_nw.offset(self.az_west, 71.27)
-        p6_se = p6_sw.offset(self.az_div, 120.52)
+        def put(name, pt):
+            P[name] = pt
+            return pt
 
-        p5_nw, p5_ne = p6_sw, p6_se
-        p5_sw = p5_nw.offset(self.az_west, 90.0)
-        p5_se = p5_sw.offset(self.az_bayou, 120.0)
+        # ---- drainage R/W line ----
+        p7_nw = put("p7_nw", self.origin)
+        pi8 = put("p8_pi_nw", p7_nw.offset(north, 90.0))
+        put("p8_pc_w", pi8.offset(self.az_west, self.sol8.tangent))
+        put("p8_pt_n", pi8.offset(self.az_div, self.sol8.tangent))
+        p7_sw = put("p7_sw", p7_nw.offset(self.az_west, 75.0))
+        put("p6_nw", p7_sw)
+        p6_sw = put("p6_sw", p7_sw.offset(self.az_west, 71.27))
+        put("p5_nw", p6_sw)
+        p5_sw = put("p5_sw", p6_sw.offset(self.az_west, 90.0))         # Bayou P.I.
+        put("p5_pc_w", p5_sw.offset(north, self.sol5.tangent))
+        put("p5_pt_s", p5_sw.offset(self.az_bayou, self.sol5.tangent))
 
-        p4_sw = p5_se
-        p4_nw = p4_sw.offset(self.az_side, 90.69)
-        p4_se = p4_sw.offset(self.az_bayou, 94.20)
-        p4_ne = p4_se.offset(self.az_side, 102.20)
+        # ---- San Salvadore S R/W ----
+        spc = put("p_sansal_pc", pi8.offset(self.az_div, 25.0))
+        d8 = 2.0 * math.degrees(math.asin(106.60 / (2.0 * self.R_SANSAL)))
+        d9 = 2.0 * math.degrees(math.asin(44.61 / (2.0 * self.R_SANSAL)))
+        ctr = spc.offset((self.az_div + 90.0) % 360.0, self.R_SANSAL)
+        a0 = (self.az_div - 90.0) % 360.0
+        f8 = put("p8_ne", ctr.offset((a0 + d8) % 360.0, self.R_SANSAL))
+        spt = put("p_sansal_pt", ctr.offset((a0 + d8 + d9) % 360.0, self.R_SANSAL))
+        f9 = put("p9_ne", spt.offset(diag, 57.92))
+        prm = put("p_prm_san_salvadore", f9.offset(diag, 75.0))
 
-        self.points = {
-            "p7_nw": p7_nw, "p7_ne": p7_ne, "p7_se": p7_se, "p7_sw": p7_sw,
-            "p6_nw": p6_nw, "p6_ne": p6_ne, "p6_se": p6_se, "p6_sw": p6_sw,
-            "p5_nw": p5_nw, "p5_ne": p5_ne, "p5_se": p5_se, "p5_sw": p5_sw,
-            "p4_nw": p4_nw, "p4_ne": p4_ne, "p4_se": p4_se, "p4_sw": p4_sw,
-        }
+        # ---- interior ----
+        p7_ne = put("p7_ne", p7_nw.offset(self.az_div, 100.0))
+        put("p8_sw", p7_nw)
+        put("p8_se", p7_ne)
+        p7_se = put("p7_se", p7_ne.offset(self.az_west, 75.0))
+        a = put("p6_ne", p7_se.offset(self.az_div, 20.0))
+        p6_se = put("p6_se", p6_sw.offset(self.az_div, 120.52))
+        put("p5_ne", p6_se)
+        put("p4_nw", p6_se)
+        b = put("p_jog_b", p6_se.offset(parse_bearing("N19°06'16\"E"), 60.34))
 
-        for num in ["7", "6", "5", "4"]:
-            nw, ne, se, sw = (self.points[f"p{num}_nw"], self.points[f"p{num}_ne"],
-                              self.points[f"p{num}_se"], self.points[f"p{num}_sw"])
+        # ---- Bayou Rd frontage and the matchline boundary ----
+        p5_se = put("p5_se", p5_sw.offset(self.az_bayou, 120.0))
+        put("p4_sw", p5_se)
+        p4_se = put("p4_se", p5_se.offset(self.az_bayou, 94.20))
+        d = put("p4_ne", p4_se.offset(self.az_side, 102.20))
+        put("p_matchline_bend", d)
+        c = put("p_jog_c", d.offset(parse_bearing("N75°27'25\"W"), 12.07))
+
+        # ---- lots (clockwise rings) ----
+        def seg(R, dd):
+            t = math.radians(dd)
+            return 0.5 * R * R * (t - math.sin(t))
+
+        def poly(names):
+            return shoelace_area([P[n] for n in names])
+
+        def lot(num, names, stated, curve_specs=None):
             self.lots[num] = DeterministicLotSolver(
                 lot_id=f"Blk12-Lot{num}", block_id="12", lot_number=num,
-                vertices=[sw, nw, ne, se],
-                node_names=["SW_Cor", "NW_Cor", "NE_Cor", "SE_Cor"],
-                stated_area_sqft=1.0,
+                vertices=[P[n] for n in names], node_names=names,
+                curve_specs=curve_specs or {}, stated_area_sqft=round(stated, 1),
             )
-        for lot in self.lots.values():
-            res = lot.compute_mapcheck()
-            lot.stated_area_sqft = round(res.computed_area_sqft, 2)
 
-        # --- Lots 8, 9, 10: flagged, not certified -- see class docstring. ---
-        # The ONE corner this reading can defend outright: Lot 8's SW corner
-        # is simply Lot 7's already-certified NE corner (both ends of the
-        # plat-stated 100.00' N88°58'20"E line) -- no intersection needed.
-        p8_sw = p7_ne
-        self.points["p8_sw"] = p8_sw
+        def fil(side, sol):
+            return {side: {"radius": 25.0, "delta_deg": sol.delta_deg, "length": round(sol.arc_length, 2), "rot": "CW"}}
 
-        # The matchline IS legible end to end: it runs N00°41'40"W 102.20'
-        # up from Lot 4's NE corner (already fixed above) to a bend point,
-        # then N35°18'20"E 120.00' further up to the P.R.M. at San Salvadore
-        # Ave -- both segments explicitly labeled on the plat. What is NOT
-        # legible is how Lots 8/9/10's own interior dividers step across
-        # from the Lot 6/7 R/W frontage out to that matchline (the plat
-        # prints several short, faint jog courses there this reading could
-        # not certify). Intersecting Lot 7/8's *known* north divider
-        # (N88°58'20"E, extended east) against the *known* matchline gives a
-        # first-pass estimate for Lot 8's NE corner -- a real surveyor's
-        # technique for closing a gap in the record, but only an estimate,
-        # since the true boundary may jog before reaching that line.
-        p_bend = p4_ne  # matchline bend point, already fixed via Lot 4's east side
-        az_matchline_upper = parse_bearing("N35°18'20\"E")
-        p_prm = p_bend.offset(az_matchline_upper, 120.00)
-        try:
-            p8_ne_flag = intersect_bearings(p8_sw, self.az_div, p_bend, az_matchline_upper)
-            self.points["p_matchline_bend"] = p_bend
-            self.points["p_prm_san_salvadore"] = p_prm
-            self.flagged_points["Lot8_NE_approx"] = {
-                "point": p8_ne_flag,
-                "method": (
-                    "intersect_bearings(Lot 7/8 north divider N88°58'20\"E extended "
-                    "east from the certified Lot 7 NE corner, against the matchline "
-                    "N35°18'20\"E through the bend point above Lot 4)"
-                ),
-                "reason": (
-                    "Lots 8, 9, 10 front the San Salvadore Ave curve transition through "
-                    "several short jog courses this reading could not transcribe with "
-                    "certifiable confidence from the scan. This point is a first-pass "
-                    "intersection estimate for Lot 8's NE corner, NOT a substitute for "
-                    "reading the actual plat courses -- draw in red, verify against the "
-                    "recorded plat or field notes before relying on it."
-                ),
-            }
-        except ValueError:
-            pass
+        def arc(side, dd):
+            return {side: {"radius": self.R_SANSAL, "delta_deg": dd, "length": round(self.R_SANSAL * math.radians(dd), 2), "rot": "CW"}}
+
+        cs = fil("side_2", self.sol8)
+        cs.update(arc("side_4", d8))
+        lot("8", ["p7_nw", "p8_pc_w", "p8_pt_n", "p_sansal_pc", "p8_ne", "p7_ne"],
+            poly(["p7_nw", "p8_pi_nw", "p_sansal_pc", "p8_ne", "p7_ne"]) + seg(self.R_SANSAL, d8) - self.sol8.fillet_area, cs)
+        r9 = ["p7_ne", "p8_ne", "p_sansal_pt", "p9_ne", "p_jog_b", "p6_ne", "p7_se"]
+        lot("9", r9, poly(r9) + seg(self.R_SANSAL, d9), arc("side_2", d9))
+        r10 = ["p_jog_b", "p9_ne", "p_prm_san_salvadore", "p_jog_c"]
+        lot("10", r10, poly(r10))
+        r7 = ["p7_sw", "p7_nw", "p7_ne", "p7_se"]
+        lot("7", r7, poly(r7))
+        r6 = ["p6_sw", "p7_sw", "p6_ne", "p_jog_b", "p6_se"]
+        lot("6", r6, poly(r6))
+        lot("5", ["p5_pc_w", "p6_sw", "p6_se", "p5_se", "p5_pt_s"],
+            poly(["p5_sw", "p6_sw", "p6_se", "p5_se"]) - self.sol5.fillet_area, fil("side_5", self.sol5))
+        r4 = ["p4_sw", "p4_nw", "p_jog_b", "p_jog_c", "p4_ne", "p4_se"]
+        lot("4", r4, poly(r4))
+
+        # ---- printed values not used in the construction ----
+        dist = lambda x, y: P[x].dist_to(P[y])  # noqa: E731
+
+        def az(x, y):
+            return math.degrees(math.atan2(P[y].e - P[x].e, P[y].n - P[x].n)) % 360.0
+        self.checks = {
+            "Lot 6 north 120.00' (L6 NW -> A)": (dist("p7_sw", "p6_ne"), 120.00),
+            "Jog A->B 25.82'": (dist("p6_ne", "p_jog_b"), 25.82),
+            "Jog B->C 75.04' (Lot 10 rear)": (dist("p_jog_b", "p_jog_c"), 75.04),
+            "Jog A-B and B-C collinear (deg)": (abs(az("p6_ne", "p_jog_b") - az("p_jog_b", "p_jog_c")), 0.0),
+            "Lot 9/10 line 122.45'": (dist("p_jog_b", "p9_ne"), 122.45),
+            "Lot 9/10 line bearing N35°18'20\"E (deg)": (az("p_jog_b", "p9_ne"), parse_bearing("N35°18'20\"E")),
+            "Boundary C -> P.R.M. 120.0'": (dist("p_jog_c", "p_prm_san_salvadore"), 120.0),
+            "Lot 8 east 72.37'": (dist("p7_ne", "p8_ne"), 72.37),
+            "Lot 4 west 90.69'": (dist("p4_sw", "p4_nw"), 90.69),
+            "Lot 7 south 100'": (dist("p7_sw", "p7_se"), 100.0),
+        }
 
     def solve_all(self) -> dict[str, LotMapCheckResult]:
         return {num: lot.compute_mapcheck() for num, lot in self.lots.items()}
-
-    def get_line_table_data(self) -> list[dict[str, Any]]:
-        lines = []
-        idx = 1
-        lines.append({"tag": f"L{idx}", "bearing": "N88°58'20\"E", "distance": 100.00, "desc": "Lot 7/8 Dividing Line"})
-        idx += 1
-        lines.append({"tag": f"L{idx}", "bearing": "S01°01'40\"E", "distance": 75.00, "desc": "Lot 7 West Line on Drainage R/W"})
-        idx += 1
-        lines.append({"tag": f"L{idx}", "bearing": "N88°58'20\"E", "distance": 120.00, "desc": "Lot 6/7 Dividing Line"})
-        idx += 1
-        lines.append({"tag": f"L{idx}", "bearing": "S01°01'40\"E", "distance": 71.27, "desc": "Lot 6 West Line on Drainage R/W"})
-        idx += 1
-        lines.append({"tag": f"L{idx}", "bearing": "N88°58'20\"E", "distance": 120.52, "desc": "Lot 5/6 Dividing Line"})
-        idx += 1
-        lines.append({"tag": f"L{idx}", "bearing": "S01°01'40\"E", "distance": 90.00, "desc": "Lot 5 West Line on Drainage R/W"})
-        idx += 1
-        lines.append({"tag": f"L{idx}", "bearing": "N89°18'20\"E", "distance": 120.00, "desc": "Lot 5 Frontage on Bayou"})
-        idx += 1
-        lines.append({"tag": f"L{idx}", "bearing": "N00°41'40\"W", "distance": 90.69, "desc": "Lot 4/5 Dividing Line"})
-        idx += 1
-        lines.append({"tag": f"L{idx}", "bearing": "N89°18'20\"E", "distance": 94.20, "desc": "Lot 4 Frontage on Bayou"})
-        idx += 1
-        lines.append({"tag": f"L{idx}", "bearing": "N00°41'40\"W", "distance": 102.20, "desc": "Lot 4 East Line on Matchline"})
-        return lines
 
     def generate_report(self, filepath: str = "data/block12_mapcheck_report.txt") -> str:
         os.makedirs(os.path.dirname(filepath), exist_ok=True)
         results = self.solve_all()
         with open(filepath, "w") as f:
-            f.write("=" * 80 + "\n")
-            f.write("  BEACHWOOD UNIT TWO -- BLOCK 12 (WEST OF MATCHLINE) SURVEY MAPCHECK REPORT\n")
-            f.write("  Plat Book 30, Page 82, Public Records of Duval County, Florida\n")
-            f.write("  Pure Algorithmic Cadastral COGO Engine Output (Offline / Deterministic)\n")
-            f.write("=" * 80 + "\n\n")
-
-            f.write("=" * 80 + "\n")
-            f.write("  RULE 3: FLAGGED LOTS -- INSUFFICIENT LEGIBLE PLAT DATA\n")
-            f.write("=" * 80 + "\n")
-            f.write("  Lots 8, 9, and 10 are NOT included in this certification. They front\n")
-            f.write("  the San Salvadore Ave curve transition (R=269.96', Delta=36°20'00',\n")
-            f.write("  same curve as Block 9's Lots 23-26) through several short jog courses\n")
-            f.write("  this reading could not transcribe with confidence from the scan.\n")
-            f.write("  See BeachwoodBlock12Solver.flagged_points for the one approximate\n")
-            f.write("  corner recovered by line intersection (drawn in red on the CAD\n")
-            f.write("  output) -- NOT a certified boundary. Field verification or a clearer\n")
-            f.write("  print of Plat Book 30, Page 82 is needed before Lots 8-10 can be\n")
-            f.write("  certified the same way Lots 4-7 are below.\n\n")
-            for name, info in self.flagged_points.items():
-                p = info["point"]
-                f.write(f"  {name}: N={p.n:.2f}, E={p.e:.2f} (approximate)\n")
-                f.write(f"    Method: {info['method']}\n")
-                f.write(f"    Reason: {info['reason']}\n\n")
-
-            f.write("=" * 80 + "\n")
-            f.write("  LINE TABLE (BLOCK 12, LOTS 4-7)\n")
-            f.write("=" * 80 + "\n")
-            f.write(f"{'Tag':<5} | {'Bearing':<14} | {'Distance (ft)':<14} | {'Description'}\n")
-            f.write("-" * 80 + "\n")
-            for lt in self.get_line_table_data():
-                f.write(f"{lt['tag']:<5} | {lt['bearing']:<14} | {lt['distance']:<14.2f} | {lt['desc']}\n")
-            f.write("\n")
-
-            f.write("=" * 80 + "\n")
-            f.write("  INDIVIDUAL LOT MAPCHECK SURVEYOR SHEETS (4 CERTIFIED LOTS)\n")
-            f.write("=" * 80 + "\n\n")
-            for lot_num in ["7", "6", "5", "4"]:
-                res = results[lot_num]
-                f.write(res.format_surveyor_sheet() + "\n\n")
-
+            f.write("=" * 80 + "\n  BEACHWOOD UNIT TWO -- BLOCK 12 (WEST OF MATCHLINE) SURVEY MAPCHECK REPORT (LOTS 4-10)\n")
+            f.write("  Plat Book 30, Page 82, Public Records of Duval County, Florida\n" + "=" * 80 + "\n\n")
+            for num in ["8", "9", "10", "7", "6", "5", "4"]:
+                f.write(results[num].format_surveyor_sheet() + "\n\n")
+            f.write("PRINTED-DIMENSION REDUNDANCY CHECKS (computed vs plat)\n")
+            for key, (calc, printed) in self.checks.items():
+                f.write(f"  {key:<42} {calc:10.3f}  vs {printed:10.3f}  ({calc - printed:+.3f})\n")
         return filepath
 
 
@@ -2126,17 +2224,26 @@ class BeachwoodBlock17Solver:
             curr_top = ne
             curr_mid = se
 
-        # Lot 17 (East end: Front 108.55', Rear 111.54', East 100.04')
-        ne17 = curr_top.offset(self.az_e, 108.55)
-        se17 = curr_mid.offset(self.az_e, 111.54)
+        # Lot 17 (East end, read from the scan 2026-09-24: Starfish front 111.54' to the P.I., rear 108.55',
+        # east 100.04' on Beachwood Blvd S00°41'40"E, R=25' return). The earlier code had front/rear swapped,
+        # which kinked the east side to S04°07'E.
+        blvd_s = parse_bearing(self.brg_blvd)
+        blvd_n = (blvd_s + 180.0) % 360.0
+        self.sol17 = solve_corner_return(self.brg_street, self.brg_blvd, radius=25.0, stated_dim_in_to_pi=111.54, rot="CW")
+        ne17 = curr_top.offset(self.az_e, 111.54)                 # P.I. (Starfish S R/W x Blvd W R/W)
+        se17 = curr_mid.offset(self.az_e, 108.55)
+        pt17 = ne17.offset(self.az_w, self.sol17.tangent)
+        pc17 = ne17.offset(blvd_s, self.sol17.tangent)
         self.points["B17_L17_NE"] = ne17
+        self.points["B17_L17_PT"] = pt17
+        self.points["B17_L17_PC"] = pc17
         self.points["B17_L17_SE"] = se17
-        stated_a17 = 0.5 * (108.55 + 111.54) * 100.00
         self.lots["17"] = DeterministicLotSolver(
             lot_id="Blk17-Lot17", block_id="17", lot_number="17",
-            vertices=[curr_top, ne17, se17, curr_mid],
-            node_names=["B17_L16_NE", "B17_L17_NE", "B17_L17_SE", "B17_L16_SE"],
-            stated_area_sqft=round(stated_a17, 1),
+            vertices=[curr_top, pt17, pc17, se17, curr_mid],
+            node_names=["B17_L16_NE", "B17_L17_PT", "B17_L17_PC", "B17_L17_SE", "B17_L16_SE"],
+            curve_specs={"side_2": {"radius": 25.0, "delta_deg": self.sol17.delta_deg, "length": round(self.sol17.arc_length, 2), "rot": "CW"}},
+            stated_area_sqft=round(0.5 * (111.54 + 108.55) * 100.00 - self.sol17.fillet_area, 1),
         )
 
         # Lot 34 (Boundary Cut-Back to P.C./P.T. via Rule 2)
@@ -2169,17 +2276,27 @@ class BeachwoodBlock17Solver:
             curr_bot = se
             curr_mid_s = ne
 
-        # Lot 18 (East end: Front 105.56', Rear 108.55', East 100.04')
-        se18 = curr_bot.offset(self.az_e, 105.56)
+        # Lot 18 (East end: Sail front 105.56' to the P.I., rear 108.55', east 100.04', R=25' return)
+        self.sol18 = solve_corner_return(self.brg_blvd, self.brg_street_rev, radius=25.0, stated_dim_out_to_pi=105.56, rot="CW")
+        se18 = curr_bot.offset(self.az_e, 105.56)                 # P.I. (Blvd W R/W x Sail N R/W)
         ne18 = se17
+        pc18 = se18.offset(blvd_n, self.sol18.tangent)
+        pt18 = se18.offset(self.az_w, self.sol18.tangent)
         self.points["B17_L18_SE"] = se18
-        stated_a18 = 0.5 * (105.56 + 108.55) * 100.00
+        self.points["B17_L18_PC"] = pc18
+        self.points["B17_L18_PT"] = pt18
         self.lots["18"] = DeterministicLotSolver(
             lot_id="Blk17-Lot18", block_id="17", lot_number="18",
-            vertices=[curr_mid_s, ne18, se18, curr_bot],
-            node_names=["B17_L19_NE", "B17_L17_SE", "B17_L18_SE", "B17_L19_SE"],
-            stated_area_sqft=round(stated_a18, 1),
+            vertices=[curr_mid_s, ne18, pc18, pt18, curr_bot],
+            node_names=["B17_L19_NE", "B17_L17_SE", "B17_L18_PC", "B17_L18_PT", "B17_L19_SE"],
+            curve_specs={"side_3": {"radius": 25.0, "delta_deg": self.sol18.delta_deg, "length": round(self.sol18.arc_length, 2), "rot": "CW"}},
+            stated_area_sqft=round(0.5 * (105.56 + 108.55) * 100.00 - self.sol18.fillet_area, 1),
         )
+        self.checks = {
+            "Lot 17 east 100.04' (P.I. -> rear)": (ne17.dist_to(se17), 100.04),
+            "Lot 18 east 100.04' (rear -> P.I.)": (se17.dist_to(se18), 100.04),
+            "Lot 17 east bearing = Blvd (deg)": (math.degrees(math.atan2(se17.e - ne17.e, se17.n - ne17.n)) % 360.0, blvd_s),
+        }
 
     def solve_all(self) -> dict[str, LotMapCheckResult]:
         return {num: solver.compute_mapcheck() for num, solver in self.lots.items()}
@@ -2417,107 +2534,651 @@ class BeachwoodBlock15Solver:
 # 14. BLOCK 14 DETERMINISTIC COGO SOLVER PIPELINE (24 LOTS, KEEL & SHELLFISH)
 # ==============================================================================
 
-class BeachwoodBlock14Solver:
+class BeachwoodBlock6Solver:
     """
-    Deterministic solver for Block 14, Beachwood Unit Two (Sheet 2).
-    Plat Book 30, Page 82A, Public Records of Duval County, Florida.
+    Block 6, Beachwood Unit Two (Sheet 2, PB 30 Pg 82A), Lots 2-12, read from the scan 2026-09-24.
+    Bounded by Keel Dr S R/W, Beachwood Blvd W R/W, Marina Dr N R/W and the plat boundary.
 
-    - 24 Lots total:
-      * North Row: Lots 1 through 12 along Keel Drive (60' R/W)
-      * South Row: Lots 24 down to 13 along Shellfish Drive (60' R/W)
-      * Standard Lots: 75.00' frontage x 100.00' depth (7,500 SF each)
-      * West terminus: Cul-de-sac turnaround bulb on Keel Drive (R=50.0').
+      - Keel S R/W (west from the Blvd P.I., R=25' return): 100' (L10), 75' (L9), 75' (L8), 108.22' (L7),
+        30' to the P.T. of the S R/W curve R=143.93-30=113.93' (Lot 6 chord 100.40' N61°26'55"E = full
+        CL Δ 52°17'10"), 25.18' N35°18'20"E to the Marina P.I. (R=25' return).
+      - Marina N R/W S54°41'40"E: 100' (L6), 101.10' (L5), 75' (L4; its last 35' on the boundary course
+        S54°41'40"E 100.16' = 35 + 65.16), then the boundary curve R=894.08' (to the left) with lot chords
+        15.98' S55°12'23"E (L3) and 84.02' S58°24'42"E (L2), then boundary N28°53'42"E 100.0' and
+        S65°48'08"E 90.51' (L12) to the Blvd W R/W.
+      - Blvd W R/W S00°41'40"E: 90' (L10), 84.79' (L11), 110' (L12).
+      - Interior: rear line S71°15'04"E (80 + 75 + 19.29 = 93.87 + 80.42 = 174.29), lot lines N52°58'07"E 93.70,
+        N37°21'04"E 112.15, N35°41'27"E 133.46, N2°24'30"W 105.97 / 135 / 87.05, and the S40°30'16"E diagonal
+        from the hub (62.66 + 76 = 56.66 + 82 = 138.66).
+    Construction starts at the Lot 10 NE P.I. (Keel x Blvd); every other printed line is a check.
     """
+    R_KEEL_S = 113.93
+    R_BND = 894.08
+
     def __init__(self, origin: Point | None = None):
         self.origin = origin or Point(0.0, 0.0)
-        self.brg_street = "N87°35'30\"E"
-        self.brg_street_rev = "S87°35'30\"W"
-        self.brg_side = "S02°24'30\"E"
-        self.brg_side_rev = "N02°24'30\"W"
-
-        self.az_e = parse_bearing(self.brg_street)
-        self.az_w = parse_bearing(self.brg_street_rev)
-        self.az_s = parse_bearing(self.brg_side)
-        self.az_n = parse_bearing(self.brg_side_rev)
-
         self.points: dict[str, Point] = {}
         self.lots: dict[str, DeterministicLotSolver] = {}
+        self.checks: dict[str, tuple[float, float]] = {}
+        self.sol10 = solve_corner_return("N87°35'30\"E", "S00°41'40\"E", radius=25.0,
+                                         stated_dim_in_to_pi=100.0, stated_dim_out_to_pi=90.0, rot="CW")
+        self.sol6 = solve_corner_return("N54°41'40\"W", "N35°18'20\"E", radius=25.0,
+                                        stated_dim_in_to_pi=100.0, stated_dim_out_to_pi=25.18, rot="CW")
         self._solve_geometry()
 
     def _solve_geometry(self) -> None:
-        p_nw = self.origin
-        p_mid_w = p_nw.offset(self.az_s, 100.00)
-        p_sw = p_mid_w.offset(self.az_s, 100.00)
-        self.points["B14_NW"] = p_nw
-        self.points["B14_MID_W"] = p_mid_w
-        self.points["B14_SW"] = p_sw
+        P = self.points
+        W = parse_bearing("S87°35'30\"W")
+        E = parse_bearing("N87°35'30\"E")
+        blvd_s = parse_bearing("S00°41'40\"E")
+        blvd_n = parse_bearing("N00°41'40\"W")
+        marina = parse_bearing("S54°41'40\"E")
+        side_s = parse_bearing("S02°24'30\"E")
+        rear = parse_bearing("S71°15'04\"E")
+        diag = parse_bearing("S40°30'16\"E")
 
-        if _HAS_PLAT_CURVES:
-            # Cul-de-sac turnaround bulb on Keel Drive (R=50.0', 30' half-corridor, R_fillet=25.0')
-            fc14 = get_block_frontage_curves("14")
-            bulb_spec = fc14.get("CURVE_BLK14_CULDESAC_BULB", {})
-            r_bulb = float(bulb_spec.get("bulb_radius", 50.0))
-            hw_throat = float(bulb_spec.get("throat_half_width", 30.0))
-            r_fillet = float(bulb_spec.get("fillet_radius", 25.0))
-            throat_center = p_nw.offset(self.az_n, hw_throat)
-            dist_yf = math.sqrt((r_bulb + r_fillet) ** 2 - (hw_throat + r_fillet) ** 2)
-            bulb_center = throat_center.offset(self.az_w, dist_yf)
-            self.turnaround = plat_cul_de_sac(
-                center=(bulb_center.n, bulb_center.e),
-                bulb_radius=r_bulb,
-                throat_half_width=hw_throat,
-                fillet_radius=r_fillet,
-                axis_az=self.az_w,
+        def put(name, pt):
+            P[name] = pt
+            return pt
+
+        # ---- Keel Dr S R/W, west from the Blvd P.I. ----
+        pi10 = put("B6_L10_PI_NE", self.origin)
+        put("B6_L10_PT_N", pi10.offset(W, self.sol10.tangent))
+        put("B6_L10_PC_E", pi10.offset(blvd_s, self.sol10.tangent))
+        k = put("B6_K910", pi10.offset(W, 100.0))
+        k = put("B6_K89", k.offset(W, 75.0))
+        k = put("B6_K78", k.offset(W, 75.0))
+        k = put("B6_K67", k.offset(W, 108.22))
+        kpt = put("B6_KEEL_PT", k.offset(W, 30.0))
+        d_keel = 52.0 + 17.0 / 60.0 + 10.0 / 3600.0
+        ctr = kpt.offset((E + 90.0) % 360.0, self.R_KEEL_S)            # curve turns right going east
+        kpc = put("B6_KEEL_PC", ctr.offset((E + 90.0 + 180.0 - d_keel) % 360.0, self.R_KEEL_S))
+        pi6 = put("B6_L6_PI_W", kpc.offset(parse_bearing("S35°18'20\"W"), 25.18))
+        put("B6_L6_PT_K", pi6.offset(parse_bearing("N35°18'20\"E"), self.sol6.tangent))
+        put("B6_L6_PC_M", pi6.offset(marina, self.sol6.tangent))
+
+        # ---- Marina N R/W / boundary ----
+        m1 = put("B6_M56", pi6.offset(marina, 100.0))
+        m2 = put("B6_M45", m1.offset(marina, 101.10))
+        put("B6_BND_260_TOP", m2.offset(marina, 40.0))                 # boundary N35°18'20"E 260' meets Marina
+        m3 = put("B6_M34", m2.offset(marina, 75.0))
+        bpc = put("B6_BND_PC", m3.offset(marina, 65.16))
+        ctr_b = bpc.offset((marina - 90.0) % 360.0, self.R_BND)        # curve to the left
+        a0 = (marina + 90.0) % 360.0
+        d3 = 2.0 * math.degrees(math.asin(15.98 / (2.0 * self.R_BND)))
+        d2 = 2.0 * math.degrees(math.asin(84.02 / (2.0 * self.R_BND)))
+        c1 = put("B6_C23", ctr_b.offset((a0 - d3) % 360.0, self.R_BND))
+        c2 = put("B6_BND_PT", ctr_b.offset((a0 - d3 - d2) % 360.0, self.R_BND))
+        u = put("B6_U", c2.offset(parse_bearing("N28°53'42\"E"), 100.0))
+
+        # ---- Blvd W R/W ----
+        e10 = put("B6_E1011", pi10.offset(blvd_s, 90.0))
+        e11 = put("B6_E1112", e10.offset(blvd_s, 84.79))
+        w12 = put("B6_L12_SE", e11.offset(blvd_s, 110.0))
+
+        # ---- interior ----
+        q = put("B6_Q", m1.offset(parse_bearing("N52°58'07\"E"), 93.70))
+        r = put("B6_R", m2.offset(parse_bearing("N37°21'04\"E"), 112.15))
+        s = put("B6_S", m3.offset(parse_bearing("N35°41'27\"E"), 133.46))
+        h = put("B6_H", s.offset(rear, 19.29))
+        l7se = put("B6_L7_SE", q.offset(rear, 93.87))
+        v = put("B6_V", P["B6_K910"].offset(side_s, 87.05))
+        t = put("B6_T", h.offset(diag, 62.66))
+        y = put("B6_Y", h.offset(diag, 56.66))
+
+        # ---- lots (clockwise rings) ----
+        def seg(R, dd):
+            tt = math.radians(dd)
+            return 0.5 * R * R * (tt - math.sin(tt))
+
+        def poly(names):
+            return shoelace_area([P[n] for n in names])
+
+        def lot(num, names, stated, curve_specs=None):
+            self.lots[num] = DeterministicLotSolver(
+                lot_id=f"Blk6-Lot{num}", block_id="6", lot_number=num,
+                vertices=[P[n] for n in names], node_names=names,
+                curve_specs=curve_specs or {}, stated_area_sqft=round(stated, 1),
             )
-            self.points["B14_BULB_CENTER"] = bulb_center
-            self.points["B14_BULB_APEX"] = Point(n=self.turnaround["bulb_1"].pt[0], e=self.turnaround["bulb_1"].pt[1])
-            self.points["B14_BULB_PRC1"] = Point(n=self.turnaround["reverse_1"].prc[0], e=self.turnaround["reverse_1"].prc[1])
-            self.points["B14_BULB_PRC2"] = Point(n=self.turnaround["reverse_2"].prc[0], e=self.turnaround["reverse_2"].prc[1])
 
-        curr_top = p_nw
-        curr_mid = p_mid_w
+        def fil(side, sol):
+            return {side: {"radius": 25.0, "delta_deg": sol.delta_deg, "length": round(sol.arc_length, 2), "rot": "CW"}}
 
-        # Widths along rows:
-        # Lot 1 North: 102.38' (end lot at West cul-de-sac throat)
-        # Lots 2-12 North: 75.00' each
-        # Lot 24 South: 93.26' (end lot)
-        # Lots 23-13 South: 75.00' each
-        widths_n = [102.38] + [75.00] * 11
-        widths_s = [93.26] + [75.00] * 11
+        def arc(side, R, dd):
+            return {side: {"radius": R, "delta_deg": dd, "length": round(R * math.radians(dd), 2), "rot": "CW"}}
 
-        # North row: Lots 1 to 12
-        for idx, w in enumerate(widths_n):
-            lot_num = str(idx + 1)
-            ne = curr_top.offset(self.az_e, w)
-            se = curr_mid.offset(self.az_e, w)
-            self.points[f"B14_L{lot_num}_NE"] = ne
-            self.points[f"B14_L{lot_num}_SE"] = se
-            self.lots[lot_num] = DeterministicLotSolver(
-                lot_id=f"Blk14-Lot{lot_num}", block_id="14", lot_number=lot_num,
-                vertices=[curr_top, ne, se, curr_mid],
-                node_names=[f"B14_L{lot_num}_NW", f"B14_L{lot_num}_NE", f"B14_L{lot_num}_SE", f"B14_L{lot_num}_SW"],
-                stated_area_sqft=round(w * 100.0, 1),
+        r6 = ["B6_M56", "B6_L6_PC_M", "B6_L6_PT_K", "B6_KEEL_PC", "B6_KEEL_PT", "B6_K67", "B6_Q"]
+        cs = fil("side_2", self.sol6)
+        cs.update(arc("side_4", self.R_KEEL_S, d_keel))
+        lot("6", r6, poly(["B6_M56", "B6_L6_PI_W", "B6_KEEL_PC", "B6_KEEL_PT", "B6_K67", "B6_Q"])
+            + seg(self.R_KEEL_S, d_keel) - self.sol6.fillet_area, cs)
+        lot("5", ["B6_M45", "B6_M56", "B6_Q", "B6_R"], poly(["B6_M45", "B6_M56", "B6_Q", "B6_R"]))
+        r4 = ["B6_M34", "B6_BND_260_TOP", "B6_M45", "B6_R", "B6_S"]
+        lot("4", r4, poly(r4))
+        r3 = ["B6_C23", "B6_BND_PC", "B6_M34", "B6_S", "B6_H", "B6_T"]
+        lot("3", r3, poly(r3) + seg(self.R_BND, d3), arc("side_1", self.R_BND, d3))
+        r2 = ["B6_BND_PT", "B6_C23", "B6_T", "B6_U"]
+        lot("2", r2, poly(r2) + seg(self.R_BND, d2), arc("side_1", self.R_BND, d2))
+        r7 = ["B6_Q", "B6_K67", "B6_K78", "B6_L7_SE"]
+        lot("7", r7, poly(r7))
+        r8 = ["B6_L7_SE", "B6_K78", "B6_K89", "B6_H"]
+        lot("8", r8, poly(r8))
+        r9 = ["B6_H", "B6_K89", "B6_K910", "B6_V"]
+        lot("9", r9, poly(r9))
+        r10 = ["B6_V", "B6_K910", "B6_L10_PT_N", "B6_L10_PC_E", "B6_E1011"]
+        lot("10", r10, poly(["B6_V", "B6_K910", "B6_L10_PI_NE", "B6_E1011"]) - self.sol10.fillet_area, fil("side_3", self.sol10))
+        r11 = ["B6_H", "B6_V", "B6_E1011", "B6_E1112", "B6_Y"]
+        lot("11", r11, poly(r11))
+        r12 = ["B6_Y", "B6_E1112", "B6_L12_SE", "B6_U"]
+        lot("12", r12, poly(r12))
+
+        # ---- printed values not used in the construction ----
+        d = lambda a, b: P[a].dist_to(P[b])  # noqa: E731
+        self.checks = {
+            "Lot 6/7 line 75'": (d("B6_Q", "B6_K67"), 75.0),
+            "Lot 5 N (rear) 80'": (d("B6_Q", "B6_R"), 80.0),
+            "Lot 4 N (rear) 75'": (d("B6_R", "B6_S"), 75.0),
+            "Lot 7 S (rear) 93.87' -> L7 SE": (d("B6_Q", "B6_L7_SE"), 93.87),
+            "Lot 8 S (rear) 80.42'": (d("B6_L7_SE", "B6_H"), 80.42),
+            "Lot 7/8 line 105.97'": (d("B6_L7_SE", "B6_K78"), 105.97),
+            "Lot 8/9 line 135'": (d("B6_H", "B6_K89"), 135.0),
+            "Lot 9 S 89.02' (H -> V)": (d("B6_H", "B6_V"), 89.02),
+            "Lot 10 S 97.35' (V -> Blvd)": (d("B6_V", "B6_E1011"), 97.35),
+            "Lot 3/2 line 123.46'": (d("B6_T", "B6_C23"), 123.46),
+            "Lot 2 NE 76' (T -> U)": (d("B6_T", "B6_U"), 76.0),
+            "Lot 12 W 82' (Y -> U)": (d("B6_Y", "B6_U"), 82.0),
+            "Lot 11/12 line 134.90'": (d("B6_Y", "B6_E1112"), 134.90),
+            "Lot 12 S boundary 90.51'": (d("B6_U", "B6_L12_SE"), 90.51),
+            "Boundary curve chord 99.98'": (d("B6_BND_PC", "B6_BND_PT"), 99.98),
+        }
+
+    def solve_all(self) -> dict[str, LotMapCheckResult]:
+        return {num: solver.compute_mapcheck() for num, solver in self.lots.items()}
+
+    def generate_report(self, filepath: str = "data/block6_mapcheck_report.txt") -> str:
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        results = self.solve_all()
+        with open(filepath, "w") as f:
+            f.write("=" * 80 + "\n  BEACHWOOD UNIT TWO -- BLOCK 6 SURVEY MAPCHECK REPORT (LOTS 2-12)\n")
+            f.write("  Plat Book 30, Page 82A, Public Records of Duval County, Florida\n" + "=" * 80 + "\n\n")
+            for num, res in results.items():
+                f.write(res.format_surveyor_sheet() + "\n\n")
+            f.write("PRINTED-DIMENSION REDUNDANCY CHECKS (computed vs plat)\n")
+            for key, (calc, printed) in self.checks.items():
+                f.write(f"  {key:<36} {calc:9.3f}  vs {printed:8.2f}  ({calc - printed:+.3f})\n")
+        return filepath
+
+
+class BeachwoodBlock7Solver:
+    """
+    Block 7, Beachwood Unit Two (Sheet 2, PB 30 Pg 82A), Lots 11-37, read from the scan 2026-09-24.
+
+      - North row (Lots 24-37) on Marina Dr S R/W: from the Mangrove P.I. (R=25' return, Δ 88°37'30"),
+        99.93' + 83.26' on N87°35'30"E to the P.C., then the S R/W curve R=359.27-30=329.27' with chords
+        99.37 / 99.36 / 17.24 (Δ ≈ 17°21' + 17°21' + 3° = CL Δ 37°42'50"), 61.10' tangent, Lots 29-37 at 75'.
+      - South row (Lots 23-11) on Sands Ave N R/W: 80' from the Mangrove P.I. (R=25' return), then the
+        N R/W curve R=459.36+30=489.36' with chords 17.08 / 76.78 x3 / 62.59 (Δ 2° + 9° x3 + 7°20'
+        = CL Δ 36°20'), 9.10' tangent, Lots 18-11 at 75'.
+      - Shared rear line: 102.38' + 83.26' on N88°58'20"E, then S77°35'15"E 66.85' + 66.86' (south side
+        20' + 83.71' + 30'), then S54°41'40"E (north 75' each; south 65', 85', then 75' each).
+      - East end: Lots 37 and 11 on the boundary N35°18'20"E 260.0' (100' + 100' + 60' Marina Dr).
+    Every printed lot side line is kept out of the construction and reported in `self.checks`.
+    Origin: Lot 24 NW P.I. (Mangrove E R/W x Marina S R/W).
+    """
+    R_MARINA = 329.27
+    R_SANDS = 489.36
+
+    def __init__(self, origin: Point | None = None):
+        self.origin = origin or Point(0.0, 0.0)
+        self.points: dict[str, Point] = {}
+        self.lots: dict[str, DeterministicLotSolver] = {}
+        self.checks: dict[str, tuple[float, float]] = {}
+        self.sol24 = solve_corner_return("N01°01'40\"W", "N87°35'30\"E", radius=25.0,
+                                         stated_dim_in_to_pi=100.74, stated_dim_out_to_pi=99.93, rot="CW")
+        self.sol23 = solve_corner_return("S88°58'20\"W", "N01°01'40\"W", radius=25.0,
+                                         stated_dim_in_to_pi=80.0, stated_dim_out_to_pi=100.0, rot="CW")
+        self._solve_geometry()
+
+    def _solve_geometry(self) -> None:
+        P = self.points
+        south = parse_bearing("S01°01'40\"E")
+        north = parse_bearing("N01°01'40\"W")
+        e_marina = parse_bearing("N87°35'30\"E")
+        e0 = parse_bearing("N88°58'20\"E")
+        d1 = parse_bearing("S77°35'15\"E")
+        d2 = parse_bearing("S54°41'40\"E")
+
+        def put(name, pt):
+            P[name] = pt
+            return pt
+
+        def chord_delta(R, c):
+            return 2.0 * math.degrees(math.asin(c / (2.0 * R)))
+
+        def arc_chain(pc, tan_in_az, R, deltas):
+            """Points along a curve turning right from pc (tangent tan_in_az)."""
+            ctr = pc.offset((tan_in_az + 90.0) % 360.0, R)
+            a0 = (tan_in_az - 90.0) % 360.0
+            out, acc = [], 0.0
+            for d in deltas:
+                acc += d
+                out.append(ctr.offset((a0 + acc) % 360.0, R))
+            return out
+
+        # ---------------- north row front (Marina S R/W) ----------------
+        pi24 = put("B7_L24_PI_NW", self.origin)
+        put("B7_L24_PC_W", pi24.offset(south, self.sol24.tangent))
+        put("B7_L24_PT_N", pi24.offset(e_marina, self.sol24.tangent))
+        put("B7_L24_NE", pi24.offset(e_marina, 99.93))                  # P.R.M.
+        mpc = put("B7_L25_NE", P["B7_L24_NE"].offset(e_marina, 83.26))  # Marina P.C.
+        d_mar = [chord_delta(self.R_MARINA, 99.37), chord_delta(self.R_MARINA, 99.36), chord_delta(self.R_MARINA, 17.24)]
+        for name, pt in zip(["B7_L26_NE", "B7_L27_NE", "B7_MARINA_PT"], arc_chain(mpc, e_marina, self.R_MARINA, d_mar)):
+            put(name, pt)
+        f = put("B7_L28_NE", P["B7_MARINA_PT"].offset(d2, 61.10))
+        for num in range(29, 38):
+            f = put(f"B7_L{num}_NE", f.offset(d2, 75.0))
+
+        # ---------------- shared rear line ----------------
+        r = put("B7_L24_SW", pi24.offset(south, 100.74))
+        put("B7_L24_SE", r.offset(e0, 102.38))
+        r2 = put("B7_L25_SE", P["B7_L24_SE"].offset(e0, 83.26))
+        put("B7_L26_SE", r2.offset(d1, 66.85))
+        r4 = put("B7_L27_SE", P["B7_L26_SE"].offset(d1, 66.86))
+        put("B7_L22_NE", r2.offset(d1, 20.0))
+        put("B7_L21_NE", P["B7_L22_NE"].offset(d1, 83.71))
+        f = r4
+        for num in range(28, 38):
+            f = put(f"B7_L{num}_SE", f.offset(d2, 75.0))
+        put("B7_L20_NE", r4.offset(d2, 65.0))
+        f = put("B7_L19_NE", P["B7_L20_NE"].offset(d2, 85.0))
+        for num in range(18, 10, -1):
+            f = put(f"B7_L{num}_NE", f.offset(d2, 75.0))
+
+        # ---------------- south row front (Sands N R/W) ----------------
+        pi23 = put("B7_L23_PI_SW", P["B7_L24_SW"].offset(south, 100.0))
+        put("B7_L23_PC_W", pi23.offset(north, self.sol23.tangent))
+        put("B7_L23_PT_S", pi23.offset(e0, self.sol23.tangent))
+        spc = put("B7_SANDS_PC", pi23.offset(e0, 80.0))
+        d_sands = [2.0, 9.0, 9.0, 9.0, 7.0 + 20.0 / 60.0]
+        pts = arc_chain(spc, e0, self.R_SANDS, d_sands)
+        for name, pt in zip(["B7_L23_SE", "B7_L22_SE", "B7_L21_SE", "B7_L20_SE", "B7_SANDS_PT"], pts):
+            put(name, pt)
+        f = put("B7_L19_SE", P["B7_SANDS_PT"].offset(d2, 9.10))
+        for num in range(18, 10, -1):
+            f = put(f"B7_L{num}_SE", f.offset(d2, 75.0))
+        # Lot 23's NE corner: its printed east line from the front (N01°58'48"E 100.44'); its fit to the
+        # rear line is reported as a check.
+        put("B7_L23_NE", P["B7_L23_SE"].offset(parse_bearing("N01°58'48\"E"), 100.44))
+
+        # ---------------- lots ----------------
+        def seg(R, d):
+            t = math.radians(d)
+            return 0.5 * R * R * (t - math.sin(t))
+
+        def poly(names):
+            return shoelace_area([P[n] for n in names])
+
+        def arc(side, R, d, rot):
+            return {side: {"radius": R, "delta_deg": d, "length": round(R * math.radians(d), 2), "rot": rot}}
+
+        def lot(num, names, stated, curve_specs=None):
+            self.lots[num] = DeterministicLotSolver(
+                lot_id=f"Blk7-Lot{num}", block_id="7", lot_number=num,
+                vertices=[P[n] for n in names], node_names=names,
+                curve_specs=curve_specs or {}, stated_area_sqft=round(stated, 1),
             )
-            curr_top = ne
-            curr_mid = se
 
-        # South row: Lots 24 down to 13
-        curr_mid_s = self.points["B14_MID_W"]
-        curr_bot_s = self.points["B14_SW"]
-        for idx, w in enumerate(widths_s):
-            lot_num = str(24 - idx)
-            ne = curr_mid_s.offset(self.az_e, w)
-            se = curr_bot_s.offset(self.az_e, w)
-            self.points[f"B14_L{lot_num}_NE"] = ne
-            self.points[f"B14_L{lot_num}_SE"] = se
-            self.lots[lot_num] = DeterministicLotSolver(
-                lot_id=f"Blk14-Lot{lot_num}", block_id="14", lot_number=lot_num,
-                vertices=[curr_mid_s, ne, se, curr_bot_s],
-                node_names=[f"B14_L{lot_num}_NW", f"B14_L{lot_num}_NE", f"B14_L{lot_num}_SE", f"B14_L{lot_num}_SW"],
-                stated_area_sqft=round(w * 100.0, 1),
+        # north row (clockwise; Marina arcs eastward turn right -> CW, lots inside the curve -> +seg)
+        cs = {"side_2": {"radius": 25.0, "delta_deg": self.sol24.delta_deg, "length": round(self.sol24.arc_length, 2), "rot": "CW"}}
+        lot("24", ["B7_L24_SW", "B7_L24_PC_W", "B7_L24_PT_N", "B7_L24_NE", "B7_L24_SE"],
+            poly(["B7_L24_SW", "B7_L24_PI_NW", "B7_L24_NE", "B7_L24_SE"]) - self.sol24.fillet_area, cs)
+        lot("25", ["B7_L24_SE", "B7_L24_NE", "B7_L25_NE", "B7_L25_SE"], poly(["B7_L24_SE", "B7_L24_NE", "B7_L25_NE", "B7_L25_SE"]))
+        r26 = ["B7_L25_SE", "B7_L25_NE", "B7_L26_NE", "B7_L26_SE"]
+        lot("26", r26, poly(r26) + seg(self.R_MARINA, d_mar[0]), arc("side_2", self.R_MARINA, d_mar[0], "CW"))
+        r27 = ["B7_L26_SE", "B7_L26_NE", "B7_L27_NE", "B7_L27_SE"]
+        lot("27", r27, poly(r27) + seg(self.R_MARINA, d_mar[1]), arc("side_2", self.R_MARINA, d_mar[1], "CW"))
+        r28 = ["B7_L27_SE", "B7_L27_NE", "B7_MARINA_PT", "B7_L28_NE", "B7_L28_SE"]
+        lot("28", r28, poly(r28) + seg(self.R_MARINA, d_mar[2]), arc("side_2", self.R_MARINA, d_mar[2], "CW"))
+        for num in range(29, 38):
+            lot(str(num), [f"B7_L{num-1}_SE", f"B7_L{num-1}_NE", f"B7_L{num}_NE", f"B7_L{num}_SE"], 7500.0)
+
+        # south row (clockwise; Sands arcs westward turn left -> CCW, lots outside the curve -> -seg)
+        r23 = ["B7_L24_SW", "B7_L23_NE", "B7_L23_SE", "B7_SANDS_PC", "B7_L23_PT_S", "B7_L23_PC_W"]
+        cs = arc("side_3", self.R_SANDS, d_sands[0], "CCW")
+        cs["side_5"] = {"radius": 25.0, "delta_deg": self.sol23.delta_deg, "length": round(self.sol23.arc_length, 2), "rot": "CW"}
+        lot("23", r23, poly(["B7_L24_SW", "B7_L23_NE", "B7_L23_SE", "B7_SANDS_PC", "B7_L23_PI_SW"])
+            - seg(self.R_SANDS, d_sands[0]) - self.sol23.fillet_area, cs)
+        r22 = ["B7_L23_NE", "B7_L24_SE", "B7_L25_SE", "B7_L22_NE", "B7_L22_SE", "B7_L23_SE"]
+        lot("22", r22, poly(r22) - seg(self.R_SANDS, 9.0), arc("side_5", self.R_SANDS, 9.0, "CCW"))
+        r21 = ["B7_L22_NE", "B7_L21_NE", "B7_L21_SE", "B7_L22_SE"]
+        lot("21", r21, poly(r21) - seg(self.R_SANDS, 9.0), arc("side_3", self.R_SANDS, 9.0, "CCW"))
+        r20 = ["B7_L21_NE", "B7_L27_SE", "B7_L20_NE", "B7_L20_SE", "B7_L21_SE"]
+        lot("20", r20, poly(r20) - seg(self.R_SANDS, 9.0), arc("side_4", self.R_SANDS, 9.0, "CCW"))
+        r19 = ["B7_L20_NE", "B7_L19_NE", "B7_L19_SE", "B7_SANDS_PT", "B7_L20_SE"]
+        lot("19", r19, poly(r19) - seg(self.R_SANDS, d_sands[4]), arc("side_4", self.R_SANDS, d_sands[4], "CCW"))
+        for num in range(18, 10, -1):
+            lot(str(num), [f"B7_L{num+1}_NE", f"B7_L{num}_NE", f"B7_L{num}_SE", f"B7_L{num+1}_SE"], 7500.0)
+
+        # ---------------- printed values not used in the construction ----------------
+        d = lambda a, b: P[a].dist_to(P[b])  # noqa: E731
+        a0, a1 = P["B7_L24_SW"], P["B7_L24_SE"]
+        off23 = abs((a1.e - a0.e) * (a0.n - P["B7_L23_NE"].n) - (a0.e - P["B7_L23_NE"].e) * (a1.n - a0.n)) / a0.dist_to(a1)
+        self.checks = {
+            "Lot 24 E side 103.17'": (d("B7_L24_SE", "B7_L24_NE"), 103.17),
+            "Lot 25 E side 105.18'": (d("B7_L25_SE", "B7_L25_NE"), 105.18),
+            "Lot 26 E side 112.43'": (d("B7_L26_SE", "B7_L26_NE"), 112.43),
+            "Lot 27 E side 99.60'": (d("B7_L27_SE", "B7_L27_NE"), 99.60),
+            "Lot 28 E side 100'": (d("B7_L28_SE", "B7_L28_NE"), 100.0),
+            "Lot 37 E side (boundary) 100'": (d("B7_L37_SE", "B7_L37_NE"), 100.0),
+            "Lot 23 NE on rear line (0')": (off23, 0.0),
+            "Lot 22 E side 109.05'": (d("B7_L22_NE", "B7_L22_SE"), 109.05),
+            "Lot 21 E side 112.43'": (d("B7_L21_NE", "B7_L21_SE"), 112.43),
+            "Lot 20 E side 104.88'": (d("B7_L20_NE", "B7_L20_SE"), 104.88),
+            "Lot 19 E side 100'": (d("B7_L19_NE", "B7_L19_SE"), 100.0),
+            "Lot 11 E side (boundary) 100'": (d("B7_L11_NE", "B7_L11_SE"), 100.0),
+            "Rear lines meet: L37 SE = L11 NE (0')": (d("B7_L37_SE", "B7_L11_NE"), 0.0),
+            "Marina CL Δ 37°42'50\" (deg)": (sum(d_mar), 37.0 + 42.0 / 60.0 + 50.0 / 3600.0),
+        }
+
+    def solve_all(self) -> dict[str, LotMapCheckResult]:
+        return {num: solver.compute_mapcheck() for num, solver in self.lots.items()}
+
+    def generate_report(self, filepath: str = "data/block7_mapcheck_report.txt") -> str:
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        results = self.solve_all()
+        with open(filepath, "w") as f:
+            f.write("=" * 80 + "\n  BEACHWOOD UNIT TWO -- BLOCK 7 SURVEY MAPCHECK REPORT (LOTS 11-37)\n")
+            f.write("  Plat Book 30, Page 82A, Public Records of Duval County, Florida\n" + "=" * 80 + "\n\n")
+            for num, res in results.items():
+                f.write(res.format_surveyor_sheet() + "\n\n")
+            f.write("PRINTED-DIMENSION REDUNDANCY CHECKS (computed vs plat)\n")
+            for key, (calc, printed) in self.checks.items():
+                f.write(f"  {key:<40} {calc:9.3f}  vs {printed:8.2f}  ({calc - printed:+.3f})\n")
+        return filepath
+
+
+class BeachwoodBlock8Solver:
+    """
+    Block 8, Beachwood Unit Two (Sheet 2, PB 30 Pg 82A), Lots 17-34, read from the scan 2026-09-24.
+
+    Two lot rows split by a drainage & utilities R/W (40' at Mangrove Ave; its lines bend
+    N88°58'20"E -> S72°51'40"E -> S54°41'40"E):
+      - North row, Lots 23-34, on Sands Ave S R/W: 80' from the Mangrove P.I. (R=25' return), then the
+        S R/W curve R=459.36-30=429.36' with printed lot chords 17.48 / 89.76 / 89.76 / 74.84
+        (Δ 2°20' + 12° + 12° + 10° = CL Δ 36°20'), 5.15' tangent, then Lots 27-34 at 75' on S54°41'40"E.
+        Lots 31-34 back onto the plat boundary (S54°41'40"E 300.0'); Lot 34's east side is the boundary.
+      - South row, Lots 17-22, on Cape Horn Ave N R/W: 25.0' from the Mangrove P.I. (R=25' return, T=25'),
+        then the N R/W curve R=327.01+30=357.01' with chords 70.50 / 80.83 / 74.64 (Δ 11°20' + 13° + 12°
+        = CL Δ 36°20'), 10.13' tangent, then Lots 19-17 at 80'. Lot 17's east side is the boundary (P.R.M. at SE).
+    Every printed lot side line is kept out of the construction and reported in `self.checks`.
+    Origin: Lot 23 NW P.I. (Mangrove E R/W x Sands S R/W).
+    """
+    R_SANDS = 429.36
+    R_CAPE = 357.01
+
+    def __init__(self, origin: Point | None = None):
+        self.origin = origin or Point(0.0, 0.0)
+        self.points: dict[str, Point] = {}
+        self.lots: dict[str, DeterministicLotSolver] = {}
+        self.checks: dict[str, tuple[float, float]] = {}
+        self.sol23 = solve_corner_return("N01°01'40\"W", "N88°58'20\"E", radius=25.0,
+                                         stated_dim_in_to_pi=100.0, stated_dim_out_to_pi=80.0, rot="CW")
+        self.sol22 = solve_corner_return("S88°58'20\"W", "N01°01'40\"W", radius=25.0,
+                                         stated_dim_in_to_pi=25.0, stated_dim_out_to_pi=100.0, rot="CW")
+        self._solve_geometry()
+
+    @staticmethod
+    def _dms(d, m=0.0, s=0.0):
+        return d + m / 60.0 + s / 3600.0
+
+    def _solve_geometry(self) -> None:
+        P = self.points
+        south = parse_bearing("S01°01'40\"E")
+        east0 = parse_bearing("N88°58'20\"E")
+        diag1 = parse_bearing("S72°51'40\"E")
+        diag2 = parse_bearing("S54°41'40\"E")
+        perp = parse_bearing("N35°18'20\"E")      # lot side lines on the diagonal
+        perp_s = parse_bearing("S35°18'20\"W")
+
+        def put(name, pt):
+            P[name] = pt
+            return pt
+
+        def arc_chain(pc, tan_in_az, R, deltas, right=True):
+            """Points along a circular curve from pc (tangent tan_in_az), turning right if `right`."""
+            sgn = 1.0 if right else -1.0
+            ctr = pc.offset((tan_in_az + sgn * 90.0) % 360.0, R)
+            a0 = (tan_in_az - sgn * 90.0) % 360.0
+            out, acc = [], 0.0
+            for d in deltas:
+                acc += d
+                out.append(ctr.offset((a0 + sgn * acc) % 360.0, R))
+            return ctr, out
+
+        # ---------------- north row: Sands Ave S R/W ----------------
+        pi23 = put("B8_L23_PI_NW", self.origin)
+        put("B8_L23_PC_W", pi23.offset(south, self.sol23.tangent))
+        put("B8_L23_PT_N", pi23.offset(east0, self.sol23.tangent))
+        sands_pc = put("B8_SANDS_PC", pi23.offset(east0, 80.0))
+        d_sands = [self._dms(2, 20), 12.0, 12.0, 10.0]
+        ctr_s, pts = arc_chain(sands_pc, east0, self.R_SANDS, d_sands, right=True)
+        for name, pt in zip(["B8_L23_NE", "B8_L24_NE", "B8_L25_NE", "B8_SANDS_PT"], pts):
+            put(name, pt)
+        f = put("B8_L26_NE", P["B8_SANDS_PT"].offset(diag2, 5.15))
+        for num in range(27, 35):
+            f = put(f"B8_L{num}_NE", f.offset(diag2, 75.0))
+
+        # drainage N line
+        dn = put("B8_L23_SW", pi23.offset(south, 100.0))
+        dn = put("B8_L23_SE", dn.offset(east0, 103.20))
+        dn = put("B8_L24_SE", dn.offset(diag1, 60.0))
+        dn = put("B8_L25_SE", dn.offset(diag1, 60.0))
+        put("B8_DN_BEND", dn.offset(diag1, 41.36))
+        dn = put("B8_L26_SE", P["B8_DN_BEND"].offset(diag2, 28.30))
+        for num in range(27, 35):
+            dn = put(f"B8_L{num}_SE", dn.offset(diag2, 75.0))
+
+        # ---------------- south row: Cape Horn Ave N R/W ----------------
+        dsn = put("B8_L22_NW", P["B8_L23_SW"].offset(south, 40.0))
+        pi22 = put("B8_L22_PI_SW", dsn.offset(south, 100.0))
+        put("B8_L22_PC_W", pi22.offset(parse_bearing("N01°01'40\"W"), self.sol22.tangent))
+        cape_pc = put("B8_L22_PT_S", pi22.offset(east0, self.sol22.tangent))   # T = 25.0' = printed 25.0'
+        d_cape = [self._dms(11, 20), 13.0, 12.0]
+        ctr_c, pts = arc_chain(cape_pc, east0, self.R_CAPE, d_cape, right=True)
+        for name, pt in zip(["B8_L22_SE", "B8_L21_SE", "B8_CAPE_PT"], pts):
+            put(name, pt)
+        f = put("B8_L20_SE", P["B8_CAPE_PT"].offset(diag2, 10.13))
+        for num in (19, 18, 17):
+            f = put(f"B8_L{num}_SE", f.offset(diag2, 80.0))
+
+        # drainage S line
+        put("B8_DS_BEND1", dsn.offset(east0, 96.80))      # Lot 22 north: 96.80' then 33' on the first diagonal
+        ds = put("B8_L22_NE", P["B8_DS_BEND1"].offset(diag1, 33.0))
+        ds = put("B8_L21_NE", ds.offset(diag1, 115.56))
+        ds = put("B8_L20_NE", ds.offset(diag2, 81.90))
+        for num in (19, 18, 17):
+            ds = put(f"B8_L{num}_NE", ds.offset(diag2, 80.0))
+
+        # ---------------- lots ----------------
+        def seg(R, d):
+            t = math.radians(d)
+            return 0.5 * R * R * (t - math.sin(t))
+
+        def lot(num, names, stated, curve_specs=None):
+            self.lots[num] = DeterministicLotSolver(
+                lot_id=f"Blk8-Lot{num}", block_id="8", lot_number=num,
+                vertices=[P[n] for n in names], node_names=names,
+                curve_specs=curve_specs or {}, stated_area_sqft=round(stated, 1),
             )
-            curr_mid_s = ne
-            curr_bot_s = se
+
+        def sarc(side, d, rot):
+            R = self.R_SANDS if rot == "CW" else self.R_CAPE
+            return {side: {"radius": R, "delta_deg": d, "length": round(R * math.radians(d), 2), "rot": rot}}
+
+        def poly(names):
+            return shoelace_area([P[n] for n in names])
+
+        # north row (clockwise rings; Sands arcs travelled eastward turn right -> CW, lot inside -> +seg)
+        r23 = ["B8_L23_SW", "B8_L23_PC_W", "B8_L23_PT_N", "B8_SANDS_PC", "B8_L23_NE", "B8_L23_SE"]
+        cs = sarc("side_4", d_sands[0], "CW")
+        cs["side_2"] = {"radius": 25.0, "delta_deg": self.sol23.delta_deg, "length": round(self.sol23.arc_length, 2), "rot": "CW"}
+        lot("23", r23, poly(["B8_L23_SW", "B8_L23_PI_NW", "B8_SANDS_PC", "B8_L23_NE", "B8_L23_SE"])
+            + seg(self.R_SANDS, d_sands[0]) - self.sol23.fillet_area, cs)
+        lot("24", ["B8_L23_SE", "B8_L23_NE", "B8_L24_NE", "B8_L24_SE"],
+            poly(["B8_L23_SE", "B8_L23_NE", "B8_L24_NE", "B8_L24_SE"]) + seg(self.R_SANDS, 12.0), sarc("side_2", 12.0, "CW"))
+        lot("25", ["B8_L24_SE", "B8_L24_NE", "B8_L25_NE", "B8_L25_SE"],
+            poly(["B8_L24_SE", "B8_L24_NE", "B8_L25_NE", "B8_L25_SE"]) + seg(self.R_SANDS, 12.0), sarc("side_2", 12.0, "CW"))
+        r26 = ["B8_L25_SE", "B8_L25_NE", "B8_SANDS_PT", "B8_L26_NE", "B8_L26_SE", "B8_DN_BEND"]
+        lot("26", r26, poly(r26) + seg(self.R_SANDS, 10.0), sarc("side_2", 10.0, "CW"))
+        for num in range(27, 35):
+            r = [f"B8_L{num-1}_SE", f"B8_L{num-1}_NE", f"B8_L{num}_NE", f"B8_L{num}_SE"]
+            lot(str(num), r, 7500.0)
+
+        # south row (clockwise rings; Cape Horn arcs travelled westward turn left -> CCW, lot outside -> -seg)
+        r22 = ["B8_L22_NW", "B8_DS_BEND1", "B8_L22_NE", "B8_L22_SE", "B8_L22_PT_S", "B8_L22_PC_W"]
+        cs = sarc("side_4", d_cape[0], "CCW")
+        cs["side_5"] = {"radius": 25.0, "delta_deg": self.sol22.delta_deg, "length": round(self.sol22.arc_length, 2), "rot": "CW"}
+        lot("22", r22, poly(["B8_L22_NW", "B8_DS_BEND1", "B8_L22_NE", "B8_L22_SE", "B8_L22_PT_S", "B8_L22_PI_SW"])
+            - seg(self.R_CAPE, d_cape[0]) - self.sol22.fillet_area, cs)
+        r21 = ["B8_L22_NE", "B8_L21_NE", "B8_L21_SE", "B8_L22_SE"]
+        lot("21", r21, poly(r21) - seg(self.R_CAPE, 13.0), sarc("side_3", 13.0, "CCW"))
+        r20 = ["B8_L21_NE", "B8_L20_NE", "B8_L20_SE", "B8_CAPE_PT", "B8_L21_SE"]
+        lot("20", r20, poly(r20) - seg(self.R_CAPE, 12.0), sarc("side_4", 12.0, "CCW"))
+        for prv, num in ((20, 19), (19, 18), (18, 17)):
+            r = [f"B8_L{prv}_NE", f"B8_L{num}_NE", f"B8_L{num}_SE", f"B8_L{prv}_SE"]
+            lot(str(num), r, 8000.0)
+
+        # ---------------- printed values not used in the construction ----------------
+        d = lambda a, b: P[a].dist_to(P[b])  # noqa: E731
+        self.checks = {
+            "Lot 23 E side 99.80'": (d("B8_L23_SE", "B8_L23_NE"), 99.80),
+            "Lot 24 E side 108.52'": (d("B8_L24_SE", "B8_L24_NE"), 108.52),
+            "Lot 25 E side 107.04'": (d("B8_L25_SE", "B8_L25_NE"), 107.04),
+            "Lot 26 E side 100'": (d("B8_L26_SE", "B8_L26_NE"), 100.0),
+            "Lot 34 E side (boundary) 100.0'": (d("B8_L34_SE", "B8_L34_NE"), 100.0),
+            "Lot 22 E side 102.17'": (d("B8_L22_NE", "B8_L22_SE"), 102.17),
+            "Lot 21 E side 107.85'": (d("B8_L21_NE", "B8_L21_SE"), 107.85),
+            "Lot 20 E side 100'": (d("B8_L20_NE", "B8_L20_SE"), 100.0),
+            "Lot 17 E side (boundary) 100'": (d("B8_L17_NE", "B8_L17_SE"), 100.0),
+            "Boundary N35°18'20\"E 140.0' (L17 SE -> L30 SE)": (d("B8_L17_SE", "B8_L30_SE"), 140.0),
+            "Sands chord L23 17.48'": (d("B8_SANDS_PC", "B8_L23_NE"), 17.48),
+            "Cape Horn chord L22 70.50'": (d("B8_L22_PT_S", "B8_L22_SE"), 70.50),
+        }
+
+    def solve_all(self) -> dict[str, LotMapCheckResult]:
+        return {num: solver.compute_mapcheck() for num, solver in self.lots.items()}
+
+    def generate_report(self, filepath: str = "data/block8_mapcheck_report.txt") -> str:
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        results = self.solve_all()
+        with open(filepath, "w") as f:
+            f.write("=" * 80 + "\n  BEACHWOOD UNIT TWO -- BLOCK 8 SURVEY MAPCHECK REPORT (LOTS 17-34)\n")
+            f.write("  Plat Book 30, Page 82A, Public Records of Duval County, Florida\n" + "=" * 80 + "\n\n")
+            for num, res in results.items():
+                f.write(res.format_surveyor_sheet() + "\n\n")
+            f.write("PRINTED-DIMENSION REDUNDANCY CHECKS (computed vs plat)\n")
+            for key, (calc, printed) in self.checks.items():
+                f.write(f"  {key:<48} {calc:9.3f}  vs {printed:8.2f}  ({calc - printed:+.3f})\n")
+        return filepath
+
+
+class BeachwoodBlock14Solver:
+    """
+    Block 14, Beachwood Unit Two (Sheet 2, PB 30 Pg 82A): the strip between the 50' drainage R/W and
+    Mangrove Ave's west R/W, Starfish Ave to Cape Horn Ave. Read from the scan 2026-09-24. (The earlier
+    solver modelled a 24-lot double row with a cul-de-sac that doesn't exist on this plat.)
+
+      - Lots 1-5 front the Mangrove N leg (N02°24'30"W), 100' deep (S87°35'30"W):
+        Lot 1 100' x 100' (R=25' return at Starfish, P.R.M. at SE), Lot 2 91.88', Lots 3-5 90'.
+      - Lot 6 straddles the bend to the S leg (N01°01'40"W): north line 100' S87°35'30"W, south line
+        100' N88°58'20"E; east side 60.45' + 16.99', west side 59.22' + 15.78' (each split at its line's bend).
+      - Lots 7-10 75' on the S leg, 100' deep (S88°58'20"W); Tract "A" 40' x 100' (lift station, Note 7).
+      - 40' Drainage R/W, then Lot 11 100' x 100' (R=25' return at Cape Horn Ave).
+    Origin: Lot 1 NE P.I. (Starfish S R/W x Mangrove W R/W).
+    """
+    def __init__(self, origin: Point | None = None):
+        self.origin = origin or Point(0.0, 0.0)
+        self.points: dict[str, Point] = {}
+        self.lots: dict[str, DeterministicLotSolver] = {}
+        self.checks: dict[str, tuple[float, float]] = {}
+        self.sol1 = solve_corner_return("N87°35'30\"E", "S02°24'30\"E", radius=25.0,
+                                        stated_dim_in_to_pi=100.0, stated_dim_out_to_pi=100.0, rot="CW")
+        self.sol11 = solve_corner_return("S01°01'40\"E", "S88°58'20\"W", radius=25.0,
+                                         stated_dim_in_to_pi=100.0, stated_dim_out_to_pi=100.0, rot="CW")
+        self._solve_geometry()
+
+    def _solve_geometry(self) -> None:
+        s_n = parse_bearing("S02°24'30\"E")   # N leg, southward
+        s_s = parse_bearing("S01°01'40\"E")   # S leg, southward
+        w_n = parse_bearing("S87°35'30\"W")   # depth on N leg
+        w_s = parse_bearing("S88°58'20\"W")   # depth on S leg
+        P = self.points
+
+        def put(name, pt):
+            P[name] = pt
+            return pt
+
+        def lot(num, names, stated, curve_specs=None):
+            self.lots[num] = DeterministicLotSolver(
+                lot_id=f"Blk14-Lot{num}", block_id="14", lot_number=num,
+                vertices=[P[n] for n in names], node_names=names,
+                curve_specs=curve_specs or {}, stated_area_sqft=round(stated, 1),
+            )
+
+        # ---- east line (Mangrove W R/W), north to south ----
+        e = put("B14_L1_PI_NE", self.origin)
+        put("B14_L1_PC", e.offset(parse_bearing("S87°35'30\"W"), self.sol1.tangent))
+        put("B14_L1_PT", e.offset(s_n, self.sol1.tangent))
+        for num, w in [("1", 100.0), ("2", 91.88), ("3", 90.0), ("4", 90.0), ("5", 90.0)]:
+            e = put(f"B14_L{num}_SE", e.offset(s_n, w))
+        bend_e = put("B14_BEND_E", e.offset(s_n, 60.45))
+        e = put("B14_L6_SE", bend_e.offset(s_s, 16.99))
+        for num in ["7", "8", "9", "10"]:
+            e = put(f"B14_L{num}_SE", e.offset(s_s, 75.0))
+        e = put("B14_TA_SE", e.offset(s_s, 40.0))
+        e11 = put("B14_L11_NE", e.offset(s_s, 40.0))       # across the 40' Drainage R/W
+        pi11 = put("B14_L11_PI_SE", e11.offset(s_s, 100.0))
+        put("B14_L11_PC", pi11.offset(parse_bearing("N01°01'40\"W"), self.sol11.tangent))
+        put("B14_L11_PT", pi11.offset(w_s, self.sol11.tangent))
+
+        # ---- west line: every lot is 100' deep, square to its own leg ----
+        put("B14_L1_NW", P["B14_L1_PI_NE"].offset(w_n, 100.0))
+        for num in ["1", "2", "3", "4", "5"]:
+            put(f"B14_L{num}_SW", P[f"B14_L{num}_SE"].offset(w_n, 100.0))
+        bend_w = put("B14_BEND_W", P["B14_L5_SW"].offset(s_n, 59.22))
+        put("B14_L6_SW", P["B14_L6_SE"].offset(w_s, 100.0))
+        for num in ["7", "8", "9", "10"]:
+            put(f"B14_L{num}_SW", P[f"B14_L{num}_SE"].offset(w_s, 100.0))
+        put("B14_TA_SW", P["B14_TA_SE"].offset(w_s, 100.0))
+        put("B14_L11_NW", e11.offset(w_s, 100.0))
+        put("B14_L11_SW", pi11.offset(w_s, 100.0))
+
+        # ---- lots (clockwise rings) ----
+        lot("1", ["B14_L1_NW", "B14_L1_PC", "B14_L1_PT", "B14_L1_SE", "B14_L1_SW"],
+            100.0 * 100.0 - self.sol1.fillet_area,
+            {"side_2": {"radius": 25.0, "delta_deg": self.sol1.delta_deg,
+                        "length": round(self.sol1.arc_length, 2), "rot": "CW"}})
+        prev = "1"
+        for num, w in [("2", 91.88), ("3", 90.0), ("4", 90.0), ("5", 90.0)]:
+            lot(num, [f"B14_L{prev}_SW", f"B14_L{prev}_SE", f"B14_L{num}_SE", f"B14_L{num}_SW"], w * 100.0)
+            prev = num
+        l6 = ["B14_L5_SW", "B14_L5_SE", "B14_BEND_E", "B14_L6_SE", "B14_L6_SW", "B14_BEND_W"]
+        lot("6", l6, shoelace_area([P[n] for n in l6]))
+        prev = "6"
+        for num in ["7", "8", "9", "10"]:
+            lot(num, [f"B14_L{prev}_SW", f"B14_L{prev}_SE", f"B14_L{num}_SE", f"B14_L{num}_SW"], 7500.0)
+            prev = num
+        lot("A", ["B14_L10_SW", "B14_L10_SE", "B14_TA_SE", "B14_TA_SW"], 4000.0)
+        lot("11", ["B14_L11_NW", "B14_L11_NE", "B14_L11_PC", "B14_L11_PT", "B14_L11_SW"],
+            100.0 * 100.0 - self.sol11.fillet_area,
+            {"side_3": {"radius": 25.0, "delta_deg": self.sol11.delta_deg,
+                        "length": round(self.sol11.arc_length, 2), "rot": "CW"}})
+
+        # Printed values not used in the construction
+        self.checks = {
+            "Lot 6 west 15.78' (bend to SW)": (bend_w.dist_to(P["B14_L6_SW"]), 15.78),
+            "Lot 6 south 100' N88°58'20\"E": (P["B14_L6_SW"].dist_to(P["B14_L6_SE"]), 100.0),
+        }
 
     def solve_all(self) -> dict[str, LotMapCheckResult]:
         return {num: solver.compute_mapcheck() for num, solver in self.lots.items()}
@@ -2527,12 +3188,14 @@ class BeachwoodBlock14Solver:
         results = self.solve_all()
         with open(filepath, "w") as f:
             f.write("=" * 80 + "\n")
-            f.write("  BEACHWOOD UNIT TWO -- BLOCK 14 SURVEY MAPCHECK AUDIT REPORT (24 LOTS)\n")
+            f.write("  BEACHWOOD UNIT TWO -- BLOCK 14 SURVEY MAPCHECK REPORT (LOTS 1-11 + TRACT A)\n")
             f.write("  Plat Book 30, Page 82A, Public Records of Duval County, Florida\n")
             f.write("=" * 80 + "\n\n")
-            for lot_num in [str(i) for i in range(1, 13)] + [str(i) for i in range(24, 12, -1)]:
-                res = results[lot_num]
+            for num, res in results.items():
                 f.write(res.format_surveyor_sheet() + "\n\n")
+            f.write("PRINTED-DIMENSION REDUNDANCY CHECKS (computed vs plat)\n")
+            for key, (calc, printed) in self.checks.items():
+                f.write(f"  {key:<36} {calc:9.3f}  vs {printed:8.2f}  ({calc - printed:+.3f})\n")
         return filepath
 
 
@@ -2564,6 +3227,9 @@ def get_all_block_solvers(spacing_ft: float = 400.0) -> dict[str, Any]:
         "BLOCK_11": Point(-1.0 * dy, 2200.0),
         "BLOCK_10": Point(-2.0 * dy, 2200.0),
         "BLOCK_9":  Point(-3.0 * dy, 2200.0),
+        "BLOCK_8":  Point(-4.5 * dy, 2000.0),
+        "BLOCK_7":  Point(-7.0 * dy, 2000.0),
+        "BLOCK_6":  Point(-9.0 * dy, 2600.0),
     }
 
     solvers["BLOCK_18"] = BeachwoodBlock18Solver(origins["BLOCK_18"])
@@ -2576,6 +3242,9 @@ def get_all_block_solvers(spacing_ft: float = 400.0) -> dict[str, Any]:
     solvers["BLOCK_11"] = BeachwoodBlock11Solver(origins["BLOCK_11"])
     solvers["BLOCK_10"] = BeachwoodBlock10Solver(origins["BLOCK_10"])
     solvers["BLOCK_9"]  = BeachwoodBlock9Solver(origins["BLOCK_9"])
+    solvers["BLOCK_8"]  = BeachwoodBlock8Solver(origins["BLOCK_8"])
+    solvers["BLOCK_7"]  = BeachwoodBlock7Solver(origins["BLOCK_7"])
+    solvers["BLOCK_6"]  = BeachwoodBlock6Solver(origins["BLOCK_6"])
 
     return solvers
 

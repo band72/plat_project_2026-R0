@@ -21,6 +21,9 @@ from engine.cogo import Point
 from engine.cogo_block import (
     BeachwoodBlock9Solver,
     BeachwoodBlock13Solver,
+    BeachwoodBlock6Solver,
+    BeachwoodBlock7Solver,
+    BeachwoodBlock8Solver,
     BeachwoodBlock14Solver,
     BeachwoodBlock15Solver,
     BeachwoodBlock16Solver,
@@ -82,25 +85,28 @@ def test_get_all_block_solvers_inventory():
     solvers = get_all_block_solvers()
     expected_blocks = {
         "BLOCK_9", "BLOCK_10", "BLOCK_11", "BLOCK_12", "BLOCK_13",
-        "BLOCK_14", "BLOCK_15", "BLOCK_16", "BLOCK_17", "BLOCK_18"
+        "BLOCK_14", "BLOCK_15", "BLOCK_16", "BLOCK_17", "BLOCK_18", "BLOCK_8", "BLOCK_7", "BLOCK_6",
     }
     assert set(solvers.keys()) == expected_blocks
 
     total_lots = sum(len(s.lots) for s in solvers.values())
-    assert total_lots == 144, f"Expected 144 lots across all blocks, got {total_lots}"
+    assert total_lots == 210, f"Expected 210 lots (incl. Tract A) across all blocks, got {total_lots}"
 
 
 @pytest.mark.parametrize("block_name,expected_count", [
     ("BLOCK_18", 19),
     ("BLOCK_17", 34),
-    ("BLOCK_16", 14),
+    ("BLOCK_16", 33),
     ("BLOCK_15", 18),
-    ("BLOCK_14", 24),
+    ("BLOCK_14", 12),
     ("BLOCK_13", 11),
-    ("BLOCK_12", 4),
+    ("BLOCK_12", 7),
     ("BLOCK_11", 6),
     ("BLOCK_10", 5),
     ("BLOCK_9", 9),
+    ("BLOCK_8", 18),
+    ("BLOCK_7", 27),
+    ("BLOCK_6", 11),
 ])
 def test_block_lot_counts_and_traverse_closures(block_name, expected_count):
     """Verify every block has the exact lot count and all lots satisfy traverse closure."""
@@ -158,9 +164,11 @@ def test_block17_corner_returns_and_convergence():
     # Lateral convergence on Lot 17 & Lot 18: 2.99' difference each
     lot17_front = p["B17_L16_NE"].dist_to(p["B17_L17_NE"])
     lot17_rear = p["B17_L16_SE"].dist_to(p["B17_L17_SE"])
-    assert abs(lot17_front - 108.55) < 0.01
-    assert abs(lot17_rear - 111.54) < 0.01
-    assert abs((lot17_rear - lot17_front) - 2.99) < 0.01
+    assert abs(lot17_front - 111.54) < 0.01   # Starfish front to the P.I. (scan; was swapped before 2026-09-24)
+    assert abs(lot17_rear - 108.55) < 0.01
+    assert abs((lot17_front - lot17_rear) - 2.99) < 0.01
+    for key, (calc, printed) in BeachwoodBlock17Solver().checks.items():
+        assert abs(calc - printed) < 0.02, key
 
 
 def test_block15_curvilinear_courses():
@@ -198,32 +206,19 @@ def test_block15_curvilinear_courses():
         assert abs(res.area_diff_sqft) < 1.0, num
 
 
-def test_block14_turnaround_bulb():
+def test_block14_strip_matches_scan():
     """
-    Test Block 14 West cul-de-sac turnaround bulb geometry.
-    North and South rows span 200.00' total block depth.
-    Verifies plat_curves cul_de_sac reverse fillet solution.
+    Block 14 is the strip between the 50' drainage R/W and Mangrove Ave (Sheet 2): Lots 1-11 + Tract "A".
+    (It used to be modelled as a 24-lot double row with a cul-de-sac, which isn't on the plat.)
+    Lot 6 straddles the Mangrove bend; its west split (15.78') is an independent check.
     """
     solver = BeachwoodBlock14Solver()
-    p = solver.points
-    total_depth = p["B14_NW"].dist_to(p["B14_SW"])
-    assert abs(total_depth - 200.00) < 0.01
-
-    if hasattr(solver, "turnaround"):
-        ta = solver.turnaround
-        assert ta["bulb_radius"] == 50.0
-        assert ta["throat_half_width"] == 30.0
-        assert ta["fillet_radius"] == 25.0
-        assert abs(ta["check"]["net_turn_deg"] - (-180.0)) < 1e-4
-        assert "B14_BULB_CENTER" in p
-        assert "B14_BULB_APEX" in p
-        assert "B14_BULB_PRC1" in p
-        assert "B14_BULB_PRC2" in p
-        assert abs(p["B14_BULB_CENTER"].dist_to(p["B14_BULB_APEX"]) - 50.0) < 1e-4
-        assert abs(p["B14_BULB_CENTER"].dist_to(p["B14_BULB_PRC1"]) - 50.0) < 1e-4
-        assert abs(p["B14_BULB_CENTER"].dist_to(p["B14_BULB_PRC2"]) - 50.0) < 1e-4
-
-
+    assert sorted(solver.lots) == sorted([str(i) for i in range(1, 12)] + ["A"])
+    for key, (calc, printed) in solver.checks.items():
+        assert abs(calc - printed) < 0.05, key
+    assert solver.sol1.radius == 25.0 and solver.sol11.radius == 25.0
+    for res in solver.solve_all().values():
+        assert res.passed and abs(res.area_diff_sqft) < 0.5
 
 def test_uncoupled_translational_invariance():
     """
@@ -267,13 +262,14 @@ def test_block13_corner_returns_and_skew():
 def test_block9_corner_returns():
     """
     Test Block 9 Lot 27 NW corner return (R=25.0', Delta=90°00'00", T=25.0000')
-    and Lot 26 SW corner return (R=25.0', Delta=83°30'00", T=22.3134').
+    and Lot 26 SW corner return (R=25.0', Delta=90°00'00", T=25.0000'; the plat prints "25.0' N88°58'20"E"
+    from the P.I., so the return is tangent to that line -- it was filleted against the chord bearing before 2026-09-24).
     """
     solver = BeachwoodBlock9Solver()
     assert solver.sol27.delta_dms == "90°00'00\""
     assert abs(solver.sol27.tangent - 25.0) < 1e-4
-    assert solver.sol26.delta_dms == "83°30'00\""
-    assert abs(solver.sol26.tangent - 22.3134) < 1e-3
+    assert solver.sol26.delta_dms == "90°00'00\""
+    assert abs(solver.sol26.tangent - 25.0) < 1e-4
 
 
 def test_all_blocks_arc_endpoint_continuity():
@@ -309,7 +305,7 @@ def test_all_blocks_arc_endpoint_continuity():
                     expected_m = r * (1.0 - math.cos(math.radians(d / 2.0)))
                     assert abs(disp - expected_m) < 0.01, f"{bname} Lot {lnum} mid-ordinate displacement mismatch"
 
-    assert curve_count == 21, f"Expected 21 curved courses across all blocks, found {curve_count}"
+    assert curve_count == 65, f"Expected 65 curved courses across all blocks, found {curve_count}"
 
 
 def test_master_area_and_total_lot_count():
@@ -330,8 +326,8 @@ def test_master_area_and_total_lot_count():
             assert r.misclose_dist_ft < 1e-4, f"{bname} Lot {lnum} misclose={r.misclose_dist_ft}"
             total_area += r.computed_area_sqft
 
-    assert total_lots == 144
-    assert abs(total_area - 1182760.4) < 1.0  # Block 15 west end re-read from scan 2026-09-24
+    assert total_lots == 210  # Blocks 6/7/8 added, 14/15/16 re-read, Block 12 Lots 8-10 certified (2026-09-24)
+    assert abs(total_area - 1744991.2) < 1.0  # Blocks 6-9, 11, 12, 14-17 read from scan 2026-09-24
 
 
 def test_all_corner_returns_are_25ft_fillets():
@@ -369,7 +365,7 @@ def test_all_corner_returns_are_25ft_fillets():
     assert b18.sol19.radius == 25.0
 
     b14 = BeachwoodBlock14Solver()
-    assert b14.turnaround["fillet_radius"] == 25.0
+    assert b14.sol1.radius == 25.0 and b14.sol11.radius == 25.0
 
 
 def test_verify_codebase_uses_refinements():
@@ -417,7 +413,7 @@ def test_verify_codebase_uses_refinements():
     assert b16.sol33.radius == cr16["CR_BLK16_L33"]["radius"] == 25.0
     assert b16.sol29.radius == cr16["CR_BLK16_L29"]["radius"] == 25.0
     assert b16.r_marina == fc16["CURVE_BLK16_MARINA_NORTH_RW"]["radius"] == 389.27
-    assert b16.r_keel == fc16["CURVE_BLK16_KEEL_L28"]["radius"] == 167.95
+    assert b16.r_shellfish == fc16["CURVE_BLK16_SHELLFISH_L28"]["radius"] == 197.95  # Shellfish N R/W = CL 167.95 + 30
     assert b16.lots["1"].curve_specs["side_2"]["radius"] == b16.sol1.radius
     assert b16.lots["33"].curve_specs["side_4"]["radius"] == b16.sol33.radius
     assert b16.lots["29"].curve_specs["side_2"]["radius"] == b16.sol29.radius
@@ -441,11 +437,9 @@ def test_verify_codebase_uses_refinements():
     assert fc15["CURVE_BLK15_SHELLFISH_L1"]["radius"] == 137.95
     assert fc15["CURVE_BLK15_EAST_BOUNDARY"]["radius"] == 1959.86
 
-    # Block 14
+    # Block 14 (strip west of Mangrove; no cul-de-sac on this plat)
     b14 = BeachwoodBlock14Solver()
-    fc14 = get_block_frontage_curves("14")
-    assert b14.turnaround["bulb_radius"] == fc14["CURVE_BLK14_CULDESAC_BULB"]["bulb_radius"] == 50.0
-    assert b14.turnaround["fillet_radius"] == fc14["CURVE_BLK14_CULDESAC_BULB"]["fillet_radius"] == 25.0
+    assert b14.sol1.radius == 25.0 and b14.sol11.radius == 25.0
 
     # 4. Tangent cutback verification: T = 25 * tan(Delta / 2)
     for _solver, sol_obj in [
@@ -519,3 +513,32 @@ def test_all_corner_returns_bow_outward_to_pi():
 
 
 
+
+
+def test_block8_printed_lines_close():
+    """Block 8 (Lots 17-34): every printed side line and the 140.0' boundary tie are independent checks."""
+    solver = BeachwoodBlock8Solver()
+    for key, (calc, printed) in solver.checks.items():
+        assert abs(calc - printed) < 0.05, key
+    assert solver.sol22.radius == solver.sol23.radius == 25.0
+    for res in solver.solve_all().values():
+        assert res.passed and abs(res.area_diff_pct) < 0.05
+
+
+def test_block7_printed_lines_close():
+    """Block 7 (Lots 11-37): printed side lines, the Marina CL Δ and the shared rear line are independent checks."""
+    solver = BeachwoodBlock7Solver()
+    for key, (calc, printed) in solver.checks.items():
+        assert abs(calc - printed) < 0.05, key
+    assert solver.sol24.radius == solver.sol23.radius == 25.0
+    for res in solver.solve_all().values():
+        assert res.passed and abs(res.area_diff_pct) < 0.05
+
+
+def test_block6_printed_lines_close():
+    """Block 6 (Lots 2-12): 15 printed interior/boundary lines are independent checks of the construction."""
+    solver = BeachwoodBlock6Solver()
+    for key, (calc, printed) in solver.checks.items():
+        assert abs(calc - printed) < 0.05, key
+    for res in solver.solve_all().values():
+        assert res.passed and abs(res.area_diff_pct) < 0.05

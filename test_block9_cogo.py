@@ -122,17 +122,9 @@ def test_lot_areas_within_plat_spec():
     solver = BeachwoodBlock9Solver()
     results = solver.solve_all()
 
-    expected_areas = {
-        "27": 11793.4,
-        "28": 9632.5,
-        "29": 8287.2,
-        "30": 7500.0,
-        "31": 7500.0,
-        "26": 12446.1,
-        "25": 8300.6,
-        "24": 8329.5,
-        "23": 7499.1,
-    }
+    # Closed-form record areas (the plat prints none): chord polygon +/- the Cape Horn (inside) / San Salvadore
+    # (outside) frontage segments from the plat Δs, minus the corner fillets. Frontage curves added 2026-09-24.
+    expected_areas = {"27": 11900.3,"28": 9992.0,"29": 8287.3,"30": 7500.0,"31": 7500.0,"26": 12358.6,"25": 8219.8,"24": 8281.2,"23": 7499.1}
 
     for lot_num, exp_a in expected_areas.items():
         comp_a = results[lot_num].computed_area_sqft

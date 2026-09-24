@@ -1,0 +1,26 @@
+{
+  "plat": "Ocean Grove Unit No. 1, PB 15 Pg 82 (1937)",
+  "block": 1,
+  "read_at": "400 dpi, 2026-09-24 (tick 15)",
+  "note": "Printed values as read off the scan. No bearings on the plat; angles are between lines. Not yet built: the Beach Ave side is internally inconsistent (see REFINEMENT_LOG tick 15).",
+  "sixteenth_st_frontage_west_to_east": {"lot16": 72, "lot1": 52, "lot2": 52, "lot3": 52, "then_to_beach_ave_cl": 30},
+  "rectangles": {
+    "lot1": {"width": 52, "west": 118, "east": 118, "angle_at_16th": "90°"},
+    "lot2": {"width": 52, "west": 100, "east": 100},
+    "lot3": {"width": 52, "west": 100, "east_on_beach_w_line": 100, "angle": "90°"}
+  },
+  "lot4": {"bottom": 104, "west": 50, "top": 123.2, "east_on_beach": ["Ra=55 arc 44.45", "16.9 (arrow to tick)"]},
+  "lot5": {"top": 134.2, "west_on_spine": 58.22, "angle_spine_to_row": "59°08'", "east_on_beach": ["15.6 (arrow to tick)", "Ra=103 arc 48.5"]},
+  "lot6": {"top": 116.6, "east_on_beach": 51, "west_on_spine": "55 (label beside spine)"},
+  "lot7": {"top": 98.2, "east_on_beach": 51, "west_on_spine": 58.22, "angle": "59°08'"},
+  "lot8": {"top": 55, "east": [48, "bend 199°28'", 52.7], "angle_ne": "97°15'", "bottom": 50},
+  "lot9": {"top": 70.66, "west": 91.2, "east": 99.7, "bottom": 48.2},
+  "lot10": {"front_Ra=231_arc": 75, "sides": [91.2, 108], "rear_on_spine": "32.23"},
+  "lot11": {"front_Ra=231_arc": 65, "sides": [108, 119.8], "rear_on_spine": "32.23"},
+  "lot12": {"front": ["Ra=231 arc 27 to P.C.", "28 straight"], "sides": [119.8, 120.5], "rear_on_spine": 55},
+  "lot13": {"front": 55, "sides": [120.5, 120.5], "rear_on_spine": 55},
+  "lot14": {"front": 55, "sides": [120.5, 90], "rear": [32, "58.22 spine"]},
+  "lot15": {"front": [67, "Ra=368 arc 62.1"], "sides": [90, 94.8], "east": 28},
+  "lot16": {"front": ["Ra=368 arc 56"], "bottom_on_16th": 72, "sides": [94.8, 90], "angle_mandalay": "59°08'"},
+  "inconsistency_found": "Lot 4: with Lots 2/3 100' deep, Lot 4 west 50' and top 123.2', the Beach W line (100' north from Lot 3 SE, R=55 arc 44.45, then 16.9') cannot reach Lot 4's NE corner: the two closure equations 55 sin t + 16.9 cos t = 50 and 55 cos t - 16.9 sin t = 35.8 have no common solution (squared sums 3310.6 vs 3781.6)."
+}

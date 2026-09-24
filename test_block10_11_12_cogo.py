@@ -91,72 +91,42 @@ def test_block11_skew_taper_across_bayou_midline_surfwood():
     assert abs((mid_total - surfwood_total) - skew_step) < 0.01
 
 
-def test_block12_lots_4_through_7_close_exactly():
+def test_block12_all_lots_close_exactly():
+    """Lots 4-10 (the part of Block 12 west of the Unit One matchline). Re-read at 400 dpi 2026-09-24:
+    the jog courses that used to keep Lots 8-10 flagged are legible, so all seven lots are built."""
     solver = BeachwoodBlock12Solver()
-    assert set(solver.lots.keys()) == {"7", "6", "5", "4"}
+    assert set(solver.lots.keys()) == {"4", "5", "6", "7", "8", "9", "10"}
     for num, lot in solver.lots.items():
         res = lot.compute_mapcheck()
         assert res.misclose_dist_ft < 1e-6, f"Lot {num} failed to close: {res.misclose_dist_ft}"
         assert res.passed
+        assert abs(res.area_diff_pct) < 0.05
 
 
-def test_block12_lot6_computed_east_side_matches_west_side():
-    """Lot 6 is built from exactly 3 stated sides (west 71.27', north
-    120.00', south 120.52'); the 4th (east) side is computed by closure,
-    not read off the plat. It should come out very close to the west side's
-    own length (71.27') -- the near-parallelogram shape this lot actually
-    has, and a strong self-consistency check on the reading."""
+def test_block12_printed_jog_courses_close():
+    """Every printed course that is not used in the construction (the 25.82'/75.04' jog, the 122.45'
+    Lot 9/10 line, the 120.0' boundary to the P.R.M., Lot 8's 72.37' and Lot 4's 90.69') is a check."""
+    solver = BeachwoodBlock12Solver()
+    for key, (calc, printed) in solver.checks.items():
+        assert abs(calc - printed) < 0.05, key
+
+
+def test_block12_lot7_is_a_rectangle_and_lot6_takes_the_extra_20ft():
+    """Lot 7 is 100' x 75'. Lot 6's north line is 120.00' = Lot 7's 100' + 20' (the earlier solver
+    closed Lot 7 with a 120' south side and a computed 77.62' east side)."""
     solver = BeachwoodBlock12Solver()
     p = solver.points
-    west = p["p6_nw"].dist_to(p["p6_sw"])
-    east = p["p6_ne"].dist_to(p["p6_se"])
-    assert abs(west - 71.27) < 0.01
-    assert abs(east - west) < 0.05
-
-
-def test_block12_lot5_computed_east_side_matches_lot4_stated_west_side():
-    """Lot 5's east side (computed by closure from its 3 stated sides) and
-    Lot 4's west side (independently read as 90.69' off the plat) describe
-    the SAME physical boundary. They should agree to within plat-drafting
-    rounding (this reading gets them within 0.01') -- the key
-    cross-validation that confirms both lots were transcribed correctly."""
-    solver = BeachwoodBlock12Solver()
-    p = solver.points
-    lot5_east = p["p5_ne"].dist_to(p["p5_se"])
-    lot4_west = p["p4_sw"].dist_to(p["p4_nw"])
-    assert abs(lot4_west - 90.69) < 0.01
-    assert abs(lot5_east - lot4_west) < 0.02
+    assert abs(p["p7_sw"].dist_to(p["p7_se"]) - 100.0) < 1e-6
+    assert abs(p["p7_ne"].dist_to(p["p7_se"]) - 75.0) < 1e-6
+    assert abs(p["p7_sw"].dist_to(p["p6_ne"]) - 120.0) < 1e-6
 
 
 def test_block12_matchline_length_matches_plat():
-    """Lot 4's east side is the lower matchline segment: N00°41'40"W,
-    102.20', explicitly labeled on the plat."""
+    """Lot 4's east side is the lower matchline segment: N00°41'40"W, 102.20', explicitly labeled on the plat."""
     solver = BeachwoodBlock12Solver()
     p = solver.points
     assert abs(p["p4_se"].dist_to(p["p4_ne"]) - 102.20) < 0.01
 
 
-def test_block12_lots_8_9_10_are_not_certified():
-    """Lots 8, 9, 10 front the San Salvadore Ave curve transition through
-    several short jog courses this reading could not certify -- they must
-    NOT appear in self.lots (never silently certify a lot from a guess)."""
-    solver = BeachwoodBlock12Solver()
-    assert "8" not in solver.lots
-    assert "9" not in solver.lots
-    assert "10" not in solver.lots
-
-
-def test_block12_flagged_point_is_computed_by_intersection_not_guessed():
-    """The one Lot 8 corner this reading offers (NE, approximate) must come
-    from intersect_bearings() against two real, plat-stated lines (the
-    Lot 7/8 divider and the matchline) -- not an arbitrary coordinate."""
-    solver = BeachwoodBlock12Solver()
-    assert "Lot8_NE_approx" in solver.flagged_points
-    info = solver.flagged_points["Lot8_NE_approx"]
-    assert "intersect_bearings" in info["method"]
-    p = info["point"]
-    # Sanity: the flagged point must lie on the known Lot 7/8 divider line
-    # (N88°58'20"E) extended from the certified Lot 7 NE corner.
-    p7_ne = solver.points["p7_ne"]
-    az = math.degrees(math.atan2(p.e - p7_ne.e, p.n - p7_ne.n)) % 360.0
-    assert abs(az - solver.az_div) < 0.5 or abs(az - solver.az_div) > 359.5
+def test_block12_no_flagged_points_remain():
+    assert BeachwoodBlock12Solver().flagged_points == {}

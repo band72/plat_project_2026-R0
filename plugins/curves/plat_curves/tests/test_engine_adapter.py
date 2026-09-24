@@ -126,8 +126,8 @@ def test_stated_block_frontage_curves():
     fc16 = get_block_frontage_curves("16")
     assert "CURVE_BLK16_MARINA_NORTH_RW" in fc16
     assert fc16["CURVE_BLK16_MARINA_NORTH_RW"]["radius"] == 389.27
-    assert "CURVE_BLK16_KEEL_L28" in fc16
-    assert fc16["CURVE_BLK16_KEEL_L28"]["radius"] == 167.95
+    assert "CURVE_BLK16_SHELLFISH_L28" in fc16
+    assert fc16["CURVE_BLK16_SHELLFISH_L28"]["radius"] == 197.95
 
     fc15 = get_block_frontage_curves("15")
     assert "CURVE_BLK15_SHELLFISH_L1" in fc15

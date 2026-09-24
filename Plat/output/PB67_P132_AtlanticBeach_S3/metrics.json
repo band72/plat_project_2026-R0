@@ -1,0 +1,196 @@
+{
+  "plat_id": "PB67_P132_AtlanticBeach_S3",
+  "source": "Plat/67-132.pdf page 3",
+  "lots_built": 24,
+  "lots": {
+    "136": {
+      "area_sqft": 6599.1
+    },
+    "135": {
+      "area_sqft": 7180.5
+    },
+    "134": {
+      "area_sqft": 6161.2
+    },
+    "133": {
+      "area_sqft": 5667.7
+    },
+    "132": {
+      "area_sqft": 5905.3
+    },
+    "131": {
+      "area_sqft": 5415.6
+    },
+    "130": {
+      "area_sqft": 5594.6
+    },
+    "129": {
+      "area_sqft": 6330.0
+    },
+    "128": {
+      "area_sqft": 6010.1
+    },
+    "127": {
+      "area_sqft": 6209.0
+    },
+    "126": {
+      "area_sqft": 7000.2
+    },
+    "137": {
+      "area_sqft": 12103.8
+    },
+    "125": {
+      "area_sqft": 6667.6
+    },
+    "124": {
+      "area_sqft": 6156.5
+    },
+    "169": {
+      "area_sqft": 7150.0
+    },
+    "170": {
+      "area_sqft": 7950.3
+    },
+    "171": {
+      "area_sqft": 7837.7
+    },
+    "172": {
+      "area_sqft": 8250.0
+    },
+    "173": {
+      "area_sqft": 9000.0
+    },
+    "174": {
+      "area_sqft": 8250.0
+    },
+    "175": {
+      "area_sqft": 8388.6
+    },
+    "176": {
+      "area_sqft": 8897.8
+    },
+    "168": {
+      "area_sqft": 8368.9
+    },
+    "167": {
+      "area_sqft": 11324.5
+    }
+  },
+  "checks": {
+    "Lot 136/135 front corner: side-line vs frontage chain (ft)": {
+      "computed": 0.006,
+      "printed": 0.0
+    },
+    "Lot 135/134 front corner: side-line vs frontage chain (ft)": {
+      "computed": 0.009,
+      "printed": 0.0
+    },
+    "Lot 134/133 front corner: side-line vs frontage chain (ft)": {
+      "computed": 0.007,
+      "printed": 0.0
+    },
+    "Lot 133/132 front corner: side-line vs frontage chain (ft)": {
+      "computed": 0.005,
+      "printed": 0.0
+    },
+    "Lot 132/131 front corner: side-line vs frontage chain (ft)": {
+      "computed": 0.007,
+      "printed": 0.0
+    },
+    "Lot 131/130 front corner: side-line vs frontage chain (ft)": {
+      "computed": 0.007,
+      "printed": 0.0
+    },
+    "Lot 130/129 front corner: side-line vs frontage chain (ft)": {
+      "computed": 0.01,
+      "printed": 0.0
+    },
+    "Lot 129/128 front corner: side-line vs frontage chain (ft)": {
+      "computed": 0.01,
+      "printed": 0.0
+    },
+    "Lot 128/127 front corner: side-line vs frontage chain (ft)": {
+      "computed": 0.01,
+      "printed": 0.0
+    },
+    "Lot 127/126 front corner: side-line vs frontage chain (ft)": {
+      "computed": 0.014,
+      "printed": 0.0
+    },
+    "Lot 126/125 front corner: side-line vs frontage chain (ft)": {
+      "computed": 0.013,
+      "printed": 0.0
+    },
+    "Lot 137 C202 chord 182.59' (north corner -> 137/136 front)": {
+      "computed": 182.58,
+      "printed": 182.59
+    },
+    "Lot 137 C202 chord bearing N41\u00b030'46\"E (deg)": {
+      "computed": 41.513,
+      "printed": 41.51277777777778
+    },
+    "Lot 125/124 front corner: side-line vs frontage chain (ft)": {
+      "computed": 0.007,
+      "printed": 0.0
+    },
+    "Lot 124/123 front corner: side-line vs frontage chain (ft)": {
+      "computed": 0.005,
+      "printed": 0.0
+    },
+    "80.00' tangent = 45.89 + 34.12": {
+      "computed": 80.01,
+      "printed": 80.0
+    },
+    "307.87' tangent = 11.42+55.12+60.13+55.12+55.12+60.13+10.83": {
+      "computed": 307.87,
+      "printed": 307.87
+    },
+    "Lot 169 front 55.0' (Timber Bridge W R/W)": {
+      "computed": 55.0,
+      "printed": 55.0
+    },
+    "Lot 170 front 60.0' (Timber Bridge W R/W)": {
+      "computed": 60.002,
+      "printed": 60.0
+    },
+    "Lot 171 front 55.0' (Timber Bridge W R/W)": {
+      "computed": 55.001,
+      "printed": 55.0
+    },
+    "Lot 172 front 55.0' (Timber Bridge W R/W)": {
+      "computed": 55.0,
+      "printed": 55.0
+    },
+    "Lot 173 front 60.0' (Timber Bridge W R/W)": {
+      "computed": 60.0,
+      "printed": 60.0
+    },
+    "Lot 174 front 55.0' (Timber Bridge W R/W)": {
+      "computed": 55.0,
+      "printed": 55.0
+    },
+    "C37 (R=200) \u0394 19\u00b053'40\" = C212 + C213 + C214 (deg)": {
+      "computed": 30.251,
+      "printed": 19.894444444444446
+    },
+    "Straight 362.66' = 11.10 + 55+60+55+55+60+55 + 11.56": {
+      "computed": 362.66,
+      "printed": 362.66
+    },
+    "Lot 168 front chain (11.10 + C209) end vs 167/168 line (135.00') end (ft)": {
+      "computed": 0.02,
+      "printed": 0.0
+    },
+    "Lot 167 closure via C207 + C40 + C39 (ft)": {
+      "computed": 0.023,
+      "printed": 0.0
+    }
+  },
+  "worst_front_corner_misfit_ft": 0.014,
+  "flagged_lots": [
+    "175",
+    "176"
+  ],
+  "supersedes": "scripts/build_forceclosed.py (off-by-one side lines, assumed chord frontage, assumed 13th depth)",
+  "todo": "Sheet 3 Lots 138-166 (east of Timber Bridge Lane), C212-C214 data for Lots 175/176, Sheets 1, 2, 4, 5, 6"
+}

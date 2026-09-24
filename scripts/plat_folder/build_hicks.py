@@ -71,8 +71,24 @@ rr_s_pts = [(0.0, -WEST + 202.0),       # Frank west side 202
             (b1[0], b1[1] + 266.0),     # Frank / Richard side 266
             (b2[0], b2[1] + 382.0),     # Richard / Richard side 382
             east_at(EAST - 432.0)]      # Richard (E) east side 432 (digit "4" faint)
-cn = fit_circle(rr_n_pts)
-cs = fit_circle(rr_s_pts)
+# Both R/W lines are fitted together as one constant-width corridor: concentric circles (the track bends left going east,
+# so the north line is the inner one). The printed 382' Richard/Richard tie (clear at 800 dpi) is left OUT of the fit: the
+# two stated acreages (Richard W 2.8A, Richard E 3A), the drawn scale and the six other ties all put that line ~332-335'
+# long, so 382' looks like a drafting slip on the plat. Its residual is still reported.
+def _fit_corridor(north, south):
+    import numpy as np
+    from scipy.optimize import least_squares
+    N, S_ = np.array(north), np.array(south)
+
+    def res(q):
+        cx, cy, R, w = q
+        return np.r_[np.hypot(*(N - [cx, cy]).T) - (R - w), np.hypot(*(S_ - [cx, cy]).T) - (R + w)]
+    return least_squares(res, [600.0, 3000.0, 3000.0, 46.0]).x
+
+
+_ccx, _ccy, _R, _W = _fit_corridor(rr_n_pts, [rr_s_pts[0], rr_s_pts[1], rr_s_pts[3]])
+cn = (_ccx, _ccy, _R - _W)
+cs = (_ccx, _ccy, _R + _W)
 
 
 def on_circle_vertical(c, x, near_y):
@@ -138,7 +154,7 @@ dim_resid = {
     "Wilson west side 247.7 vs model": round((Y2 - n_e5[1]) - 247.7, 2),
     "south line parts 1308.0 vs 1309": round(S1 + 408.1 + 341.1 - SOUTH, 2),
     "R/W north tie residuals (ft)": [round(math.dist(p, project(cn, p)), 2) for p in rr_n_pts],
-    "R/W south tie residuals (ft)": [round(math.dist(p, project(cs, p)), 2) for p in rr_s_pts],
+    "R/W south tie residuals (ft) [202, 266, 382*, 432; *not fitted]": [round(math.dist(p, project(cs, p)), 2) for p in rr_s_pts],
 }
 row_width = [round(cs[2] - cn[2], 1), round(math.dist(n_w, s_w), 1), round(math.dist(n_e, s_e), 1)]
 boundary_area = shoelace([NW, NE, SE, SW]) / SQFT_PER_ACRE
@@ -187,7 +203,9 @@ metrics = {
     "assumptions": [
         "No bearings on plat: north line taken due East, west line due South.",
         "A.C.L. R.R. R/W lines fitted as circles through printed side-line ties (no curve data on plat).",
-        "Richard Hicks (E) east side read as 432 (first digit faint; 432 is the only value consistent with the R/W width).",
+        "Richard Hicks (E) east side read as 432 (legible at 300 dpi).",
+        "R/W modelled as a constant-width corridor (concentric circles) fitted to 6 of 7 printed ties; the printed 382' "
+        "Richard/Richard tie is excluded as a probable drafting slip (acreages and drawn scale imply ~332').",
         "Interior division lines taken perpendicular to the north line.",
     ],
 }

@@ -271,16 +271,18 @@ STATED_BLOCK_FRONTAGE_CURVES: dict[str, dict[str, Any]] = {
         "direction": "CW",
         "notes": "Marina Ave North R/W curve outer edge (R=389.27'), equally divided across Lots 31, 30, and 29.",
     },
-    "CURVE_BLK16_KEEL_L28": {
+    "CURVE_BLK16_SHELLFISH_L28": {
         "block": "16",
-        "lots": ["28"],
-        "street": "Keel Drive",
-        "radius": 167.95,
+        "lots": ["29", "28", "27"],
+        "street": "Shellfish Drive",
+        "radius": 197.95,
         "stated_chord": 68.75,
-        "delta_deg": 23.6208,
-        "arc_length": 69.24,
+        "delta_deg": 20.0,
+        "arc_length": 69.10,
         "direction": "CW",
-        "notes": "Keel Drive North R/W curve fronting Block 16 Lot 28.",
+        "notes": "Shellfish Drive N R/W curve (CL R=167.95' + 30'), lots outside the curve. Printed lot chords "
+                 "51.68' N42°48'20\"E (L29), 68.75' N60°18'20\"E (L28), 59.50' N78°56'55\"E (L27) = Δ 15°+20°+17°17'10\" "
+                 "= CL Δ 52°17'10\". Was mislabelled Keel Dr R=167.95 before 2026-09-24.",
     },
     "CURVE_BLK15_SHELLFISH_L1": {
         "block": "15",

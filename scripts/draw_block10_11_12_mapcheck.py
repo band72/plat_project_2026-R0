@@ -16,7 +16,7 @@ Block 12: Lots 4-7 CERTIFIED (fronting the 50' drainage R/W and Bayou).
           and engine/notes_audit.py.
 
 Outputs:
-  1. dxf/PB0030_P0082_Block10_11_12_MapCheck.dxf
+  1. dxf/PB0030_P0082_Block10_11_12_MapCheck_claude.dxf
   2. images/block10_11_12_mapcheck_drawing.png
 """
 from __future__ import annotations
@@ -83,7 +83,7 @@ def build_and_draw():
     # 1. DXF
     # ==========================================================================
     os.makedirs("dxf", exist_ok=True)
-    dxf_path = "dxf/PB0030_P0082_Block10_11_12_MapCheck.dxf"
+    dxf_path = "dxf/PB0030_P0082_Block10_11_12_MapCheck_claude.dxf"
     dxf = DXFWriter()
     dxf.add_layer("LOT_LINE", "cyan", "CONTINUOUS")
     dxf.add_layer("BOUNDARY", "white", "CONTINUOUS")

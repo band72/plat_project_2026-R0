@@ -51,13 +51,13 @@ def build_and_draw_block16():
     # audit covers everything this script actually renders.
     print_audit_report(audit_solver_curves(solver), header="BLOCK 16 SOLVER CURVE AUDIT")
 
-    lot_order = ["1", "2", "3", "4", "5", "6", "7", "8", "33", "32", "31", "30", "29", "28"]
+    lot_order = [str(i) for i in range(1, 18)] + [str(i) for i in range(33, 17, -1)]
 
     # ==========================================================================
     # 1. WRITE MASTER CAD DRAWING (DXF)
     # ==========================================================================
     os.makedirs("dxf", exist_ok=True)
-    dxf_path = "dxf/PB0030_P0082_Block16_MapCheck.dxf"
+    dxf_path = "dxf/PB0030_P0082_Block16_MapCheck_claude.dxf"
     dxf = DXFWriter()
     dxf.add_layer("LOT_LINE", "cyan", "CONTINUOUS")
     dxf.add_layer("CURVE", "magenta", "CONTINUOUS")
@@ -235,7 +235,7 @@ def build_and_draw_block16():
     # ==========================================================================
     # 2. WRITE INDIVIDUAL CHECKSHEETS GRID DXF
     # ==========================================================================
-    cs_path = "dxf/PB0030_P0082_Block16_CheckSheets.dxf"
+    cs_path = "dxf/PB0030_P0082_Block16_CheckSheets_claude.dxf"
     cs_dxf = DXFWriter()
     cs_dxf.add_layer("LOT_POLYLINE", "cyan", "CONTINUOUS")
     cs_dxf.add_layer("SHEET_LABELS", "white", "CONTINUOUS")
@@ -379,7 +379,7 @@ def build_and_draw_block16():
 
     # Keel Drive R/W Label
     p28_se_h = to_h(pts["p28_se"])
-    ax_map.text(p28_se_h[0] + 10.0, p28_se_h[1] - 18.0, "KEEL DRIVE\n(60' R/W)\nR=167.95'",
+    ax_map.text(p28_se_h[0] + 10.0, p28_se_h[1] - 18.0, "SHELLFISH DRIVE\n(60' R/W)\nN R/W R=197.95'",
                 color='#ff7b72', fontsize=8.5, fontweight='bold', ha='left', va='top',
                 path_effects=[pe.withStroke(linewidth=2.0, foreground='#0d1117')])
 

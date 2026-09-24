@@ -11,17 +11,42 @@
       "ok": true
     },
     "BLOCK_17": {
-      "worst_check_ft": 0.0,
-      "n_checks": 1,
+      "worst_check_ft": 0.005,
+      "n_checks": 3,
       "ok": true
     },
     "BLOCK_16": {
       "worst_check_ft": 0.008,
-      "n_checks": 2,
+      "n_checks": 4,
       "ok": true
     },
     "BLOCK_15": {
       "worst_check_ft": 0.021,
+      "n_checks": 3,
+      "ok": true
+    },
+    "BLOCK_14": {
+      "worst_check_ft": 0.027,
+      "n_checks": 3,
+      "ok": true
+    },
+    "BLOCK_6": {
+      "worst_check_ft": 0.075,
+      "n_checks": 6,
+      "ok": true
+    },
+    "BLOCK_7": {
+      "worst_check_ft": 0.043,
+      "n_checks": 2,
+      "ok": true
+    },
+    "BLOCK_8": {
+      "worst_check_ft": 0.031,
+      "n_checks": 7,
+      "ok": true
+    },
+    "BLOCK_10": {
+      "worst_check_ft": 0.002,
       "n_checks": 3,
       "ok": true
     },
@@ -31,8 +56,8 @@
       "ok": true
     },
     "BLOCK_12": {
-      "worst_check_ft": 0.0,
-      "n_checks": 0,
+      "worst_check_ft": 0.022,
+      "n_checks": 5,
       "ok": true
     },
     "BLOCK_11": {
@@ -55,6 +80,20 @@
       "residual_ft": 0.0
     },
     {
+      "block": "BLOCK_17",
+      "solver_point": "B17_L17_NE",
+      "fillet": "F_STARFISH_BEACHWOOD_SW",
+      "location": "SW: Block 17 Lot 17 NE",
+      "residual_ft": 0.001
+    },
+    {
+      "block": "BLOCK_17",
+      "solver_point": "B17_L18_SE",
+      "fillet": "F_SAIL_BEACHWOOD_NW",
+      "location": "NW: Block 17 Lot 18 SE",
+      "residual_ft": 0.005
+    },
+    {
       "block": "BLOCK_16",
       "solver_point": "p33_sw_pi",
       "fillet": "F_MARINA_MANGROVE_NE",
@@ -67,6 +106,20 @@
       "fillet": "F_MARINA_SHELLFISH_N",
       "location": "N: Block 16 Lot 29 S",
       "residual_ft": 0.008
+    },
+    {
+      "block": "BLOCK_16",
+      "solver_point": "p17_pi_ne",
+      "fillet": "F_SAIL_BEACHWOOD_SW",
+      "location": "SW: Block 16 Lot 17 NE",
+      "residual_ft": 0.0
+    },
+    {
+      "block": "BLOCK_16",
+      "solver_point": "p18_pi_se",
+      "fillet": "F_SHELLFISH_BEACHWOOD_NW",
+      "location": "NW: Block 16 Lot 18 SE",
+      "residual_ft": 0.005
     },
     {
       "block": "BLOCK_15",
@@ -90,11 +143,193 @@
       "residual_ft": 0.021
     },
     {
+      "block": "BLOCK_14",
+      "solver_point": "B14_TA_SE",
+      "fillet": "F_DRAIN40_MANGROVE_NW",
+      "location": "NW: Block 14 Tract 'A' SE",
+      "residual_ft": 0.027
+    },
+    {
+      "block": "BLOCK_14",
+      "solver_point": "B14_L11_NE",
+      "fillet": "F_DRAIN40_MANGROVE_SW",
+      "location": "SW: Block 14 Lot 11 NE",
+      "residual_ft": 0.027
+    },
+    {
+      "block": "BLOCK_14",
+      "solver_point": "B14_L11_PI_SE",
+      "fillet": "F_CAPEHORN_MANGROVE_NW",
+      "location": "NW: Block 14 Lot 11 SE",
+      "residual_ft": 0.027
+    },
+    {
+      "block": "BLOCK_6",
+      "solver_point": "B6_L6_PI_W",
+      "fillet": "F_MARINA_KEEL_S",
+      "location": "S: Block 6 Lot 6 W",
+      "residual_ft": 0.034
+    },
+    {
+      "block": "BLOCK_6",
+      "solver_point": "B6_BND_260_TOP",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.058
+    },
+    {
+      "block": "BLOCK_6",
+      "solver_point": "B6_BND_PC",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.058
+    },
+    {
+      "block": "BLOCK_6",
+      "solver_point": "B6_BND_PT",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.057
+    },
+    {
+      "block": "BLOCK_6",
+      "solver_point": "B6_U",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.057
+    },
+    {
+      "block": "BLOCK_6",
+      "solver_point": "B6_L12_SE",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.075
+    },
+    {
+      "block": "BLOCK_7",
+      "solver_point": "B7_L23_PI_SW",
+      "fillet": "F_SANDS_MANGROVE_NE",
+      "location": "NE: Block 7 Lot 23 SW",
+      "residual_ft": 0.0
+    },
+    {
+      "block": "BLOCK_7",
+      "solver_point": "B7_L11_SE",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.043
+    },
+    {
+      "block": "BLOCK_8",
+      "solver_point": "B8_L23_SW",
+      "fillet": "F_DRAIN40_MANGROVE_NE",
+      "location": "NE: Block 8 Lot 23 SW",
+      "residual_ft": 0.0
+    },
+    {
+      "block": "BLOCK_8",
+      "solver_point": "B8_L22_NW",
+      "fillet": "F_DRAIN40_MANGROVE_SE",
+      "location": "SE: Block 8 Lot 22 NW",
+      "residual_ft": 0.0
+    },
+    {
+      "block": "BLOCK_8",
+      "solver_point": "B8_L22_PI_SW",
+      "fillet": "F_CAPEHORN_MANGROVE_NE",
+      "location": "NE: Block 8 Lot 22 SW",
+      "residual_ft": 0.0
+    },
+    {
+      "block": "BLOCK_8",
+      "solver_point": "B8_L30_SE",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.03
+    },
+    {
+      "block": "BLOCK_8",
+      "solver_point": "B8_L34_SE",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.03
+    },
+    {
+      "block": "BLOCK_8",
+      "solver_point": "B8_L34_NE",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.031
+    },
+    {
+      "block": "BLOCK_8",
+      "solver_point": "B8_L17_SE",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.026
+    },
+    {
+      "block": "BLOCK_10",
+      "solver_point": "p13_sw",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.0
+    },
+    {
+      "block": "BLOCK_10",
+      "solver_point": "p9_se",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.0
+    },
+    {
+      "block": "BLOCK_10",
+      "solver_point": "p9_ne",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.002
+    },
+    {
       "block": "BLOCK_13",
       "solver_point": "p1_pi_ne",
       "fillet": "F_CAPEHORN_MANGROVE_SW",
       "location": "SW: west block NE (Sheet 1)",
       "residual_ft": 0.011
+    },
+    {
+      "block": "BLOCK_12",
+      "solver_point": "p8_pi_nw",
+      "fillet": "F_SANSALVADORE_MANGROVE_SE",
+      "location": "SE: Block 12 Lot 8 NW",
+      "residual_ft": 0.0
+    },
+    {
+      "block": "BLOCK_12",
+      "solver_point": "p4_se",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.022
+    },
+    {
+      "block": "BLOCK_12",
+      "solver_point": "p4_ne",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.022
+    },
+    {
+      "block": "BLOCK_12",
+      "solver_point": "p_jog_c",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.022
+    },
+    {
+      "block": "BLOCK_12",
+      "solver_point": "p_prm_san_salvadore",
+      "fillet": "nearest caption-boundary vertex",
+      "location": "plat boundary",
+      "residual_ft": 0.014
     },
     {
       "block": "BLOCK_11",
@@ -111,14 +346,8 @@
       "residual_ft": 0.0
     }
   ],
-  "lots_placed": 115,
-  "not_placed": {
-    "BLOCK_14": "solver models a 24-lot double row with a cul-de-sac; the plat's Block 14 is the 11-lot strip + Tract 'A' west of Mangrove Ave (Sheet 2) -- rebuild pending",
-    "BLOCK_10": "no labelled fillet P.I. in the street network yet (corner is on the plat boundary) -- anchor pending",
-    "BLOCK_6": "no solver yet (Sheet 2, east of Marina/Keel)",
-    "BLOCK_7": "no solver yet (Sheet 2, Marina/Sands)",
-    "BLOCK_8": "no solver yet (Sheet 2, Sands/Cape Horn)"
-  },
+  "lots_placed": 210,
+  "not_placed": {},
   "outputs": [
     "Plat/output/PB30_P82_Beachwood/PB0030_P0082_Beachwood_FullPlat_claude.dxf",
     "Plat/output/PB30_P82_Beachwood/PB0030_P0082_Beachwood_FullPlat.png"

@@ -11,18 +11,21 @@ from __future__ import annotations
 
 import math
 import os
+import sys
 from dataclasses import dataclass, field
 
-import matplotlib
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+import matplotlib  # noqa: E402
 
 matplotlib.use('Agg')
 import matplotlib.patheffects as pe
 import matplotlib.pyplot as plt
-from compute_user_mapchecks import solve_corner_curve
 from matplotlib.patches import Polygon as MplPolygon
 
 from engine.audit import dxf_audit
 from engine.cogo import Point, parse_bearing
+from engine.cogo_block import BeachwoodBlock9Solver
 from engine.dxf_writer import DXFWriter
 from engine.lot_agent import BeachwoodLotAgent
 from engine.lotsheets import PAGE_H, PAGE_W, draw_lot_sheet
@@ -48,99 +51,23 @@ def build_and_draw_block9():
     az_west_s = parse_bearing("S01°01'40\"E")
 
     # --------------------------------------------------------------------------
-    # 2. COORDINATE GEOMETRY (MATCHLINE AT SE CORNER OF LOT 23 AS ORIGIN)
+    # 2. GEOMETRY -- drawn straight from engine.cogo_block.BeachwoodBlock9Solver.
+    #    (This script used to rebuild Block 9 by hand: straight chords instead of the Cape Horn / San
+    #    Salvadore frontage curves and an 83°30' Lot 26 return. One source of truth now, 2026-09-24.)
     # --------------------------------------------------------------------------
-    p23_se = Point(0.0, 0.0)
-
-    # Matchline
-    p23_ne = p23_se.offset(az_match, 100.0)
-    p31_se = p23_ne
-    p31_ne = p31_se.offset(az_match, 100.0)  # P.R.M. monument
-
-    # North row lots
-    p31_nw = p31_ne.offset(az_tangent_ch_rev, 75.0)
-    p31_sw = p31_se.offset(az_tangent_ch_rev, 75.0)
-
-    p30_ne = p31_nw
-    p30_se = p31_sw
-    p30_nw = p30_ne.offset(az_tangent_ch_rev, 75.0)
-    p30_sw = p30_se.offset(az_tangent_ch_rev, 75.0)
-
-    p29_ne = p30_nw
-    p29_se = p30_sw
-    p29_mid_n = p29_ne.offset(az_tangent_ch_rev, 82.57)
-    p29_nw = p29_mid_n.offset(parse_bearing("N55°21'40\"W"), 6.91)
-    p29_sw = p29_se.offset(az_interior_rev, 68.0)
-
-    p28_ne = p29_nw
-    p28_se = p29_sw
-    p28_sw = p28_se.offset(az_interior_rev, 67.31)
-    p28_nw = p28_ne.offset(parse_bearing("N66°31'40\"W"), 108.25)
-
-    # Lot 27 NW Corner Curve
-    sol27 = solve_corner_curve("N01°01'40\"W", "N88°58'20\"E", radius=25.0)
-    T27 = sol27["tangent"]
-    p27_ne = p28_nw
-    p27_se = p28_sw
-    p27_sw = p27_se.offset(parse_bearing("S78°46'06\"W"), 90.0)
-    p27_pi = p27_sw.offset(az_west_n, 140.0)
-    p27_pc_w = p27_pi.offset(az_west_s, T27)
-    p27_pc_n = p27_pi.offset(az_pi_pc, T27)
-    p27_center = p27_pc_w.offset(az_pi_pc, 25.0)
-
-    # Lot 26 SW Corner Curve
-    sol26 = solve_corner_curve("S84°31'40\"E", "S01°01'40\"E", radius=25.0)
-    T26 = sol26["tangent"]
-    p26_nw = p27_sw
-    p26_ang = p27_se
-    p26_ne = p26_ang.offset(az_interior, 30.0)
-    p26_se = p26_ne.offset(parse_bearing("S9°46'11\"W"), 120.75)
-    p26_pc_s = p26_se.offset(parse_bearing("N84°31'40\"W"), 67.91)
-    p26_pi = p26_nw.offset(az_west_s, 109.0)
-    p26_pc_w = p26_pi.offset(az_west_n, T26)
-    p26_center = p26_pc_w.offset(az_pi_pc, 25.0)
-
-    # Lot 25
-    p25_nw = p26_ne
-    p25_sw = p26_se
-    p25_ne = p25_nw.offset(az_interior, 82.31)
-    p25_se = p25_sw.offset(parse_bearing("S71°41'40\"E"), 66.18)
-
-    # Lot 24
-    p24_nw = p25_ne
-    p24_sw = p25_se
-    p24_mid_n = p24_nw.offset(az_interior, 23.0)
-    p24_ne = p31_sw
-    p24_mid_s = p24_sw.offset(parse_bearing("S60°01'40\"E"), 55.76)
-    p24_se = p24_mid_s.offset(az_tangent_ch, 8.31)
-
-    # Lot 23
-    p23_sw = p24_se
-    p23_nw = p24_ne
+    solver = BeachwoodBlock9Solver(Point(0.0, 0.0))
+    P = solver.points
+    p23_se, p24_mid_n, p25_ne = P["p23_se"], P["p24_mid_n"], P["p25_ne"]
+    p26_ne, p26_nw, p26_pc_s, p26_pc_w, p26_pi = P["p26_ne"], P["p26_nw"], P["p26_pc_s"], P["p26_pc_w"], P["p26_pi"]
+    p27_pc_n, p27_pc_w, p27_pi, p27_se, p27_sw = P["p27_pc_n"], P["p27_pc_w"], P["p27_pi"], P["p27_se"], P["p27_sw"]
+    p31_ne, p31_se = P["p31_ne"], P["p31_se"]
+    p27_center = p27_pc_w.offset(az_pi_pc, solver.sol27.radius)   # both returns are 90°
+    p26_center = p26_pc_w.offset(az_pi_pc, solver.sol26.radius)
 
     agents: list[BeachwoodLotAgent] = [
-        BeachwoodLotAgent(927, "Blk9-Lot27", "9", "27", [p27_sw, p27_pc_w, p27_pc_n, p27_ne, p27_se],
-                          ["SW_Cor", "PC_West", "PC_North", "NE_Cor", "SE_Cor"],
-                          curve_specs={"side_2": {"radius": 25.0, "length": sol27["length"], "rot": "CW"}},
-                          stated_area_sqft=11793.4),
-        BeachwoodLotAgent(928, "Blk9-Lot28", "9", "28", [p28_sw, p28_nw, p28_ne, p28_se],
-                          ["SW_Cor", "NW_Cor", "NE_Cor", "SE_Cor"], stated_area_sqft=9632.5),
-        BeachwoodLotAgent(929, "Blk9-Lot29", "9", "29", [p29_sw, p29_nw, p29_mid_n, p29_ne, p29_se],
-                          ["SW_Cor", "NW_Cor", "Angle_Pt_North", "NE_Cor", "SE_Cor"], stated_area_sqft=8287.2),
-        BeachwoodLotAgent(930, "Blk9-Lot30", "9", "30", [p30_sw, p30_nw, p30_ne, p30_se],
-                          ["SW_Cor", "NW_Cor", "NE_Cor", "SE_Cor"], stated_area_sqft=7500.0),
-        BeachwoodLotAgent(931, "Blk9-Lot31", "9", "31", [p31_sw, p31_nw, p31_ne, p31_se],
-                          ["SW_Cor", "NW_Cor", "NE_Cor(PRM)", "SE_Cor(Match)"], stated_area_sqft=7500.0),
-        BeachwoodLotAgent(926, "Blk9-Lot26", "9", "26", [p26_nw, p26_ang, p26_ne, p26_se, p26_pc_s, p26_pc_w],
-                          ["NW_Cor", "Angle_Pt_North", "NE_Cor", "SE_Cor", "PC_South", "PC_West"],
-                          curve_specs={"side_5": {"radius": 25.0, "length": sol26["length"], "rot": "CW"}},
-                          stated_area_sqft=12446.1),
-        BeachwoodLotAgent(925, "Blk9-Lot25", "9", "25", [p25_sw, p25_nw, p25_ne, p25_se],
-                          ["SW_Cor", "NW_Cor", "NE_Cor", "SE_Cor"], stated_area_sqft=8300.6),
-        BeachwoodLotAgent(924, "Blk9-Lot24", "9", "24", [p24_sw, p24_nw, p24_mid_n, p24_ne, p24_se, p24_mid_s],
-                          ["SW_Cor", "NW_Cor", "Angle_Pt_North", "NE_Cor", "SE_Cor", "Angle_Pt_South"], stated_area_sqft=8329.5),
-        BeachwoodLotAgent(923, "Blk9-Lot23", "9", "23", [p23_sw, p23_nw, p23_ne, p23_se],
-                          ["SW_Cor", "NW_Cor", "NE_Cor(Match)", "SE_Cor(Match)"], stated_area_sqft=7500.0),
+        BeachwoodLotAgent(900 + int(num), lot.lot_id, "9", num, lot.vertices, lot.node_names,
+                          curve_specs=lot.curve_specs, stated_area_sqft=lot.stated_area_sqft)
+        for num, lot in solver.lots.items()
     ]
 
     for ag in agents:
@@ -150,7 +77,7 @@ def build_and_draw_block9():
     # 3. WRITE MASTER CAD DRAWING (DXF)
     # --------------------------------------------------------------------------
     os.makedirs("dxf", exist_ok=True)
-    dxf_path = "dxf/PB0030_P0082_Block9_MapCheck.dxf"
+    dxf_path = "dxf/PB0030_P0082_Block9_MapCheck_claude.dxf"
     dxf = DXFWriter()
     dxf.add_layer("LOT_LINE", "cyan", "CONTINUOUS")
     dxf.add_layer("CURVE", "magenta", "CONTINUOUS")
@@ -241,7 +168,7 @@ def build_and_draw_block9():
     # --------------------------------------------------------------------------
     # 4. WRITE INDIVIDUAL CHECKSHEETS GRID DXF
     # --------------------------------------------------------------------------
-    cs_path = "dxf/PB0030_P0082_Block9_CheckSheets.dxf"
+    cs_path = "dxf/PB0030_P0082_Block9_CheckSheets_claude.dxf"
     cs_dxf = DXFWriter()
     cs_dxf.add_layer("LOT_POLYLINE", "cyan", "CONTINUOUS")
     cs_dxf.add_layer("SHEET_LABELS", "white", "CONTINUOUS")
@@ -321,7 +248,8 @@ def build_and_draw_block9():
                 ax.plot(arc_es, arc_ns, color='#f0883e', linewidth=3.2, zorder=4)
                 mid_idx = len(c.arc_points) // 2
                 mid_pt = c.arc_points[mid_idx]
-                ax.text(mid_pt.e + 4.0, mid_pt.n, "Arc=39.27'\nR=25.0'",
+                ax.text(mid_pt.e + 4.0, mid_pt.n,
+                        f"Arc={c.curve_data.get('length', 0.0):.2f}'\nR={c.curve_data.get('radius', 0.0):.2f}'",
                         color='#f0883e', fontsize=8, fontweight='bold', zorder=5)
 
         # Centroid labels

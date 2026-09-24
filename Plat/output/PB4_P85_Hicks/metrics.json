@@ -42,65 +42,64 @@
     {
       "parcel": "EDWARD HICKS",
       "stated_ac": 9.0,
-      "computed_ac": 9.085,
-      "diff_pct": 0.95
+      "computed_ac": 9.074,
+      "diff_pct": 0.82
     },
     {
       "parcel": "WILSON HICKS",
       "stated_ac": 2.97,
-      "computed_ac": 2.939,
-      "diff_pct": -1.04
+      "computed_ac": 2.917,
+      "diff_pct": -1.78
     },
     {
       "parcel": "FRANK HICKS",
       "stated_ac": 3.0,
-      "computed_ac": 2.927,
-      "diff_pct": -2.43
+      "computed_ac": 2.938,
+      "diff_pct": -2.08
     },
     {
       "parcel": "RICHARD HICKS (W)",
       "stated_ac": 2.8,
-      "computed_ac": 2.763,
-      "diff_pct": -1.32
+      "computed_ac": 2.817,
+      "diff_pct": 0.61
     },
     {
       "parcel": "RICHARD HICKS (E)",
       "stated_ac": 3.0,
-      "computed_ac": 3.167,
-      "diff_pct": 5.58
+      "computed_ac": 3.045,
+      "diff_pct": 1.5
     }
   ],
-  "worst_area_diff_pct": 5.58,
-  "flagged": [
-    "RICHARD HICKS (E)"
-  ],
+  "worst_area_diff_pct": 2.08,
+  "flagged": [],
   "dimension_residuals": {
     "Levi north line 330 vs model": 2.6,
     "Wilson north line 743.4 vs model": 0.57,
-    "Wilson west side 247.7 vs model": 3.0,
+    "Wilson west side 247.7 vs model": 0.87,
     "south line parts 1308.0 vs 1309": -1.0,
     "R/W north tie residuals (ft)": [
-      0.0,
-      0.0,
-      0.0
+      1.11,
+      2.11,
+      1.0
     ],
-    "R/W south tie residuals (ft)": [
-      15.86,
-      11.23,
-      36.12,
-      31.08
+    "R/W south tie residuals (ft) [202, 266, 382*, 432; *not fitted]": [
+      1.18,
+      2.2,
+      38.43,
+      1.02
     ]
   },
   "rr_row_width_ft": {
-    "radius_diff": -2129.3,
-    "on_west_line": 76.4,
-    "on_east_line": 62.3
+    "radius_diff": 89.8,
+    "on_west_line": 90.0,
+    "on_east_line": 94.0
   },
-  "rr_row_area_ac": 2.665,
+  "rr_row_area_ac": 2.755,
   "assumptions": [
     "No bearings on plat: north line taken due East, west line due South.",
     "A.C.L. R.R. R/W lines fitted as circles through printed side-line ties (no curve data on plat).",
-    "Richard Hicks (E) east side read as 432 (first digit faint; 432 is the only value consistent with the R/W width).",
+    "Richard Hicks (E) east side read as 432 (legible at 300 dpi).",
+    "R/W modelled as a constant-width corridor (concentric circles) fitted to 6 of 7 printed ties; the printed 382' Richard/Richard tie is excluded as a probable drafting slip (acreages and drawn scale imply ~332').",
     "Interior division lines taken perpendicular to the north line."
   ]
 }
