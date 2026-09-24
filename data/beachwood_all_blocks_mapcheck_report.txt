@@ -10,7 +10,7 @@ Block Name   | Total Lots | Passed Lots  | Status     | Target Stated Area | Com
 BLOCK_18     | 19         | 19           | PASS       |       149,208.4 SF |       149,208.5 SF
 BLOCK_17     | 34         | 34           | PASS       |       265,141.8 SF |       265,291.2 SF
 BLOCK_16     | 14         | 14           | PASS       |       128,148.4 SF |       128,148.4 SF
-BLOCK_15     | 18         | 18           | PASS       |       163,272.6 SF |       158,490.1 SF
+BLOCK_15     | 18         | 18           | PASS       |       159,871.8 SF |       159,871.8 SF
 BLOCK_14     | 24         | 24           | PASS       |       184,564.0 SF |       184,564.0 SF
 BLOCK_13     | 11         | 11           | PASS       |        89,192.9 SF |        89,193.0 SF
 BLOCK_12     | 4          | 4            | PASS       |        36,771.4 SF |        36,771.4 SF
@@ -18,7 +18,7 @@ BLOCK_11     | 6          | 6            | PASS       |        48,649.2 SF |    
 BLOCK_10     | 5          | 5            | PASS       |        39,771.3 SF |        39,771.3 SF
 BLOCK_9      | 9          | 9            | PASS       |        81,288.4 SF |        81,291.5 SF
 ----------------------------------------------------------------------------------------
-TOTALS:      | 144        | 144          | PASS       |                 |     1,181,378.7 SF
+TOTALS:      | 144        | 144          | PASS       |                 |     1,182,760.4 SF
 
 ================================================================================
   INDIVIDUAL BLOCK & LOT MAPCHECK SHEETS
@@ -1955,31 +1955,32 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 C
 ================================================================================
   SURVEY MAPCHECK AUDIT: Blk15-Lot9 (Block 15, Lot 9)
 ================================================================================
-Target Stated Area: 9,492.6 SF (0.2179 Acres)
+Target Stated Area: 9,304.7 SF (0.2136 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To             | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | B15_L9_NW -> B15_L9_NE | N87°35'30.00"E | 95.98          | LINE    
-2        | B15_L9_NE -> B15_L9_SE | S00°41'44.52"E | 100.06         | CURVE   
-         Curve -> R: 1959.86' | Arc: 100.06' | Delta: 2°55'30" | Chord: 100.04'
-                  Tangent: 50.04' | Mid-Ord: 0.64' | Seg Area: 42.6 SF
-                  Plat Stated -> Stated Arc: 100.04'
-3        | B15_L9_SE -> B15_L9_SW | S87°35'30.00"W | 92.99          | LINE    
-4        | B15_L9_SW -> B15_L9_NW | N02°24'30.00"W | 100.00         | LINE    
+1        | B15_L9_NW -> B15_L9_PT | N87°35'30.00"E | 70.22          | LINE    
+2        | B15_L9_PT -> B15_L9_PC | S46°33'05.00"E | 40.02          | CURVE   
+         Curve -> R: 25.00' | Arc: 40.02' | Delta: 91°42'50" | Chord: 35.88'
+                  Tangent: 25.76' | Mid-Ord: 7.59' | Seg Area: 187.9 SF
+                  Plat Stated -> Stated Arc: 40.02' | Stated Delta: 91°42'50"
+3        | B15_L9_PC -> B15_L9_SE | S00°41'46.09"E | 74.29          | LINE    
+4        | B15_L9_SE -> B15_L9_SW | S87°35'30.00"W | 92.99          | LINE    
+5        | B15_L9_SW -> B15_L9_NW | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & STATISTICAL PRECISION:
-  Total Perimeter:     389.03 ft
+  Total Perimeter:     377.51 ft
   Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
   Linear Misclose:     0.00000 ft
   Relative Precision:  EXACT (0.000 ft)
   F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
   Traverse Status:     CLOSED
 PARCEL AREA AUDIT:
-  Raw Polygon Area:    9,448.5 SF
-  Curve Adjustments:   +42.6 SF
-  Net Computed Area:   9,491.1 SF (0.2179 Acres)
-  Target Stated Area:  9,492.6 SF
-  Area Discrepancy:    -1.5 SF (0.02%)
+  Raw Polygon Area:    9,116.9 SF
+  Curve Adjustments:   +187.9 SF
+  Net Computed Area:   9,304.7 SF (0.2136 Acres)
+  Target Stated Area:  9,304.7 SF
+  Area Discrepancy:    +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
 ================================================================================
 
@@ -2035,7 +2036,7 @@ PARCEL AREA AUDIT:
   Curve Adjustments:   +0.0 SF
   Net Computed Area:   7,500.0 SF (0.1722 Acres)
   Target Stated Area:  7,500.0 SF
-  Area Discrepancy:    -0.0 SF (0.00%)
+  Area Discrepancy:    +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
 ================================================================================
 
@@ -2063,7 +2064,7 @@ PARCEL AREA AUDIT:
   Curve Adjustments:   +0.0 SF
   Net Computed Area:   7,500.0 SF (0.1722 Acres)
   Target Stated Area:  7,500.0 SF
-  Area Discrepancy:    +0.0 SF (0.00%)
+  Area Discrepancy:    -0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
 ================================================================================
 
@@ -2182,63 +2183,68 @@ FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 C
 ================================================================================
   SURVEY MAPCHECK AUDIT: Blk15-Lot1 (Block 15, Lot 1)
 ================================================================================
-Target Stated Area: 14,520.0 SF (0.3333 Acres)
+Target Stated Area: 12,444.6 SF (0.2857 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To             | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | B15_L1_NW -> B15_L2_NW | N72°42'01.05"E | 157.29         | CURVE   
-         Curve -> R: 137.95' | Arc: 157.29' | Delta: 65°19'35" | Chord: 148.90'
-                  Tangent: 88.44' | Mid-Ord: 21.82' | Seg Area: 2202.4 SF
-                  Plat Stated -> Stated Arc: 157.29' | Stated Delta: 65°19'35"
-2        | B15_L2_NW -> B15_L2_SW | S02°24'38.52"E | 81.03          | LINE    
-3        | B15_L2_SW -> B15_L1_SW | S35°18'20.00"W | 79.20          | LINE    
-4        | B15_L1_SW -> B15_L1_MW | N54°41'40.00"W | 115.00         | LINE    
-5        | B15_L1_MW -> B15_L1_NW | N09°41'40.00"W | 35.36          | LINE    
+1        | B15_L1_SW -> B15_L1_CR_PC | N54°41'40.00"W | 90.00          | LINE    
+2        | B15_L1_CR_PC -> B15_L1_SH_PC | N09°41'40.00"W | 39.27          | CURVE   
+         Curve -> R: 25.00' | Arc: 39.27' | Delta: 90°00'00" | Chord: 35.36'
+                  Tangent: 25.00' | Mid-Ord: 7.32' | Seg Area: 178.4 SF
+                  Plat Stated -> Stated Arc: 39.27' | Stated Delta: 90°00'00"
+3        | B15_L1_SH_PC -> B15_L1_SH_PT | N61°26'55.00"E | 125.89         | CURVE   
+         Curve -> R: 137.95' | Arc: 125.89' | Delta: 52°17'10" | Chord: 121.57'
+                  Tangent: 67.71' | Mid-Ord: 14.11' | Seg Area: 1156.0 SF
+                  Plat Stated -> Stated Arc: 125.89' | Stated Delta: 52°17'10"
+4        | B15_L1_SH_PT -> B15_L2_NW | N87°35'30.00"E | 15.00          | LINE    
+5        | B15_L2_NW -> B15_L2_SW | S02°24'38.52"E | 81.03          | LINE    
+6        | B15_L2_SW -> B15_L1_SW | S35°18'20.30"W | 79.21          | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & STATISTICAL PRECISION:
-  Total Perimeter:     467.87 ft
+  Total Perimeter:     430.39 ft
   Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
   Linear Misclose:     0.00000 ft
   Relative Precision:  EXACT (0.000 ft)
   F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
   Traverse Status:     CLOSED
 PARCEL AREA AUDIT:
-  Raw Polygon Area:    12,811.8 SF
-  Curve Adjustments:   +2,202.4 SF
-  Net Computed Area:   15,014.2 SF (0.3447 Acres)
-  Target Stated Area:  14,520.0 SF
-  Area Discrepancy:    +494.2 SF (3.40%)
+  Raw Polygon Area:    11,110.2 SF
+  Curve Adjustments:   +1,334.4 SF
+  Net Computed Area:   12,444.6 SF (0.2857 Acres)
+  Target Stated Area:  12,444.6 SF
+  Area Discrepancy:    +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
 ================================================================================
 
 ================================================================================
   SURVEY MAPCHECK AUDIT: Blk15-Lot10 (Block 15, Lot 10)
 ================================================================================
-Target Stated Area: 9,192.6 SF (0.2110 Acres)
+Target Stated Area: 9,024.4 SF (0.2072 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To             | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
 1        | B15_L10_NW -> B15_L10_NE | N87°35'30.00"E | 92.99          | LINE    
-2        | B15_L10_NE -> B15_L10_SE | S02°24'30.00"E | 100.05         | CURVE   
-         Curve -> R: 1959.86' | Arc: 100.05' | Delta: 2°55'30" | Chord: 100.04'
-                  Tangent: 50.04' | Mid-Ord: 0.64' | Seg Area: 42.6 SF
-                  Plat Stated -> Stated Arc: 100.04'
-3        | B15_L10_SE -> B15_L10_SW | S87°35'30.00"W | 90.00          | LINE    
-4        | B15_L10_SW -> B15_L10_NW | N04°07'13.02"W | 100.08         | LINE    
+2        | B15_L10_NE -> B15_L10_PC | S00°41'45.97"E | 75.78          | LINE    
+3        | B15_L10_PC -> B15_L10_PT | S43°26'55.00"W | 38.52          | CURVE   
+         Curve -> R: 25.00' | Arc: 38.52' | Delta: 88°17'10" | Chord: 34.82'
+                  Tangent: 24.26' | Mid-Ord: 7.06' | Seg Area: 169.2 SF
+                  Plat Stated -> Stated Arc: 38.52' | Stated Delta: 88°17'10"
+4        | B15_L10_PT -> B15_L10_SW | S87°35'30.00"W | 65.74          | LINE    
+5        | B15_L10_SW -> B15_L10_NW | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & STATISTICAL PRECISION:
-  Total Perimeter:     383.13 ft
+  Total Perimeter:     373.03 ft
   Closure Vector:      dN = +0.00000 ft, dE = -0.00000 ft
   Linear Misclose:     0.00000 ft
   Relative Precision:  EXACT (0.000 ft)
   F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
   Traverse Status:     CLOSED
 PARCEL AREA AUDIT:
-  Raw Polygon Area:    9,153.2 SF
-  Curve Adjustments:   +42.6 SF
-  Net Computed Area:   9,195.7 SF (0.2111 Acres)
-  Target Stated Area:  9,192.6 SF
-  Area Discrepancy:    +3.1 SF (0.03%)
+  Raw Polygon Area:    8,855.3 SF
+  Curve Adjustments:   +169.2 SF
+  Net Computed Area:   9,024.5 SF (0.2072 Acres)
+  Target Stated Area:  9,024.4 SF
+  Area Discrepancy:    +0.1 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
 ================================================================================
 
@@ -2250,23 +2256,23 @@ Target Stated Area: 7,500.0 SF (0.1722 Acres)
 Course   | From -> To             | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
 1        | B15_L11_NW -> B15_L10_NW | N87°35'30.00"E | 75.00          | LINE    
-2        | B15_L10_NW -> B15_L10_SW | S04°07'13.02"E | 100.08         | LINE    
+2        | B15_L10_NW -> B15_L10_SW | S02°24'30.00"E | 100.00         | LINE    
 3        | B15_L10_SW -> B15_L11_SW | S87°35'30.00"W | 75.00          | LINE    
-4        | B15_L11_SW -> B15_L11_NW | N04°07'13.02"W | 100.08         | LINE    
+4        | B15_L11_SW -> B15_L11_NW | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & STATISTICAL PRECISION:
-  Total Perimeter:     350.17 ft
+  Total Perimeter:     350.00 ft
   Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
   Linear Misclose:     0.00000 ft
   Relative Precision:  EXACT (0.000 ft)
   F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
   Traverse Status:     CLOSED
 PARCEL AREA AUDIT:
-  Raw Polygon Area:    7,503.0 SF
+  Raw Polygon Area:    7,500.0 SF
   Curve Adjustments:   +0.0 SF
-  Net Computed Area:   7,503.0 SF (0.1722 Acres)
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
   Target Stated Area:  7,500.0 SF
-  Area Discrepancy:    +3.0 SF (0.04%)
+  Area Discrepancy:    -0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
 ================================================================================
 
@@ -2278,23 +2284,23 @@ Target Stated Area: 7,500.0 SF (0.1722 Acres)
 Course   | From -> To             | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
 1        | B15_L12_NW -> B15_L11_NW | N87°35'30.00"E | 75.00          | LINE    
-2        | B15_L11_NW -> B15_L11_SW | S04°07'13.02"E | 100.08         | LINE    
+2        | B15_L11_NW -> B15_L11_SW | S02°24'30.00"E | 100.00         | LINE    
 3        | B15_L11_SW -> B15_L12_SW | S87°35'30.00"W | 75.00          | LINE    
-4        | B15_L12_SW -> B15_L12_NW | N04°07'13.02"W | 100.08         | LINE    
+4        | B15_L12_SW -> B15_L12_NW | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & STATISTICAL PRECISION:
-  Total Perimeter:     350.17 ft
+  Total Perimeter:     350.00 ft
   Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
   Linear Misclose:     0.00000 ft
   Relative Precision:  EXACT (0.000 ft)
   F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
   Traverse Status:     CLOSED
 PARCEL AREA AUDIT:
-  Raw Polygon Area:    7,503.0 SF
+  Raw Polygon Area:    7,500.0 SF
   Curve Adjustments:   +0.0 SF
-  Net Computed Area:   7,503.0 SF (0.1722 Acres)
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
   Target Stated Area:  7,500.0 SF
-  Area Discrepancy:    +3.0 SF (0.04%)
+  Area Discrepancy:    +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
 ================================================================================
 
@@ -2306,23 +2312,23 @@ Target Stated Area: 7,500.0 SF (0.1722 Acres)
 Course   | From -> To             | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
 1        | B15_L13_NW -> B15_L12_NW | N87°35'30.00"E | 75.00          | LINE    
-2        | B15_L12_NW -> B15_L12_SW | S04°07'13.02"E | 100.08         | LINE    
+2        | B15_L12_NW -> B15_L12_SW | S02°24'30.00"E | 100.00         | LINE    
 3        | B15_L12_SW -> B15_L13_SW | S87°35'30.00"W | 75.00          | LINE    
-4        | B15_L13_SW -> B15_L13_NW | N04°07'13.02"W | 100.08         | LINE    
+4        | B15_L13_SW -> B15_L13_NW | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & STATISTICAL PRECISION:
-  Total Perimeter:     350.17 ft
+  Total Perimeter:     350.00 ft
   Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
   Linear Misclose:     0.00000 ft
   Relative Precision:  EXACT (0.000 ft)
   F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
   Traverse Status:     CLOSED
 PARCEL AREA AUDIT:
-  Raw Polygon Area:    7,503.0 SF
+  Raw Polygon Area:    7,500.0 SF
   Curve Adjustments:   +0.0 SF
-  Net Computed Area:   7,503.0 SF (0.1722 Acres)
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
   Target Stated Area:  7,500.0 SF
-  Area Discrepancy:    +3.0 SF (0.04%)
+  Area Discrepancy:    +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
 ================================================================================
 
@@ -2334,141 +2340,146 @@ Target Stated Area: 7,500.0 SF (0.1722 Acres)
 Course   | From -> To             | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
 1        | B15_L14_NW -> B15_L13_NW | N87°35'30.00"E | 75.00          | LINE    
-2        | B15_L13_NW -> B15_L13_SW | S04°07'13.02"E | 100.08         | LINE    
+2        | B15_L13_NW -> B15_L13_SW | S02°24'30.00"E | 100.00         | LINE    
 3        | B15_L13_SW -> B15_L14_SW | S87°35'30.00"W | 75.00          | LINE    
-4        | B15_L14_SW -> B15_L14_NW | N04°07'13.02"W | 100.08         | LINE    
+4        | B15_L14_SW -> B15_L14_NW | N02°24'30.00"W | 100.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & STATISTICAL PRECISION:
-  Total Perimeter:     350.17 ft
+  Total Perimeter:     350.00 ft
   Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
   Linear Misclose:     0.00000 ft
   Relative Precision:  EXACT (0.000 ft)
   F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
   Traverse Status:     CLOSED
 PARCEL AREA AUDIT:
-  Raw Polygon Area:    7,503.0 SF
+  Raw Polygon Area:    7,500.0 SF
   Curve Adjustments:   +0.0 SF
-  Net Computed Area:   7,503.0 SF (0.1722 Acres)
+  Net Computed Area:   7,500.0 SF (0.1722 Acres)
   Target Stated Area:  7,500.0 SF
-  Area Discrepancy:    +3.0 SF (0.04%)
+  Area Discrepancy:    +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
 ================================================================================
 
 ================================================================================
   SURVEY MAPCHECK AUDIT: Blk15-Lot15 (Block 15, Lot 15)
 ================================================================================
-Target Stated Area: 9,050.0 SF (0.2078 Acres)
+Target Stated Area: 7,829.1 SF (0.1797 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To             | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | B15_L15_NW -> B15_L14_NW | N87°00'30.93"E | 84.14          | LINE    
-2        | B15_L14_NW -> B15_L14_SW | S04°07'13.02"E | 100.08         | LINE    
-3        | B15_L14_SW -> B15_L15_SW | S75°05'30.00"W | 75.89          | CURVE   
-         Curve -> R: 173.93' | Arc: 75.89' | Delta: 24°59'59" | Chord: 75.29'
-                  Tangent: 38.56' | Mid-Ord: 4.12' | Seg Area: 207.4 SF
-                  Plat Stated -> Stated Arc: 75.89' | Stated Delta: 24°59'59"
-4        | B15_L15_SW -> B15_L15_NW | N09°08'07.00"W | 116.28         | LINE    
+1        | B15_L15_NW -> B15_L14_NW | N87°35'30.00"E | 75.00          | LINE    
+2        | B15_L14_NW -> B15_L14_SW | S02°24'30.00"E | 100.00         | LINE    
+3        | B15_L14_SW -> B15_L15_SW | S75°06'06.17"W | 75.90          | CURVE   
+         Curve -> R: 173.93' | Arc: 75.90' | Delta: 25°00'10" | Chord: 75.30'
+                  Tangent: 38.56' | Mid-Ord: 4.12' | Seg Area: 207.5 SF
+                  Plat Stated -> Stated Arc: 75.89' | Stated Delta: 25°00'00"
+4        | B15_L15_SW -> B15_L15_NW | N03°08'21.01"W | 116.29         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & STATISTICAL PRECISION:
-  Total Perimeter:     376.40 ft
+  Total Perimeter:     367.19 ft
   Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
   Linear Misclose:     0.00000 ft
   Relative Precision:  EXACT (0.000 ft)
   F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
   Traverse Status:     CLOSED
 PARCEL AREA AUDIT:
-  Raw Polygon Area:    8,564.9 SF
-  Curve Adjustments:   -207.4 SF
-  Net Computed Area:   8,357.5 SF (0.1919 Acres)
-  Target Stated Area:  9,050.0 SF
-  Area Discrepancy:    -692.5 SF (7.65%)
+  Raw Polygon Area:    8,036.5 SF
+  Curve Adjustments:   -207.5 SF
+  Net Computed Area:   7,829.0 SF (0.1797 Acres)
+  Target Stated Area:  7,829.1 SF
+  Area Discrepancy:    -0.1 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
 ================================================================================
 
 ================================================================================
   SURVEY MAPCHECK AUDIT: Blk15-Lot16 (Block 15, Lot 16)
 ================================================================================
-Target Stated Area: 8,920.0 SF (0.2048 Acres)
+Target Stated Area: 9,777.0 SF (0.2244 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To             | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | B15_L16_NW -> B15_L15_NW | N88°05'41.29"E | 63.18          | LINE    
-2        | B15_L15_NW -> B15_L15_SW | S09°08'07.00"E | 116.28         | LINE    
-3        | B15_L15_SW -> B15_L16_SW | S48°56'55.00"W | 83.24          | CURVE   
-         Curve -> R: 173.93' | Arc: 83.24' | Delta: 27°25'17" | Chord: 82.45'
-                  Tangent: 42.43' | Mid-Ord: 4.96' | Seg Area: 273.2 SF
-                  Plat Stated -> Stated Arc: 83.24' | Stated Delta: 27°25'17"
-4        | B15_L16_SW -> B15_L16_NW | N06°38'32.00"W | 167.98         | LINE    
+1        | B15_L16_NW -> B15_L15_NW | N87°35'30.00"E | 75.00          | LINE    
+2        | B15_L15_NW -> B15_L15_SW | S03°08'21.01"E | 116.29         | LINE    
+3        | B15_L15_SW -> B15_L16_SW | S48°56'55.00"W | 82.83          | CURVE   
+         Curve -> R: 173.93' | Arc: 82.83' | Delta: 27°17'10" | Chord: 82.05'
+                  Tangent: 42.22' | Mid-Ord: 4.91' | Seg Area: 269.2 SF
+                  Plat Stated -> Stated Arc: 82.83' | Stated Delta: 27°17'10"
+4        | B15_L16_SW -> B15_L16_NW | N06°38'26.99"W | 167.98         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & STATISTICAL PRECISION:
-  Total Perimeter:     430.68 ft
+  Total Perimeter:     442.11 ft
   Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
   Linear Misclose:     0.00000 ft
   Relative Precision:  EXACT (0.000 ft)
   F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
   Traverse Status:     CLOSED
 PARCEL AREA AUDIT:
-  Raw Polygon Area:    9,357.4 SF
-  Curve Adjustments:   -273.2 SF
-  Net Computed Area:   9,084.2 SF (0.2085 Acres)
-  Target Stated Area:  8,920.0 SF
-  Area Discrepancy:    +164.2 SF (1.84%)
+  Raw Polygon Area:    10,046.2 SF
+  Curve Adjustments:   -269.2 SF
+  Net Computed Area:   9,777.0 SF (0.2244 Acres)
+  Target Stated Area:  9,777.0 SF
+  Area Discrepancy:    -0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
 ================================================================================
 
 ================================================================================
   SURVEY MAPCHECK AUDIT: Blk15-Lot17 (Block 15, Lot 17)
 ================================================================================
-Target Stated Area: 14,550.0 SF (0.3340 Acres)
+Target Stated Area: 12,907.0 SF (0.2963 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To             | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | B15_L17_NW -> B15_L16_NW | S81°40'01.00"E | 40.46          | LINE    
-2        | B15_L16_NW -> B15_L16_SW | S06°38'32.00"E | 167.98         | LINE    
-3        | B15_L16_SW -> B15_L17_SW | N54°41'40.00"W | 125.00         | LINE    
-4        | B15_L17_SW -> B15_L17_NW | N22°57'03.40"E | 109.11         | LINE    
+1        | B15_L17_NW -> B15_L16_NW | N87°35'30.00"E | 40.46          | LINE    
+2        | B15_L16_NW -> B15_L16_SW | S06°38'26.99"E | 167.98         | LINE    
+3        | B15_L16_SW -> B15_L17_CR_PT | S35°18'20.00"W | 0.18           | LINE    
+4        | B15_L17_CR_PT -> B15_L17_CR_PC | S80°18'20.00"W | 39.27          | CURVE   
+         Curve -> R: 25.00' | Arc: 39.27' | Delta: 90°00'00" | Chord: 35.36'
+                  Tangent: 25.00' | Mid-Ord: 7.32' | Seg Area: 178.4 SF
+                  Plat Stated -> Stated Arc: 39.27' | Stated Delta: 90°00'00"
+5        | B15_L17_CR_PC -> B15_L18_SW | N54°41'40.00"W | 100.00         | LINE    
+6        | B15_L18_SW -> B15_L17_NW | N26°33'28.13"E | 126.84         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & STATISTICAL PRECISION:
-  Total Perimeter:     442.55 ft
+  Total Perimeter:     474.74 ft
   Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
   Linear Misclose:     0.00000 ft
   Relative Precision:  EXACT (0.000 ft)
   F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
   Traverse Status:     CLOSED
 PARCEL AREA AUDIT:
-  Raw Polygon Area:    9,944.4 SF
-  Curve Adjustments:   +0.0 SF
-  Net Computed Area:   9,944.4 SF (0.2283 Acres)
-  Target Stated Area:  14,550.0 SF
-  Area Discrepancy:    -4,605.6 SF (31.65%)
+  Raw Polygon Area:    12,728.7 SF
+  Curve Adjustments:   +178.4 SF
+  Net Computed Area:   12,907.0 SF (0.2963 Acres)
+  Target Stated Area:  12,907.0 SF
+  Area Discrepancy:    +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
 ================================================================================
 
 ================================================================================
   SURVEY MAPCHECK AUDIT: Blk15-Lot18 (Block 15, Lot 18)
 ================================================================================
-Target Stated Area: 9,450.0 SF (0.2169 Acres)
+Target Stated Area: 10,487.6 SF (0.2408 Acres)
 --------------------------------------------------------------------------------
 Course   | From -> To             | Bearing        | Distance (ft)  | Type    
 --------------------------------------------------------------------------------
-1        | B15_L18_NW -> B15_L17_NW | S72°13'55.74"E | 90.88          | LINE    
-2        | B15_L17_NW -> B15_L17_SW | S22°57'03.40"W | 109.11         | LINE    
-3        | B15_L17_SW -> B15_L18_SW | N54°41'40.00"W | 110.00         | LINE    
-4        | B15_L18_SW -> B15_L18_NW | N35°18'20.00"E | 79.20          | LINE    
+1        | B15_L1_SW -> B15_L2_SW | N35°18'20.30"E | 79.21          | LINE    
+2        | B15_L2_SW -> B15_L3_SW | S81°40'01.00"E | 101.78         | LINE    
+3        | B15_L3_SW -> B15_L18_SW | S26°33'28.13"W | 126.84         | LINE    
+4        | B15_L18_SW -> B15_L1_SW | N54°41'40.00"W | 110.00         | LINE    
 --------------------------------------------------------------------------------
 TRAVERSE CLOSURE & STATISTICAL PRECISION:
-  Total Perimeter:     389.19 ft
+  Total Perimeter:     417.83 ft
   Closure Vector:      dN = +0.00000 ft, dE = +0.00000 ft
   Linear Misclose:     0.00000 ft
   Relative Precision:  EXACT (0.000 ft)
   F.A.C. 5J-17 Standard: PASS (>= 1:10,000)
   Traverse Status:     CLOSED
 PARCEL AREA AUDIT:
-  Raw Polygon Area:    9,293.7 SF
+  Raw Polygon Area:    10,487.6 SF
   Curve Adjustments:   +0.0 SF
-  Net Computed Area:   9,293.7 SF (0.2134 Acres)
-  Target Stated Area:  9,450.0 SF
-  Area Discrepancy:    -156.3 SF (1.65%)
+  Net Computed Area:   10,487.6 SF (0.2408 Acres)
+  Target Stated Area:  10,487.6 SF
+  Area Discrepancy:    +0.0 SF (0.00%)
 FINAL VERDICT:         PASS - Certified Survey-Grade Lot Closure (F.A.C. 5J-17 Compliant)
 ================================================================================
 

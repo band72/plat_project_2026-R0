@@ -695,3 +695,11 @@ def test_two_curve_ids_share_one_arc():
     b = _lab(1, (600, 560), 0, [_alt("C4", 90)])
     A.associate([a, b], lw, 14.0)
     assert a.assoc and b.assoc
+
+
+def test_drawing_curve_label_with_arc_length_is_not_table():
+    lw = LW.Linework(lines=[LW.Line(np.array([0.0, 0.0]), np.array([400.0, 0.0]))], arcs=[])
+    labs = [_lab(0, (100, 600), 0, [_alt("C3:", 90)]), _lab(1, (180, 600), 0, [_alt("85.24'", 90)]),
+            _lab(2, (240, 600), 0, [_alt("1", 90)])]
+    A.mark_table_cells(labs, lw, 14.0)
+    assert labs[0].kind == "curve_id"

@@ -37,7 +37,7 @@ def test_intersections_count_and_keys(engine):
         "INT_MANGROVE_DEFL",
         "INT_BAYOU_MANGROVE",
         "INT_SURFWOOD_MANGROVE",
-        "INT_MANGROVE_SOUTH_END",
+        "INT_SURFWOOD_WEST_END",
         "INT_SURFWOOD_MATCHLINE",
         "INT_SANSALVADORE_PC",
         "INT_SANSALVADORE_PT",
@@ -122,7 +122,7 @@ def test_mangrove_avenue_continuity_and_deflection(engine):
 
 def test_red_lined_assumptions_categorization(engine):
     """Verify that all inferred or projected features are explicitly flagged in RED."""
-    assert len(engine.assumptions) >= 2
+    assert len(engine.assumptions) >= 1
 
     # Check that red assumptions are properly categorized
     assumption_types = [a["type"] for a in engine.assumptions]
@@ -136,15 +136,12 @@ def test_red_lined_assumptions_categorization(engine):
     assert "OPEN_ENDED_CULDESAC" not in assumption_types
 
     # Verify every assumed segment is flagged
-    # Only the not-yet-derived Sheet 1 corridors remain assumptions (Bayou, San Salvadore-Surfwood tie)
     assumed_segs = [s for s in engine.segments if s.is_assumed]
-    assert {s.id for s in assumed_segs} == {"SEG_ASSUMP_BAYOU_E"}
-    for s in assumed_segs:
-        assert s.is_assumed is True
+    assert len(assumed_segs) == 0
 
-    # Verify assumed intersections are flagged
+    # Verify assumed intersections are flagged (the 6 projected P.I. vertices)
     assumed_intx = [i for i in engine.intersections.values() if i.is_assumed]
-    assert len(assumed_intx) >= 3
+    assert len(assumed_intx) == 6
 
 
 def test_cad_dxf_export_and_audit(engine, tmp_path):
@@ -158,9 +155,9 @@ def test_cad_dxf_export_and_audit(engine, tmp_path):
     assert audit["entity_counts"]["circles"] == 0
     # Derived streets draw their R/W as trimmed polylines (cut at every opening and 25' return), so LINE entities are
     # only the boundary, ℄ segments, P.I. rays and the R/W offsets of not-yet-derived Sheet 1 streets.
-    assert audit["entity_counts"]["lines"] == 81
-    # 64 trimmed R/W pieces + 30 x 25' returns + ℄ curves (6) + alignments
-    assert audit["entity_counts"]["polylines"] == 108
+    assert audit["entity_counts"]["lines"] == 74
+    # 64 trimmed R/W pieces + 34 x 25' returns + ℄ curves (6) + alignments
+    assert audit["entity_counts"]["polylines"] == 118
     assert audit["entity_counts"]["texts"] > 0
 
 
@@ -220,7 +217,7 @@ def test_pi_tangents_rule2_derivation(engine):
         assert engine.intersections[pk].is_assumed is True
 
     # Rule 2 analytical formula verification: T = R * tan(Delta / 2)
-    for cid, c in engine.curves.items():
+    for _cid, c in engine.curves.items():
         t_calc = c.radius * math.tan(math.radians(c.delta_deg / 2.0))
         assert pytest.approx(c.tangent, abs=0.05) == t_calc
 
@@ -255,7 +252,6 @@ def test_boundary_tie_intersections(engine):
         "INT_STARFISH_WEST_END",
         "INT_MARINA_BOUNDARY",
         "INT_SURFWOOD_WEST_END",
-        "INT_MANGROVE_SOUTH_END",
         "INT_SURFWOOD_MATCHLINE",
         "INT_CAPEHORN_MATCHLINE",
         "INT_BAYOU_MATCHLINE",
@@ -278,12 +274,10 @@ def test_no_culdesac_keel_ends_at_marina(engine):
 def test_edge_row_bearing_hedge_and_lot_frontage_summations(engine):
     """Verify user rule: right-of-way edge bearing hedges, front lot bearings, and lot frontage summations."""
     # 1. Bayou Avenue Corridor
-    bayou_seg = next(s for s in engine.segments if s.id == "SEG_ASSUMP_BAYOU_E")
-    assert bayou_seg.is_assumed is True
-    assert bayou_seg.derivation_method == "FRONT_LOT_SUMMATION_APPROXIMATION"
+    bayou_seg = next(s for s in engine.segments if s.id == "SEG_BAYOU_MAIN")
+    assert bayou_seg.is_assumed is False
+    assert bayou_seg.derivation_method == "BOUNDARY_OFFSET_AND_TRIM"
     assert bayou_seg.front_lot_bearing == "N89°18'20\"E"
-    assert bayou_seg.summed_lot_frontages is not None
-    assert len(bayou_seg.summed_lot_frontages) >= 3
 
     # 2. Sands Avenue is derived from Mangrove (the old approach from Beachwood Blvd was not on the plat)
     assert not any(s.id == "SEG_ASSUMP_SANDS_APPROACH" for s in engine.segments)
@@ -404,7 +398,7 @@ def test_northeast_corridor_convergence_and_convergence_rate(engine):
     lot_depth = 100.04
     block_depth = 2 * lot_depth  # 200.08'
     rw_width = 60.00
-    cl_spacing = block_depth + rw_width  # 260.08' (approx 260.00')
+    assert pytest.approx(block_depth + rw_width, abs=0.01) == 260.08
 
     # Convergence rate per 100.04' lot depth:
     # tan(2°24'30") - tan(0°41'40") = 0.042054 - 0.012122 = 0.029932
@@ -449,3 +443,25 @@ def test_northeast_corridor_convergence_and_convergence_rate(engine):
 
 
 
+
+
+def test_validate_all_curves_detects_corruption():
+    """F9: the validator checks independent identities, so a corrupted curve must fail (it used to pass everything)."""
+    from engine.cogo import Point
+
+    def fresh():
+        return BeachwoodRoadCenterlineEngine(base_n=10000.0, base_e=10000.0)
+
+    e = fresh()
+    c = e.curves["C_KEEL_CL"]
+    c.pt_point = Point(c.pt_point.n + 0.15, c.pt_point.e)  # PT off the circle by 0.15'
+    assert e.validate_all_curves()["C_KEEL_CL"]["is_valid"] is False
+
+    e = fresh()
+    e.curves["C_MARINA_CL"].direction = "CCW"  # turn sense contradicts the PI
+    assert e.validate_all_curves()["C_MARINA_CL"]["is_valid"] is False
+
+    e = fresh()
+    c = e.curves["C_SANSALVADORE_CL"]
+    c.center_point = Point(2 * c.pc_point.n - c.center_point.n, 2 * c.pc_point.e - c.center_point.e)  # wrong side
+    assert e.validate_all_curves()["C_SANSALVADORE_CL"]["is_valid"] is False

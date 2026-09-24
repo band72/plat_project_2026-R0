@@ -742,19 +742,9 @@ def run_audit(strict: bool = False, json_path: str | None = None) -> int:
         print(
             f"   {r['id']:<30}{r['sum']:10.2f}{r['distance']:10.2f}{r['sum_minus_distance']:+10.2f}{lg:>15}  {r['plug'] or ''} {'<-- FAIL' if bad else ''}"
         )
-    print("   arithmetic inside the entries:")
-    sail = next(s for s in engine.segments if s.id == "SEG_SAIL_MAIN").summed_lot_frontages[0]
-    par = 68.50 + 7 * 75.00
-    print(
-        f"   [{_verdict(abs(par - sail['frontage_ft']) < 0.01)}] SEG_SAIL_MAIN Block 16 lots 1-8 entry {sail['frontage_ft']:.2f} vs its own note '68.50 straight + 7x75.00' = {par:.2f}"
-    )
-    n_fail += 0 if abs(par - sail["frontage_ft"]) < 0.01 else 1
-    lot1_arc = arc_len(167.95, D52)
-    print(
-        f"   [FAIL] SEG_ASSUMP_SHELLFISH_KEEL Block 15 lot 1 entry 153.25 = full CL arc L(R=167.95, 52°17'10\") = {lot1_arc:.2f};"
-        f" the plat's lot-side chord there is 121.56 (R~{121.56 / chord_len(1.0, D52):.2f}, i.e. 167.95-30), arc {arc_len(121.56 / chord_len(1.0, D52), D52):.2f}"
-    )
-    n_fail += 1
+    # (2026-09-24: the two hand-checked entries that used to be audited here -- SEG_SAIL_MAIN's "68.50 + 7x75" note
+    #  and SEG_ASSUMP_SHELLFISH_KEEL's 153.25' arc entry -- were removed with the fictitious geometry they described;
+    #  the remaining entries are reconciled segment by segment in the table above.)
 
     _hdr("G. parent-boundary curve c22 (R=894.08')")
     p = parent_boundary_c22(engine)

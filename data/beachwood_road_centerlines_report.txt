@@ -22,10 +22,9 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
 3. BOUNDARY-TO-CENTERLINE TIE NODES (PARALLEL OFFSETS & TRIMS)
    ----------------------------------------------------------------------
    • INT_MANGROVE_NORTH_END         | N= 10179.84', E=  9992.44' | Mangrove Ave & Sec 32 North Line (Subdivision Limit)
-   • INT_MANGROVE_SOUTH_END         | N=  7945.82', E= 10050.17' | Mangrove Ave & Plat South Limit
-   • INT_SURFWOOD_WEST_END          | N=  8223.59', E=  9865.16' | Surfwood Ave & West Boundary (Course 2)
-   • INT_SURFWOOD_MATCHLINE         | N=  8231.16', E= 10489.71' | Surfwood Ave & Unit One Matchline
-   • INT_BAYOU_MATCHLINE            | N=  8079.48', E= 10351.82' | Bayou Ave & Unit One Matchline (Course 8)
+   • INT_SURFWOOD_WEST_END          | N=  7963.42', E=  9869.82' | Surfwood Ave & West Boundary (Course 2)
+   • INT_SURFWOOD_MATCHLINE         | N=  7968.88', E= 10320.13' | Surfwood Ave & Unit One Line (Course 7)
+   • INT_BAYOU_MATCHLINE            | N=  8228.71', E= 10304.14' | Bayou Rd & Unit One Line (Course 9)
    • INT_SANSALVADORE_BOUNDARY      | N=  8500.51', E= 10342.30' | San Salvadore Ave & Unit One Line (Course 13)
    • INT_STARFISH_WEST_END          | N=  9992.44', E=  9820.16' | Starfish Ave & West Boundary (Course 1)
    • INT_MARINA_BOUNDARY            | N=  8998.26', E= 11058.34' | Marina Dr & Unit One Line (Course 20)
@@ -53,12 +52,11 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
    INT_DRAIN40_MANGROVE            9070.53   10029.99 EXPLICIT   40' Drainage R/W & Mangrove Ave
    INT_CAPEHORN_MANGROVE           8920.56   10032.68 EXPLICIT   Cape Horn Ave & Mangrove Ave
    INT_SANSALVADORE_MANGROVE       8611.61   10038.23 EXPLICIT   San Salvadore Ave & Mangrove Ave
-   INT_SURFWOOD_MANGROVE           8225.78   10045.15 EXPLICIT   Surfwood Ave & Mangrove Ave
-   INT_BAYOU_MANGROVE              8075.80   10047.84 EXPLICIT   Bayou Ave & Mangrove Ave
-   INT_MANGROVE_SOUTH_END          7945.82   10050.17 BOUNDARY   Mangrove Ave & Plat South Limit
-   INT_SURFWOOD_WEST_END           8223.59    9865.16 BOUNDARY   Surfwood Ave & West Boundary (Course 2)
-   INT_SURFWOOD_MATCHLINE          8231.16   10489.71 BOUNDARY   Surfwood Ave & Unit One Matchline
-   INT_BAYOU_MATCHLINE             8079.48   10351.82 BOUNDARY   Bayou Ave & Unit One Matchline (Course 8)
+   INT_BAYOU_MANGROVE              8225.57   10045.15 EXPLICIT   Bayou Rd & Mangrove Ave
+   INT_SURFWOOD_MANGROVE           7965.60   10049.81 EXPLICIT   Surfwood Ave & Mangrove Ave (Mangrove ends)
+   INT_SURFWOOD_WEST_END           7963.42    9869.82 BOUNDARY   Surfwood Ave & West Boundary (Course 2)
+   INT_SURFWOOD_MATCHLINE          7968.88   10320.13 BOUNDARY   Surfwood Ave & Unit One Line (Course 7)
+   INT_BAYOU_MATCHLINE             8228.71   10304.14 BOUNDARY   Bayou Rd & Unit One Line (Course 9)
    INT_SANSALVADORE_PC             8612.59   10093.22 EXPLICIT   San Salvadore Avenue ℄ Curve P.C.
    INT_SANSALVADORE_PT             8562.99   10254.08 EXPLICIT   San Salvadore Avenue ℄ Curve P.T.
    INT_SANSALVADORE_BOUNDARY       8500.51   10342.30 BOUNDARY   San Salvadore Ave & Unit One Line (Course 13)
@@ -136,6 +134,10 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
    F_MARINA_KEEL_S                  90°00'00"  25.000  39.270  35.355 N9°41'40"W    9162.056 / 10878.966  (S: Block 6 Lot 6 W)
    F_SANSALVADORE_MANGROVE_NE       90°00'00"  25.000  39.270  35.355 N46°01'40"W   8642.140 / 10067.682  (NE: Block 9 Lot 26 SW)
    F_SANSALVADORE_MANGROVE_SE       90°00'00"  25.000  39.270  35.355 N43°58'20"E   8582.149 / 10068.759  (SE: Block 12 Lot 8 NW)
+   F_BAYOU_MANGROVE_NE              89°40'00"  24.855  39.124  35.252 N45°51'40"W   8255.932 / 10074.611  (NE: Block 12 Lot 5 SW)
+   F_BAYOU_MANGROVE_SE              90°20'00"  25.146  39.415  35.458 N44°08'20"E   8195.941 / 10075.687  (SE: Block 11 Lot 15 NW)
+   F_SURFWOOD_MANGROVE_NE           89°40'00"  24.855  39.124  35.252 N45°51'40"W   7995.962 / 10079.275  (NE: Block 11 Lot 14 SW)
+   F_SURFWOOD_MANGROVE_NW           90°20'00"  25.146  39.415  35.458 S44°08'20"W   7995.235 / 10019.278  (NW: Block 13 Lot 11 SE)
 
 6c. INDEPENDENT PLAT CHECKS ON THE DERIVED GEOMETRY (engine/centerline_geometry.py)
    ----------------------------------------------------------------------
@@ -212,6 +214,15 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
    [PASS] San Salvadore Avenue S edge: printed chord bearings close on ℄ Δ (arc-seconds) resid +0.000'  (Δ = 36°20'00")
    [PASS] San Salvadore Avenue ℄ passes through the midpoint of its boundary crossing c13 (77.88') resid -0.012'  (caption course)
    [PASS] San Salvadore diagonal ℄ is 260' SW of Cape Horn diagonal ℄ (Blk 9: 100 + 100 + 2x30) resid +0.017'  (Sheet 1 Block 9 lot depths)
+   [PASS] Surfwood N R/W: boundary c3 + 60' vs Blk 12/11 lot sums down Mangrove E R/W (offset) resid -0.011'  (Blk 12 Lots 8-5 + Bayou 60' + Blk 11 Lots 15/14)
+   [PASS] Surfwood width on west boundary c2                                 resid -0.009'  (Sheet 1 '60.01'')
+   [PASS] Surfwood Avenue ℄ passes through the midpoint of its boundary crossing c7 (60.16') resid -0.004'  (caption course)
+   [PASS] Bayou Road ℄ passes through the midpoint of its boundary crossing c9 (67.09') resid -0.005'  (caption course)
+   [PASS] Boundary c8 (Block 11 east side, 200') starts on Surfwood N R/W    resid -0.007'  (caption c7/c8)
+   [PASS] Boundary c8 ends on Bayou S R/W                                    resid +0.000'  (caption c8/c9)
+   [PASS] Block 11 Bayou frontage: Mangrove E R/W corner to c8 end (93.83 + 75 + 75) resid -0.001'  (Sheet 1 Block 11 Lots 15-17)
+   [PASS] Block 11 Surfwood frontage: Mangrove E R/W corner to c8 start (92.67 + 75 + 75) resid -0.005'  (Sheet 1 Block 11 Lots 14-12)
+   [PASS] Block 10 Surfwood frontage: c3 start to c7 start (50 + 98.01 + 4x75) resid +0.002'  (Sheet 1 Block 10 Lots 13-9)
    [PASS] Sands diagonal ℄ is 260' SW of Marina diagonal ℄ (Blk 7: 100 + 100 + 2x30) resid +0.026'  (Sheet 2 Block 7 lot depths (SW = right of SE travel = +))
    [PASS] Every 25' fillet joins trimmed R/W edges at both tangent points (unjoined: []) resid +0.000'  (R/W linework topology)
    [PASS] San Salvadore Ave ℄ T = R tan(Δ/2)                                 resid -0.006'  (℄ Curve Data block)
@@ -223,12 +234,7 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
 
 7. RED-LINED ASSUMPTIONS & FIELD RECOVERY PROTOCOLS
    ----------------------------------------------------------------------
-   [1] ASSUMP_BAYOU_CORRIDOR (Bayou Avenue Corridor) -- CORRIDOR_SUMMATION
-       Rationale:    Plat Sheet 1 shows 60' Bayou right-of-way corridor north of Block 10. Centerline bearing is hedged from Block 11 front lot bearing (N89°18'20"E) and distance approximated by summing Lots 15, 16, 17 frontages.
-       Summed Front: Block 11 Lots 15 (93.83'), 16 (75.00'), 17 (75.00') -> Total = 243.83' + 60.17' tie = 304.00'
-       Field Action: Locate iron pins at Block 11 Lot 17 NE corner on the matchline to verify exact Bayou right-of-way width and centerline alignment.
-
-   [2] ASSUMP_PI_TANGENT_EXTENSIONS (All 6 Curved Corridors) -- PI_TANGENTS_RULE2
+   [1] ASSUMP_PI_TANGENT_EXTENSIONS (All 6 Curved Corridors) -- PI_TANGENTS_RULE2
        Rationale:    Plat block corners carry L-shaped angle bar glyphs indicating boundary extension along tangents to P.I. rather than P.C. / P.T.
        Field Action: Verify field deflection angle Delta between tangents and confirm surveyor tangent distance T = R * tan(Delta/2).
 
@@ -242,18 +248,9 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
 
    Segment ID                   Street Name              Bearing Hedge   Dist (ft) Derivation Method
    ------------------------------------------------------------------------------------------
-   SEG_SURFWOOD_MAIN            Surfwood Avenue          N89°18'20"E        444.60 FRONT_LOT_SUMMATION_APPROXIMATION
-      -> Block 10 Lot 13: 98.01' (N89°18'20"E)
-      -> Block 10 Lot 12: 75.00' (N89°18'20"E)
-      -> Block 10 Lot 11: 75.00' (N89°18'20"E)
-      -> Block 10 Lot 10: 75.00' (N89°18'20"E)
-      -> Block 10 Lot 9: 75.00' (N89°18'20"E)
-      -> West Half-Width & Matchline Tie: 46.59' (N89°18'20"E)
-   SEG_ASSUMP_BAYOU_E           Bayou Avenue Corridor    N89°18'20"E        304.00 FRONT_LOT_SUMMATION_APPROXIMATION
-      -> Block 11 Lot 15: 93.83' (N89°18'20"E)
-      -> Block 11 Lot 16: 75.00' (N89°18'20"E)
-      -> Block 11 Lot 17: 75.00' (N89°18'20"E)
-      -> West R/W Half-Width & Matchline Tie: 60.17' (N89°18'20"E)
+   SEG_SURFWOOD_W               Surfwood Avenue          N89°18'20"E        180.00 BOUNDARY_OFFSET_AND_TRIM
+   SEG_SURFWOOD_MAIN            Surfwood Avenue          N89°18'20"E        270.34 BOUNDARY_OFFSET_AND_TRIM
+   SEG_BAYOU_MAIN               Bayou Road               N89°18'20"E        259.01 BOUNDARY_OFFSET_AND_TRIM
    SEG_SANSALVADORE_1           San Salvadore Avenue     N88°58'20"E         55.00 BOUNDARY_OFFSET_AND_TRIM
    SEG_SANSALVADORE_2           San Salvadore Avenue     S54°41'40"E        108.11 BOUNDARY_OFFSET_AND_TRIM
    SEG_STARFISH_MAIN            Starfish Avenue          N87°35'30"E       1400.95 BOUNDARY_OFFSET_AND_TRIM
@@ -298,20 +295,20 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
    It is the fundamental datum for roadway stationing, pavement cross-sections, utility
    routing, drainage profiles, and right-of-way setbacks. Never discard or replace with boundaries.
 
-   • Corridor: Mangrove Avenue (Total Length = 2234.91 ft)
+   • Corridor: Mangrove Avenue (Total Length = 2215.12 ft)
      Station        Distance Node / Intersection                      Coordinates
      --------------------------------------------------------------------------------
      0+00.00           0.00' Section 32 North Line (Subdivision Limit) (N=10179.84', E= 9992.44')
      1+80.00         180.00' Starfish Ave (Ground GPS Control Anchor) (N=10000.00', E=10000.00')
      4+40.00         440.00' Sail Ave                                 (N= 9740.23', E=10010.93')
-     7+00.00         700.00' South St                                 (N= 9480.46', E=10021.85')
+     7+00.00         700.00' Marina Dr (west leg)                     (N= 9480.46', E=10021.85')
      7+32.67         732.67' Bearing Deflection Point (1°22'50" Turn) (N= 9447.82', E=10023.22')
      9+60.02         960.02' Sands Ave                                (N= 9220.51', E=10027.30')
      11+10.02       1110.02' 40' Drainage R/W                         (N= 9070.53', E=10029.99')
      12+60.02       1260.02' Cape Horn Ave                            (N= 8920.56', E=10032.68')
-     19+54.91       1954.91' Surfwood Ave                             (N= 8225.78', E=10045.15')
-     21+04.91       2104.91' Bayou Ave Drainage Corridor              (N= 8075.80', E=10047.84')
-     22+34.91       2234.91' Plat South Limit (Course 5)              (N= 7945.82', E=10050.17')
+     15+69.02       1569.02' San Salvadore Ave                        (N= 8611.61', E=10038.23')
+     19+55.11       1955.11' Bayou Rd                                 (N= 8225.57', E=10045.15')
+     22+15.12       2215.12' Surfwood Ave (Mangrove ends; Block 10 south of it) (N= 7965.60', E=10049.81')
 
    • Corridor: Starfish Avenue (Total Length = 1580.95 ft)
      Station        Distance Node / Intersection                      Coordinates
@@ -335,12 +332,12 @@ Plat Book 30, Pages 82 (Sheet 1) & 82A (Sheet 2), Duval County, Florida
      9+14.76         914.76' Keel Drive Intersection (pending item 3) (N= 9154.91', E=10837.15')
      11+85.81       1185.81' Unit One Line (Course 20)                (N= 8998.26', E=11058.34')
 
-   • Corridor: Surfwood Avenue (Total Length = 624.60 ft)
+   • Corridor: Surfwood Avenue (Total Length = 450.34 ft)
      Station        Distance Node / Intersection                      Coordinates
      --------------------------------------------------------------------------------
-     0+00.00           0.00' West Boundary Line (Course 2)            (N= 8223.59', E= 9865.16')
-     1+80.00         180.00' Mangrove Ave (0°20' Skew Junction)       (N= 8225.78', E=10045.15')
-     6+24.60         624.60' Unit One Matchline (Course 6)            (N= 8231.16', E=10489.71')
+     0+00.00           0.00' West Boundary Line (Course 2)            (N= 7963.42', E= 9869.82')
+     1+80.00         180.00' Mangrove Ave (0°20' skew T-junction)     (N= 7965.60', E=10049.81')
+     4+50.34         450.34' Unit One Line (Course 7)                 (N= 7968.88', E=10320.13')
 
    • Corridor: Shellfish Drive (Total Length = 945.34 ft)
      Station        Distance Node / Intersection                      Coordinates

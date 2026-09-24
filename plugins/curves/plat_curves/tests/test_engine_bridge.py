@@ -301,17 +301,7 @@ _PROBES = A.validator_probe()
 
 @pytest.mark.parametrize(
     "label,detected",
-    [
-        pytest.param(
-            label,
-            detected,
-            marks=pytest.mark.xfail(
-                strict=True,
-                reason="F9: validate_all_curves (:1747-1779) compares stored L/T/C with formulas of the same R,delta",
-            ),
-        )
-        for label, detected in _PROBES
-    ],
+    _PROBES,  # F9 fixed 2026-09-24: validate_all_curves checks RP/PI/turn/plat identities, not itself
 )
 def test_validate_all_curves_flags_corrupted_curve(label, detected):
     assert detected, label
@@ -319,10 +309,7 @@ def test_validate_all_curves_flags_corrupted_curve(label, detected):
 
 @pytest.mark.parametrize(
     "cid",
-    _params(
-        dict.fromkeys((BLVD,), "F9: validator reports is_valid=True although PT is off the circle"),
-        A.CIDS,
-    ),
+    A.CIDS,
 )
 def test_validate_all_curves_verdict_agrees_with_pt_on_circle(cid):
     valid = _ENGINE.validate_all_curves()[cid]["is_valid"]

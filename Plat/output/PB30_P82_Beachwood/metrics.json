@@ -1,0 +1,126 @@
+{
+  "plat_id": "PB30_P82_Beachwood",
+  "source": "Plat/Duval_Plat_Book_30_Page_82-2.pdf (2 sheets)",
+  "boundary_courses": 27,
+  "boundary_closure_ft": 0.0417,
+  "network_checks_failing": 0,
+  "blocks_placed": {
+    "BLOCK_18": {
+      "worst_check_ft": 0.0,
+      "n_checks": 0,
+      "ok": true
+    },
+    "BLOCK_17": {
+      "worst_check_ft": 0.0,
+      "n_checks": 1,
+      "ok": true
+    },
+    "BLOCK_16": {
+      "worst_check_ft": 0.008,
+      "n_checks": 2,
+      "ok": true
+    },
+    "BLOCK_15": {
+      "worst_check_ft": 0.021,
+      "n_checks": 3,
+      "ok": true
+    },
+    "BLOCK_13": {
+      "worst_check_ft": 0.011,
+      "n_checks": 1,
+      "ok": true
+    },
+    "BLOCK_12": {
+      "worst_check_ft": 0.0,
+      "n_checks": 0,
+      "ok": true
+    },
+    "BLOCK_11": {
+      "worst_check_ft": 0.011,
+      "n_checks": 1,
+      "ok": true
+    },
+    "BLOCK_9": {
+      "worst_check_ft": 0.0,
+      "n_checks": 1,
+      "ok": true
+    }
+  },
+  "block_corner_checks": [
+    {
+      "block": "BLOCK_17",
+      "solver_point": "B17_PI_SW",
+      "fillet": "F_SAIL_MANGROVE_NE",
+      "location": "NE: Block 17 Lot 34 SW",
+      "residual_ft": 0.0
+    },
+    {
+      "block": "BLOCK_16",
+      "solver_point": "p33_sw_pi",
+      "fillet": "F_MARINA_MANGROVE_NE",
+      "location": "NE: Block 16 Lot 33 SW",
+      "residual_ft": 0.0
+    },
+    {
+      "block": "BLOCK_16",
+      "solver_point": "p29_ret_pi",
+      "fillet": "F_MARINA_SHELLFISH_N",
+      "location": "N: Block 16 Lot 29 S",
+      "residual_ft": 0.008
+    },
+    {
+      "block": "BLOCK_15",
+      "solver_point": "B15_L10_PI_SE",
+      "fillet": "F_KEEL_BEACHWOOD_NW",
+      "location": "NW: Block 15 Lot 10 SE",
+      "residual_ft": 0.004
+    },
+    {
+      "block": "BLOCK_15",
+      "solver_point": "B15_L1_PI_NW",
+      "fillet": "F_MARINA_SHELLFISH_S",
+      "location": "S: Block 15 Lot 1 W",
+      "residual_ft": 0.017
+    },
+    {
+      "block": "BLOCK_15",
+      "solver_point": "B15_L17_PI_SW",
+      "fillet": "F_MARINA_KEEL_N",
+      "location": "N: Block 15 Lot 17 S",
+      "residual_ft": 0.021
+    },
+    {
+      "block": "BLOCK_13",
+      "solver_point": "p1_pi_ne",
+      "fillet": "F_CAPEHORN_MANGROVE_SW",
+      "location": "SW: west block NE (Sheet 1)",
+      "residual_ft": 0.011
+    },
+    {
+      "block": "BLOCK_11",
+      "solver_point": "p14_sw",
+      "fillet": "F_SURFWOOD_MANGROVE_NE",
+      "location": "NE: Block 11 Lot 14 SW",
+      "residual_ft": 0.011
+    },
+    {
+      "block": "BLOCK_9",
+      "solver_point": "p26_pi",
+      "fillet": "F_SANSALVADORE_MANGROVE_NE",
+      "location": "NE: Block 9 Lot 26 SW",
+      "residual_ft": 0.0
+    }
+  ],
+  "lots_placed": 115,
+  "not_placed": {
+    "BLOCK_14": "solver models a 24-lot double row with a cul-de-sac; the plat's Block 14 is the 11-lot strip + Tract 'A' west of Mangrove Ave (Sheet 2) -- rebuild pending",
+    "BLOCK_10": "no labelled fillet P.I. in the street network yet (corner is on the plat boundary) -- anchor pending",
+    "BLOCK_6": "no solver yet (Sheet 2, east of Marina/Keel)",
+    "BLOCK_7": "no solver yet (Sheet 2, Marina/Sands)",
+    "BLOCK_8": "no solver yet (Sheet 2, Sands/Cape Horn)"
+  },
+  "outputs": [
+    "Plat/output/PB30_P82_Beachwood/PB0030_P0082_Beachwood_FullPlat_claude.dxf",
+    "Plat/output/PB30_P82_Beachwood/PB0030_P0082_Beachwood_FullPlat.png"
+  ]
+}

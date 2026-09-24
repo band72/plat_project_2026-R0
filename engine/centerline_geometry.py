@@ -861,6 +861,58 @@ def solve_network(origin: Pt = (10000.0, 10000.0)) -> CenterlineNetwork:
                   ss_w.edge("left"), AZ_SANDS_W, ms_e_line, (AZ_MANGROVE_S + 180.0) % 360))
     fil(fillet_at("F_SANSALVADORE_MANGROVE_SE", "INT_SANSALVADORE_MANGROVE", "SE: Block 12 Lot 8 NW",
                   ms_e_line, AZ_MANGROVE_S, ss_w.edge("right"), AZ_SANDS_W))
+    # Surfwood Ave & Bayou Rd (Sheet 1), both 60' on N89°18'20"E (20' off square to Mangrove's south leg).
+    # Surfwood: its S R/W is boundary course c3 (N89°18'20"E 50'), so the ℄ is c3 offset 30' north; it runs from c2
+    # to the Unit One line c7. Bayou: N R/W is Blk 12 Lots 8/7/6/5 (90 + 75 + 71.27 + 90) below San Salvadore's
+    # S R/W along Mangrove's E R/W; it runs to c9. Mangrove ends at Surfwood (Block 10 is continuous south of it).
+    az_sw = bearing_to_az("N89°18'20\"E")
+    surfwood = Street("SURFWOOD", "Surfwood Avenue", Line(bnd_line("c3").offset(30.0, "left").p, az_sw), 60.0,
+                      "S R/W = course c3; ℄ 30' north")
+    ss_s_corner = ss_w.edge("right").intersect(ms_e_line)
+    bayou_n = Line(_move(ss_s_corner, AZ_MANGROVE_S, 90.0 + 75.0 + 71.27 + 90.0), az_sw)
+    bayou = Street("BAYOU", "Bayou Road", bayou_n.offset(30.0, "right"), 60.0,
+                   "Mangrove E R/W: Blk 12 Lots 8/7/6/5 90+75+71.27+90 below San Salvadore S R/W, + 30'")
+    net.streets[surfwood.id] = surfwood
+    net.streets[bayou.id] = bayou
+    surf_n_east = _move(bayou.edge("right").intersect(ms_e_line), AZ_MANGROVE_S, 100.0 + 100.0)
+    chk(Check("Surfwood N R/W: boundary c3 + 60' vs Blk 12/11 lot sums down Mangrove E R/W (offset)",
+              surfwood.edge("left").signed_offset(surf_n_east), 0.0, "Blk 12 Lots 8-5 + Bayou 60' + Blk 11 Lots 15/14"))
+    chk(Check("Surfwood width on west boundary c2", _dist(surfwood.edge("left").intersect(bnd_line("c2")),
+              surfwood.edge("right").intersect(bnd_line("c2"))), 60.01, "Sheet 1 '60.01''", tol=0.01))
+    for cid, st_ in (("c7", surfwood), ("c9", bayou)):
+        c = bnd[cid]
+        mid = ((c["start"][0] + c["end"][0]) / 2.0, (c["start"][1] + c["end"][1]) / 2.0)
+        chk(Check(f"{st_.name} ℄ passes through the midpoint of its boundary crossing {cid} ({c['distance']}')",
+                  st_.centerline.signed_offset(mid), 0.0, "caption course"))
+    chk(Check("Boundary c8 (Block 11 east side, 200') starts on Surfwood N R/W",
+              surfwood.centerline.signed_offset(bnd["c8"]["start"]), -30.0, "caption c7/c8"))
+    chk(Check("Boundary c8 ends on Bayou S R/W", bayou.centerline.signed_offset(bnd["c8"]["end"]), 30.0,
+              "caption c8/c9"))
+    chk(Check("Block 11 Bayou frontage: Mangrove E R/W corner to c8 end (93.83 + 75 + 75)",
+              _dist(bayou.edge("right").intersect(ms_e_line), bnd["c8"]["end"]), 243.83, "Sheet 1 Block 11 Lots 15-17"))
+    chk(Check("Block 11 Surfwood frontage: Mangrove E R/W corner to c8 start (92.67 + 75 + 75)",
+              _dist(surfwood.edge("left").intersect(ms_e_line), bnd["c8"]["start"]), 242.67,
+              "Sheet 1 Block 11 Lots 14-12"))
+    chk(Check("Block 10 Surfwood frontage: c3 start to c7 start (50 + 98.01 + 4x75)",
+              _dist(bnd["c3"]["start"], bnd["c7"]["start"]), 50.0 + 98.01 + 4 * 75.0, "Sheet 1 Block 10 Lots 13-9"))
+    add_int("INT_BAYOU_MANGROVE", "Bayou Rd & Mangrove Ave", bayou, mangrove_s, "℄ x ℄")
+    add_int("INT_SURFWOOD_MANGROVE", "Surfwood Ave & Mangrove Ave (Mangrove ends)", surfwood, mangrove_s, "℄ x ℄")
+    add_int("INT_SURFWOOD_WEST_END", "Surfwood Ave & west boundary c2", surfwood, bnd_line("c2"), "course c2",
+            "CL_X_BOUNDARY")
+    add_int("INT_SURFWOOD_BOUNDARY", "Surfwood Ave ℄ & Unit One line (course c7)", surfwood, bnd_line("c7"),
+            "course c7", "CL_X_BOUNDARY")
+    add_int("INT_BAYOU_BOUNDARY", "Bayou Rd ℄ & Unit One line (course c9)", bayou, bnd_line("c9"), "course c9",
+            "CL_X_BOUNDARY")
+    ms_w_line = mangrove_s.edge("right")
+    MS_N = (AZ_MANGROVE_S + 180.0) % 360
+    fil(fillet_at("F_BAYOU_MANGROVE_NE", "INT_BAYOU_MANGROVE", "NE: Block 12 Lot 5 SW",
+                  bayou.edge("left"), az_sw, ms_e_line, MS_N))
+    fil(fillet_at("F_BAYOU_MANGROVE_SE", "INT_BAYOU_MANGROVE", "SE: Block 11 Lot 15 NW",
+                  ms_e_line, AZ_MANGROVE_S, bayou.edge("right"), az_sw))
+    fil(fillet_at("F_SURFWOOD_MANGROVE_NE", "INT_SURFWOOD_MANGROVE", "NE: Block 11 Lot 14 SW",
+                  surfwood.edge("left"), az_sw, ms_e_line, MS_N))
+    fil(fillet_at("F_SURFWOOD_MANGROVE_NW", "INT_SURFWOOD_MANGROVE", "NW: Block 13 Lot 11 SE",
+                  ms_w_line, MS_N, surfwood.edge("left"), (az_sw + 180.0) % 360))
     chk(Check("Sands diagonal ℄ is 260' SW of Marina diagonal ℄ (Blk 7: 100 + 100 + 2x30)",
               marina_diag.centerline.signed_offset(sands_c.pt), 260.0,
               "Sheet 2 Block 7 lot depths (SW = right of SE travel = +)"))
@@ -882,8 +934,6 @@ def solve_network(origin: Pt = (10000.0, 10000.0)) -> CenterlineNetwork:
             "CL_X_BOUNDARY")
     add_int("INT_MANGROVE_NORTH_END", "Mangrove Ave & north boundary c27", mangrove, c27, "course c27",
             "CL_X_BOUNDARY")
-    add_int("INT_MANGROVE_SOUTH_END", "Mangrove Ave & south line c5", mangrove_s, bnd_line("c5"), "course c5",
-            "CL_X_BOUNDARY")
 
     # -- 5e. R/W corridors and the trimmed R/W linework (edges cut at the 25' fillets and street openings)
     def cl(sid: str) -> Line:
@@ -898,7 +948,11 @@ def solve_network(origin: Pt = (10000.0, 10000.0)) -> CenterlineNetwork:
     drain_e_cl = drain_40.centerline.intersect(Line(drain_e, (AZ_SANDS_W + 90.0) % 360))
     cor = net.corridors.append
     cor(CorridorPiece("Mangrove Avenue", 30.0, P("INT_MANGROVE_NORTH_END"), defl, c27, bis))
-    cor(CorridorPiece("Mangrove Avenue", 30.0, defl, P("INT_MANGROVE_SOUTH_END"), bis, bnd_line("c5")))
+    cor(CorridorPiece("Mangrove Avenue", 30.0, defl, P("INT_SURFWOOD_MANGROVE"), bis, cl("SURFWOOD")))
+    cor(CorridorPiece("Surfwood Avenue", 30.0, P("INT_SURFWOOD_WEST_END"), P("INT_SURFWOOD_BOUNDARY"),
+                      bnd_line("c2"), bnd_line("c7")))
+    cor(CorridorPiece("Bayou Road", 30.0, P("INT_BAYOU_MANGROVE"), P("INT_BAYOU_BOUNDARY"), cl("MANGROVE_S"),
+                      bnd_line("c9")))
     cor(CorridorPiece("Starfish Avenue", 30.0, P("INT_STARFISH_WEST_END"), P("INT_STARFISH_BEACHWOOD"),
                       bnd_line("c1"), blvd.centerline))
     cor(CorridorPiece("Sail Avenue", 30.0, P("INT_SAIL_MANGROVE"), P("INT_SAIL_BEACHWOOD"), cl("MANGROVE_N"),

@@ -536,7 +536,10 @@ def mark_table_cells(labels, linework, char_h: float) -> int:
         # a table row has several numeric columns: >= 2 neighbours, >= 1 of
         # them another strong numeric read (a lone decimal among words is a
         # dimension that failed to associate, not a table cell)
-        if int(in_row.sum()) >= 2 and bool((in_row & strong).any()):
+        # a curve-table row carries several values (R, Δ, L, T, CH); a drawing
+        # label "C3: 85.24'" has just one beside it
+        need_strong = 2 if lab.kind == "curve_id" else 1
+        if int(in_row.sum()) >= 2 and int((in_row & strong).sum()) >= need_strong:
             lab.kind = "table"
             lab.assoc = {}
             n += 1

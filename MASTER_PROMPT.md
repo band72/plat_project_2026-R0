@@ -33,6 +33,90 @@ every time a new plat teaches us something the code didn't already handle.
   Table are typically exact and machine-checkable; freeform bearings scattered
   on the lot faces are transcribed with the same dataclasses).
 
+## Procedure: building a plat from scratch (MANDATORY order)
+
+This is the working procedure that produced the verified Beachwood Unit Two full plat
+(`scripts/plat_folder/build_beachwood_full.py`, 2026-09-24). Follow it in order for any new plat.
+Each step lists its gate: don't move on until the gate holds.
+
+### 1. Ingest the scan
+- Rasterize every sheet at 300 dpi: `pdftoppm -png -r 300 Plat/<file>.pdf temp_images/<id>`.
+  Very large sheets (>~50 in): cap the long edge at ~6000 px instead.
+- Check the sheet sequence ("SHEET n OF m", book/page header). If a page is missing or duplicated, stop and ask.
+- Make a small overview image (~1800 px wide) to locate blocks. Read every dimension from **full-resolution
+  crops** (~1500x1000 px), never from the overview.
+- **Gate:** every sheet is present and you know which block is on which sheet.
+
+### 2. Transcribe what's printed, and only that
+Record each value with its source (sheet, block, lot, crop):
+- **Caption** (metes and bounds): every course, bearing, distance, curve.
+- **Notes**: radius rules ("all radii not shown are 25'"), "distances at block corners are to street-line
+  intersections" (i.e. to the P.I.), whether bearings on curves are chords, easements, tracts.
+- **Street widths**, and the **℄ Curve Data** blocks (these are centerline values).
+- **Lot dimensions** per block: frontage, rear, sides, bearings, chords, P.R.M.s, and angle-bar glyphs at P.I.s.
+- A value you can't read is **flagged**, never guessed. The Block 12 Lots 8-10 jog is the example.
+- **Gate:** read the rows against each other. Front and rear totals of adjoining lot rows must agree.
+  On Beachwood Block 15, both rows sum to 583.45'. Printed widths should sum to the printed block totals.
+
+### 3. Boundary traverse
+- Walk the caption with `engine.cogo.run_traverse` from the P.O.B. Report the raw misclosure and
+  precision (F.A.C. 5J-17, 1:10,000). Balance only when the plat's own closure supports it, and say so.
+- **Gate:** misclosure is known and reported. Nothing is force-closed silently.
+
+### 4. Street network (`engine/centerline_geometry.py` pattern)
+- Centerlines come from the boundary and the printed widths. R/W lines sit at ±half-width. R/W curves are
+  concentric at R ± half-width (Shellfish S R/W = 167.95 - 30 = 137.95).
+- Every R/W corner gets a fillet (25' unless noted), with T = R·tan(Δ/2) from the actual deflection
+  (Rule 2). The P.I. is where the stated dimension ends.
+- Every derived line is checked against a second, independent plat value. Residuals get reported, not hidden.
+- **Gate:** all network checks pass (Beachwood: 90/90, boundary 0.042').
+
+### 5. One solver per block (`engine/cogo_block.py`)
+- Build the block in its own local frame from the **printed** lot dimensions only.
+- Corner returns go through `solve_corner_return(bearing_in, bearing_out, radius, stated_dim_*_to_pi)`.
+- Curves: `curve_specs={"side_N": ...}` joins vertex N-1 to vertex N. Walking the ring clockwise, `rot="CW"`
+  means the arc bulges out of the lot (segment area added) and `"CCW"` means it bulges in (subtracted).
+- The "stated" area is closed-form from record dimensions to the P.I.s, ± curve segments, minus fillets.
+  If the plat prints areas, use those instead.
+- Keep a `self.checks` dict: every printed line **not used** to construct the block, computed vs printed.
+  Street-curve chords are also checked through tangency: chord bearing ± Δ/2 must equal the adjoining
+  street bearings. That test exposed the wrong Δ on Block 15's Shellfish curve.
+- **Gate:** every lot closes, every check is within 0.05'. Anything worse is a plat inconsistency: flag it and
+  don't force the fit. Example: Block 15 Lot 16's printed chord is 82.45' but computes to 82.05'.
+
+### 6. Audit
+- Run the `review-plat-notes` skill (`engine/notes_audit.py`) on the solver.
+- Draw and report scripts must render **from the solver**. A second hand-built copy of the geometry is
+  how stale, wrong lots survived (the old `scripts/mapcheck_block15.py`).
+- **Gate:** the audit is clean, or each remaining flag is confirmed against the scan (e.g. a street-curve radius
+  flagged only because it isn't a 25'/30' corner return).
+
+### 7. Compose the full plat (`scripts/plat_folder/build_beachwood_full.py` pattern)
+- Place each block by **translation only**: match one printed block-corner P.I. to the same fillet P.I.
+  in the street network.
+- Every other labelled block corner is an independent check (tolerance 0.10'). A misfitting block goes on the red
+  `BLOCK-MISFIT` layer. Never rotate or shift a block to make it fit.
+- Blocks with no solver, or known-wrong ones, go in `NOT_PLACED` with the reason, so they show in the title and metrics.
+- **Gate:** every placed block checks within 0.10'. Beachwood: 8 blocks, worst 0.021'.
+
+### 8. Outputs
+- Write to `Plat/output/<plat_id>/`: `*_claude.dxf` (**every DXF name ends in `_claude`**), a PNG,
+  and `metrics.json` (closures, checks, flags, assumptions, what isn't placed).
+- DXF layers: BOUNDARY, ROW, CENTERLINE, FILLET, LOT, LOT-CURVE, BLOCK-MISFIT, LOT-TEXT, BLOCK-TEXT, TITLEBLOCK.
+- **Gate:** open the PNG next to the scan crop and compare by eye. Tests and closures can't catch a lot
+  drawn in the wrong shape.
+
+### 9. Regression and log
+- `python3 -m pytest -q`. Update snapshot totals only when the change is explained in the test comment.
+- Append an entry to `Plat/output/REFINEMENT_LOG.md`: what changed, before and after numbers, what's next.
+- Don't commit (the user commits via Antigravity).
+
+### Old plats with no bearings (e.g. Hicks, PB 4/85, 1912)
+- The orientation is an assumption: record it. Printed parcel acreages are the only redundancy, so check
+  every parcel's computed area against its stated acreage and flag anything off by more than ~5%.
+- Curved R/W lines with no curve data are fitted through the printed ties, and the fit residuals are reported.
+
+
 ## Permanent Cadastral Rules & Survey Mathematics (MANDATORY)
 
 ### Rule 1: Ground-Truthed Natural GPS Coordinates (Zero Artificial Offset Fudging)

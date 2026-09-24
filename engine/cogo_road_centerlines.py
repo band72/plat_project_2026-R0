@@ -583,200 +583,51 @@ class BeachwoodRoadCenterlineEngine:
                 notes=f"Mangrove Ave south leg to {street}",
             ))
             prev = q
-        p_last_s_leg_node = prev
-        # Legacy Surfwood station (defl + 1222.24') kept until the Surfwood item re-derives it.
-        p_legacy_s = p_mangrove_defl.offset(az_s_s, 220.00)
-
-        # Surfwood Avenue intersection: 1002.24' south along S01°01'40"E from Shellfish Dr
-        p_surfwood_mangrove = p_legacy_s.offset(az_s_s, 1002.24)
-        self.intersections["INT_SURFWOOD_MANGROVE"] = RoadIntersection(
-            id="INT_SURFWOOD_MANGROVE",
-            name="Surfwood Ave & Mangrove Ave",
-            point=p_surfwood_mangrove,
-            street_1="Surfwood Avenue",
-            street_2="Mangrove Avenue",
-            is_assumed=False,
-            notes="Centerline intersection; Surfwood Ave carries the 0°20' skew (N89°18'20\"E).",
-        )
-
-        self.segments.append(CenterlineSegment(
-            id="SEG_MANGROVE_S2",
-            street_name="Mangrove Avenue",
-            start_point=p_last_s_leg_node,
-            end_point=p_surfwood_mangrove,
-            bearing=self.brg_south_leg_s,
-            distance=p_last_s_leg_node.dist_to(p_surfwood_mangrove),
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Mangrove Ave South leg (San Salvadore Ave to Surfwood Ave; Surfwood station pending re-derivation)",
-        ))
-
-        # Bayou Avenue / Drainage corridor intersection: 150.00' south of Surfwood Ave
-        p_bayou_mangrove = p_surfwood_mangrove.offset(az_s_s, 150.00)
-        self.intersections["INT_BAYOU_MANGROVE"] = RoadIntersection(
-            id="INT_BAYOU_MANGROVE",
-            name="Bayou Ave & Mangrove Ave",
-            point=p_bayou_mangrove,
-            street_1="Bayou Avenue / Corridor",
-            street_2="Mangrove Avenue",
-            is_assumed=False,
-            notes="Intersection fronting Block 10 Bayou drainage easement.",
-        )
-
-        self.segments.append(CenterlineSegment(
-            id="SEG_MANGROVE_S3",
-            street_name="Mangrove Avenue",
-            start_point=p_surfwood_mangrove,
-            end_point=p_bayou_mangrove,
-            bearing=self.brg_south_leg_s,
-            distance=150.00,
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Mangrove Ave South leg (Surfwood Ave to Bayou corridor)",
-        ))
-
-        # Mangrove Avenue South Terminus: 130.00' south to Course 5 (South boundary line)
-        p_mangrove_south_end = p_bayou_mangrove.offset(az_s_s, 130.00)
-        self.intersections["INT_MANGROVE_SOUTH_END"] = RoadIntersection(
-            id="INT_MANGROVE_SOUTH_END",
-            name="Mangrove Ave & Plat South Limit",
-            point=p_mangrove_south_end,
-            street_1="Mangrove Avenue",
-            street_2="Plat South Limit (Course 5)",
-            is_assumed=False,
-            is_boundary_tie=True,
-            notes="South plat boundary tie to Course 5; terminus of Mangrove Avenue corridor.",
-        )
-
-        self.segments.append(CenterlineSegment(
-            id="SEG_MANGROVE_S4",
-            street_name="Mangrove Avenue",
-            start_point=p_bayou_mangrove,
-            end_point=p_mangrove_south_end,
-            bearing=self.brg_south_leg_s,
-            distance=130.00,
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Mangrove Ave South leg (Bayou corridor to Plat South boundary line)",
-        ))
+        # Mangrove continues to Bayou Rd and ends at Surfwood Ave (Block 10 is continuous south of Surfwood).
+        for iid, nm, street in (("INT_BAYOU_MANGROVE", "Bayou Rd & Mangrove Ave", "Bayou Road"),
+                                ("INT_SURFWOOD_MANGROVE", "Surfwood Ave & Mangrove Ave (Mangrove ends)",
+                                 "Surfwood Avenue")):
+            q = _dpt(iid)
+            self.intersections[iid] = RoadIntersection(
+                id=iid, name=nm, point=q, street_1=street, street_2="Mangrove Avenue", is_assumed=False,
+                notes=f"Derived: {derived.intersections[iid].source}.",
+            )
+            self.segments.append(CenterlineSegment(
+                id=f"SEG_MANGROVE_{iid.replace('INT_', '').replace('_MANGROVE', '')}",
+                street_name="Mangrove Avenue", start_point=prev, end_point=q, bearing=self.brg_south_leg_s,
+                distance=prev.dist_to(q), right_of_way_width=60.0, is_assumed=False,
+                notes=f"Mangrove Ave south leg to {street}",
+            ))
+            prev = q
 
         # ----------------------------------------------------------------------
-        # 4. SURFWOOD AVENUE (60' R/W) -- Parallel Offset from Course 5
+        # 4. SURFWOOD AVENUE & BAYOU ROAD (60' R/W, N89°18'20"E) -- derived
         # ----------------------------------------------------------------------
-        # Bearing N89°18'20"E, parallel to Course 5 (South line), offset North.
-        az_sw_e = parse_bearing(self.brg_surfwood_e)
-        az_sw_w = parse_bearing(self.brg_surfwood_w)
-
-        # West stub to Course 2 (West Boundary Line Leg 2)
-        p_surfwood_west_end = p_surfwood_mangrove.offset(az_sw_w, 180.00)
-        self.intersections["INT_SURFWOOD_WEST_END"] = RoadIntersection(
-            id="INT_SURFWOOD_WEST_END",
-            name="Surfwood Ave & West Boundary (Course 2)",
-            point=p_surfwood_west_end,
-            street_1="Surfwood Avenue",
-            street_2="West Boundary Line (Course 2)",
-            is_assumed=False,
-            is_boundary_tie=True,
-            notes="West boundary tie to Course 2.",
-        )
-
-        self.segments.append(CenterlineSegment(
-            id="SEG_SURFWOOD_W",
-            street_name="Surfwood Avenue",
-            start_point=p_surfwood_west_end,
-            end_point=p_surfwood_mangrove,
-            bearing=self.brg_surfwood_e,
-            distance=180.00,
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Surfwood Ave west stub connecting to Course 2 of outer boundary",
-        ))
-
-        # East run to Unit One Matchline (Course 6)
-        p_surfwood_matchline = p_surfwood_mangrove.offset(az_sw_e, 444.60)
-        self.intersections["INT_SURFWOOD_MATCHLINE"] = RoadIntersection(
-            id="INT_SURFWOOD_MATCHLINE",
-            name="Surfwood Ave & Unit One Matchline",
-            point=p_surfwood_matchline,
-            street_1="Surfwood Avenue",
-            street_2="Beachwood Unit One Matchline (Course 6)",
-            is_assumed=False,
-            is_boundary_tie=True,
-            notes="Centerline connection to Unit One matchline boundary (Course 6).",
-        )
-
-        self.segments.append(CenterlineSegment(
-            id="SEG_SURFWOOD_MAIN",
-            street_name="Surfwood Avenue",
-            start_point=p_surfwood_mangrove,
-            end_point=p_surfwood_matchline,
-            bearing=self.brg_surfwood_e,
-            distance=444.60,
-            right_of_way_width=60.0,
-            is_assumed=False,
-            notes="Surfwood Ave main straight centerline corridor fronting Block 11 and Block 12",
-            derivation_method="FRONT_LOT_SUMMATION_APPROXIMATION",
-            front_lot_bearing=self.brg_surfwood_e,
-            summed_lot_frontages=[
-                {"block": "10", "lot": "13", "frontage_ft": 98.01, "bearing": "N89°18'20\"E"},
-                {"block": "10", "lot": "12", "frontage_ft": 75.00, "bearing": "N89°18'20\"E"},
-                {"block": "10", "lot": "11", "frontage_ft": 75.00, "bearing": "N89°18'20\"E"},
-                {"block": "10", "lot": "10", "frontage_ft": 75.00, "bearing": "N89°18'20\"E"},
-                {"block": "10", "lot": "9", "frontage_ft": 75.00, "bearing": "N89°18'20\"E"},
-                {"component": "West Half-Width & Matchline Tie", "frontage_ft": 46.59, "bearing": "N89°18'20\"E"},
-            ],
-        ))
-
-        # ----------------------------------------------------------------------
-        # 4B. BAYOU AVENUE CORRIDOR (60' R/W) -- Inferred from Block 11 Lots 15-17
-        # ----------------------------------------------------------------------
-        # By Rule: "bearings along each edge of right of way generally are the same as
-        # the centerline... if you have no bearing, use a front lot bearing along the road.
-        # If you have no distances, add through the front of each lot to approximate. Just draw in red."
-        # Block 11 North Row (Lots 15, 16, 17) fronts Bayou Avenue (60' R/W) bearing N89°18'20"E.
-        # Front lot distances: Lot 15 = 93.83', Lot 16 = 75.00', Lot 17 = 75.00' -> Sum = 243.83'.
-        # With 30' west half-width and 30.17' tie to matchline (Course 8) -> Total distance = 304.00'.
-        p_bayou_matchline = p_bayou_mangrove.offset(az_sw_e, 304.00)
-        self.intersections["INT_BAYOU_MATCHLINE"] = RoadIntersection(
-            id="INT_BAYOU_MATCHLINE",
-            name="Bayou Ave & Unit One Matchline (Course 8)",
-            point=p_bayou_matchline,
-            street_1="Bayou Avenue Corridor",
-            street_2="Beachwood Unit One Matchline (Course 8)",
-            is_assumed=True,
-            is_boundary_tie=True,
-            notes="RED ASSUMPTION: Inferred Bayou Avenue centerline connecting Mangrove Ave to Unit One matchline.",
-        )
-
-        self.segments.append(CenterlineSegment(
-            id="SEG_ASSUMP_BAYOU_E",
-            street_name="Bayou Avenue Corridor",
-            start_point=p_bayou_mangrove,
-            end_point=p_bayou_matchline,
-            bearing=self.brg_surfwood_e,
-            distance=304.00,
-            right_of_way_width=60.0,
-            is_assumed=True,
-            notes="RED ASSUMPTION: Bayou Ave centerline derived by summing Block 11 Lots 15-17 frontages (93.83' + 75' + 75') and hedged R/W bearing N89°18'20\"E.",
-            derivation_method="FRONT_LOT_SUMMATION_APPROXIMATION",
-            front_lot_bearing=self.brg_surfwood_e,
-            summed_lot_frontages=[
-                {"block": "11", "lot": "15", "frontage_ft": 93.83, "bearing": "N89°18'20\"E"},
-                {"block": "11", "lot": "16", "frontage_ft": 75.00, "bearing": "N89°18'20\"E"},
-                {"block": "11", "lot": "17", "frontage_ft": 75.00, "bearing": "N89°18'20\"E"},
-                {"component": "West R/W Half-Width & Matchline Tie", "frontage_ft": 60.17, "bearing": "N89°18'20\"E"},
-            ],
-        ))
-        self.assumptions.append({
-            "id": "ASSUMP_BAYOU_CORRIDOR",
-            "type": "CORRIDOR_SUMMATION",
-            "street": "Bayou Avenue Corridor",
-            "feature": "Centerline connection from Mangrove Ave East to Unit One Matchline",
-            "color": "RED",
-            "rationale": "Plat Sheet 1 shows 60' Bayou right-of-way corridor north of Block 10. Centerline bearing is hedged from Block 11 front lot bearing (N89°18'20\"E) and distance approximated by summing Lots 15, 16, 17 frontages.",
-            "summed_lots": "Block 11 Lots 15 (93.83'), 16 (75.00'), 17 (75.00') -> Total = 243.83' + 60.17' tie = 304.00'",
-            "field_recommendation": "Locate iron pins at Block 11 Lot 17 NE corner on the matchline to verify exact Bayou right-of-way width and centerline alignment.",
-        })
+        # Surfwood: S R/W is boundary course c3, ℄ 30' north; c2 -> Mangrove -> Unit One line c7. Checked by the Blk
+        # 12/11 lot sums down Mangrove (0.011'), '60.01'' on c2, c7 midpoint (0.004'), Blk 11 (242.67) and Blk 10
+        # (448.01) frontages. Bayou: N R/W from Blk 12 Lots 8-5 (90+75+71.27+90); Mangrove -> c9 (midpoint 0.005',
+        # Blk 11 frontage 243.83, c8 endpoints on both R/Ws). The legacy engine had Surfwood and Bayou swapped.
+        for sid, street, keys, brg in (
+            ("SEG_SURFWOOD_W", "Surfwood Avenue", ("INT_SURFWOOD_WEST_END", "INT_SURFWOOD_MANGROVE"), "N89°18'20\"E"),
+            ("SEG_SURFWOOD_MAIN", "Surfwood Avenue", ("INT_SURFWOOD_MANGROVE", "INT_SURFWOOD_BOUNDARY"),
+             "N89°18'20\"E"),
+            ("SEG_BAYOU_MAIN", "Bayou Road", ("INT_BAYOU_MANGROVE", "INT_BAYOU_BOUNDARY"), "N89°18'20\"E"),
+        ):
+            pa, pb = _dpt(keys[0]), _dpt(keys[1])
+            self.segments.append(CenterlineSegment(
+                id=sid, street_name=street, start_point=pa, end_point=pb, bearing=brg, distance=pa.dist_to(pb),
+                right_of_way_width=60.0, is_assumed=False, notes=f"Derived {street} ℄ (engine/centerline_geometry.py)",
+                derivation_method="BOUNDARY_OFFSET_AND_TRIM", front_lot_bearing=brg,
+            ))
+        for iid, src, nm in (
+            ("INT_SURFWOOD_WEST_END", "INT_SURFWOOD_WEST_END", "Surfwood Ave & West Boundary (Course 2)"),
+            ("INT_SURFWOOD_MATCHLINE", "INT_SURFWOOD_BOUNDARY", "Surfwood Ave & Unit One Line (Course 7)"),
+            ("INT_BAYOU_MATCHLINE", "INT_BAYOU_BOUNDARY", "Bayou Rd & Unit One Line (Course 9)"),
+        ):
+            self.intersections[iid] = RoadIntersection(
+                id=iid, name=nm, point=_dpt(src), street_1=nm.split(" & ")[0], street_2=nm.split(" & ")[1],
+                is_assumed=False, is_boundary_tie=True, notes=f"Derived: {derived.intersections[src].source}.",
+            )
 
         # ----------------------------------------------------------------------
         # 5. SAN SALVADORE AVENUE (derived): W->E from Mangrove on N88°58'20"E, ℄ R=269.96' CW onto S54°41'40"E
@@ -1586,14 +1437,14 @@ class BeachwoodRoadCenterlineEngine:
             ("INT_MANGROVE_NORTH_END", "Section 32 North Line (Subdivision Limit)"),
             ("INT_STARFISH_MANGROVE", "Starfish Ave (Ground GPS Control Anchor)"),
             ("INT_SAIL_MANGROVE", "Sail Ave"),
-            ("INT_SOUTH_MANGROVE", "South St"),
+            ("INT_SOUTH_MANGROVE", "Marina Dr (west leg)"),
             ("INT_MANGROVE_DEFL", "Bearing Deflection Point (1°22'50\" Turn)"),
             ("INT_SANDS_MANGROVE", "Sands Ave"),
             ("INT_DRAIN40_MANGROVE", "40' Drainage R/W"),
             ("INT_CAPEHORN_MANGROVE", "Cape Horn Ave"),
-            ("INT_SURFWOOD_MANGROVE", "Surfwood Ave"),
-            ("INT_BAYOU_MANGROVE", "Bayou Ave Drainage Corridor"),
-            ("INT_MANGROVE_SOUTH_END", "Plat South Limit (Course 5)"),
+            ("INT_SANSALVADORE_MANGROVE", "San Salvadore Ave"),
+            ("INT_BAYOU_MANGROVE", "Bayou Rd"),
+            ("INT_SURFWOOD_MANGROVE", "Surfwood Ave (Mangrove ends; Block 10 south of it)"),
         ]
         alignments["MANGROVE_AVENUE"] = self._build_alignment("Mangrove Avenue", mangrove_keys)
 
@@ -1646,8 +1497,8 @@ class BeachwoodRoadCenterlineEngine:
         # 5. Surfwood Avenue Corridor
         surfwood_keys = [
             ("INT_SURFWOOD_WEST_END", "West Boundary Line (Course 2)"),
-            ("INT_SURFWOOD_MANGROVE", "Mangrove Ave (0°20' Skew Junction)"),
-            ("INT_SURFWOOD_MATCHLINE", "Unit One Matchline (Course 6)"),
+            ("INT_SURFWOOD_MANGROVE", "Mangrove Ave (0°20' skew T-junction)"),
+            ("INT_SURFWOOD_MATCHLINE", "Unit One Line (Course 7)"),
         ]
         alignments["SURFWOOD_AVENUE"] = self._build_alignment("Surfwood Avenue", surfwood_keys)
 

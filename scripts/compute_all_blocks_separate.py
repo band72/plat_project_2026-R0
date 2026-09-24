@@ -184,9 +184,11 @@ def run_all_blocks_separate() -> dict:
 
     # Save CAD DXF
     dxf_path = os.path.join(REPO_ROOT, "dxf", "PB0030_P0082_Beachwood_AllBlocks_Separate.dxf")
+    dxf_path_claude = os.path.join(REPO_ROOT, "dxf", "PB0030_P0082_Beachwood_AllBlocks_Separate_claude.dxf")
     os.makedirs(os.path.dirname(dxf_path), exist_ok=True)
     dxf.save(dxf_path)
-    print(f"Saved Master CAD DXF: {dxf_path}")
+    dxf.save(dxf_path_claude)
+    print(f"Saved Master CAD DXF: {dxf_path} and {dxf_path_claude}")
 
     # Audit DXF
     audit_res = dxf_audit(dxf_path)
@@ -207,19 +209,20 @@ def run_all_blocks_separate() -> dict:
     print(f"Saved Visual Drawing: {img_path}")
 
     # Mirror artifacts to antigravity ide brain directory if exists
-    brain_dir = "/home/artwalk/.gemini/antigravity-ide/brain/d7616d1f-70d8-48a8-ab10-a452483aaec2"
-    if os.path.exists(brain_dir):
-        import shutil
-        for src, name in [
-            (report_path, "beachwood_all_blocks_mapcheck_report.txt"),
-            (dxf_path, "PB0030_P0082_Beachwood_AllBlocks_Separate.dxf"),
-            (img_path, "beachwood_all_blocks_drawing.png"),
-        ]:
-            dst = os.path.join(brain_dir, name)
-            try:
-                shutil.copy2(src, dst)
-            except Exception:
-                pass
+    for b_id in ["80ef538d-3c95-48f6-9bb7-70644701321a", "d7616d1f-70d8-48a8-ab10-a452483aaec2"]:
+        b_dir = os.path.join("/home/artwalk/.gemini/antigravity-ide/brain", b_id)
+        if os.path.exists(b_dir):
+            import shutil
+            for src, name in [
+                (report_path, "beachwood_all_blocks_mapcheck_report.txt"),
+                (dxf_path, "PB0030_P0082_Beachwood_AllBlocks_Separate.dxf"),
+                (dxf_path_claude, "PB0030_P0082_Beachwood_AllBlocks_Separate_claude.dxf"),
+                (img_path, "beachwood_all_blocks_drawing.png"),
+            ]:
+                try:
+                    shutil.copy2(src, os.path.join(b_dir, name))
+                except Exception:
+                    pass
 
     return {
         "total_lots": total_lots_all,

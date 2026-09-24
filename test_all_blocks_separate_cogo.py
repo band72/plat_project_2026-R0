@@ -165,22 +165,37 @@ def test_block17_corner_returns_and_convergence():
 
 def test_block15_curvilinear_courses():
     """
-    Test Block 15 Shellfish Drive curve (R=137.95') and Beachwood C2 curve (R=1959.86', L=100.04').
-    Also verify outer R/W radius R=173.93' on Lots 15 and 16 along Keel Drive.
+    Block 15 west end is over-determined by the plat: the Shellfish S R/W curve
+    (R=137.95', chord 121.56'), Marina 115'/110'/125' between P.I.s and the Keel
+    N R/W curve (R=173.93') must reproduce the printed 79.20', 126.84', 167.98'
+    and 116.28' lot lines and land the Keel curve on Lot 14's SW corner.
     """
     solver = BeachwoodBlock15Solver()
     p = solver.points
-    # Lot 1 Shellfish Drive arc chord
-    chord_len = p["B15_L1_NW"].dist_to(p["B15_L2_NW"])
-    assert abs(chord_len - 148.90) < 0.05
+    # Lot 1 Shellfish Drive arc chord (plat: 121.56' N61°26'55"E)
+    assert abs(p["B15_L1_SH_PC"].dist_to(p["B15_L1_SH_PT"]) - 121.56) < 0.01
 
-    # Lot 9 East frontage along Beachwood Blvd (C2 curve R=1959.86', L=100.04')
-    c2_chord9 = p["B15_L9_NE"].dist_to(p["B15_L9_SE"])
-    assert abs(c2_chord9 - 100.04) < 0.05
+    # Independent printed lines close to within 0.02'
+    for key in ["Lot 1/18 line 79.20'", "Lot 18/17 line 126.84'", "Lot 16 W line 167.98'",
+                "Lot 15 W line 116.28'", "Lot 15 Keel chord 75.29'", "Keel curve end on Lot 14 SW (0')"]:
+        calc, printed = solver.checks[key]
+        assert abs(calc - printed) < 0.02, key
+
+    # Lots 9 & 10 east lines are straight along Beachwood Blvd (100.04' = 100' / cos 1°42'50")
+    assert abs(p["B15_L9_PI_NE"].dist_to(p["B15_L9_SE"]) - 100.04) < 0.01
+
+    # R=25' corner returns at all four block corners
+    for sol in (solver.sol1, solver.sol9, solver.sol10, solver.sol17):
+        assert sol.radius == 25.0
 
     # Lots 15 and 16 outer R/W radius = 173.93' (CL 143.93' + 30' half-width)
     assert solver.lots["15"].curve_specs["side_3"]["radius"] == 173.93
     assert solver.lots["16"].curve_specs["side_3"]["radius"] == 173.93
+
+    # Every lot closes and matches its record area
+    for num, res in solver.solve_all().items():
+        assert res.passed, num
+        assert abs(res.area_diff_sqft) < 1.0, num
 
 
 def test_block14_turnaround_bulb():
@@ -294,7 +309,7 @@ def test_all_blocks_arc_endpoint_continuity():
                     expected_m = r * (1.0 - math.cos(math.radians(d / 2.0)))
                     assert abs(disp - expected_m) < 0.01, f"{bname} Lot {lnum} mid-ordinate displacement mismatch"
 
-    assert curve_count == 19, f"Expected 19 curved courses across all blocks, found {curve_count}"
+    assert curve_count == 21, f"Expected 21 curved courses across all blocks, found {curve_count}"
 
 
 def test_master_area_and_total_lot_count():
@@ -316,7 +331,7 @@ def test_master_area_and_total_lot_count():
             total_area += r.computed_area_sqft
 
     assert total_lots == 144
-    assert abs(total_area - 1181378.7) < 1.0
+    assert abs(total_area - 1182760.4) < 1.0  # Block 15 west end re-read from scan 2026-09-24
 
 
 def test_all_corner_returns_are_25ft_fillets():

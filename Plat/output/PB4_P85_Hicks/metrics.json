@@ -1,0 +1,106 @@
+{
+  "plat_id": "PB4_P85_Hicks",
+  "source": "Plat/Plat_Book_4_Page_85.pdf (left panel)",
+  "parcels_on_plat": 10,
+  "parcels_built": 10,
+  "boundary": {
+    "type": "record dims, 4 sides",
+    "closure": "closed by construction (SE from 1333'/1309' arcs)",
+    "area_ac": 40.255
+  },
+  "area_checks": [
+    {
+      "parcel": "LOUISA NEWMAN",
+      "stated_ac": 3.32,
+      "computed_ac": 3.326,
+      "diff_pct": 0.17
+    },
+    {
+      "parcel": "WILLIAM HICKS",
+      "stated_ac": 3.32,
+      "computed_ac": 3.326,
+      "diff_pct": 0.17
+    },
+    {
+      "parcel": "MARGENA ROBERSON (N)",
+      "stated_ac": 4.0,
+      "computed_ac": 3.983,
+      "diff_pct": -0.42
+    },
+    {
+      "parcel": "MARGENA ROBERSON (S)",
+      "stated_ac": 3.0,
+      "computed_ac": 2.959,
+      "diff_pct": -1.38
+    },
+    {
+      "parcel": "LEVI HICKS",
+      "stated_ac": 3.07,
+      "computed_ac": 3.115,
+      "diff_pct": 1.47
+    },
+    {
+      "parcel": "EDWARD HICKS",
+      "stated_ac": 9.0,
+      "computed_ac": 9.085,
+      "diff_pct": 0.95
+    },
+    {
+      "parcel": "WILSON HICKS",
+      "stated_ac": 2.97,
+      "computed_ac": 2.939,
+      "diff_pct": -1.04
+    },
+    {
+      "parcel": "FRANK HICKS",
+      "stated_ac": 3.0,
+      "computed_ac": 2.927,
+      "diff_pct": -2.43
+    },
+    {
+      "parcel": "RICHARD HICKS (W)",
+      "stated_ac": 2.8,
+      "computed_ac": 2.763,
+      "diff_pct": -1.32
+    },
+    {
+      "parcel": "RICHARD HICKS (E)",
+      "stated_ac": 3.0,
+      "computed_ac": 3.167,
+      "diff_pct": 5.58
+    }
+  ],
+  "worst_area_diff_pct": 5.58,
+  "flagged": [
+    "RICHARD HICKS (E)"
+  ],
+  "dimension_residuals": {
+    "Levi north line 330 vs model": 2.6,
+    "Wilson north line 743.4 vs model": 0.57,
+    "Wilson west side 247.7 vs model": 3.0,
+    "south line parts 1308.0 vs 1309": -1.0,
+    "R/W north tie residuals (ft)": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "R/W south tie residuals (ft)": [
+      15.86,
+      11.23,
+      36.12,
+      31.08
+    ]
+  },
+  "rr_row_width_ft": {
+    "radius_diff": -2129.3,
+    "on_west_line": 76.4,
+    "on_east_line": 62.3
+  },
+  "rr_row_area_ac": 2.665,
+  "assumptions": [
+    "No bearings on plat: north line taken due East, west line due South.",
+    "A.C.L. R.R. R/W lines fitted as circles through printed side-line ties (no curve data on plat).",
+    "Richard Hicks (E) east side read as 432 (first digit faint; 432 is the only value consistent with the R/W width).",
+    "Interior division lines taken perpendicular to the north line."
+  ]
+}

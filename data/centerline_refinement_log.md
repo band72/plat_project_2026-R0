@@ -17,10 +17,6 @@ test_beachwood_road_centerlines.py -q`, `python3 -m pytest plugins/curves -q`,
 - Read the scan (`Plat/Duval_Plat_Book_30_Page_82-2.pdf`, 300 dpi crops) before trusting any engine number.
 
 ## Backlog (in order)
-5b. **F9: engine `validate_all_curves` is circular** (plugin audit still shows it misses 5 corruption probes:
-    centre moved, centre reflected, direction flipped, R+30 recomputed, PT moved 0.15'). Replace with independent
-    identities (PT on circle, |PI-PC| = |PI-PT| = T, turn sense vs flag, stated R/T vs derived.checks) at 0.02'.
-    Also refresh 2 stale audit checks (old SEG_SAIL_MAIN note, removed SEG_ASSUMP_SHELLFISH_KEEL).
 6. **Surfwood Ave, Bayou Rd**, Unit One matchline ties.
 7. **25' fillets on curved corners** (line x arc, e.g. Marina x Shellfish mouth, Mangrove x Sands/Cape Horn/SS):
    fillet tangent to a line and a circle; check against printed 25.0'/25.18' tangent-leg labels.
@@ -34,6 +30,8 @@ test_beachwood_road_centerlines.py -q`, `python3 -m pytest plugins/curves -q`,
 9a. 40' drainage R/W east of Mangrove: only derived to the S-side frontage (96.80'); its bend onto S72°51'40"E
     and 60' width are not derived yet (R/W end left open in the linework).
 9c. Plugin audit (`audit_engine_curves.py` CIDS) does not audit C_SHELLFISH_CL yet (F13) — add it.
+9d. `engine/curves.py` `solve_curve_all_parameters` returns garbage for an impossible length+tangent pair (Δ>~134°)
+    instead of raising (plugin audit section H). Small guard; engine/curves.py has someone else's uncommitted edits.
 10. Report to user (not auto-fixed): `engine/cogo_block.py` Block 15 Lots 9/10 use a fictitious R=1959.86 east
     curve; the plat's Blvd W R/W is straight N00°41'40"W with 100.04' lot lines.
 
@@ -101,6 +99,14 @@ test_beachwood_road_centerlines.py -q`, `python3 -m pytest plugins/curves -q`,
   81/81 derived checks; root 258 passed; plugin 3064 + 10 xfail (11 strict xfails F1/F3/F8/F9 for SS now pass →
   removed). Plugin audit: every ℄ curve 0 failing checks; total 21 → 9 (5 x F9 validator blindness, 2 stale audit
   checks, 1 parent-area/boundary item). DXF PASS 81 lines / 108 polylines.
+- 2026-09-24 tick 6 — **F9 validator**: `validate_all_curves` now checks independent identities at 0.02' (RP-PC =
+  RP-PT = R; PI-PC = PI-PT = T; signed deflection at PI = ±Δ per CW/CCW; RP side of the back tangent; R and T vs the
+  plat ℄ Curve Data block via the derived network, Shellfish T vs formula) instead of formulas of its own R, Δ.
+  All 6 curves valid; the plugin's 5 corruption probes (centre +500', centre reflected, direction flipped, R+30
+  recomputed, PT +0.15') are now all detected (were 0/5). New root test corrupts 3 curves and expects failure.
+  Removed the 2 stale audit arithmetic items (their metadata was deleted with the fictitious geometry).
+  Root 262 passed + 1 failure in untracked raster2dxf (another loop's work, unrelated); plugin 3069 + 5 xfail;
+  plugin audit 9 → 2 (parent area / boundary item 8, and engine/curves.py domain guard item 9d).
 
 ## LOG
 - 2026-09-24 02:20 — tick 0 (manual) complete, loop started (every 10 min).
@@ -109,3 +115,4 @@ test_beachwood_road_centerlines.py -q`, `python3 -m pytest plugins/curves -q`,
 - 2026-09-24 03:20 — tick 3: Shellfish + Keel branch curves done; cul-de-sac question raised.
 - 2026-09-24 04:00 — tick 4: user-flagged area fixed (trimmed R/W, return orientation, Sands, Cape Horn, no cul-de-sac).
 - 2026-09-24 04:20 — tick 5: San Salvadore done; all 6 plat ℄ curves now derived and audit-clean.
+- 2026-09-24 04:35 — tick 6: validator now has teeth (5/5 probes detected).

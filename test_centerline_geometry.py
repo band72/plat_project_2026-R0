@@ -49,7 +49,7 @@ def test_blvd_north_line_reproduces_printed_1626_37(net):
 
 
 def test_every_fillet_is_25ft_and_tangent_to_both_edges(net):
-    assert len(net.fillets) == 30
+    assert len(net.fillets) == 34
     for f in net.fillets:
         assert f.radius == FILLET_RADIUS
         assert _dist(f.corner, f.pc) == pytest.approx(f.tangent, abs=1e-9)
@@ -73,6 +73,9 @@ def test_blvd_corner_deltas_are_90_plus_skew(net):
         elif f.id == "F_MARINA_MANGROVE_SE":
             # Marina S R/W (N87°35'30"E) meets Mangrove's south leg (N01°01'40"W): 90° - 1°22'50"
             assert f.delta_deg == pytest.approx(88 + 37 / 60 + 10 / 3600, abs=1e-9)
+        elif "BAYOU" in f.id or "SURFWOOD" in f.id:
+            # Bayou/Surfwood (N89°18'20"E) meets Mangrove's south leg (N01°01'40"W): 90° ± 0°20'00"
+            assert abs(f.delta_deg - 90.0) == pytest.approx(20 / 60, abs=1e-9)
         else:
             assert f.delta_deg == pytest.approx(90.0, abs=1e-9)
 
@@ -91,7 +94,7 @@ def test_engine_uses_derived_blvd(net):
         p = eng.intersections[iid].point
         assert (p.n, p.e) == pytest.approx(net.intersections[iid].point, abs=1e-9)
     assert "C_BEACHWOOD_BLVD_CL" not in eng.curves
-    assert len(eng.corner_fillets) == 30
+    assert len(eng.corner_fillets) == 34
 
 
 def test_mangrove_south_leg_is_180ft_inside_c2(net):
