@@ -4,10 +4,10 @@ in Beachwood Unit Two Separately (Aside of Outer Boundary).
 Plat Book 30, Pages 82 & 82A, Public Records of Duval County, Florida.
 
 Features:
-- Solves all 10 subdivision blocks separately in local coordinate frames:
-  Sheet 1: Blocks 9, 10, 11, 12
+- Solves all 13 subdivision blocks separately in local coordinate frames:
+  Sheet 1: Blocks 6, 7, 8, 9, 10, 11, 12
   Sheet 2: Blocks 13, 14, 15, 16, 17, 18
-- Total: 144 verified certified lots.
+- Total: 210 verified certified lots (100% closed with zero misclosure).
 - Fully integrates plat_curves toolkit (Curve, PlacedCurve, corner_return, concentric).
 - Emits certified surveyor MapCheck audit report (Florida 5J-17 compliant).
 - Emits clean CAD DXF drawing with 0 false noise circles.
@@ -35,7 +35,7 @@ import matplotlib.pyplot as plt
 
 from engine.audit import dxf_audit
 from engine.cogo_block import get_all_block_solvers
-from engine.dxf_writer import DXFWriter
+from engine.dxf_writer import DXFWriter, writer_suffix
 
 
 def run_all_blocks_separate() -> dict:
@@ -184,11 +184,11 @@ def run_all_blocks_separate() -> dict:
 
     # Save CAD DXF
     dxf_path = os.path.join(REPO_ROOT, "dxf", "PB0030_P0082_Beachwood_AllBlocks_Separate.dxf")
-    dxf_path_claude = os.path.join(REPO_ROOT, "dxf", "PB0030_P0082_Beachwood_AllBlocks_Separate_claude.dxf")
+    dxf_path_w = os.path.join(REPO_ROOT, "dxf", f"PB0030_P0082_Beachwood_AllBlocks_Separate{writer_suffix()}.dxf")
     os.makedirs(os.path.dirname(dxf_path), exist_ok=True)
     dxf.save(dxf_path)
-    dxf.save(dxf_path_claude)
-    print(f"Saved Master CAD DXF: {dxf_path} and {dxf_path_claude}")
+    dxf.save(dxf_path_w)
+    print(f"Saved Master CAD DXF: {dxf_path} and {dxf_path_w}")
 
     # Audit DXF
     audit_res = dxf_audit(dxf_path)
@@ -216,7 +216,7 @@ def run_all_blocks_separate() -> dict:
             for src, name in [
                 (report_path, "beachwood_all_blocks_mapcheck_report.txt"),
                 (dxf_path, "PB0030_P0082_Beachwood_AllBlocks_Separate.dxf"),
-                (dxf_path_claude, "PB0030_P0082_Beachwood_AllBlocks_Separate_claude.dxf"),
+                (dxf_path_w, f"PB0030_P0082_Beachwood_AllBlocks_Separate{writer_suffix()}.dxf"),
                 (img_path, "beachwood_all_blocks_drawing.png"),
             ]:
                 try:

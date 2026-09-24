@@ -1,0 +1,14 @@
+# Standalone Plat Reader Requirements
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+
+# Geometry & numerics
+numpy>=1.26
+matplotlib>=3.8
+
+# OCR & raster processing
+opencv-python-headless>=4.9
+scikit-image>=0.22
+pytesseract>=0.3.10
+easyocr>=1.7

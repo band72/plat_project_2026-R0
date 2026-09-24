@@ -1,0 +1,175 @@
+{
+ "source": "Sheet 1 (PB30 Pg82) Caption, read directly from Plat/training/drawings/page0_300dpi.png",
+ "method": "transcribed digit by digit from 6 overlapping 1.0x crops; 7 courses differ from engine.RAW_BOUNDARY_COURSES (marked engine_had)",
+ "verification": "closure of this table is 0.042 ft (1:191,836); the engine table closes 1.809 ft (1:4,548)",
+ "tie_not_in_boundary": "N87°35'30\"E 762.64 ft from NW corner Sec 32 to the P.O.B.",
+ "courses": [
+  {
+   "id": "c1",
+   "bearing": "S02°24'30\"E",
+   "distance": 730.5
+  },
+  {
+   "id": "c2",
+   "bearing": "S01°01'40\"E",
+   "distance": 1509.24,
+   "engine_had": {
+    "bearing": "S01°01'40\"E",
+    "distance": 1502.24
+   }
+  },
+  {
+   "id": "c3",
+   "bearing": "N89°18'20\"E",
+   "distance": 50.0
+  },
+  {
+   "id": "c4",
+   "bearing": "S01°01'40\"E",
+   "distance": 100.0
+  },
+  {
+   "id": "c5",
+   "bearing": "N89°18'20\"E",
+   "distance": 397.43,
+   "engine_had": {
+    "bearing": "N89°18'20\"E",
+    "distance": 586.51
+   }
+  },
+  {
+   "id": "c6",
+   "bearing": "N00°41'40\"W",
+   "distance": 100.0
+  },
+  {
+   "id": "c7",
+   "bearing": "N03°24'42\"E",
+   "distance": 60.16
+  },
+  {
+   "id": "c8",
+   "bearing": "N00°41'40\"W",
+   "distance": 200.0
+  },
+  {
+   "id": "c9",
+   "bearing": "N27°15'10\"W",
+   "distance": 67.09,
+   "engine_had": {
+    "bearing": "N27°15'10\"W",
+    "distance": 62.09
+   }
+  },
+  {
+   "id": "c10",
+   "bearing": "N00°41'40\"W",
+   "distance": 102.2
+  },
+  {
+   "id": "c11",
+   "bearing": "N75°27'25\"W",
+   "distance": 12.07,
+   "engine_had": {
+    "bearing": "N75°27'25\"W",
+    "distance": 62.07
+   }
+  },
+  {
+   "id": "c12",
+   "bearing": "N35°18'20\"E",
+   "distance": 120.0
+  },
+  {
+   "id": "c13",
+   "bearing": "N04°16'43\"W",
+   "distance": 77.88,
+   "engine_had": {
+    "bearing": "N42°16'43\"W",
+    "distance": 77.88
+   }
+  },
+  {
+   "id": "c14",
+   "bearing": "N35°18'20\"E",
+   "distance": 200.0
+  },
+  {
+   "id": "c15",
+   "bearing": "N51°36'38\"E",
+   "distance": 62.53,
+   "engine_had": {
+    "bearing": "N51°36'38\"W",
+    "distance": 62.59
+   }
+  },
+  {
+   "id": "c16",
+   "bearing": "N35°18'20\"E",
+   "distance": 140.0
+  },
+  {
+   "id": "c17",
+   "bearing": "S54°41'40\"E",
+   "distance": 300.0
+  },
+  {
+   "id": "c18",
+   "bearing": "N35°18'20\"E",
+   "distance": 100.0
+  },
+  {
+   "id": "c19",
+   "bearing": "N39°04'03\"E",
+   "distance": 60.14
+  },
+  {
+   "id": "c20",
+   "bearing": "N35°18'20\"E",
+   "distance": 260.0
+  },
+  {
+   "id": "c21",
+   "bearing": "S54°41'40\"E",
+   "distance": 100.16
+  },
+  {
+   "id": "c22",
+   "bearing": "S57°53'59\"E",
+   "distance": 99.98,
+   "kind": "curve_chord",
+   "radius": 894.08,
+   "direction": "CCW",
+   "note": "curve to the left; bearing/distance are CHORD values; ℄ Radius on Sheet 2 is 924.08 (=894.08+30)"
+  },
+  {
+   "id": "c23",
+   "bearing": "N28°53'42\"E",
+   "distance": 100.0
+  },
+  {
+   "id": "c24",
+   "bearing": "S65°48'08\"E",
+   "distance": 90.51,
+   "engine_had": {
+    "bearing": "S68°48'08\"E",
+    "distance": 90.51
+   }
+  },
+  {
+   "id": "c25",
+   "bearing": "N68°58'32\"E",
+   "distance": 85.32
+  },
+  {
+   "id": "c26",
+   "bearing": "N00°41'40\"W",
+   "distance": 1247.95
+  },
+  {
+   "id": "c27",
+   "bearing": "S87°35'30\"W",
+   "distance": 1626.37
+  }
+ ]
+}

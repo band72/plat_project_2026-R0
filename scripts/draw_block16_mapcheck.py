@@ -30,7 +30,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 from engine.audit import dxf_audit
 from engine.cogo import Point, parse_bearing
 from engine.cogo_block import BeachwoodBlock16Solver
-from engine.dxf_writer import DXFWriter
+from engine.dxf_writer import DXFWriter, writer_suffix
 from engine.lotsheets import PAGE_H, PAGE_W, draw_lot_sheet
 from engine.notes_audit import audit_solver_curves, print_audit_report
 
@@ -57,7 +57,7 @@ def build_and_draw_block16():
     # 1. WRITE MASTER CAD DRAWING (DXF)
     # ==========================================================================
     os.makedirs("dxf", exist_ok=True)
-    dxf_path = "dxf/PB0030_P0082_Block16_MapCheck_claude.dxf"
+    dxf_path = f"dxf/PB0030_P0082_Block16_MapCheck{writer_suffix()}.dxf"
     dxf = DXFWriter()
     dxf.add_layer("LOT_LINE", "cyan", "CONTINUOUS")
     dxf.add_layer("CURVE", "magenta", "CONTINUOUS")
@@ -235,7 +235,7 @@ def build_and_draw_block16():
     # ==========================================================================
     # 2. WRITE INDIVIDUAL CHECKSHEETS GRID DXF
     # ==========================================================================
-    cs_path = "dxf/PB0030_P0082_Block16_CheckSheets_claude.dxf"
+    cs_path = f"dxf/PB0030_P0082_Block16_CheckSheets{writer_suffix()}.dxf"
     cs_dxf = DXFWriter()
     cs_dxf.add_layer("LOT_POLYLINE", "cyan", "CONTINUOUS")
     cs_dxf.add_layer("SHEET_LABELS", "white", "CONTINUOUS")

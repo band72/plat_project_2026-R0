@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..",
 from engine.centerline_geometry import solve_network  # noqa: E402
 from engine.cogo import Point  # noqa: E402
 from engine.cogo_block import get_all_block_solvers  # noqa: E402
-from engine.dxf_writer import DXFWriter  # noqa: E402
+from engine.dxf_writer import DXFWriter, writer_suffix  # noqa: E402
 from scripts.plat_folder.common import out_dir, save_metrics  # noqa: E402
 
 import matplotlib  # noqa: E402
@@ -183,7 +183,7 @@ def main():
              f"({lot_count} lots). Not placed: {', '.join(NOT_PLACED) or 'none'}", 9.0, "TITLEBLOCK", halign=1, valign=2)
 
     d = out_dir(PLAT_ID)
-    dxf_path = os.path.join(d, "PB0030_P0082_Beachwood_FullPlat_claude.dxf")
+    dxf_path = os.path.join(d, f"PB0030_P0082_Beachwood_FullPlat{writer_suffix()}.dxf")
     dxf.save(dxf_path)
 
     # ---------------- PNG ----------------
@@ -225,6 +225,7 @@ def main():
         print(f"     {c['block']:<9} {c['solver_point']:<14} vs {c['fillet']:<28} {c['residual_ft']:8.3f}'")
     print(f"lots placed: {lot_count}   not placed: {list(NOT_PLACED)}")
     print(f"-> {dxf_path}\n-> {png_path}")
+    return placed, solvers
 
 
 if __name__ == "__main__":

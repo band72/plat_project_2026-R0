@@ -26,7 +26,7 @@ from matplotlib.patches import Polygon as MplPolygon
 from engine.audit import dxf_audit
 from engine.cogo import Point, parse_bearing
 from engine.cogo_block import BeachwoodBlock9Solver
-from engine.dxf_writer import DXFWriter
+from engine.dxf_writer import DXFWriter, writer_suffix
 from engine.lot_agent import BeachwoodLotAgent
 from engine.lotsheets import PAGE_H, PAGE_W, draw_lot_sheet
 
@@ -77,7 +77,7 @@ def build_and_draw_block9():
     # 3. WRITE MASTER CAD DRAWING (DXF)
     # --------------------------------------------------------------------------
     os.makedirs("dxf", exist_ok=True)
-    dxf_path = "dxf/PB0030_P0082_Block9_MapCheck_claude.dxf"
+    dxf_path = f"dxf/PB0030_P0082_Block9_MapCheck{writer_suffix()}.dxf"
     dxf = DXFWriter()
     dxf.add_layer("LOT_LINE", "cyan", "CONTINUOUS")
     dxf.add_layer("CURVE", "magenta", "CONTINUOUS")
@@ -168,7 +168,7 @@ def build_and_draw_block9():
     # --------------------------------------------------------------------------
     # 4. WRITE INDIVIDUAL CHECKSHEETS GRID DXF
     # --------------------------------------------------------------------------
-    cs_path = "dxf/PB0030_P0082_Block9_CheckSheets_claude.dxf"
+    cs_path = f"dxf/PB0030_P0082_Block9_CheckSheets{writer_suffix()}.dxf"
     cs_dxf = DXFWriter()
     cs_dxf.add_layer("LOT_POLYLINE", "cyan", "CONTINUOUS")
     cs_dxf.add_layer("SHEET_LABELS", "white", "CONTINUOUS")

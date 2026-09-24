@@ -100,7 +100,7 @@ Record each value with its source (sheet, block, lot, crop):
 - **Gate:** every placed block checks within 0.10'. Beachwood: 8 blocks, worst 0.021'.
 
 ### 8. Outputs
-- Write to `Plat/output/<plat_id>/`: `*_claude.dxf` (**every DXF name ends in `_claude`**), a PNG,
+- Write to `Plat/output/<plat_id>/`: `*_ag.dxf` (**every DXF name ends in `_ag`**), a PNG,
   and `metrics.json` (closures, checks, flags, assumptions, what isn't placed).
 - DXF layers: BOUNDARY, ROW, CENTERLINE, FILLET, LOT, LOT-CURVE, BLOCK-MISFIT, LOT-TEXT, BLOCK-TEXT, TITLEBLOCK.
 - **Gate:** open the PNG next to the scan crop and compare by eye. Tests and closures can't catch a lot

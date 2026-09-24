@@ -1,0 +1,270 @@
+/* ==========================================================================
+   plat-reader.css -- standalone widget stylesheet.
+
+   Loaded inside a Shadow DOM (see plat-reader.js), so none of this can leak
+   into the host page and none of the host page's CSS can leak in here --
+   EXCEPT for inherited properties (font, color, line-height) which cross
+   the shadow boundary by default. `:host { all: initial; ... }` resets
+   those explicitly so the widget looks the same on every host site
+   regardless of that site's own typography.
+
+   Tokens are inlined (not imported from the main app's theme.css) so this
+   folder is fully self-contained and can be copied anywhere on its own.
+   ========================================================================== */
+
+:host {
+  all: initial;
+  display: block;
+  --pr-bg: #0e131f;
+  --pr-card: #131b2e;
+  --pr-border: rgba(255, 255, 255, 0.1);
+  --pr-text: #f1f5f9;
+  --pr-text-muted: #94a3b8;
+  --pr-cyan: #00c2d1;
+  --pr-emerald: #10b981;
+  --pr-rose: #f43f5e;
+  --pr-radius: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--pr-text);
+}
+
+.pr-widget * {
+  box-sizing: border-box;
+}
+
+.pr-widget {
+  background: var(--pr-bg);
+  border: 1px solid var(--pr-border);
+  border-radius: var(--pr-radius);
+  padding: 18px;
+  max-width: 640px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.pr-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.pr-logo {
+  color: var(--pr-cyan);
+  font-size: 16px;
+}
+
+.pr-title {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+.pr-note {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.pr-upload-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.pr-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.pr-upload-status {
+  font-size: 12px;
+  color: var(--pr-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.pr-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.pr-btn {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 7px;
+  padding: 9px 16px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: filter 0.15s, opacity 0.15s;
+}
+
+.pr-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pr-btn-primary {
+  background: var(--pr-cyan);
+  color: #04121a;
+}
+
+.pr-btn-primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.pr-btn-secondary {
+  background: var(--pr-card);
+  color: var(--pr-text);
+  border-color: var(--pr-border);
+}
+
+.pr-btn-secondary:hover:not(:disabled) {
+  border-color: var(--pr-cyan);
+  color: var(--pr-cyan);
+}
+
+.pr-status {
+  font-size: 12.5px;
+  color: var(--pr-text-muted);
+}
+
+.pr-status-error {
+  color: var(--pr-rose);
+}
+
+.pr-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.pr-metric {
+  background: var(--pr-card);
+  border: 1px solid var(--pr-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--pr-text-muted);
+}
+
+.pr-metric span {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--pr-text);
+}
+
+.pr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  margin-bottom: 16px;
+}
+
+.pr-table th,
+.pr-table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--pr-border);
+}
+
+.pr-table th {
+  color: var(--pr-text-muted);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pr-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.pr-badge-pass,
+.pr-badge-pass_repaired {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--pr-emerald);
+}
+
+.pr-badge-watch {
+  background: rgba(234, 179, 8, 0.15);
+  color: #eab308;
+}
+
+.pr-badge-flagged {
+  background: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+}
+
+.pr-badge-fail,
+.pr-badge-failed {
+  background: rgba(244, 63, 94, 0.15);
+  color: var(--pr-rose);
+}
+
+.pr-link-btn {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--pr-cyan);
+  background: none;
+  border: 1px solid rgba(0, 194, 209, 0.35);
+  border-radius: 5px;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+
+.pr-link-btn:hover {
+  background: rgba(0, 194, 209, 0.1);
+}
+
+.pr-downloads {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pr-downloads-label {
+  font-size: 12px;
+  color: var(--pr-text-muted);
+}
+
+.pr-download-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pr-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--pr-border);
+  font-size: 10.5px;
+  color: var(--pr-text-muted);
+  text-align: right;
+}

@@ -38,7 +38,7 @@ from engine.cogo_block import (
     BeachwoodBlock11Solver,
     BeachwoodBlock12Solver,
 )
-from engine.dxf_writer import DXFWriter
+from engine.dxf_writer import DXFWriter, writer_suffix
 from engine.notes_audit import audit_solver_curves, print_audit_report
 
 
@@ -83,7 +83,7 @@ def build_and_draw():
     # 1. DXF
     # ==========================================================================
     os.makedirs("dxf", exist_ok=True)
-    dxf_path = "dxf/PB0030_P0082_Block10_11_12_MapCheck_claude.dxf"
+    dxf_path = f"dxf/PB0030_P0082_Block10_11_12_MapCheck{writer_suffix()}.dxf"
     dxf = DXFWriter()
     dxf.add_layer("LOT_LINE", "cyan", "CONTINUOUS")
     dxf.add_layer("BOUNDARY", "white", "CONTINUOUS")

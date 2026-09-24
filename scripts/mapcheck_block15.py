@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 from engine.audit import dxf_audit  # noqa: E402
 from engine.cogo_block import BeachwoodBlock15Solver  # noqa: E402
-from engine.dxf_writer import DXFWriter  # noqa: E402
+from engine.dxf_writer import DXFWriter, writer_suffix  # noqa: E402
 
 LOT_ORDER = [str(i) for i in range(1, 19)]
 
@@ -46,7 +46,7 @@ def run_block15_mapcheck():
     print(f"Detailed Report Written to: {report_file}")
 
     dxf_path = "dxf/PB0030_P0082_Block15_MapCheck.dxf"
-    dxf_path_claude = "dxf/PB0030_P0082_Block15_MapCheck_claude.dxf"
+    dxf_path_w = f"dxf/PB0030_P0082_Block15_MapCheck{writer_suffix()}.dxf"
     dxf = DXFWriter()
     dxf.add_layer("LOT_LINE", "cyan", "CONTINUOUS")
     dxf.add_layer("CURVE", "magenta", "CONTINUOUS")
@@ -66,9 +66,9 @@ def run_block15_mapcheck():
         dxf.text((cn - 12.0, ce), f"{r.computed_area_sqft:,.0f} SF", height=4.0, layer="TEXT-LABELS", halign=1, valign=2)
     dxf.text((180.0, -650.0), "BEACHWOOD UNIT TWO -- BLOCK 15 (LOTS 1-18)  PB 30 PG 82A", height=12.0, layer="TITLEBLOCK")
     dxf.save(dxf_path)
-    dxf.save(dxf_path_claude)
+    dxf.save(dxf_path_w)
     audit = dxf_audit(dxf_path)
-    print(f"DXF Saved -> {dxf_path} & {dxf_path_claude} | Status: {audit['status']}")
+    print(f"DXF Saved -> {dxf_path} & {dxf_path_w} | Status: {audit['status']}")
 
     return {"status": "PASS" if passed == len(results) else "FAIL", "passed": passed, "total": len(results),
             "report_file": report_file, "dxf_path": dxf_path, "results": results}

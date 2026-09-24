@@ -15,6 +15,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+from engine.dxf_writer import writer_suffix  # noqa: E402
 from scripts.plat_folder.common import (SQFT_PER_ACRE, arc_points, fit_circle, out_dir, render_png,  # noqa: E402
                                         save_metrics, shoelace, write_dxf)
 
@@ -183,8 +184,8 @@ texts.append(("TEXT-LABELS", ((n_w[0] + n_e[0]) / 2, (n_w[1] + s_w[1]) / 2 + 60)
 texts.append(("TITLEBLOCK", (NORTH / 2, 120), "HICKS SUBDIVISION  NW1/4 NE1/4 SEC 12 T2S R25E  PB 4 FOLIO 85 (1912)", 18))
 texts.append(("TITLEBLOCK", (NORTH / 2, 80), "NO BEARINGS ON PLAT - ORIENTATION ASSUMED CARDINAL", 10))
 
-write_dxf(os.path.join(d, "PB0004_P0085_Hicks_claude.dxf"), layers, rings, lines, texts)
-render_png(os.path.join(d, "PB0004_P0085_Hicks.png"), "Hicks Subdivision (PB 4 folio 85, 1912) - faithful reconstruction",
+write_dxf(os.path.join(d, f"PB0004_P0085_Hicks{writer_suffix()}.dxf"), layers, rings, lines, texts)
+render_png(os.path.join(d, "PB0004_P0085_Hicks.png"), "Hicks Subdivision (PB 4 folio 85, 1912) - ag reconstruction",
            rings, lines, texts, flagged={"PARCEL-FLAGGED"})
 
 metrics = {

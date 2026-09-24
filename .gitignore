@@ -16,3 +16,10 @@ dist/
 web/uploads/*
 !web/uploads/.gitkeep
 dxf/custom/
+Plat/output/
+*.tar.gz
+*.zip
+plat-reader/backend/uploads/*
+!plat-reader/backend/uploads/.gitkeep
+plat-reader/backend/output/*
+!plat-reader/backend/output/.gitkeep

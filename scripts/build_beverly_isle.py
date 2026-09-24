@@ -21,7 +21,7 @@ import numpy as np
 sys.path.insert(0, '.')
 from engine.audit import dxf_audit
 from engine.cogo_beverly_isle import BeverlyIsleCogoSolver
-from engine.dxf_writer import DXFWriter
+from engine.dxf_writer import DXFWriter, writer_suffix
 from engine.georeference import get_intersection_gps
 from engine.handdrawn_extractor import DualStreamSeparator, PlatImageNormalizer, PlatSkeletonGraph
 
@@ -77,7 +77,8 @@ def main():
 
     # 6. Generate Multi-Layer CAD DXF
     os.makedirs('dxf', exist_ok=True)
-    out_dxf = 'dxf/Duval_BeverlyIsle_1968.dxf'
+    os.makedirs('Plat/output/Beverly_Isle', exist_ok=True)
+    out_dxf = f'Plat/output/Beverly_Isle/Duval_BeverlyIsle_1968{writer_suffix()}.dxf'
     dxf = DXFWriter()
 
     # Define standard professional cadastral layers

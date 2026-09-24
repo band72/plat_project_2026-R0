@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>plat-reader plugin -- host page demo</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230e131f'/%3E%3Cpolygon points='12 3 4 8 12 13 20 8' fill='none' stroke='%2300c2d1' stroke-width='1.6'/%3E%3C/svg%3E">
+  <style>
+    /* Everything in this <style> block belongs to the HOST PAGE, not the
+       plugin -- it exists only to prove the plugin doesn't inherit or leak
+       styles across the Shadow DOM boundary. A real host site would not
+       need any of this; the widget looks the same regardless. */
+    body {
+      font-family: Georgia, serif;
+      background: #fdf6e3;
+      color: #073642;
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+    h1 { color: #b58900; }
+    code {
+      background: #eee8d5;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .mount-point {
+      margin: 28px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Example Third-Party Website</h1>
+  <p>
+    This page stands in for a customer's own site, with its own font, its
+    own background color, and its own <code>&lt;style&gt;</code> block --
+    on purpose. The cadastral plat widget below is embedded with two lines
+    and renders inside a Shadow DOM, so none of this page's CSS reaches it
+    and none of its CSS reaches this page.
+  </p>
+
+  <div class="mount-point" id="plat-reader"></div>
+
+  <p>
+    That's the whole integration: a mount element, a script tag pointing at
+    this API, done. See <code>README.md</code> in this folder for every
+    configuration option.
+  </p>
+
+  <!--
+    In production, self-host these two files (or the whole plat-reader/
+    folder) on your own site/CDN and point data-api-base at wherever the
+    Cadastral Plat AI & COGO Engine API is deployed, as a plain attribute:
+
+      <link rel="stylesheet" href="https://your-cdn.example.com/plat-reader/plat-reader.css">
+      <script src="https://your-cdn.example.com/plat-reader/plat-reader.js"
+              data-api-base="https://your-plat-api.example.com"
+              data-target="#plat-reader"></script>
+
+    This demo builds that same script tag at runtime purely so the example
+    keeps working wherever it happens to be served from (localhost, a
+    preview URL, ...) without a hardcoded API origin baked into the file.
+    Note that the attribute must exist BEFORE plat-reader.js executes --
+    setting it via a later <script> would be too late, since the widget
+    reads its config synchronously on load.
+  -->
+  <link rel="stylesheet" href="./plat-reader.css">
+  <script>
+    (function () {
+      const s = document.createElement("script");
+      s.src = "./plat-reader.js";
+      s.setAttribute("data-api-base", window.location.origin);
+      s.setAttribute("data-target", "#plat-reader");
+      s.setAttribute("data-preset", "block9");
+      s.setAttribute("data-title", "Beachwood Block 9 -- Cadastral Reader");
+      document.currentScript.after(s);
+    })();
+  </script>
+</body>
+</html>

@@ -18,6 +18,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from engine.cogo import parse_bearing  # noqa: E402
+from engine.dxf_writer import writer_suffix  # noqa: E402
 from scripts.plat_folder.common import out_dir, render_png, save_metrics, shoelace, write_dxf  # noqa: E402
 
 PLAT_ID = "PB67_P132_AtlanticBeach_S3"
@@ -209,7 +210,41 @@ c207s = move(q0, "S08°28'47\"E", 28.92)
 c40e = move(c207s, "S09°06'08\"E", 79.90)
 checks["Lot 167 closure via C207 + C40 + C39 (ft)"] = (math.dist(move(c40e, "S42°28'49\"W", 37.19), e167), 0.0)
 lots["167"] = {"ring": [q0, q1, p168, e208, e167, c40e, c207s]}
-for n in ("167", "168", "169", "170", "171", "172", "173", "174", "175", "176"):
+# ---- Lots 164-160, east of Timber Bridge Lane (tick 32) ----
+# E R/W straight = W R/W straight (362.66') moved 50' across the street; pieces 47.30 (Lot 165) + 60 + 55 + 60 + 70 + 55 + 15.36 = 362.66.
+# Side lines N09°35'43"E (square to the street), printed lengths 241.55 / 255.58 / 268.43 / 282.46 / 298.83; their far ends must fall
+# on the rear line with the printed pieces 61.62 / 56.48 / 61.62 / 71.89 (independent check).
+e_top = move(pc209, "N09°35'43\"E", 50.0)
+FE = [move(e_top, REAR2, 47.30)]
+for w_ in (60.0, 55.0, 60.0, 70.0, 55.0):
+    FE.append(move(FE[-1], REAR2, w_))
+LEN = [241.55, 255.58, 268.43, 282.46, 298.83, 230.97]
+RE = [move(f_, "N09°35'43\"E", l_) for f_, l_ in zip(FE, LEN)]
+for i_, (n_, rear_) in enumerate(zip(("164", "163", "162", "161"), (61.62, 56.48, 61.62, 71.89))):
+    checks[f"Lot {n_} rear piece {rear_}' on the S03°33'50\"E line"] = (math.dist(RE[i_], RE[i_ + 1]), rear_)
+for i_, n_ in enumerate(("164", "163", "162", "161", "160")):
+    lots[n_] = {"ring": [FE[i_], RE[i_], RE[i_ + 1], FE[i_ + 1]]}
+
+# ---- Lot 165 (tick 33): front 47.30' straight + C218 (R=470, chord 22.70' S81°47'19"E going north) to the 165/166 corner;
+# north side N09°35'43"E 225.73'; rear piece 71.89' on the rear line is the independent check.
+f166 = move(e_top, "S81°47'19\"E", 22.70)
+r166 = move(f166, "N09°35'43\"E", 225.73)
+checks["Lot 165 rear piece 71.89' (165/166 line end -> 165/164 line end)"] = (math.dist(r166, RE[0]), 71.89)
+lots["165"] = {"ring": [f166, r166, RE[0], FE[0], e_top]}
+
+# ---- Lot 166 (ticks 34-35). 400 dpi re-read: C220/C221 inside Lot 165 is the dashed EASEMENT line ("120.11' TO EASEMENT"), not a lot
+# line. Lot 166 wraps: front C219 (R=470, chord 51.55'), north 121.42' to the curve, down the curve to Lot 140's SW corner, along
+# Lot 140's south line (99.41 + 20) to the rear line, 38.05' down the rear line, then back along the full 225.73' line (Lot 165's north).
+# Printed curve lengths C222/C223 (60.27/49.11) do not fit this corner at drawing scale -> curve drawn as a chord, FLAGGED.
+f138 = move(f166, "S86°19'00\"E", 51.55)
+r138 = move(f138, "N09°35'43\"E", 121.42)
+_d = math.atan2(r166[0] - RE[0][0], r166[1] - RE[0][1])
+q140 = (r166[0] + 38.05 * math.sin(_d), r166[1] + 38.05 * math.cos(_d))
+k140 = move(q140, "S00°32'22\"W", 119.41)
+checks["Lot 166 curve chord (Lot 140 SW -> 121.42' corner) vs C222+C223 (109.22')"] = (math.dist(k140, r138), 109.22)
+lots["166"] = {"ring": [f166, f138, r138, k140, q140, r166]}
+
+for n in ("167", "168", "169", "170", "171", "172", "173", "174", "175", "176", "166", "165", "164", "163", "162", "161", "160"):
     lots[n]["area"] = shoelace(lots[n]["ring"])
 
 worst = max(c for k, (c, p) in checks.items() if "front corner" in k)
@@ -217,15 +252,15 @@ worst = max(c for k, (c, p) in checks.items() if "front corner" in k)
 d = out_dir(PLAT_ID)
 # Lots 175/176 corners are fixed by printed side lines, but their frontage curves C212-C214 are not in this sheet's curve table:
 # modelled as R=200 (C37) arcs from the printed 11.56' tangent, which does not reproduce C37's 19°53'40" -> flagged, not certified.
-FLAGGED = {"175", "176"}
+FLAGGED = {"175", "176", "165", "166"}   # 165: rear piece misses the printed 71.89 by 0.25
 rings = [("LOT-FLAGGED" if n in FLAGGED else "LOT", v["ring"]) for n, v in lots.items()]
 texts = [("TEXT-LABELS", (sum(p[0] for p in v["ring"]) / len(v["ring"]), sum(p[1] for p in v["ring"]) / len(v["ring"])),
           f"{n}  {v['area']:,.0f} SF", 6) for n, v in lots.items()]
-texts.append(("TITLEBLOCK", (-60.0, 160.0), "ATLANTIC BEACH CC UNIT 2  PB 67 PG 134 (SHEET 3)  LOTS 124-137, 167-176  -  claude", 8))
+texts.append(("TITLEBLOCK", (-60.0, 160.0), "ATLANTIC BEACH CC UNIT 2  PB 67 PG 134 (SHEET 3)  LOTS 124-137, 167-176  -  ag", 8))
 layers = [("LOT", "cyan", "CONTINUOUS"), ("LOT-FLAGGED", "red", "CONTINUOUS"), ("TEXT-LABELS", "white", "CONTINUOUS"), ("TITLEBLOCK", "yellow", "CONTINUOUS")]
-write_dxf(os.path.join(d, "PB0067_P0134_AtlanticBeachCC_Sheet3_claude.dxf"), layers, rings, [], texts)
+write_dxf(os.path.join(d, f"PB0067_P0134_AtlanticBeachCC_Sheet3{writer_suffix()}.dxf"), layers, rings, [], texts)
 render_png(os.path.join(d, "PB0067_P0134_AtlanticBeachCC_Sheet3.png"),
-           "Atlantic Beach CC Unit 2, Sheet 3 - Lots 124-137, 167-176 (claude)", rings, [], texts, flagged={"LOT-FLAGGED"})
+           f"Atlantic Beach CC Unit 2, Sheet 3 - Lots 124-137, 167-176 ({writer_suffix().strip('_')})", rings, [], texts, flagged={"LOT-FLAGGED"})
 save_metrics(PLAT_ID, {
     "plat_id": PLAT_ID, "source": "Plat/67-132.pdf page 3",
     "lots_built": len(lots), "lots": {k: {"area_sqft": round(v["area"], 1)} for k, v in lots.items()},

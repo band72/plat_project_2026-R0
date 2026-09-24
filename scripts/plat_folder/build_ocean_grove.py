@@ -12,6 +12,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+from engine.dxf_writer import writer_suffix  # noqa: E402
 from scripts.plat_folder.common import out_dir, render_png, save_metrics, shoelace, write_dxf  # noqa: E402
 
 PLAT_ID = "PB15_P82_OceanGrove"
@@ -167,29 +168,228 @@ for (wn, mn, en), (lw, le) in zip(((0, 0, 0), (1, 1, 1), (2, 2, 2)), (("1", "2")
 checks["B4 Lot 10 south 101.9'"] = (math.dist(w4[3], m4[3]), 101.9)
 checks["B4 Lot 4 south 111.98'"] = (math.dist(m4[3], e4[3]), 111.98)
 
+# ---------------- Block 4 Lots 5-9: BEST FIT (user decision 2026-09-24), flagged ----------------
+# The printed values here do not admit one exact figure (e.g. the R=543.68 west curve cannot turn enough over its printed 130' of arc to
+# meet the printed 60°54' apex). So the unknown corners are solved by least squares against every printed value; each residual is
+# reported. Arcs are treated as chords (short arcs of large radii) for this first fit.
+import numpy as np  # noqa: E402
+from scipy.optimize import least_squares  # noqa: E402
+
+m5 = move(m4[3], AZ_W8, 35.0)                     # middle line: 35' (Lots 9/5), 45' (Lots 8/6)
+m6 = move(m5, AZ_W8, 45.0)
+OBS = [  # (point a, point b, printed distance)
+    ("W4", "W9", 52.3), ("W9", "W8", 54.0), ("W8", "WPC", 23.8), ("WPC", "APX", 81.6),
+    ("M6", "D67", 68.5), ("W9", "M5", 81.8), ("W8", "M6", 68.9), ("M5", "E5", 81.9),
+    ("E4", "E5", 51.0), ("E5", "EPC", 8.6), ("EPC", "D67", 85.0), ("D67", "APX", 75.0),
+]
+FIXED = {"W4": w4[3], "M5": m5, "M6": m6, "E4": e4[3]}
+FREE = ["W9", "W8", "WPC", "APX", "D67", "E5", "EPC"]
+
+
+def _pts(x):
+    P_ = dict(FIXED)
+    for k_, nm in enumerate(FREE):
+        P_[nm] = (x[2 * k_], x[2 * k_ + 1])
+    return P_
+
+
+def _ang(o, a_, b_):
+    u = (a_[0] - o[0], a_[1] - o[1])
+    v = (b_[0] - o[0], b_[1] - o[1])
+    return math.degrees(math.acos(max(-1.0, min(1.0, (u[0] * v[0] + u[1] * v[1]) / (math.hypot(*u) * math.hypot(*v))))))
+
+
+def _res(x):
+    P_ = _pts(x)
+    r = [math.dist(P_[a_], P_[b_]) - dd for a_, b_, dd in OBS]
+    r.append((_ang(P_["APX"], P_["WPC"], P_["D67"]) - dms(60, 54)) * math.pi / 180.0 * 75.0)   # angle as ft at 75'
+    r.append((_ang(P_["D67"], P_["EPC"], P_["APX"]) - 180.0) * math.pi / 180.0 * 75.0)       # Dewees straight
+    return r
+
+
+# start from a rough drawing-shaped guess
+g = {"W9": move(w4[3], AZ_W8 - 10, 52.0), "W8": move(w4[3], AZ_W8 - 20, 104.0)}
+g["WPC"] = move(g["W8"], AZ_W8 - 25, 24.0)
+g["APX"] = move(g["WPC"], AZ_W8 - 35, 81.0)
+g["D67"] = move(g["APX"], 40.0, 75.0)
+g["EPC"] = move(g["D67"], 40.0, 85.0)
+g["E5"] = move(e4[3], AZ_W8 + 10, 51.0)
+x0 = np.array([c for nm in FREE for c in g[nm]])
+fit = least_squares(_res, x0)
+FP = _pts(fit.x)
+for (a_, b_, dd), rr_ in zip(OBS, fit.fun[:len(OBS)]):
+    checks[f"B4 best-fit {a_}-{b_} {dd}'"] = (dd + rr_, dd)
+checks["B4 best-fit apex angle 60°54' (deg)"] = (_ang(FP["APX"], FP["WPC"], FP["D67"]), dms(60, 54))
+add(4, "9", [w4[3], m4[3], m5, FP["W9"]], "best fit")
+add(4, "5", [m4[3], e4[3], FP["E5"], m5], "best fit")
+add(4, "8", [FP["W9"], m5, m6, FP["W8"]], "best fit")
+add(4, "6", [m5, FP["E5"], FP["EPC"], FP["D67"], m6], "best fit")
+add(4, "7", [FP["W8"], m6, FP["D67"], FP["APX"], FP["WPC"]], "best fit")
+assumptions.append("Block 4 Lots 5-9: least-squares best fit to 12 printed distances + the 60°54' apex angle (arcs as chords); "
+                   "flagged, residuals in checks; to be refined (true arcs, curve constraints) in later iterations.")
+
+# ---------------- Block 1, east half (Lots 1-9) -- tick 24 ----------------
+# Local frame: 16th St N line is y = 0, Lot 2 SW at x = 0; E-W lines at 90°, side lines due N (the plat prints "90°" here).
+# Printed: Lots 1-3 52' wide (1: 118' deep, 2-3: 100'); Lot 4 104' / 50' / 123.2'; the spine at 59°08' to the E-W lines with
+# Lots 5/6/7 on it (58.22 / 58.02 / 58.22 = the west side's 32.23+32.23+55+55); E-W lines 134.2 / 116.6 / 98.2 (= 48.2 + 50);
+# Lot 8 55' top / 99.7' west; Beach W line 51 / 51 / 52.7 + 48 with a 199°28' bend.
+def L(x, y):
+    return (x, y)
+
+
+SP = math.radians(90.0 - dms(59, 8))               # spine azimuth N30°52'E
+def spine(t):
+    return (t * math.sin(SP), 150.0 + t * math.cos(SP))
+
+
+s4, s5, s6, s7 = spine(0.0), spine(58.22), spine(58.22 + 58.02), spine(174.46)
+b56, b67, b78e = (s5[0] + 134.2, s5[1]), (s6[0] + 116.6, s6[1]), (s7[0] + 98.2, s7[1])
+l89 = (s7[0] + 48.2, s7[1])                         # Lot 9 / 8 (bottom), easement line between them
+l8nw = (l89[0], l89[1] + 99.7)
+l8ne = (l8nw[0] + 55.0, l8nw[1])
+lot1 = [L(-52, 0), L(0, 0), L(0, 118), L(-52, 118)]
+blk1 = {"1": lot1, "2": [L(0, 0), L(52, 0), L(52, 100), L(0, 100)], "3": [L(52, 0), L(104, 0), L(104, 100), L(52, 100)],
+        "4": [L(0, 100), L(104, 100), L(123.2, 150), L(0, 150)],
+        "5": [s4, L(123.2, 150), b56, s5], "6": [s5, b56, b67, s6], "7": [s6, b67, b78e, s7],
+        "8": [l89, b78e, l8ne, l8nw]}
+bchk = {
+    "B1 Lot 14 east 32' = Lot 4 west top (150) - Lot 1 (118)": (150.0 - 118.0, 32.0),
+    "B1 Beach: Lot 4 NE -> Lot 5/6 (15.6 + 48.5 arc R103, as chord)": (math.dist((123.2, 150.0), b56),
+                                                                       15.6 + 2 * 103 * math.sin(48.5 / 206.0)),
+    "B1 Beach: Lot 6 east 51'": (math.dist(b56, b67), 51.0),
+    "B1 Beach: Lot 7 east 51'": (math.dist(b67, b78e), 51.0),
+    "B1 Lot 8 east 52.7' + 48' with 199°28' bend (chord)": (math.dist(b78e, l8ne),
+                                                           math.sqrt(52.7 ** 2 + 48 ** 2 + 2 * 52.7 * 48 * math.cos(math.radians(19.4667)))),
+}
+# ---- west half (Lots 9-16), least squares -- tick 25 ----
+# Rear points on the spine (from s4 up): Lot 13 55, Lot 12 55, Lot 11 32.23, Lot 10 32.23. Lot 14 east: s4 -> (0,118) -> Lot 1 NW (-52,118);
+# Lot 15 east 28' down to (-52,90); Lot 16 east 90' down to (-52,0); Lot 16 bottom 72' to (-124,0) on Mandalay.
+r1011, r1112, r1213 = spine(142.23), spine(110.0), spine(55.0)
+c14, c15, c16 = (-52.0, 118.0), (-52.0, 90.0), (-124.0, 0.0)
+# Lot 9: 70.66' top from Lot 8 NW and 91.2' west side from s7 fix its front corner exactly (circle intersection, west/upper root)
+def _circ(p0, r0, p1, r1, pick):
+    dd = math.dist(p0, p1)
+    aa = (r0 * r0 - r1 * r1 + dd * dd) / (2 * dd)
+    hh = math.sqrt(max(r0 * r0 - aa * aa, 0.0))
+    mx, my = p0[0] + aa * (p1[0] - p0[0]) / dd, p0[1] + aa * (p1[1] - p0[1]) / dd
+    c1 = (mx + hh * (p1[1] - p0[1]) / dd, my - hh * (p1[0] - p0[0]) / dd)
+    c2 = (mx - hh * (p1[1] - p0[1]) / dd, my + hh * (p1[0] - p0[0]) / dd)
+    return min((c1, c2), key=pick)
+
+
+p9 = _circ(l8nw, 70.66, s7, 91.2, pick=lambda q: q[0])
+ch = lambda arc_, R_: 2 * R_ * math.sin(arc_ / (2 * R_))  # noqa: E731
+F1 = ["F1011", "F1112", "PC", "F1213", "F1314", "F1415", "DW", "F1516"]
+FIX1 = {"P9": p9, "R1011": r1011, "R1112": r1112, "R1213": r1213, "S4": s4, "C14": c14, "C15": c15, "C16": c16}
+OBS1 = [("R1011", "F1011", 108.0), ("R1112", "F1112", 119.8), ("R1213", "F1213", 120.5), ("S4", "F1314", 120.5),
+        ("C14", "F1415", 90.0), ("C15", "F1516", 94.8),
+        ("P9", "F1011", ch(75.0, 231.0)), ("F1011", "F1112", ch(65.0, 231.0)), ("F1112", "PC", ch(27.0, 231.0)),
+        ("PC", "F1213", 28.0), ("F1213", "F1314", 55.0), ("F1314", "F1415", 55.0), ("F1415", "DW", 67.0),
+        ("DW", "F1516", ch(62.1, 368.0)), ("F1516", "C16", ch(56.0, 368.0))]
+
+
+def _p1(x):
+    P_ = dict(FIX1)
+    for k_, nm in enumerate(F1):
+        P_[nm] = (x[2 * k_], x[2 * k_ + 1])
+    return P_
+
+
+def _r1(x):
+    P_ = _p1(x)
+    r = [math.dist(P_[a_], P_[b_]) - dd for a_, b_, dd in OBS1]
+    for a_, o_, b_ in (("PC", "F1213", "F1314"), ("F1213", "F1314", "F1415"), ("F1314", "F1415", "DW")):
+        r.append((_ang(P_[o_], P_[a_], P_[b_]) - 180.0) * math.pi / 180.0 * 55.0)   # Dewees W line straight
+    return r
+
+
+g1 = {"F1011": (s7[0] - 100, s7[1] + 40), "F1112": (r1112[0] - 110, r1112[1] + 30), "PC": (r1213[0] - 115, r1213[1] + 45),
+      "F1213": (r1213[0] - 115, r1213[1] + 20), "F1314": (-100.0, 90.0), "F1415": (-130.0, 60.0), "DW": (-165.0, 10.0),
+      "F1516": (-150.0, 30.0)}
+fit1 = least_squares(_r1, np.array([c for nm in F1 for c in g1[nm]]))
+P1 = _p1(fit1.x)
+for (a_, b_, dd), rr_ in zip(OBS1, fit1.fun[:len(OBS1)]):
+    bchk[f"B1 best-fit {a_}-{b_} {dd:.2f}'"] = (dd + rr_, dd)
+blk1.update({
+    "9": [s7, l89, l8nw, p9], "10": [r1011, s7, p9, P1["F1011"]], "11": [r1112, r1011, P1["F1011"], P1["F1112"]],
+    "12": [r1213, r1112, P1["F1112"], P1["PC"], P1["F1213"]], "13": [s4, r1213, P1["F1213"], P1["F1314"]],
+    "14": [c14, (0.0, 118.0), s4, P1["F1314"], P1["F1415"]], "15": [c15, c14, P1["F1415"], P1["DW"], P1["F1516"]],
+    "16": [c16, (-52.0, 0.0), c15, P1["F1516"]],
+})
+assumptions.append("Block 1 Lots 9-16: least squares, 8 unknown front corners vs 15 printed distances (R=231 / R=368 arcs as chords) "
+                   "+ Dewees straightness (redundancy 2); Lot 9's front corner is exact from its 70.66'/91.2'.")
+
+# Placement: the Dewees Ave S line (Lot 8 top) is 60' south of Block 6's Dewees N line, and Lot 8's east corner is on Block 6's Beach
+# W line (Lot 7 east, extended across Dewees). Translation only; flagged as an assumption.
+anchor = meet(move(b78, AZ_W8, 60.0), EAST, l7ne, AZ_C)
+dx, dy = anchor[0] - l8ne[0], anchor[1] - l8ne[1]
+for n_, ring_ in blk1.items():
+    add(1, n_, [(p_[0] + dx, p_[1] + dy) for p_ in ring_], "Block 1 east half")
+for k_, v_ in bchk.items():
+    checks[k_] = v_
+assumptions.append("Block 1 placed by translation: Lot 8 NE on Block 6's Beach W line extended, 60' (Dewees Ave) south of Block 6's Dewees line.")
+
+# ---------------- triangle Blocks 5 and 2 (tick 27): shape exact from 3 printed sides, placement from the neighbours ----------------
+def tri(p0, p1, a0, a1, left=True):
+    """Third vertex at distance a0 from p0 and a1 from p1 (on the left of p0->p1 if left)."""
+    dd = math.dist(p0, p1)
+    x = (a0 * a0 - a1 * a1 + dd * dd) / (2 * dd)
+    h = math.sqrt(max(a0 * a0 - x * x, 0.0))
+    ux, uy = (p1[0] - p0[0]) / dd, (p1[1] - p0[1]) / dd
+    sg = 1.0 if left else -1.0
+    return (p0[0] + x * ux - sg * h * uy, p0[1] + x * uy + sg * h * ux)
+
+
+# Block 5: west side 56.2' on Coquina Pl E line (40' east of Block 4's east line, level with Lot 4), then 54' (Ra=140) and 56' (Ra=291)
+b5a = move(e4[2], EAST, 40.0)
+b5b = move(b5a, AZ_W8, 56.2)
+b5c = tri(b5a, b5b, ch(54.0, 140.0), ch(56.0, 291.0), left=True)
+add(5, "5", [b5a, b5c, b5b], "triangle, placement from Coquina Pl")
+# Block 2: bottom 43.3' on 16th St N line, east side 49.7' (Ra=543.68, Mandalay W line, 60' west of Block 1 Lot 16), west 55.1'
+b2e = (-124.0 - 60.0 + dx, 0.0 + dy)
+b2w = (b2e[0] - 43.3, b2e[1])
+b2t = tri(b2w, b2e, 55.1, ch(49.7, 543.68), left=True)
+add(2, "2", [b2w, b2e, b2t], "triangle, placement from Mandalay Ave")
+checks["B5 triangle closes (3 printed sides)"] = (math.dist(b5a, b5b) + math.dist(b5b, b5c) + math.dist(b5c, b5a), 56.2 + ch(56.0, 291.0) + ch(54.0, 140.0))
+checks["B2 triangle closes (3 printed sides)"] = (math.dist(b2w, b2e) + math.dist(b2e, b2t) + math.dist(b2t, b2w), 43.3 + ch(49.7, 543.68) + 55.1)
+assumptions.append("Blocks 5 and 2 (triangles): shape fixed by their three printed sides (arcs as chords); position placed from the adjoining "
+                   "street widths (Coquina Pl 40', Mandalay Ave 60') -- not tied by any printed dimension, flagged.")
+
+# ---------------- Block 3 (tick 28): west 193' on Seminole Rd, 31°09' at SW, 109.1' to the east corner, 97.5' at 30°45' from the top
+# (degree digit faint; 30°44.4' solves the 17.15' closure, matching the legible "45'"), then 17.15' P.T. -> east corner.
+# Tie: its SW corner is 20.85' north of the 16th St line, 58' west of Block 2's west corner (dashed line on the plat).
+b3b = (b2w[0] - 58.0, b2w[1] + 20.85)
+b3t = (b3b[0], b3b[1] + 193.0)
+b3e = move(b3b, dms(31, 9), 109.1)
+b3p = move(b3t, 180.0 - dms(30, 45), 97.5)
+add(3, "3", [b3b, b3t, b3p, b3e], "triangle, tied to Block 2 by the printed 58' / 20.85'")
+checks["B3 P.T. -> east corner 17.15'"] = (math.dist(b3p, b3e), 17.15)
+
 # ---------------- outputs ----------------
 d = out_dir(PLAT_ID)
-FLAGGED = {"B6-L9", "B6-L10", "B6-L11"}   # Coquina curve corner: plat values conflict by up to 4.7' (see checks/assumptions)
+FLAGGED = {"B6-L9", "B6-L10", "B6-L11", "B4-L5", "B4-L6", "B4-L7", "B4-L8", "B4-L9",
+           *{f"B1-L{i}" for i in range(1, 17)}, "B5-L5", "B2-L2", "B3-L3"}   # Block 1: placement assumed   # Coquina curve corner: plat values conflict by up to 4.7' (see checks/assumptions)
 rings = [("LOT-FLAGGED" if k in FLAGGED else "LOT", v["ring"]) for k, v in lots.items()]
 texts = []
 for k, v in lots.items():
     cx = sum(p[0] for p in v["ring"]) / len(v["ring"])
     cy = sum(p[1] for p in v["ring"]) / len(v["ring"])
     texts.append(("TEXT-LABELS", (cx, cy), v["lot"], 8))
-for blk, ref in ((8, mid[4]), (7, m7[2]), (6, r1[2]), (4, m4[2])):
+for blk, ref in ((8, mid[4]), (7, m7[2]), (6, r1[2]), (4, m4[2]), (1, (anchor[0] - 150.0, anchor[1] - 200.0))):
     texts.append(("BLOCK-TEXT", (ref[0] + 8, ref[1]), f"({blk})", 14))
 texts.append(("TITLEBLOCK", (250.0, 60.0), "OCEAN GROVE UNIT NO. 1  PB 15 PG 82 (1937)  -  claude reconstruction, in progress", 14))
-texts.append(("TITLEBLOCK", (250.0, 35.0), "NO BEARINGS ON PLAT - 17TH ST TAKEN DUE EAST; BLOCK 4 LOTS 5-9 AND BLOCKS 5,3,2,1 NOT YET BUILT", 9))
+texts.append(("TITLEBLOCK", (250.0, 35.0), "NO BEARINGS ON PLAT - 17TH ST TAKEN DUE EAST; RED = BEST FIT OR ASSUMED PLACEMENT (SEE metrics.json)", 9))
 layers = [("LOT", "cyan", "CONTINUOUS"), ("LOT-FLAGGED", "red", "CONTINUOUS"), ("TEXT-LABELS", "white", "CONTINUOUS"),
           ("BLOCK-TEXT", "yellow", "CONTINUOUS"), ("TITLEBLOCK", "yellow", "CONTINUOUS")]
-write_dxf(os.path.join(d, "PB0015_P0082_OceanGrove_claude.dxf"), layers, rings, [], texts)
-render_png(os.path.join(d, "PB0015_P0082_OceanGrove.png"), "Ocean Grove Unit No. 1 (PB 15 Pg 82) - claude reconstruction (in progress)",
+write_dxf(os.path.join(d, f"PB0015_P0082_OceanGrove{writer_suffix()}.dxf"), layers, rings, [], texts)
+render_png(os.path.join(d, "PB0015_P0082_OceanGrove.png"), "Ocean Grove Unit No. 1 (PB 15 Pg 82) - ag reconstruction, all 8 blocks",
            rings, [], texts, flagged={"LOT-FLAGGED"})
 
-worst = max(abs(c - p) for k, (c, p) in checks.items() if "°" not in k.split("'")[-1] and "angle" not in k and "bend" not in k)
+worst = max(abs(c - p) for k, (c, p) in checks.items() if "°" not in k.split("'")[-1] and "angle" not in k and "bend" not in k
+            and "best-fit" not in k)
 save_metrics(PLAT_ID, {
     "plat_id": PLAT_ID, "source": "Plat/Plat_Book_15_Page_82.pdf",
-    "blocks_built": [8, 7, 6, "4 (Lots 1-4, 10, 11)"], "blocks_todo": ["4 (Lots 5-9)", 5, 3, 2, 1],
+    "blocks_built": [8, 7, 6, "4 (Lots 1-4, 10, 11; 5-9 best fit, flagged)"], "blocks_todo": [],
     "lots_built": len(lots),
     "lots": {k: {"area_sqft": round(v["area"], 1)} for k, v in lots.items()},
     "checks": {k: {"computed": round(c, 3), "printed": p, "diff": round(c - p, 3)} for k, (c, p) in checks.items()},

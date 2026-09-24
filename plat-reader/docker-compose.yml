@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  plat-reader-api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: plat-reader-api
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - PLAT_READER_ALLOWED_ORIGINS=*
+    restart: unless-stopped
+    volumes:
+      - ./backend/uploads:/app/backend/uploads
+      - ./backend/output:/app/backend/output
