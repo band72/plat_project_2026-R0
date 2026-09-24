@@ -12,3 +12,7 @@ opencv-python-headless>=4.9
 scikit-image>=0.22
 pytesseract>=0.3.10
 easyocr>=1.7
+
+# Vision extraction (engine/vision_extract.py)
+anthropic>=1.8
+Pillow>=10

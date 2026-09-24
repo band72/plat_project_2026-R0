@@ -1,0 +1,5602 @@
+{
+ "source": "engine.cogo_block solvers (checked against the scan, REFINEMENT_LOG ticks 0-10), Beachwood Unit Two PB 30 Pg 82A (Sheet 2)",
+ "note": "Course lengths include some DERIVED segments (e.g. straights cut back to a curve P.C.), so value recall is a lower bound.",
+ "lots": [
+  {
+   "block": "6",
+   "lot": "6",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N09\u00b041'40.00\"W",
+     "distance": 39.27,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b018'20.00\"E",
+     "distance": 0.18,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N61\u00b026'55.00\"E",
+     "distance": 103.97,
+     "radius": 113.93
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 30.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S18\u00b025'02.30\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S52\u00b058'07.00\"W",
+     "distance": 93.7,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 12186.4
+  },
+  {
+   "block": "6",
+   "lot": "5",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 101.1,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N52\u00b058'07.00\"E",
+     "distance": 93.7,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S71\u00b015'08.42\"E",
+     "distance": 79.99,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S37\u00b021'04.00\"W",
+     "distance": 112.15,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8764.3
+  },
+  {
+   "block": "6",
+   "lot": "4",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 35.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 40.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N37\u00b021'04.00\"E",
+     "distance": 112.15,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S71\u00b015'17.21\"E",
+     "distance": 75.01,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b041'27.00\"W",
+     "distance": 133.46,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8990.8
+  },
+  {
+   "block": "6",
+   "lot": "3",
+   "courses": [
+    {
+     "kind": "curve",
+     "bearing": "N55\u00b012'23.32\"W",
+     "distance": 15.98,
+     "radius": 894.08
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 65.16,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b041'27.00\"E",
+     "distance": 133.46,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S71\u00b015'04.00\"E",
+     "distance": 19.29,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S40\u00b030'16.00\"E",
+     "distance": 62.66,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S34\u00b050'23.19\"W",
+     "distance": 123.45,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 10614.3
+  },
+  {
+   "block": "6",
+   "lot": "2",
+   "courses": [
+    {
+     "kind": "curve",
+     "bearing": "N58\u00b024'41.95\"W",
+     "distance": 84.05,
+     "radius": 894.08
+    },
+    {
+     "kind": "line",
+     "bearing": "N34\u00b050'23.19\"E",
+     "distance": 123.45,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S40\u00b030'20.73\"E",
+     "distance": 76.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S28\u00b053'42.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8790.4
+  },
+  {
+   "block": "6",
+   "lot": "7",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N18\u00b025'02.30\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 108.22,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'42.18\"E",
+     "distance": 105.97,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N71\u00b015'04.00\"W",
+     "distance": 93.87,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8539.1
+  },
+  {
+   "block": "6",
+   "lot": "8",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'42.18\"W",
+     "distance": 105.97,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'35.21\"E",
+     "distance": 134.99,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N71\u00b015'20.71\"W",
+     "distance": 80.42,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9035.7
+  },
+  {
+   "block": "6",
+   "lot": "9",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'35.21\"W",
+     "distance": 134.99,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 87.05,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S55\u00b000'16.55\"W",
+     "distance": 89.01,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8326.3
+  },
+  {
+   "block": "6",
+   "lot": "10",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 87.05,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 74.24,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S46\u00b033'05.00\"E",
+     "distance": 40.02,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S00\u00b041'40.00\"E",
+     "distance": 64.24,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S89\u00b018'15.95\"W",
+     "distance": 97.35,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8589.6
+  },
+  {
+   "block": "6",
+   "lot": "11",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N55\u00b000'16.55\"E",
+     "distance": 89.01,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N89\u00b018'15.95\"E",
+     "distance": 97.35,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S00\u00b041'40.00\"E",
+     "distance": 84.79,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S85\u00b031'26.89\"W",
+     "distance": 134.9,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N40\u00b030'16.00\"W",
+     "distance": 56.66,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 12776.7
+  },
+  {
+   "block": "6",
+   "lot": "12",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N85\u00b031'26.89\"E",
+     "distance": 134.9,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S00\u00b041'40.00\"E",
+     "distance": 110.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N65\u00b047'33.35\"W",
+     "distance": 90.52,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N40\u00b030'20.38\"W",
+     "distance": 82.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8988.5
+  },
+  {
+   "block": "7",
+   "lot": "24",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N01\u00b001'40.00\"W",
+     "distance": 76.34,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N43\u00b016'55.00\"E",
+     "distance": 38.67,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.53,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'16.33\"E",
+     "distance": 103.18,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S88\u00b058'20.00\"W",
+     "distance": 102.38,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 10185.4
+  },
+  {
+   "block": "7",
+   "lot": "25",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'16.33\"W",
+     "distance": 103.18,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 83.26,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b023'29.20\"E",
+     "distance": 105.18,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S88\u00b058'20.00\"W",
+     "distance": 83.26,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8672.8
+  },
+  {
+   "block": "7",
+   "lot": "26",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b023'29.20\"W",
+     "distance": 105.18,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S83\u00b043'46.46\"E",
+     "distance": 99.75,
+     "radius": 329.27
+    },
+    {
+     "kind": "line",
+     "bearing": "S14\u00b059'56.14\"W",
+     "distance": 112.44,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N77\u00b035'15.00\"W",
+     "distance": 66.85,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9170.9
+  },
+  {
+   "block": "7",
+   "lot": "27",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N14\u00b059'56.14\"E",
+     "distance": 112.44,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S66\u00b022'22.54\"E",
+     "distance": 99.74,
+     "radius": 329.27
+    },
+    {
+     "kind": "line",
+     "bearing": "S33\u00b024'01.27\"W",
+     "distance": 99.61,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N77\u00b035'15.00\"W",
+     "distance": 66.86,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8881.7
+  },
+  {
+   "block": "7",
+   "lot": "28",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N33\u00b024'01.27\"E",
+     "distance": 99.61,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S56\u00b011'41.71\"E",
+     "distance": 17.24,
+     "radius": 329.27
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 61.1,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b019'06.44\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7665.2
+  },
+  {
+   "block": "7",
+   "lot": "29",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b019'06.44\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b019'06.44\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.4
+  },
+  {
+   "block": "7",
+   "lot": "30",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b019'06.44\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b019'06.44\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.4
+  },
+  {
+   "block": "7",
+   "lot": "31",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b019'06.44\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b019'06.44\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.4
+  },
+  {
+   "block": "7",
+   "lot": "32",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b019'06.44\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b019'06.44\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.4
+  },
+  {
+   "block": "7",
+   "lot": "33",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b019'06.44\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b019'06.44\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.4
+  },
+  {
+   "block": "7",
+   "lot": "34",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b019'06.44\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b019'06.44\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.4
+  },
+  {
+   "block": "7",
+   "lot": "35",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b019'06.44\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b019'06.44\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.4
+  },
+  {
+   "block": "7",
+   "lot": "36",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b019'06.44\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b019'06.44\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.4
+  },
+  {
+   "block": "7",
+   "lot": "37",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b019'06.44\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b019'06.44\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.4
+  },
+  {
+   "block": "7",
+   "lot": "23",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N88\u00b058'12.88\"E",
+     "distance": 102.35,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S01\u00b058'48.00\"W",
+     "distance": 100.44,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S89\u00b058'20.00\"W",
+     "distance": 17.08,
+     "radius": 489.36
+    },
+    {
+     "kind": "line",
+     "bearing": "S88\u00b058'20.00\"W",
+     "distance": 55.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N46\u00b001'40.00\"W",
+     "distance": 39.27,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N01\u00b001'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9839.9
+  },
+  {
+   "block": "7",
+   "lot": "22",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S84\u00b035'59.97\"E",
+     "distance": 0.03,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N88\u00b058'20.00\"E",
+     "distance": 83.26,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S77\u00b035'15.00\"E",
+     "distance": 20.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S15\u00b052'49.59\"W",
+     "distance": 109.06,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N84\u00b031'40.00\"W",
+     "distance": 76.87,
+     "radius": 489.36
+    },
+    {
+     "kind": "line",
+     "bearing": "N01\u00b058'48.00\"E",
+     "distance": 100.44,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9399.4
+  },
+  {
+   "block": "7",
+   "lot": "21",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S77\u00b035'15.00\"E",
+     "distance": 83.71,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S19\u00b020'34.00\"W",
+     "distance": 112.44,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N75\u00b031'40.00\"W",
+     "distance": 76.87,
+     "radius": 489.36
+    },
+    {
+     "kind": "line",
+     "bearing": "N15\u00b052'49.59\"E",
+     "distance": 109.06,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8780.4
+  },
+  {
+   "block": "7",
+   "lot": "20",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S77\u00b035'15.00\"E",
+     "distance": 30.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 65.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S27\u00b056'32.76\"W",
+     "distance": 104.89,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N66\u00b031'40.00\"W",
+     "distance": 76.87,
+     "radius": 489.36
+    },
+    {
+     "kind": "line",
+     "bearing": "N19\u00b020'34.00\"E",
+     "distance": 112.44,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9504.6
+  },
+  {
+   "block": "7",
+   "lot": "19",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 85.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'09.09\"W",
+     "distance": 100.02,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 9.1,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N58\u00b021'40.00\"W",
+     "distance": 62.63,
+     "radius": 489.36
+    },
+    {
+     "kind": "line",
+     "bearing": "N27\u00b056'32.76\"E",
+     "distance": 104.89,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7940.1
+  },
+  {
+   "block": "7",
+   "lot": "18",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'09.09\"W",
+     "distance": 100.02,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b018'09.09\"E",
+     "distance": 100.02,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7501.8
+  },
+  {
+   "block": "7",
+   "lot": "17",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'09.09\"W",
+     "distance": 100.02,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b018'09.09\"E",
+     "distance": 100.02,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7501.8
+  },
+  {
+   "block": "7",
+   "lot": "16",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'09.09\"W",
+     "distance": 100.02,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b018'09.09\"E",
+     "distance": 100.02,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7501.8
+  },
+  {
+   "block": "7",
+   "lot": "15",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'09.09\"W",
+     "distance": 100.02,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b018'09.09\"E",
+     "distance": 100.02,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7501.8
+  },
+  {
+   "block": "7",
+   "lot": "14",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'09.09\"W",
+     "distance": 100.02,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b018'09.09\"E",
+     "distance": 100.02,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7501.8
+  },
+  {
+   "block": "7",
+   "lot": "13",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'09.09\"W",
+     "distance": 100.02,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b018'09.09\"E",
+     "distance": 100.02,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7501.8
+  },
+  {
+   "block": "7",
+   "lot": "12",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'09.09\"W",
+     "distance": 100.02,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b018'09.09\"E",
+     "distance": 100.02,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7501.8
+  },
+  {
+   "block": "7",
+   "lot": "11",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'09.09\"W",
+     "distance": 100.02,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b018'09.09\"E",
+     "distance": 100.02,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7501.8
+  },
+  {
+   "block": "8",
+   "lot": "23",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N01\u00b001'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N43\u00b058'20.00\"E",
+     "distance": 39.27,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N88\u00b058'20.00\"E",
+     "distance": 55.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S89\u00b051'40.00\"E",
+     "distance": 17.49,
+     "radius": 429.36
+    },
+    {
+     "kind": "line",
+     "bearing": "S04\u00b018'46.33\"E",
+     "distance": 99.81,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S88\u00b058'20.00\"W",
+     "distance": 103.2,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9896.8
+  },
+  {
+   "block": "8",
+   "lot": "24",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N04\u00b018'46.33\"W",
+     "distance": 99.81,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S82\u00b041'40.00\"E",
+     "distance": 89.92,
+     "radius": 429.36
+    },
+    {
+     "kind": "line",
+     "bearing": "S12\u00b052'47.43\"W",
+     "distance": 108.52,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N72\u00b051'40.00\"W",
+     "distance": 60.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7775.2
+  },
+  {
+   "block": "8",
+   "lot": "25",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N12\u00b052'47.43\"E",
+     "distance": 108.52,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S70\u00b041'40.00\"E",
+     "distance": 89.92,
+     "radius": 429.36
+    },
+    {
+     "kind": "line",
+     "bearing": "S28\u00b048'03.56\"W",
+     "distance": 107.04,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N72\u00b051'40.00\"W",
+     "distance": 60.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8125.7
+  },
+  {
+   "block": "8",
+   "lot": "26",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N28\u00b048'03.56\"E",
+     "distance": 107.04,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S59\u00b041'40.00\"E",
+     "distance": 74.94,
+     "radius": 429.36
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 5.15,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b017'46.02\"W",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 28.3,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N72\u00b051'40.00\"W",
+     "distance": 41.36,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7573.2
+  },
+  {
+   "block": "8",
+   "lot": "27",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b017'46.02\"E",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b017'46.02\"W",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7498.4
+  },
+  {
+   "block": "8",
+   "lot": "28",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b017'46.02\"E",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b017'46.02\"W",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7498.4
+  },
+  {
+   "block": "8",
+   "lot": "29",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b017'46.02\"E",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b017'46.02\"W",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7498.4
+  },
+  {
+   "block": "8",
+   "lot": "30",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b017'46.02\"E",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b017'46.02\"W",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7498.4
+  },
+  {
+   "block": "8",
+   "lot": "31",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b017'46.02\"E",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b017'46.02\"W",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7498.4
+  },
+  {
+   "block": "8",
+   "lot": "32",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b017'46.02\"E",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b017'46.02\"W",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7498.4
+  },
+  {
+   "block": "8",
+   "lot": "33",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b017'46.02\"E",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b017'46.02\"W",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7498.4
+  },
+  {
+   "block": "8",
+   "lot": "34",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b017'46.02\"E",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b017'46.02\"W",
+     "distance": 99.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7498.4
+  },
+  {
+   "block": "8",
+   "lot": "22",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N88\u00b058'20.00\"E",
+     "distance": 96.8,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S72\u00b051'40.00\"E",
+     "distance": 33.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S17\u00b049'05.54\"W",
+     "distance": 102.15,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N85\u00b021'40.00\"W",
+     "distance": 70.62,
+     "radius": 357.01
+    },
+    {
+     "kind": "curve",
+     "bearing": "N46\u00b001'40.00\"W",
+     "distance": 39.27,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N01\u00b001'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 11317.0
+  },
+  {
+   "block": "8",
+   "lot": "21",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S72\u00b051'40.00\"E",
+     "distance": 115.56,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S36\u00b036'30.63\"W",
+     "distance": 107.84,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N73\u00b011'40.00\"W",
+     "distance": 81.0,
+     "radius": 357.01
+    },
+    {
+     "kind": "line",
+     "bearing": "N17\u00b049'05.54\"E",
+     "distance": 102.15,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9878.5
+  },
+  {
+   "block": "8",
+   "lot": "20",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 81.9,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'10.83\"W",
+     "distance": 100.01,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 10.13,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N60\u00b041'40.00\"W",
+     "distance": 74.77,
+     "radius": 357.01
+    },
+    {
+     "kind": "line",
+     "bearing": "N36\u00b036'30.63\"E",
+     "distance": 107.84,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8496.1
+  },
+  {
+   "block": "8",
+   "lot": "19",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 80.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'10.83\"W",
+     "distance": 100.01,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 80.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b018'10.83\"E",
+     "distance": 100.01,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8000.7
+  },
+  {
+   "block": "8",
+   "lot": "18",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 80.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'10.83\"W",
+     "distance": 100.01,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 80.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b018'10.83\"E",
+     "distance": 100.01,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8000.7
+  },
+  {
+   "block": "8",
+   "lot": "17",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "S54\u00b041'40.00\"E",
+     "distance": 80.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'10.83\"W",
+     "distance": 100.01,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 80.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b018'10.83\"E",
+     "distance": 100.01,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8000.7
+  },
+  {
+   "block": "14",
+   "lot": "1",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S47\u00b024'30.00\"E",
+     "distance": 39.27,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9865.9
+  },
+  {
+   "block": "14",
+   "lot": "2",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 91.88,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 91.88,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9188.0
+  },
+  {
+   "block": "14",
+   "lot": "3",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 90.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 90.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9000.0
+  },
+  {
+   "block": "14",
+   "lot": "4",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 90.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 90.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9000.0
+  },
+  {
+   "block": "14",
+   "lot": "5",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 90.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 90.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9000.0
+  },
+  {
+   "block": "14",
+   "lot": "6",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 60.45,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S01\u00b001'40.00\"E",
+     "distance": 16.99,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S88\u00b058'20.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N01\u00b001'47.91\"W",
+     "distance": 15.81,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 59.22,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7623.5
+  },
+  {
+   "block": "14",
+   "lot": "7",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N88\u00b058'20.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S01\u00b001'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S88\u00b058'20.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N01\u00b001'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "14",
+   "lot": "8",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N88\u00b058'20.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S01\u00b001'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S88\u00b058'20.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N01\u00b001'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "14",
+   "lot": "9",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N88\u00b058'20.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S01\u00b001'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S88\u00b058'20.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N01\u00b001'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "14",
+   "lot": "10",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N88\u00b058'20.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S01\u00b001'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S88\u00b058'20.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N01\u00b001'40.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "14",
+   "lot": "A",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N88\u00b058'20.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S01\u00b001'40.00\"E",
+     "distance": 40.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S88\u00b058'20.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N01\u00b001'40.00\"W",
+     "distance": 40.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 4000.0
+  },
+  {
+   "block": "14",
+   "lot": "11",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N88\u00b058'20.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S01\u00b001'40.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S43\u00b058'20.00\"W",
+     "distance": 39.27,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S88\u00b058'20.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N01\u00b001'40.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9865.9
+  },
+  {
+   "block": "15",
+   "lot": "9",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 70.22,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S46\u00b033'05.00\"E",
+     "distance": 40.02,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S00\u00b041'46.09\"E",
+     "distance": 74.29,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 92.99,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9304.7
+  },
+  {
+   "block": "15",
+   "lot": "8",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "15",
+   "lot": "7",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "15",
+   "lot": "6",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "15",
+   "lot": "5",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 88.48,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 88.48,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8848.0
+  },
+  {
+   "block": "15",
+   "lot": "4",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 88.48,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 88.48,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8848.0
+  },
+  {
+   "block": "15",
+   "lot": "3",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 88.5,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 88.5,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8850.0
+  },
+  {
+   "block": "15",
+   "lot": "2",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N81\u00b040'01.00\"W",
+     "distance": 101.78,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'38.52\"W",
+     "distance": 81.03,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9051.4
+  },
+  {
+   "block": "15",
+   "lot": "1",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 90.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N09\u00b041'40.00\"W",
+     "distance": 39.27,
+     "radius": 25.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N61\u00b026'55.00\"E",
+     "distance": 125.89,
+     "radius": 137.95
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 15.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'38.52\"E",
+     "distance": 81.03,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'20.30\"W",
+     "distance": 79.21,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 12444.6
+  },
+  {
+   "block": "15",
+   "lot": "10",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 92.99,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S00\u00b041'45.97\"E",
+     "distance": 75.78,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S43\u00b026'55.00\"W",
+     "distance": 38.52,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 65.74,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9024.5
+  },
+  {
+   "block": "15",
+   "lot": "11",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "15",
+   "lot": "12",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "15",
+   "lot": "13",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "15",
+   "lot": "14",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "15",
+   "lot": "15",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S75\u00b006'06.17\"W",
+     "distance": 75.9,
+     "radius": 173.93
+    },
+    {
+     "kind": "line",
+     "bearing": "N03\u00b008'21.01\"W",
+     "distance": 116.29,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7829.0
+  },
+  {
+   "block": "15",
+   "lot": "16",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S03\u00b008'21.01\"E",
+     "distance": 116.29,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S48\u00b056'55.00\"W",
+     "distance": 82.83,
+     "radius": 173.93
+    },
+    {
+     "kind": "line",
+     "bearing": "N06\u00b038'26.99\"W",
+     "distance": 167.98,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9777.0
+  },
+  {
+   "block": "15",
+   "lot": "17",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 40.46,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S06\u00b038'26.99\"E",
+     "distance": 167.98,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b018'20.00\"W",
+     "distance": 0.18,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S80\u00b018'20.00\"W",
+     "distance": 39.27,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N26\u00b033'28.13\"E",
+     "distance": 126.84,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 12907.0
+  },
+  {
+   "block": "15",
+   "lot": "18",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N35\u00b018'20.30\"E",
+     "distance": 79.21,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S81\u00b040'01.00\"E",
+     "distance": 101.78,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S26\u00b033'28.13\"W",
+     "distance": 126.84,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N54\u00b041'40.00\"W",
+     "distance": 110.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 10487.6
+  },
+  {
+   "block": "16",
+   "lot": "1",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N42\u00b035'30.00\"E",
+     "distance": 39.27,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 68.5,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 93.5,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9215.9
+  },
+  {
+   "block": "16",
+   "lot": "2",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "3",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "4",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "5",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "6",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "7",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "8",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "33",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 93.5,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 68.5,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N47\u00b024'30.00\"W",
+     "distance": 39.27,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9215.9
+  },
+  {
+   "block": "16",
+   "lot": "32",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 89.76,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 89.76,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8976.0
+  },
+  {
+   "block": "16",
+   "lot": "31",
+   "courses": [
+    {
+     "kind": "curve",
+     "bearing": "S86\u00b007'21.67\"E",
+     "distance": 85.41,
+     "radius": 389.27
+    },
+    {
+     "kind": "line",
+     "bearing": "N10\u00b036'27.92\"E",
+     "distance": 112.22,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 110.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 10116.5
+  },
+  {
+   "block": "16",
+   "lot": "30",
+   "courses": [
+    {
+     "kind": "curve",
+     "bearing": "S73\u00b033'05.00\"E",
+     "distance": 85.41,
+     "radius": 389.27
+    },
+    {
+     "kind": "line",
+     "bearing": "N19\u00b020'29.31\"E",
+     "distance": 147.37,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 110.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S10\u00b036'27.92\"W",
+     "distance": 112.22,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 12153.2
+  },
+  {
+   "block": "16",
+   "lot": "29",
+   "courses": [
+    {
+     "kind": "curve",
+     "bearing": "S60\u00b058'48.33\"E",
+     "distance": 85.41,
+     "radius": 389.27
+    },
+    {
+     "kind": "curve",
+     "bearing": "N80\u00b018'20.00\"E",
+     "distance": 39.27,
+     "radius": 25.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N42\u00b048'15.10\"E",
+     "distance": 51.84,
+     "radius": 197.95
+    },
+    {
+     "kind": "line",
+     "bearing": "N35\u00b001'42.00\"W",
+     "distance": 166.73,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S19\u00b020'29.31\"W",
+     "distance": 147.37,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 13610.9
+  },
+  {
+   "block": "16",
+   "lot": "28",
+   "courses": [
+    {
+     "kind": "curve",
+     "bearing": "N60\u00b017'59.38\"E",
+     "distance": 69.1,
+     "radius": 197.95
+    },
+    {
+     "kind": "line",
+     "bearing": "N23\u00b001'43.00\"W",
+     "distance": 116.36,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 110.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S35\u00b001'42.00\"E",
+     "distance": 166.73,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 11558.6
+  },
+  {
+   "block": "16",
+   "lot": "9",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "10",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "11",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "12",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "13",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "14",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "15",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "16",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "17",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 78.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S46\u00b033'05.00\"E",
+     "distance": 40.02,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S00\u00b041'46.09\"E",
+     "distance": 74.29,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 100.77,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 10082.7
+  },
+  {
+   "block": "16",
+   "lot": "18",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 100.77,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S00\u00b041'45.97\"E",
+     "distance": 75.78,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S43\u00b026'55.00\"W",
+     "distance": 38.52,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 73.52,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9802.5
+  },
+  {
+   "block": "16",
+   "lot": "19",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "20",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "21",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "22",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "23",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "24",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "25",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "26",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "16",
+   "lot": "27",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 105.24,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b045'38.15\"W",
+     "distance": 5.44,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S78\u00b058'01.99\"W",
+     "distance": 59.72,
+     "radius": 197.95
+    },
+    {
+     "kind": "line",
+     "bearing": "N23\u00b001'43.00\"W",
+     "distance": 116.36,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 8829.7
+  },
+  {
+   "block": "17",
+   "lot": "1",
+   "courses": [
+    {
+     "kind": "curve",
+     "bearing": "N42\u00b035'30.00\"E",
+     "distance": 39.27,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 68.5,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 93.5,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9215.9
+  },
+  {
+   "block": "17",
+   "lot": "2",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "3",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "4",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "5",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "6",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "7",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "8",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "9",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "10",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "11",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "12",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "13",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "14",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "15",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "16",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "17",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 85.78,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S46\u00b033'05.00\"E",
+     "distance": 40.02,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S00\u00b041'46.09\"E",
+     "distance": 74.29,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 108.55,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 10860.7
+  },
+  {
+   "block": "17",
+   "lot": "34",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 93.5,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 68.5,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "N47\u00b024'30.00\"W",
+     "distance": 39.27,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 9215.9
+  },
+  {
+   "block": "17",
+   "lot": "33",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "32",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "31",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "30",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "29",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "28",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "27",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "26",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "25",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "24",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "23",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "22",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "21",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "20",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "19",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "17",
+   "lot": "18",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 108.55,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S00\u00b041'45.97\"E",
+     "distance": 75.78,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S43\u00b026'55.00\"W",
+     "distance": 38.52,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 81.3,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 10580.5
+  },
+  {
+   "block": "18",
+   "lot": "1",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 103.5,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 103.5,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 10350.0
+  },
+  {
+   "block": "18",
+   "lot": "2",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "3",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "4",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "5",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "6",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "7",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "8",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "9",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "10",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "11",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "12",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "13",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "14",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "15",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "16",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "17",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "18",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S02\u00b024'30.00\"E",
+     "distance": 100.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 75.0,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 7500.0
+  },
+  {
+   "block": "18",
+   "lot": "19",
+   "courses": [
+    {
+     "kind": "line",
+     "bearing": "N87\u00b035'30.00\"E",
+     "distance": 116.33,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S00\u00b041'45.97\"E",
+     "distance": 75.78,
+     "radius": 0.0
+    },
+    {
+     "kind": "curve",
+     "bearing": "S43\u00b026'55.00\"W",
+     "distance": 38.52,
+     "radius": 25.0
+    },
+    {
+     "kind": "line",
+     "bearing": "S87\u00b035'30.00\"W",
+     "distance": 89.08,
+     "radius": 0.0
+    },
+    {
+     "kind": "line",
+     "bearing": "N02\u00b024'30.00\"W",
+     "distance": 100.0,
+     "radius": 0.0
+    }
+   ],
+   "area_sqft": 11358.5
+  }
+ ]
+}

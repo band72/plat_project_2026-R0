@@ -448,6 +448,45 @@ def _geojson_response(results: list[LotMapCheckResult], filename: str) -> JSONRe
     return JSONResponse(content=geojson_obj, headers={"Content-Disposition": f"attachment; filename={filename}"})
 
 
+# ---------------------------------------------------------------------------------------------------------------------
+# Vision extraction (Claude) -- async jobs. A page takes minutes (tiles + repair loops), so POST starts a job and GET polls.
+# Requires ANTHROPIC_API_KEY (or an `ant auth login` profile) in the server environment. Outputs are drafting aids only.
+# ---------------------------------------------------------------------------------------------------------------------
+import threading  # noqa: E402
+
+_EXTRACT_JOBS: dict[str, dict] = {}
+
+
+def _run_extract_job(job_id: str, path: str, page: int, repair: bool) -> None:
+    job = _EXTRACT_JOBS[job_id]
+    try:
+        from engine.vision_extract import extract_pdf_page
+        job["result"] = extract_pdf_page(path, page, repair=repair)
+        job["status"] = "done"
+    except Exception as exc:  # surfaced to the client; the job must never die silently
+        logger.exception("extract job %s failed", job_id)
+        job["status"], job["error"] = "error", f"{type(exc).__name__}: {exc}"
+
+
+@app.post("/api/extract")
+async def start_extract(uploaded_filename: str = Form(...), page: int = Form(1), repair: bool = Form(True)):
+    path = os.path.join(UPLOAD_DIR, os.path.basename(uploaded_filename))
+    if not os.path.isfile(path) or not path.lower().endswith(".pdf"):
+        raise HTTPException(status_code=404, detail="Upload a PDF first via /api/upload")
+    job_id = uuid.uuid4().hex
+    _EXTRACT_JOBS[job_id] = {"status": "running", "file": os.path.basename(path), "page": page}
+    threading.Thread(target=_run_extract_job, args=(job_id, path, page, repair), daemon=True).start()
+    return {"job_id": job_id, "status": "running"}
+
+
+@app.get("/api/extract/{job_id}")
+async def get_extract(job_id: str):
+    job = _EXTRACT_JOBS.get(job_id)
+    if job is None:
+        raise HTTPException(status_code=404, detail="Unknown job")
+    return job
+
+
 @app.get("/api/download/{file_type}")
 async def download_file(file_type: str):
     if _LAST_ANALYSIS_KIND == "custom":

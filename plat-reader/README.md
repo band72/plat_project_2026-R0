@@ -129,3 +129,21 @@ To produce standalone `.tar.gz` and `.zip` distribution bundles:
 This generates:
 - `plat-reader-standalone.tar.gz`
 - `plat-reader-standalone.zip`
+
+---
+
+## Vision extraction (Claude) -- beta
+
+`engine/vision_extract.py` reads printed plat values with Claude and checks them with the deterministic COGO engine:
+tile the page at 300 dpi -> extract printed values per tile (strict schema, no inference) -> merge -> close each lot ->
+repair loop for lots that don't close (the model can zoom the scan with `render_crop` and re-run `check_lot_closure`) ->
+lots that still don't close come back `FLAGGED` for human review, never forced.
+
+- Needs `ANTHROPIC_API_KEY` in the server environment (`pip install -r backend/requirements.txt` adds `anthropic`).
+- Model: `claude-opus-5` (override with `PLAT_READER_MODEL`), with server-side refusal fallbacks enabled.
+- API: `POST /api/extract` (form: `uploaded_filename`, `page`, `repair`) -> `{job_id}`; `GET /api/extract/{job_id}` -> status + result.
+- Eval: `python3 eval/score_extraction.py run <plat.pdf> --page 2` scores against `eval/beachwood_sheet2_truth.json`
+  (172 checked Beachwood lots). **This calls the API and costs money.** `score` re-scores a saved run offline.
+- Offline tests: `pytest tests/test_vision_extract.py` (fake client, no network).
+
+Outputs are drafting and research aids, not surveys; only a licensed surveyor can certify a boundary.

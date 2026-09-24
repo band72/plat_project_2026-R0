@@ -244,7 +244,48 @@ k140 = move(q140, "S00°32'22\"W", 119.41)
 checks["Lot 166 curve chord (Lot 140 SW -> 121.42' corner) vs C222+C223 (109.22')"] = (math.dist(k140, r138), 109.22)
 lots["166"] = {"ring": [f166, f138, r138, k140, q140, r166]}
 
-for n in ("167", "168", "169", "170", "171", "172", "173", "174", "175", "176", "166", "165", "164", "163", "162", "161", "160"):
+# ---- Lots 145-147, east of the rear line (tick 37) ----
+# The east lots have their OWN vertices on the rear line (printed east-side pieces 70.01 / 60.01 / 55.01, vs the west side's 71.89 / 61.62 /
+# 56.48), starting at the 225.73'/220.60' vertex. East lines are 220.60 / 221.64 / 222.52 / 223.33 long; their direction is the one value
+# not usable as printed on this sheet (rotated label basis), so it is solved from the three printed Coastal Oak frontages 70.00 / 60.00 /
+# 55.00 -- one unknown, three observations: the fit is exact to 0.001', which confirms the reading.
+from scipy.optimize import minimize_scalar  # noqa: E402
+_u = ((RE[0][0] - r166[0]) / math.dist(r166, RE[0]), (RE[0][1] - r166[1]) / math.dist(r166, RE[0]))
+VE = [r166]
+for _p in (70.01, 60.01, 55.01):
+    VE.append((VE[-1][0] + _p * _u[0], VE[-1][1] + _p * _u[1]))
+LE = [220.60, 221.64, 222.52, 223.33]
+
+
+def _east_ends(az):
+    a_ = math.radians(az)
+    return [(v_[0] + l_ * math.sin(a_), v_[1] + l_ * math.cos(a_)) for v_, l_ in zip(VE, LE)]
+
+
+def _east_err(az):
+    e_ = _east_ends(az)
+    return sum((math.dist(e_[i_], e_[i_ + 1]) - t_) ** 2 for i_, t_ in enumerate((70.0, 60.0, 55.0)))
+
+
+_fit = min((minimize_scalar(_east_err, bounds=(a0_, a0_ + 30.0), method="bounded") for a0_ in range(0, 360, 30)), key=lambda r_: r_.fun)
+EE = _east_ends(_fit.x)
+for i_, (n_, fw_) in enumerate(zip(("145", "146", "147"), (70.0, 60.0, 55.0))):
+    checks[f"Lot {n_} Coastal Oak frontage {fw_}' (east-line direction solved once for all three)"] = (math.dist(EE[i_], EE[i_ + 1]), fw_)
+    lots[n_] = {"ring": [VE[i_], EE[i_], EE[i_ + 1], VE[i_ + 1]]}
+
+# ---- Lot 148 (tick 39): BEST FIT, flagged. Rear piece 76.96' (east set), south line 226.68' at the printed N08°41'54"W (4°17'19" off the
+# solved N04°24'35"W family), front 25.35' + C227 (R=470, chord 43.66'). The two ways to its SE corner miss by ~9' (no reading tried closes:
+# best 4.0'), so the ring is drawn through both and the misfit is reported.
+_cst = math.degrees(math.atan2(EE[3][0] - EE[2][0], EE[3][1] - EE[2][1])) % 360.0
+p148 = move(EE[3], _cst, 25.35)
+q148 = move(p148, _cst + (5 + 19 / 60 + 26 / 3600) / 2.0, 43.66)
+v148 = (VE[3][0] + 76.96 * _u[0], VE[3][1] + 76.96 * _u[1])
+e148 = move(v148, _fit.x + 4 + 17 / 60 + 19 / 3600, 226.68)
+checks["Lot 148 SE corner: 226.68' line end vs Coastal Oak 25.35' + C227 (ft)"] = (math.dist(e148, q148), 0.0)
+lots["148"] = {"ring": [VE[3], EE[3], p148, q148, e148, v148]}
+
+for n in ("167", "168", "169", "170", "171", "172", "173", "174", "175", "176", "166", "165", "164", "163", "162", "161", "160",
+          "145", "146", "147", "148"):
     lots[n]["area"] = shoelace(lots[n]["ring"])
 
 worst = max(c for k, (c, p) in checks.items() if "front corner" in k)
@@ -252,7 +293,7 @@ worst = max(c for k, (c, p) in checks.items() if "front corner" in k)
 d = out_dir(PLAT_ID)
 # Lots 175/176 corners are fixed by printed side lines, but their frontage curves C212-C214 are not in this sheet's curve table:
 # modelled as R=200 (C37) arcs from the printed 11.56' tangent, which does not reproduce C37's 19°53'40" -> flagged, not certified.
-FLAGGED = {"175", "176", "165", "166"}   # 165: rear piece misses the printed 71.89 by 0.25
+FLAGGED = {"175", "176", "165", "166", "148"}   # 165: rear piece misses the printed 71.89 by 0.25
 rings = [("LOT-FLAGGED" if n in FLAGGED else "LOT", v["ring"]) for n, v in lots.items()]
 texts = [("TEXT-LABELS", (sum(p[0] for p in v["ring"]) / len(v["ring"]), sum(p[1] for p in v["ring"]) / len(v["ring"])),
           f"{n}  {v['area']:,.0f} SF", 6) for n, v in lots.items()]
